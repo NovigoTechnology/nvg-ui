@@ -1,7 +1,3 @@
-import '@primeuix/themes/lara'
-import 'primeflex/primeflex.css'
-import 'primeicons/primeicons.css'
+import MyButton from './components/MyButton.vue'
 
-import MiComponente from './components/MiComponente.vue'
-
-export { MiComponente }
+export { MyButton }
