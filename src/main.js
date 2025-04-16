@@ -11,8 +11,15 @@ app.use(PrimeVue, {
     options: {
       prefix: 'p',
       darkModeSelector: 'system',
+      cssLayer: false
     }
   }
+})
+
+app.use(Aura, {
+  prefix: 'p',
+  darkModeSelector: 'system',
+  cssLayer: false
 })
 
 app.mount('#app')
