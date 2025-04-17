@@ -6,8 +6,8 @@ import Aura from '@primeuix/themes/aura'
 import Lara from '@primeuix/themes/lara'
 
 // Importa iconos y primeflex
-import 'primeicons/primeicons.css'
-import 'primeflex/primeflex.css'
+// import 'primeicons/primeicons.css'
+// import 'primeflex/primeflex.css'
 
 import PrimeVue from 'primevue/config';
 const app = createApp(App);
