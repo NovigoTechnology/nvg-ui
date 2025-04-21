@@ -6894,8 +6894,25 @@ const Zh = (e, o) => {
       ], 64);
     };
   }
-}, tm = /* @__PURE__ */ Zh(rm, [["__scopeId", "data-v-e324d7fc"]]), nm = `.p-disabled[data-v-e324d7fc]{opacity:1!important;background:var(--p-inputtext-disabled-background);color:var(--p-inputtext-disabled-color)}.custom-button[data-v-e324d7fc]{border:1px solid var(--p-inputtext-border-color)}[data-v-e324d7fc] .p-autocomplete-fluid{width:100%}
-`, im = { AutoComplete: tm }, lm = {
+}, tm = /* @__PURE__ */ Zh(rm, [["__scopeId", "data-v-e324d7fc"]]), nm = `.p-disabled {
+    opacity: 1 !important;
+    background: var(--p-inputtext-disabled-background);
+    color: var(--p-inputtext-disabled-color);
+  }
+  
+  .custom-button {
+    border: 1px solid var(--p-inputtext-border-color);
+  }
+  
+  .p-autocomplete-fluid {
+    width: 100%;
+  }
+  
+  :root {
+    --p-inputtext-disabled-background: #f8f9fa;
+    --p-inputtext-disabled-color: #6c757d;
+    --p-inputtext-border-color: #ced4da;
+  }`, im = { AutoComplete: tm }, lm = {
   install(e, { preset: o = Zp, primevue: r = {} } = {}) {
     e._primevueInstalled || (e.use($n, {
       theme: { preset: o },

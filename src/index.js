@@ -1,7 +1,7 @@
 import PrimeVue from 'primevue/config'
 import Lara from '@primeuix/themes/lara'
 import AutoComplete from './components/AutoComplete.vue'
-import baseStyles from '../dist/style.css?raw'
+import baseStyles from './styles/base.css?raw'
 
 const components = { AutoComplete }
 

@@ -15,7 +15,6 @@ export default defineConfig(({ command }) => {
       }
     }
   } else {
-    // Configuración para generar la librería
     return {
       plugins: [vue()],
       build: {
@@ -25,15 +24,23 @@ export default defineConfig(({ command }) => {
           fileName: (format) => `nvg-ui.${format}.js`
         },
         rollupOptions: {
-          // Excluir las dependencias externas para que el usuario las instale
           external: ['vue', 'primevue'],
           output: {
             globals: {
               vue: 'Vue',
               primevue: 'PrimeVue'
+            },
+            // Aseguramos que los assets CSS mantengan su nombre
+            assetFileNames: (assetInfo) => {
+              if (assetInfo.name === 'style.css') {
+                return 'style.css';
+              }
+              return assetInfo.name;
             }
           }
-        }
+        },
+        // Aseguramos que el CSS se genere
+        cssCodeSplit: false
       }
     }
   }
