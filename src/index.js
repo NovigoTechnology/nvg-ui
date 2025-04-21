@@ -1,3 +1,7 @@
+import ConfirmationService from "primevue/confirmationservice";
+import DialogService from "primevue/dialogservice";
+import { ToastService } from "primevue";
+
 import PrimeVue from 'primevue/config'
 import Aura from '@primeuix/themes/aura'
 import AutoComplete from './components/AutoComplete.vue'
@@ -11,8 +15,11 @@ import Step from "primevue/step"
 import StepPanel from "primevue/steppanel"
 import ConfirmDialog from "primevue/confirmdialog"
 import Toast from "primevue/toast"
-import {useToast} from "primevue"
+
+import {useToast} from "primevue/usetoast"
 import { useConfirm, usePrimeVue } from "primevue";
+
+
 
 const components = { 
   AutoComplete, 
@@ -43,6 +50,9 @@ export default {
         }
       }
     })
+    app.use(ConfirmationService);
+    app.use(DialogService);
+    app.use(ToastService);
     
     Object.entries(components).forEach(([name, cmp]) => 
       app.component(name, cmp)
