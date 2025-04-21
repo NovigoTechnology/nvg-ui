@@ -1,10 +1,10 @@
 <template>
     <div id="app">
       <h1>Demo de NVG UI</h1>
-      <Autocomplete />
+      <AutoComplete />
     </div>
   </template>
   
   <script setup>
-  import Autocomplete from '../src/components/Autocomplete.vue';
+  import AutoComplete from '../src/components/AutoComplete.vue';
   </script>
