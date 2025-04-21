@@ -6894,19 +6894,20 @@ const Zh = (e, o) => {
       ], 64);
     };
   }
-}, tm = /* @__PURE__ */ Zh(rm, [["__scopeId", "data-v-e324d7fc"]]);
-const nm = { AutoComplete: tm }, am = {
-  /** Instala NvgUI como plugin */
+}, tm = /* @__PURE__ */ Zh(rm, [["__scopeId", "data-v-e324d7fc"]]), nm = `.p-disabled[data-v-e324d7fc]{opacity:1!important;background:var(--p-inputtext-disabled-background);color:var(--p-inputtext-disabled-color)}.custom-button[data-v-e324d7fc]{border:1px solid var(--p-inputtext-border-color)}[data-v-e324d7fc] .p-autocomplete-fluid{width:100%}
+`, im = { AutoComplete: tm }, lm = {
   install(e, { preset: o = Zp, primevue: r = {} } = {}) {
     e._primevueInstalled || (e.use($n, {
       theme: { preset: o },
       ...r
-    }), e._primevueInstalled = !0), Object.entries(nm).forEach(
-      ([t, n]) => e.component(t, n)
+    }), e._primevueInstalled = !0);
+    const t = document.createElement("style");
+    t.textContent = nm, document.head.appendChild(t), Object.entries(im).forEach(
+      ([n, i]) => e.component(n, i)
     );
   }
 };
 export {
   tm as AutoComplete,
-  am as default
+  lm as default
 };
