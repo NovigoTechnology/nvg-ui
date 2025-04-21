@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<!-- <label>{{ __(props.field.label) }}</label> -->
+		<label>{{ __(props.field.label) }}</label>
 		<span
 			v-if="props.field.required || props.field.reqd"
 			style="color: #eb9091; margin-left: 0.5rem"
@@ -327,7 +327,7 @@ onUnmounted(() => {
 });
 </script>
 
-<style scoped>
+<style>
 .p-disabled {
 	opacity: 1 !important;
 	background: var(--p-inputtext-disabled-background);

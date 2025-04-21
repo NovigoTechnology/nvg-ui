@@ -1,4 +1,4 @@
-import { ref as Z, readonly as ot, getCurrentInstance as Bo, onMounted as ar, nextTick as rt, watch as ae, reactive as tt, useId as nt, mergeProps as w, openBlock as C, createElementBlock as I, createElementVNode as E, renderSlot as L, createBlock as re, resolveDynamicComponent as oo, createCommentVNode as A, toDisplayString as Q, Teleport as it, resolveComponent as he, Fragment as Se, renderList as ro, createVNode as Te, resolveDirective as lr, normalizeClass as ue, normalizeStyle as at, withCtx as fe, Transition as lt, createSlots as sr, createTextVNode as eo, withDirectives as dr, onUnmounted as st, unref as _o, withModifiers as dt } from "vue";
+import { ref as Q, readonly as ot, getCurrentInstance as Bo, onMounted as ar, nextTick as rt, watch as ae, reactive as tt, useId as nt, mergeProps as w, openBlock as C, createElementBlock as I, createElementVNode as j, renderSlot as L, createBlock as re, resolveDynamicComponent as oo, createCommentVNode as A, toDisplayString as q, Teleport as it, resolveComponent as he, Fragment as Se, renderList as ro, createVNode as Te, resolveDirective as lr, normalizeClass as ue, normalizeStyle as at, withCtx as fe, Transition as lt, createSlots as sr, createTextVNode as eo, withDirectives as dr, onUnmounted as st, unref as _o, withModifiers as dt } from "vue";
 var ct = Object.defineProperty, Io = Object.getOwnPropertySymbols, ut = Object.prototype.hasOwnProperty, ft = Object.prototype.propertyIsEnumerable, Po = (e, o, r) => o in e ? ct(e, o, { enumerable: !0, configurable: !0, writable: !0, value: r }) : e[o] = r, pt = (e, o) => {
   for (var r in o || (o = {}))
     ut.call(o, r) && Po(e, r, o[r]);
@@ -575,7 +575,7 @@ var ee = {
     const { preset: f, options: g } = o;
     let h, v, b, $, k, m, p;
     if (R(f) && g.transform !== "strict") {
-      const { primitive: y, semantic: B, extend: O } = f, S = B || {}, { colorScheme: V } = S, W = ce(S, ["colorScheme"]), D = O || {}, { colorScheme: j } = D, G = ce(D, ["colorScheme"]), Y = V || {}, { dark: M } = Y, H = ce(Y, ["dark"]), q = j || {}, { dark: ge } = q, te = ce(q, ["dark"]), X = R(y) ? this._toVariables({ primitive: y }, g) : {}, ne = R(W) ? this._toVariables({ semantic: W }, g) : {}, ye = R(H) ? this._toVariables({ light: H }, g) : {}, Ze = R(M) ? this._toVariables({ dark: M }, g) : {}, xe = R(G) ? this._toVariables({ semantic: G }, g) : {}, xo = R(te) ? this._toVariables({ light: te }, g) : {}, Oo = R(ge) ? this._toVariables({ dark: ge }, g) : {}, [jr, Er] = [(i = X.declarations) != null ? i : "", X.tokens], [Mr, Nr] = [(s = ne.declarations) != null ? s : "", ne.tokens || []], [Vr, Fr] = [(l = ye.declarations) != null ? l : "", ye.tokens || []], [Wr, Hr] = [(a = Ze.declarations) != null ? a : "", Ze.tokens || []], [Kr, Ur] = [(d = xe.declarations) != null ? d : "", xe.tokens || []], [Gr, Yr] = [(c = xo.declarations) != null ? c : "", xo.tokens || []], [qr, Xr] = [(u = Oo.declarations) != null ? u : "", Oo.tokens || []];
+      const { primitive: y, semantic: B, extend: O } = f, S = B || {}, { colorScheme: V } = S, W = ce(S, ["colorScheme"]), D = O || {}, { colorScheme: E } = D, G = ce(D, ["colorScheme"]), Y = V || {}, { dark: M } = Y, H = ce(Y, ["dark"]), X = E || {}, { dark: ge } = X, te = ce(X, ["dark"]), Z = R(y) ? this._toVariables({ primitive: y }, g) : {}, ne = R(W) ? this._toVariables({ semantic: W }, g) : {}, ye = R(H) ? this._toVariables({ light: H }, g) : {}, Ze = R(M) ? this._toVariables({ dark: M }, g) : {}, xe = R(G) ? this._toVariables({ semantic: G }, g) : {}, xo = R(te) ? this._toVariables({ light: te }, g) : {}, Oo = R(ge) ? this._toVariables({ dark: ge }, g) : {}, [jr, Er] = [(i = Z.declarations) != null ? i : "", Z.tokens], [Mr, Nr] = [(s = ne.declarations) != null ? s : "", ne.tokens || []], [Vr, Fr] = [(l = ye.declarations) != null ? l : "", ye.tokens || []], [Wr, Hr] = [(a = Ze.declarations) != null ? a : "", Ze.tokens || []], [Kr, Ur] = [(d = xe.declarations) != null ? d : "", xe.tokens || []], [Gr, Yr] = [(c = xo.declarations) != null ? c : "", xo.tokens || []], [qr, Xr] = [(u = Oo.declarations) != null ? u : "", Oo.tokens || []];
       h = this.transformCSS(e, jr, "light", "variable", g, t, n), v = Er;
       const Zr = this.transformCSS(e, `${Mr}${Vr}`, "light", "variable", g, t, n), Qr = this.transformCSS(e, `${Wr}`, "dark", "variable", g, t, n);
       b = `${Zr}${Qr}`, $ = [.../* @__PURE__ */ new Set([...Nr, ...Fr, ...Hr])];
@@ -602,8 +602,8 @@ var ee = {
     var l, a, d;
     let c, u, f;
     if (R(o) && r.transform !== "strict") {
-      const g = e.replace("-directive", ""), h = o, { colorScheme: v, extend: b, css: $ } = h, k = ce(h, ["colorScheme", "extend", "css"]), m = b || {}, { colorScheme: p } = m, y = ce(m, ["colorScheme"]), B = v || {}, { dark: O } = B, S = ce(B, ["dark"]), V = p || {}, { dark: W } = V, D = ce(V, ["dark"]), j = R(k) ? this._toVariables({ [g]: oe(oe({}, k), y) }, r) : {}, G = R(S) ? this._toVariables({ [g]: oe(oe({}, S), D) }, r) : {}, Y = R(O) ? this._toVariables({ [g]: oe(oe({}, O), W) }, r) : {}, [M, H] = [(l = j.declarations) != null ? l : "", j.tokens || []], [q, ge] = [(a = G.declarations) != null ? a : "", G.tokens || []], [te, X] = [(d = Y.declarations) != null ? d : "", Y.tokens || []], ne = this.transformCSS(g, `${M}${q}`, "light", "variable", r, n, i, s), ye = this.transformCSS(g, te, "dark", "variable", r, n, i, s);
-      c = `${ne}${ye}`, u = [.../* @__PURE__ */ new Set([...H, ...ge, ...X])], f = J($, { dt: De });
+      const g = e.replace("-directive", ""), h = o, { colorScheme: v, extend: b, css: $ } = h, k = ce(h, ["colorScheme", "extend", "css"]), m = b || {}, { colorScheme: p } = m, y = ce(m, ["colorScheme"]), B = v || {}, { dark: O } = B, S = ce(B, ["dark"]), V = p || {}, { dark: W } = V, D = ce(V, ["dark"]), E = R(k) ? this._toVariables({ [g]: oe(oe({}, k), y) }, r) : {}, G = R(S) ? this._toVariables({ [g]: oe(oe({}, S), D) }, r) : {}, Y = R(O) ? this._toVariables({ [g]: oe(oe({}, O), W) }, r) : {}, [M, H] = [(l = E.declarations) != null ? l : "", E.tokens || []], [X, ge] = [(a = G.declarations) != null ? a : "", G.tokens || []], [te, Z] = [(d = Y.declarations) != null ? d : "", Y.tokens || []], ne = this.transformCSS(g, `${M}${X}`, "light", "variable", r, n, i, s), ye = this.transformCSS(g, te, "dark", "variable", r, n, i, s);
+      c = `${ne}${ye}`, u = [.../* @__PURE__ */ new Set([...H, ...ge, ...Z])], f = J($, { dt: De });
     }
     return {
       css: c,
@@ -1021,17 +1021,17 @@ function Qt(e) {
 }
 var Jt = 0;
 function en(e) {
-  var o = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, r = Z(!1), t = Z(e), n = Z(null), i = br() ? window.document : void 0, s = o.document, l = s === void 0 ? i : s, a = o.immediate, d = a === void 0 ? !0 : a, c = o.manual, u = c === void 0 ? !1 : c, f = o.name, g = f === void 0 ? "style_".concat(++Jt) : f, h = o.id, v = h === void 0 ? void 0 : h, b = o.media, $ = b === void 0 ? void 0 : b, k = o.nonce, m = k === void 0 ? void 0 : k, p = o.first, y = p === void 0 ? !1 : p, B = o.onMounted, O = B === void 0 ? void 0 : B, S = o.onUpdated, V = S === void 0 ? void 0 : S, W = o.onLoad, D = W === void 0 ? void 0 : W, j = o.props, G = j === void 0 ? {} : j, Y = function() {
+  var o = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, r = Q(!1), t = Q(e), n = Q(null), i = br() ? window.document : void 0, s = o.document, l = s === void 0 ? i : s, a = o.immediate, d = a === void 0 ? !0 : a, c = o.manual, u = c === void 0 ? !1 : c, f = o.name, g = f === void 0 ? "style_".concat(++Jt) : f, h = o.id, v = h === void 0 ? void 0 : h, b = o.media, $ = b === void 0 ? void 0 : b, k = o.nonce, m = k === void 0 ? void 0 : k, p = o.first, y = p === void 0 ? !1 : p, B = o.onMounted, O = B === void 0 ? void 0 : B, S = o.onUpdated, V = S === void 0 ? void 0 : S, W = o.onLoad, D = W === void 0 ? void 0 : W, E = o.props, G = E === void 0 ? {} : E, Y = function() {
   }, M = function(ge) {
     var te = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
     if (l) {
-      var X = Ao(Ao({}, G), te), ne = X.name || g, ye = X.id || v, Ze = X.nonce || m;
+      var Z = Ao(Ao({}, G), te), ne = Z.name || g, ye = Z.id || v, Ze = Z.nonce || m;
       n.value = l.querySelector('style[data-primevue-style-id="'.concat(ne, '"]')) || l.getElementById(ye) || l.createElement("style"), n.value.isConnected || (t.value = ge || e, no(n.value, {
         type: "text/css",
         id: ye,
         media: $,
         nonce: Ze
-      }), y ? l.head.prepend(n.value) : l.head.appendChild(n.value), Dt(n.value, "data-primevue-style-id", ne), no(n.value, X), n.value.onload = function(xe) {
+      }), y ? l.head.prepend(n.value) : l.head.appendChild(n.value), Dt(n.value, "data-primevue-style-id", ne), no(n.value, Z), n.value.onload = function(xe) {
         return D == null ? void 0 : D(xe, {
           name: ne
         });
@@ -1458,7 +1458,7 @@ function vn() {
   }), Be = [];
 }
 function yn(e, o) {
-  var r = Z(!1), t = function() {
+  var r = Q(!1), t = function() {
     var d;
     if (((d = o.config) === null || d === void 0 ? void 0 : d.theme) !== "none" && !T.isStyleNameLoaded("common")) {
       var c, u, f = ((c = z.getCommonTheme) === null || c === void 0 ? void 0 : c.call(z)) || {}, g = f.primitive, h = f.semantic, v = f.global, b = f.style, $ = {
@@ -2194,7 +2194,7 @@ function hg(e, o, r, t, n, i) {
     viewBox: "0 0 14 14",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, e.pti()), o[0] || (o[0] = [E("path", {
+  }, e.pti()), o[0] || (o[0] = [j("path", {
     d: "M7.01744 10.398C6.91269 10.3985 6.8089 10.378 6.71215 10.3379C6.61541 10.2977 6.52766 10.2386 6.45405 10.1641L1.13907 4.84913C1.03306 4.69404 0.985221 4.5065 1.00399 4.31958C1.02276 4.13266 1.10693 3.95838 1.24166 3.82747C1.37639 3.69655 1.55301 3.61742 1.74039 3.60402C1.92777 3.59062 2.11386 3.64382 2.26584 3.75424L7.01744 8.47394L11.769 3.75424C11.9189 3.65709 12.097 3.61306 12.2748 3.62921C12.4527 3.64535 12.6199 3.72073 12.7498 3.84328C12.8797 3.96582 12.9647 4.12842 12.9912 4.30502C13.0177 4.48162 12.9841 4.662 12.8958 4.81724L7.58083 10.1322C7.50996 10.2125 7.42344 10.2775 7.32656 10.3232C7.22968 10.3689 7.12449 10.3944 7.01744 10.398Z",
     fill: "currentColor"
   }, null, -1)]), 16);
@@ -2211,7 +2211,7 @@ function mg(e, o, r, t, n, i) {
     viewBox: "0 0 14 14",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, e.pti()), o[0] || (o[0] = [E("path", {
+  }, e.pti()), o[0] || (o[0] = [j("path", {
     d: "M6.99701 14C5.85441 13.999 4.72939 13.7186 3.72012 13.1832C2.71084 12.6478 1.84795 11.8737 1.20673 10.9284C0.565504 9.98305 0.165424 8.89526 0.041387 7.75989C-0.0826496 6.62453 0.073125 5.47607 0.495122 4.4147C0.917119 3.35333 1.59252 2.4113 2.46241 1.67077C3.33229 0.930247 4.37024 0.413729 5.4857 0.166275C6.60117 -0.0811796 7.76026 -0.0520535 8.86188 0.251112C9.9635 0.554278 10.9742 1.12227 11.8057 1.90555C11.915 2.01493 11.9764 2.16319 11.9764 2.31778C11.9764 2.47236 11.915 2.62062 11.8057 2.73C11.7521 2.78503 11.688 2.82877 11.6171 2.85864C11.5463 2.8885 11.4702 2.90389 11.3933 2.90389C11.3165 2.90389 11.2404 2.8885 11.1695 2.85864C11.0987 2.82877 11.0346 2.78503 10.9809 2.73C9.9998 1.81273 8.73246 1.26138 7.39226 1.16876C6.05206 1.07615 4.72086 1.44794 3.62279 2.22152C2.52471 2.99511 1.72683 4.12325 1.36345 5.41602C1.00008 6.70879 1.09342 8.08723 1.62775 9.31926C2.16209 10.5513 3.10478 11.5617 4.29713 12.1803C5.48947 12.7989 6.85865 12.988 8.17414 12.7157C9.48963 12.4435 10.6711 11.7264 11.5196 10.6854C12.3681 9.64432 12.8319 8.34282 12.8328 7C12.8328 6.84529 12.8943 6.69692 13.0038 6.58752C13.1132 6.47812 13.2616 6.41667 13.4164 6.41667C13.5712 6.41667 13.7196 6.47812 13.8291 6.58752C13.9385 6.69692 14 6.84529 14 7C14 8.85651 13.2622 10.637 11.9489 11.9497C10.6356 13.2625 8.85432 14 6.99701 14Z",
     fill: "currentColor"
   }, null, -1)]), 16);
@@ -2228,7 +2228,7 @@ function bg(e, o, r, t, n, i) {
     viewBox: "0 0 14 14",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, e.pti()), o[0] || (o[0] = [E("path", {
+  }, e.pti()), o[0] || (o[0] = [j("path", {
     "fill-rule": "evenodd",
     "clip-rule": "evenodd",
     d: "M7 14C5.61553 14 4.26215 13.5895 3.11101 12.8203C1.95987 12.0511 1.06266 10.9579 0.532846 9.67879C0.00303296 8.3997 -0.13559 6.99224 0.134506 5.63437C0.404603 4.2765 1.07129 3.02922 2.05026 2.05026C3.02922 1.07129 4.2765 0.404603 5.63437 0.134506C6.99224 -0.13559 8.3997 0.00303296 9.67879 0.532846C10.9579 1.06266 12.0511 1.95987 12.8203 3.11101C13.5895 4.26215 14 5.61553 14 7C14 8.85652 13.2625 10.637 11.9497 11.9497C10.637 13.2625 8.85652 14 7 14ZM7 1.16667C5.84628 1.16667 4.71846 1.50879 3.75918 2.14976C2.79989 2.79074 2.05222 3.70178 1.61071 4.76768C1.16919 5.83358 1.05367 7.00647 1.27876 8.13803C1.50384 9.26958 2.05941 10.309 2.87521 11.1248C3.69102 11.9406 4.73042 12.4962 5.86198 12.7212C6.99353 12.9463 8.16642 12.8308 9.23232 12.3893C10.2982 11.9478 11.2093 11.2001 11.8502 10.2408C12.4912 9.28154 12.8333 8.15373 12.8333 7C12.8333 5.45291 12.2188 3.96918 11.1248 2.87521C10.0308 1.78125 8.5471 1.16667 7 1.16667ZM4.66662 9.91668C4.58998 9.91704 4.51404 9.90209 4.44325 9.87271C4.37246 9.84333 4.30826 9.8001 4.2544 9.74557C4.14516 9.6362 4.0838 9.48793 4.0838 9.33335C4.0838 9.17876 4.14516 9.0305 4.2544 8.92113L6.17553 7L4.25443 5.07891C4.15139 4.96832 4.09529 4.82207 4.09796 4.67094C4.10063 4.51982 4.16185 4.37563 4.26872 4.26876C4.3756 4.16188 4.51979 4.10066 4.67091 4.09799C4.82204 4.09532 4.96829 4.15142 5.07887 4.25446L6.99997 6.17556L8.92106 4.25446C9.03164 4.15142 9.1779 4.09532 9.32903 4.09799C9.48015 4.10066 9.62434 4.16188 9.73121 4.26876C9.83809 4.37563 9.89931 4.51982 9.90198 4.67094C9.90464 4.82207 9.84855 4.96832 9.74551 5.07891L7.82441 7L9.74554 8.92113C9.85478 9.0305 9.91614 9.17876 9.91614 9.33335C9.91614 9.48793 9.85478 9.6362 9.74554 9.74557C9.69168 9.8001 9.62748 9.84333 9.55669 9.87271C9.4859 9.90209 9.40996 9.91704 9.33332 9.91668C9.25668 9.91704 9.18073 9.90209 9.10995 9.87271C9.03916 9.84333 8.97495 9.8001 8.9211 9.74557L6.99997 7.82444L5.07884 9.74557C5.02499 9.8001 4.96078 9.84333 4.88999 9.87271C4.81921 9.90209 4.74326 9.91704 4.66662 9.91668Z",
@@ -2380,7 +2380,7 @@ function Sg(e, o, r, t, n, i) {
     }, e.ptm("icon")), null, 16)) : A("", !0), e.label ? (C(), I("div", w({
       key: 3,
       class: e.cx("label")
-    }, e.ptm("label")), Q(e.label), 17)) : A("", !0)];
+    }, e.ptm("label")), q(e.label), 17)) : A("", !0)];
   }), e.removable ? L(e.$slots, "removeicon", {
     key: 0,
     removeCallback: i.close,
@@ -3789,20 +3789,20 @@ var zr = {
       }
     },
     onScrollPositionChange: function(o) {
-      var r = this, t = o.target, n = this.isBoth(), i = this.isHorizontal(), s = this.getContentPosition(), l = function(D, j) {
-        return D ? D > j ? D - j : D : 0;
-      }, a = function(D, j) {
-        return Math.floor(D / (j || D));
-      }, d = function(D, j, G, Y, M, H) {
-        return D <= M ? M : H ? G - Y - M : j + M - 1;
-      }, c = function(D, j, G, Y, M, H, q, ge) {
+      var r = this, t = o.target, n = this.isBoth(), i = this.isHorizontal(), s = this.getContentPosition(), l = function(D, E) {
+        return D ? D > E ? D - E : D : 0;
+      }, a = function(D, E) {
+        return Math.floor(D / (E || D));
+      }, d = function(D, E, G, Y, M, H) {
+        return D <= M ? M : H ? G - Y - M : E + M - 1;
+      }, c = function(D, E, G, Y, M, H, X, ge) {
         if (D <= H)
           return 0;
-        var te = Math.max(0, q ? D < j ? G : D - H : D > j ? G : D - 2 * H), X = r.getLast(te, ge);
-        return te > X ? X - M : te;
-      }, u = function(D, j, G, Y, M, H) {
-        var q = j + Y + 2 * M;
-        return D >= M && (q += M + 1), r.getLast(q, H);
+        var te = Math.max(0, X ? D < E ? G : D - H : D > E ? G : D - 2 * H), Z = r.getLast(te, ge);
+        return te > Z ? Z - M : te;
+      }, u = function(D, E, G, Y, M, H) {
+        var X = E + Y + 2 * M;
+        return D >= M && (X += M + 1), r.getLast(X, H);
       }, f = l(t.scrollTop, s.top), g = l(t.scrollLeft, s.left), h = n ? {
         rows: 0,
         cols: 0
@@ -4002,7 +4002,7 @@ function ah(e, o, r, t, n, i) {
     horizontal: i.isHorizontal(),
     both: i.isBoth()
   }, function() {
-    return [E("div", w({
+    return [j("div", w({
       ref: i.contentRef,
       class: i.contentClass,
       style: n.contentStyle
@@ -5363,10 +5363,10 @@ function Rh(e, o, r, t, n, i) {
         _: 2
       }, 1032, ["class", "label", "removeIcon", "unstyled", "onRemove", "data-p-focused", "pt"])];
     })], 16, Ch);
-  }), 128)), E("li", w({
+  }), 128)), j("li", w({
     class: e.cx("inputChip"),
     role: "option"
-  }, e.ptm("inputChip")), [E("input", w({
+  }, e.ptm("inputChip")), [j("input", w({
     ref: "focusInput",
     id: e.inputId,
     type: "text",
@@ -5447,7 +5447,7 @@ function Rh(e, o, r, t, n, i) {
     class: "p-hidden-accessible"
   }, e.ptm("hiddenSearchResult"), {
     "data-p-hidden-accessible": !0
-  }), Q(i.searchResultMessageText), 17)) : A("", !0), Te(c, {
+  }), q(i.searchResultMessageText), 17)) : A("", !0), Te(c, {
     appendTo: e.appendTo
   }, {
     default: fe(function() {
@@ -5475,7 +5475,7 @@ function Rh(e, o, r, t, n, i) {
           }, e.ptm("overlay")), [L(e.$slots, "header", {
             value: e.d_value,
             suggestions: i.visibleOptions
-          }), E("div", w({
+          }), j("div", w({
             class: e.cx("listContainer"),
             style: {
               "max-height": i.virtualScrollerDisabled ? e.scrollHeight : ""
@@ -5493,7 +5493,7 @@ function Rh(e, o, r, t, n, i) {
           }), sr({
             content: fe(function(f) {
               var g = f.styleClass, h = f.contentRef, v = f.items, b = f.getItemOptions, $ = f.contentStyle, k = f.itemSize;
-              return [E("ul", w({
+              return [j("ul", w({
                 ref: function(p) {
                   return i.listRef(p, h);
                 },
@@ -5518,7 +5518,7 @@ function Rh(e, o, r, t, n, i) {
                   option: m.optionGroup,
                   index: i.getOptionIndex(p, b)
                 }, function() {
-                  return [eo(Q(i.getOptionGroupLabel(m.optionGroup)), 1)];
+                  return [eo(q(i.getOptionGroupLabel(m.optionGroup)), 1)];
                 })], 16, Ih)) : dr((C(), I("li", w({
                   key: 1,
                   id: e.$id + "_" + i.getOptionIndex(p, b),
@@ -5550,14 +5550,14 @@ function Rh(e, o, r, t, n, i) {
                   option: m,
                   index: i.getOptionIndex(p, b)
                 }, function() {
-                  return [eo(Q(i.getOptionLabel(m)), 1)];
+                  return [eo(q(i.getOptionLabel(m)), 1)];
                 })], 16, Ph)), [[u]])], 64);
               }), 128)), e.showEmptyMessage && (!v || v && v.length === 0) ? (C(), I("li", w({
                 key: 0,
                 class: e.cx("emptyMessage"),
                 role: "option"
               }, e.ptm("emptyMessage")), [L(e.$slots, "empty", {}, function() {
-                return [eo(Q(i.searchResultMessageText), 1)];
+                return [eo(q(i.searchResultMessageText), 1)];
               })], 16)) : A("", !0)], 16, _h)];
             }),
             _: 2
@@ -5573,13 +5573,13 @@ function Rh(e, o, r, t, n, i) {
           } : void 0]), 1040, ["style", "items", "disabled", "pt"])], 16), L(e.$slots, "footer", {
             value: e.d_value,
             suggestions: i.visibleOptions
-          }), E("span", w({
+          }), j("span", w({
             role: "status",
             "aria-live": "polite",
             class: "p-hidden-accessible"
           }, e.ptm("hiddenSelectedMessage"), {
             "data-p-hidden-accessible": !0
-          }), Q(i.selectedMessageText), 17)], 16, Bh)) : A("", !0)];
+          }), q(i.selectedMessageText), 17)], 16, Bh)) : A("", !0)];
         }),
         _: 3
       }, 16, ["onEnter", "onAfterEnter", "onLeave", "onAfterLeave"])];
@@ -5754,7 +5754,7 @@ function Mh(e, o, r, t, n, i) {
     class: e.cx("root"),
     "data-p": i.dataP
   }, e.ptmi("root")), [L(e.$slots, "default", {}, function() {
-    return [eo(Q(e.value), 1)];
+    return [eo(q(e.value), 1)];
   })], 16, Eh);
 }
 Dr.render = Mh;
@@ -6671,11 +6671,11 @@ function Xh(e, o, r, t, n, i) {
             class: [e.cx("icon"), e.icon, e.iconClass],
             "data-p": i.dataIconP
           }, e.ptm("icon")), null, 16, Yh)) : A("", !0)];
-        }), E("span", w({
+        }), j("span", w({
           class: e.cx("label")
         }, e.ptm("label"), {
           "data-p": i.dataLabelP
-        }), Q(e.label || " "), 17, qh), e.badge ? (C(), re(l, {
+        }), q(e.label || " "), 17, qh), e.badge ? (C(), re(l, {
           key: 2,
           value: e.badge,
           class: ue(e.badgeClass),
@@ -6689,19 +6689,14 @@ function Xh(e, o, r, t, n, i) {
   }, 16, ["class", "data-p"])), [[a]]);
 }
 Ar.render = Xh;
-const Zh = (e, o) => {
-  const r = e.__vccOpts || e;
-  for (const [t, n] of o)
-    r[t] = n;
-  return r;
-}, Qh = {
+const Zh = {
   key: 0,
   style: { color: "#eb9091", "margin-left": "0.5rem" }
-}, Jh = {
+}, Qh = {
   class: "icon icon-sm",
   style: { stroke: "var(--p-inputtext-color)" },
   "aria-hidden": "true"
-}, em = { key: 0 }, om = { style: { "text-wrap": "nowrap" } }, rm = {
+}, Jh = { key: 0 }, em = { style: { "text-wrap": "nowrap" } }, om = {
   __name: "AutoComplete",
   props: {
     field: Object,
@@ -6727,7 +6722,7 @@ const Zh = (e, o) => {
   },
   emits: ["update-autocomplete-value", "update-filter"],
   setup(e, { emit: o }) {
-    const r = e, t = o, n = r.store, i = Z({}), s = Z([]), l = Z([]), a = Z([]), d = Z({}), c = Z(!1), u = Z(!1), f = Z(null);
+    const r = e, t = o, n = r.store, i = Q({}), s = Q([]), l = Q([]), a = Q([]), d = Q({}), c = Q(!1), u = Q(!1), f = Q(null);
     ar(() => {
       n.filters[r.field.fieldname] && (i.value[r.field.fieldname] = n.filters[r.field.fieldname]), r.field.needFilter && r.filters[r.field.dependingField] ? b(r.field.options, r.filters) : b(r.field.options);
     }), ae(
@@ -6811,9 +6806,10 @@ const Zh = (e, o) => {
     }), (m, p) => {
       var y, B;
       return C(), I(Se, null, [
-        E("div", null, [
-          r.field.required || r.field.reqd ? (C(), I("span", Qh, "*")) : A("", !0),
-          E("div", {
+        j("div", null, [
+          j("label", null, q(m.__(r.field.label)), 1),
+          r.field.required || r.field.reqd ? (C(), I("span", Zh, "*")) : A("", !0),
+          j("div", {
             class: ue([{ flex: r.field.quick_entry }, "relative"])
           }, [
             (C(), re(_o(Lr), {
@@ -6842,12 +6838,12 @@ const Zh = (e, o) => {
               forceSelection: ""
             }, sr({
               option: fe((O) => [
-                !O.option.label && !O.option.description ? (C(), I("div", em, [
-                  E("strong", null, Q(O.option.value), 1)
+                !O.option.label && !O.option.description ? (C(), I("div", Jh, [
+                  j("strong", null, q(O.option.value), 1)
                 ])) : A("", !0),
-                E("div", null, [
-                  E("strong", null, Q(m.__(O.option.label) || m.__(O.option.description)), 1),
-                  E("div", null, Q(m.__(O.option.description)), 1)
+                j("div", null, [
+                  j("strong", null, q(m.__(O.option.label) || m.__(O.option.description)), 1),
+                  j("div", null, q(m.__(O.option.description)), 1)
                 ])
               ]),
               _: 2
@@ -6855,13 +6851,13 @@ const Zh = (e, o) => {
               r.field.fieldtype !== "Table" && !e.disabled ? {
                 name: "dropdown",
                 fn: fe(() => [
-                  E("button", {
+                  j("button", {
                     type: "button",
                     class: "p-autocomplete-dropdown",
                     onClick: dt(h, ["stop"])
                   }, [
-                    (C(), I("svg", Jh, p[4] || (p[4] = [
-                      E("use", { href: "#icon-close" }, null, -1)
+                    (C(), I("svg", Qh, p[4] || (p[4] = [
+                      j("use", { href: "#icon-close" }, null, -1)
                     ])))
                   ])
                 ]),
@@ -6878,7 +6874,7 @@ const Zh = (e, o) => {
               id: "new_" + r.field.fieldname
             }, {
               default: fe(() => [
-                E("span", om, Q(m.__("New {0}", [m.__(r.field.placeholder)])), 1)
+                j("span", em, q(m.__("New {0}", [m.__(r.field.placeholder)])), 1)
               ]),
               _: 1
             }, 8, ["id"])) : A("", !0)
@@ -6890,11 +6886,11 @@ const Zh = (e, o) => {
           field: r.field,
           onUpdate: g,
           onClose: () => c.value = !1
-        }, void 0, !0) : A("", !0)
+        }) : A("", !0)
       ], 64);
     };
   }
-}, tm = /* @__PURE__ */ Zh(rm, [["__scopeId", "data-v-e324d7fc"]]), nm = `.p-disabled {
+}, rm = `.p-disabled {
     opacity: 1 !important;
     background: var(--p-inputtext-disabled-background);
     color: var(--p-inputtext-disabled-color);
@@ -6912,19 +6908,19 @@ const Zh = (e, o) => {
     --p-inputtext-disabled-background: #f8f9fa;
     --p-inputtext-disabled-color: #6c757d;
     --p-inputtext-border-color: #ced4da;
-  }`, im = { AutoComplete: tm }, lm = {
+  }`, tm = { AutoComplete: om }, im = {
   install(e, { preset: o = Zp, primevue: r = {} } = {}) {
     e._primevueInstalled || (e.use($n, {
       theme: { preset: o },
       ...r
     }), e._primevueInstalled = !0);
     const t = document.createElement("style");
-    t.textContent = nm, document.head.appendChild(t), Object.entries(im).forEach(
+    t.textContent = rm, document.head.appendChild(t), Object.entries(tm).forEach(
       ([n, i]) => e.component(n, i)
     );
   }
 };
 export {
-  tm as AutoComplete,
-  lm as default
+  om as AutoComplete,
+  im as default
 };
