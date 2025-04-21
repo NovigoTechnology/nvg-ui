@@ -3,7 +3,7 @@ import Aura from '@primeuix/themes/aura'
 import AutoComplete from './components/AutoComplete.vue'
 import DataTable from "primevue/datatable"
 import Tag from "primevue/tag";
-import { Button } from 'primevue'
+import Button from "primevue/button"
 
 const components = { AutoComplete, DataTable, Button, Tag }
 
