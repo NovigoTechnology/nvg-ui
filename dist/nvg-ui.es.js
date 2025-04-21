@@ -3555,9 +3555,7 @@ const Xg = (o, r) => {
   install(o, { preset: r = Qf, primevue: e = {} } = {}) {
     o._primevueInstalled || (o.use(yt, {
       theme: { preset: r },
-      // genera el CSS del tema  :contentReference[oaicite:0]{index=0}
       ...e
-      // le dejás pasar opciones personales
     }), o._primevueInstalled = !0), Object.entries(Qg).forEach(
       ([t, n]) => o.component(t, n)
     );
