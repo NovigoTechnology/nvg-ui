@@ -19870,23 +19870,25 @@ function _w(e, t, n, o, i, r) {
 Ni.render = _w;
 const Gw = { AutoComplete: Z0, DataTable: Ni }, Uw = {
   /** Instala NvgUI como plugin */
-  install(e, { themes: t = { light: Am }, primevue: n = {}, locale: o = {} } = {}) {
-    e._primevueInstalled || (e.use(yl, {
+  install(e, t = {}) {
+    e.use(yl, {
       theme: {
-        preset: t.light,
+        preset: Am,
         options: {
           prefix: "p",
           darkModeSelector: '[data-theme="dark"]',
           cssLayer: !1
         }
       },
-      locale: o,
-      ...n
-    }), e._primevueInstalled = !0), Object.entries(Gw).forEach(
-      ([i, r]) => e.component(i, r)
+      locale: t.locale || {},
+      ...t.primevue
+    }), Object.entries(Gw).forEach(
+      ([n, o]) => e.component(n, o)
     );
   }
 };
 export {
+  Z0 as AutoComplete,
+  Ni as DataTable,
   Uw as default
 };

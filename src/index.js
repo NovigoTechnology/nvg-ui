@@ -7,25 +7,24 @@ const components = { AutoComplete, DataTable }
 
 export default {
   /** Instala NvgUI como plugin */
-  install(app, { themes = { light: Aura }, primevue = {}, locale = {} } = {}) {
-    if (!app._primevueInstalled) {
-      app.use(PrimeVue, {
-        theme: {
-          preset: themes.light,
-          options: {
-            prefix: "p",
-            darkModeSelector: '[data-theme="dark"]',
-            cssLayer: false,
-          }
-        },
-        locale,
-        ...primevue
-      })
-      app._primevueInstalled = true
-    }
+  install(app, options = {}) {
+    app.use(PrimeVue, {
+      theme: {
+        preset: Aura,
+        options: {
+          prefix: "p",
+          darkModeSelector: '[data-theme="dark"]',
+          cssLayer: false,
+        }
+      },
+      locale: options.locale || {},
+      ...options.primevue
+    })
 
     Object.entries(components).forEach(([name, cmp]) =>
       app.component(name, cmp)
     )
   }
 }
+
+export { AutoComplete, DataTable }
