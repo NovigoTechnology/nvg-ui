@@ -7,7 +7,7 @@ const components = { AutoComplete, DataTable }
 
 export default {
   /** Instala NvgUI como plugin */
-  install(app, { themes = { light: Aura }, primevue = {} } = {}) {
+  install(app, { themes = { light: Aura }, primevue = {}, locale = {} } = {}) {
     if (!app._primevueInstalled) {
       app.use(PrimeVue, {
         theme: {
@@ -18,6 +18,7 @@ export default {
             cssLayer: false,
           }
         },
+        locale,
         ...primevue
       })
       app._primevueInstalled = true
@@ -28,5 +29,3 @@ export default {
     )
   }
 }
-
-export { AutoComplete, DataTable }
