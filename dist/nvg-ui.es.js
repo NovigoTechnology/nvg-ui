@@ -6890,7 +6890,23 @@ const Zh = {
       ], 64);
     };
   }
-}, rm = { AutoComplete: om }, nm = {
+}, rm = { AutoComplete: om }, tm = {
+  global: `
+    .p-disabled {
+      opacity: 1 !important;
+      background: var(--p-inputtext-disabled-background);
+      color: var(--p-inputtext-disabled-color);
+    }
+
+    .custom-button {
+      border: 1px solid var(--p-inputtext-border-color);
+    }
+
+    :deep(.p-autocomplete-fluid) {
+      width: 100%;
+    }
+  `
+}, im = {
   /** Instala NvgUI como plugin */
   install(e, { themes: o = { light: Zp }, primevue: r = {} } = {}) {
     e._primevueInstalled || (e.use($n, {
@@ -6900,7 +6916,8 @@ const Zh = {
           prefix: "p",
           darkModeSelector: '[data-theme="dark"]',
           cssLayer: !1
-        }
+        },
+        customStyles: tm
       },
       ...r
     }), e._primevueInstalled = !0), Object.entries(rm).forEach(
@@ -6910,5 +6927,5 @@ const Zh = {
 };
 export {
   om as AutoComplete,
-  nm as default
+  im as default
 };
