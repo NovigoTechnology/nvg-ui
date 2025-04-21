@@ -1,3 +1,4 @@
+(function(){"use strict";try{if(typeof document<"u"){var t=document.createElement("style");t.appendChild(document.createTextNode(".p-disabled[data-v-e324d7fc]{opacity:1!important;background:var(--p-inputtext-disabled-background);color:var(--p-inputtext-disabled-color)}.custom-button[data-v-e324d7fc]{border:1px solid var(--p-inputtext-border-color)}[data-v-e324d7fc] .p-autocomplete-fluid{width:100%}")),document.head.appendChild(t)}}catch(e){console.error("vite-plugin-css-injected-by-js",e)}})();
 import { ref as Z, readonly as ot, getCurrentInstance as Bo, onMounted as ar, nextTick as rt, watch as ae, reactive as tt, useId as nt, mergeProps as w, openBlock as C, createElementBlock as I, createElementVNode as E, renderSlot as L, createBlock as re, resolveDynamicComponent as oo, createCommentVNode as A, toDisplayString as Q, Teleport as it, resolveComponent as he, Fragment as Se, renderList as ro, createVNode as Te, resolveDirective as lr, normalizeClass as ue, normalizeStyle as at, withCtx as fe, Transition as lt, createSlots as sr, createTextVNode as eo, withDirectives as dr, onUnmounted as st, unref as _o, withModifiers as dt } from "vue";
 var ct = Object.defineProperty, Io = Object.getOwnPropertySymbols, ut = Object.prototype.hasOwnProperty, ft = Object.prototype.propertyIsEnumerable, Po = (e, o, r) => o in e ? ct(e, o, { enumerable: !0, configurable: !0, writable: !0, value: r }) : e[o] = r, pt = (e, o) => {
   for (var r in o || (o = {}))
@@ -6689,14 +6690,19 @@ function Xh(e, o, r, t, n, i) {
   }, 16, ["class", "data-p"])), [[a]]);
 }
 Ar.render = Xh;
-const Zh = {
+const Zh = (e, o) => {
+  const r = e.__vccOpts || e;
+  for (const [t, n] of o)
+    r[t] = n;
+  return r;
+}, Qh = {
   key: 0,
   style: { color: "#eb9091", "margin-left": "0.5rem" }
-}, Qh = {
+}, Jh = {
   class: "icon icon-sm",
   style: { stroke: "var(--p-inputtext-color)" },
   "aria-hidden": "true"
-}, Jh = { key: 0 }, em = { style: { "text-wrap": "nowrap" } }, om = {
+}, em = { key: 0 }, om = { style: { "text-wrap": "nowrap" } }, rm = {
   __name: "AutoComplete",
   props: {
     field: Object,
@@ -6807,7 +6813,7 @@ const Zh = {
       var y, B;
       return C(), I(Se, null, [
         E("div", null, [
-          r.field.required || r.field.reqd ? (C(), I("span", Zh, "*")) : A("", !0),
+          r.field.required || r.field.reqd ? (C(), I("span", Qh, "*")) : A("", !0),
           E("div", {
             class: ue([{ flex: r.field.quick_entry }, "relative"])
           }, [
@@ -6837,7 +6843,7 @@ const Zh = {
               forceSelection: ""
             }, sr({
               option: fe((O) => [
-                !O.option.label && !O.option.description ? (C(), I("div", Jh, [
+                !O.option.label && !O.option.description ? (C(), I("div", em, [
                   E("strong", null, Q(O.option.value), 1)
                 ])) : A("", !0),
                 E("div", null, [
@@ -6855,7 +6861,7 @@ const Zh = {
                     class: "p-autocomplete-dropdown",
                     onClick: dt(h, ["stop"])
                   }, [
-                    (C(), I("svg", Qh, p[4] || (p[4] = [
+                    (C(), I("svg", Jh, p[4] || (p[4] = [
                       E("use", { href: "#icon-close" }, null, -1)
                     ])))
                   ])
@@ -6873,7 +6879,7 @@ const Zh = {
               id: "new_" + r.field.fieldname
             }, {
               default: fe(() => [
-                E("span", em, Q(m.__("New {0}", [m.__(r.field.placeholder)])), 1)
+                E("span", om, Q(m.__("New {0}", [m.__(r.field.placeholder)])), 1)
               ]),
               _: 1
             }, 8, ["id"])) : A("", !0)
@@ -6885,22 +6891,22 @@ const Zh = {
           field: r.field,
           onUpdate: g,
           onClose: () => c.value = !1
-        }) : A("", !0)
+        }, void 0, !0) : A("", !0)
       ], 64);
     };
   }
-}, rm = { AutoComplete: om }, nm = {
+}, tm = /* @__PURE__ */ Zh(rm, [["__scopeId", "data-v-e324d7fc"]]), nm = { AutoComplete: tm }, am = {
   /** Instala NvgUI como plugin */
   install(e, { preset: o = Zp, primevue: r = {} } = {}) {
     e._primevueInstalled || (e.use($n, {
       theme: { preset: o },
       ...r
-    }), e._primevueInstalled = !0), Object.entries(rm).forEach(
+    }), e._primevueInstalled = !0), Object.entries(nm).forEach(
       ([t, n]) => e.component(t, n)
     );
   }
 };
 export {
-  om as AutoComplete,
-  nm as default
+  tm as AutoComplete,
+  am as default
 };

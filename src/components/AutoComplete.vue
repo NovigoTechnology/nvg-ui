@@ -327,7 +327,7 @@ onUnmounted(() => {
 });
 </script>
 
-<style>
+<style scoped>
 .p-disabled {
 	opacity: 1 !important;
 	background: var(--p-inputtext-disabled-background);
