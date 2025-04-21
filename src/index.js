@@ -1,30 +1,13 @@
 import PrimeVue from 'primevue/config'
-import Lara from '@primeuix/themes/lara'
+import Aura from '@primeuix/themes/aura'
 import AutoComplete from './components/AutoComplete.vue'
+import { DataTable } from 'primevue'
 
-const components = { AutoComplete }
-
-const customStyles = {
-  global: `
-    .p-disabled {
-      opacity: 1 !important;
-      background: var(--p-inputtext-disabled-background);
-      color: var(--p-inputtext-disabled-color);
-    }
-
-    .custom-button {
-      border: 1px solid var(--p-inputtext-border-color);
-    }
-
-    :deep(.p-autocomplete-fluid) {
-      width: 100%;
-    }
-  `
-}
+const components = { AutoComplete, DataTable }
 
 export default {
   /** Instala NvgUI como plugin */
-  install(app, { themes = { light: Lara }, primevue = {} } = {}) {
+  install(app, { themes = { light: Aura }, primevue = {} } = {}) {
     if (!app._primevueInstalled) {
       app.use(PrimeVue, {
         theme: {
@@ -33,8 +16,7 @@ export default {
             prefix: "p",
             darkModeSelector: '[data-theme="dark"]',
             cssLayer: false,
-          },
-          customStyles
+          }
         },
         ...primevue
       })
@@ -47,4 +29,4 @@ export default {
   }
 }
 
-export { AutoComplete }
+export { AutoComplete, DataTable }
