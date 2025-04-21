@@ -4,8 +4,33 @@ import AutoComplete from './components/AutoComplete.vue'
 import DataTable from "primevue/datatable"
 import Tag from "primevue/tag";
 import Button from "primevue/button"
+import Stepper from "primevue/stepper"
+import StepList from "primevue/steplist"
+import StepPanels from "primevue/steppanels"
+import Step from "primevue/step"
+import StepPanel from "primevue/steppanel"
+import ConfirmDialog from "primevue/confirmdialog"
+import Toast from "primevue/toast"
 
-const components = { AutoComplete, DataTable, Button, Tag }
+import {useToast} from "primevue/usetoast"
+import { useConfirm, usePrimeVue } from "primevue";
+
+const components = { 
+  AutoComplete, 
+  DataTable, 
+  Button, 
+  Tag, 
+  Stepper, 
+  StepList, 
+  StepPanels, 
+  Step, 
+  StepPanel, 
+  ConfirmDialog, 
+  Toast,
+  useToast,
+  useConfirm,
+  usePrimeVue
+}
 
 export default {
   install: (app, { themes = { light: Aura } } = {}) => {
@@ -26,4 +51,19 @@ export default {
   }
 }
 
-export { AutoComplete, DataTable, Button, Tag }
+export { 
+  AutoComplete, 
+  DataTable, 
+  Button, 
+  Tag, 
+  Stepper, 
+  StepList, 
+  StepPanels, 
+  Step, 
+  StepPanel, 
+  ConfirmDialog, 
+  Toast,
+  useToast,
+  useConfirm,
+  usePrimeVue
+}
