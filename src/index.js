@@ -9,6 +9,7 @@ import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import Tag from "primevue/tag";
 import Button from "primevue/button";
+import ButtonGroup from "primevue/buttongroup";
 import Stepper from "primevue/stepper"
 import StepList from "primevue/steplist"
 import StepPanels from "primevue/steppanels"
@@ -18,6 +19,7 @@ import ConfirmDialog from "primevue/confirmdialog"
 import Toast from "primevue/toast"
 import InputText from "primevue/inputtext";
 
+
 import {useToast} from "primevue/usetoast"
 import { useConfirm, usePrimeVue } from "primevue";
 
@@ -26,6 +28,7 @@ const components = {
   DataTable, 
   Column,
   Button, 
+  ButtonGroup,
   Tag, 
   Stepper, 
   StepList, 
@@ -67,6 +70,7 @@ export {
   DataTable, 
   Column,
   Button, 
+  ButtonGroup,
   Tag, 
   Stepper, 
   StepList, 
