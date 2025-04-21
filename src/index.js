@@ -1,8 +1,8 @@
 import PrimeVue from 'primevue/config'
 import Lara from '@primeuix/themes/lara'
-import MiComponente from './components/MiComponente.vue'
+import AutoComplete from './components/AutoComplete.vue'
 
-const components = { MiComponente }
+const components = { AutoComplete }
 
 export default {
   /** Instala NvgUI como plugin */
@@ -22,4 +22,4 @@ export default {
   }
 }
 
-export { MiComponente }
+export { AutoComplete }
