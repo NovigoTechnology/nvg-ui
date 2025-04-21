@@ -6689,19 +6689,14 @@ function Xh(e, o, r, t, n, i) {
   }, 16, ["class", "data-p"])), [[a]]);
 }
 Ar.render = Xh;
-const Zh = (e, o) => {
-  const r = e.__vccOpts || e;
-  for (const [t, n] of o)
-    r[t] = n;
-  return r;
-}, Qh = {
+const Zh = {
   key: 0,
   style: { color: "#eb9091", "margin-left": "0.5rem" }
-}, Jh = {
+}, Qh = {
   class: "icon icon-sm",
   style: { stroke: "var(--p-inputtext-color)" },
   "aria-hidden": "true"
-}, em = { key: 0 }, om = { style: { "text-wrap": "nowrap" } }, rm = {
+}, Jh = { key: 0 }, em = { style: { "text-wrap": "nowrap" } }, om = {
   __name: "AutoComplete",
   props: {
     field: Object,
@@ -6812,7 +6807,7 @@ const Zh = (e, o) => {
       var y, B;
       return C(), I(Se, null, [
         E("div", null, [
-          r.field.required || r.field.reqd ? (C(), I("span", Qh, "*")) : A("", !0),
+          r.field.required || r.field.reqd ? (C(), I("span", Zh, "*")) : A("", !0),
           E("div", {
             class: ue([{ flex: r.field.quick_entry }, "relative"])
           }, [
@@ -6842,7 +6837,7 @@ const Zh = (e, o) => {
               forceSelection: ""
             }, sr({
               option: fe((O) => [
-                !O.option.label && !O.option.description ? (C(), I("div", em, [
+                !O.option.label && !O.option.description ? (C(), I("div", Jh, [
                   E("strong", null, Q(O.option.value), 1)
                 ])) : A("", !0),
                 E("div", null, [
@@ -6860,7 +6855,7 @@ const Zh = (e, o) => {
                     class: "p-autocomplete-dropdown",
                     onClick: dt(h, ["stop"])
                   }, [
-                    (C(), I("svg", Jh, p[4] || (p[4] = [
+                    (C(), I("svg", Qh, p[4] || (p[4] = [
                       E("use", { href: "#icon-close" }, null, -1)
                     ])))
                   ])
@@ -6878,7 +6873,7 @@ const Zh = (e, o) => {
               id: "new_" + r.field.fieldname
             }, {
               default: fe(() => [
-                E("span", om, Q(m.__("New {0}", [m.__(r.field.placeholder)])), 1)
+                E("span", em, Q(m.__("New {0}", [m.__(r.field.placeholder)])), 1)
               ]),
               _: 1
             }, 8, ["id"])) : A("", !0)
@@ -6890,22 +6885,22 @@ const Zh = (e, o) => {
           field: r.field,
           onUpdate: g,
           onClose: () => c.value = !1
-        }, void 0, !0) : A("", !0)
+        }) : A("", !0)
       ], 64);
     };
   }
-}, tm = /* @__PURE__ */ Zh(rm, [["__scopeId", "data-v-e324d7fc"]]), nm = { AutoComplete: tm }, am = {
+}, rm = { AutoComplete: om }, nm = {
   /** Instala NvgUI como plugin */
   install(e, { preset: o = Zp, primevue: r = {} } = {}) {
     e._primevueInstalled || (e.use($n, {
       theme: { preset: o },
       ...r
-    }), e._primevueInstalled = !0), Object.entries(nm).forEach(
+    }), e._primevueInstalled = !0), Object.entries(rm).forEach(
       ([t, n]) => e.component(t, n)
     );
   }
 };
 export {
-  tm as AutoComplete,
-  am as default
+  om as AutoComplete,
+  nm as default
 };
