@@ -2,24 +2,27 @@ import PrimeVue from 'primevue/config'
 import Aura from '@primeuix/themes/aura'
 import AutoComplete from './components/AutoComplete.vue'
 import DataTable from "primevue/datatable"
+import { Button } from 'primevue'
 
-const components = { AutoComplete, DataTable }
+const components = { AutoComplete, DataTable, Button }
 
 export default {
   /** Instala NvgUI como plugin */
-  install(app, options = {}) {
-    app.use(PrimeVue, {
-      theme: {
-        preset: Aura,
-        options: {
-          prefix: "p",
-          darkModeSelector: '[data-theme="dark"]',
-          cssLayer: false,
-        }
-      },
-      locale: options.locale || {},
-      ...options.primevue
-    })
+  install(app, { themes = { light: Aura }, primevue = {} } = {}) {
+    if (!app._primevueInstalled) {
+      app.use(PrimeVue, {
+        theme: {
+          preset: themes.light,
+          options: {
+            prefix: "p",
+            darkModeSelector: '[data-theme="dark"]',
+            cssLayer: false,
+          }
+        },
+        ...primevue
+      })
+      app._primevueInstalled = true
+    }
 
     Object.entries(components).forEach(([name, cmp]) =>
       app.component(name, cmp)
@@ -27,4 +30,4 @@ export default {
   }
 }
 
-export { AutoComplete, DataTable }
+export { AutoComplete, DataTable, Button }
