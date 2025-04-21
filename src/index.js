@@ -15,6 +15,7 @@ import Step from "primevue/step"
 import StepPanel from "primevue/steppanel"
 import ConfirmDialog from "primevue/confirmdialog"
 import Toast from "primevue/toast"
+import InputText from "primevue/inputtext";
 
 import {useToast} from "primevue/usetoast"
 import { useConfirm, usePrimeVue } from "primevue";
@@ -35,7 +36,8 @@ const components = {
   Toast,
   useToast,
   useConfirm,
-  usePrimeVue
+  usePrimeVue,
+  InputText
 }
 
 export default {
@@ -60,19 +62,4 @@ export default {
   }
 }
 
-export { 
-  AutoComplete, 
-  DataTable, 
-  Button, 
-  Tag, 
-  Stepper, 
-  StepList, 
-  StepPanels, 
-  Step, 
-  StepPanel, 
-  ConfirmDialog, 
-  Toast,
-  useToast,
-  useConfirm,
-  usePrimeVue
-}
+export { components }
