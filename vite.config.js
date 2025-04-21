@@ -1,45 +1,37 @@
+// vite.config.js
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 
 export default defineConfig(({ command }) => {
-  if (command === 'serve') {
-    // Configuración para el demo en modo desarrollo
-    return {
-      plugins: [vue()],
-      root: resolve(__dirname, 'demo'),
-      resolve: {
-        alias: {
-          '@': resolve(__dirname, 'src')
-        }
-      }
+  const commonConfig = {
+    plugins: [vue()],
+    resolve: {
+      alias: { '@': resolve(__dirname, 'src') }
     }
+  }
+
+  if (command === 'serve') {
+    return { ...commonConfig, root: resolve(__dirname, 'demo') }
   } else {
     return {
-      plugins: [vue()],
+      ...commonConfig,
       build: {
         lib: {
           entry: resolve(__dirname, 'src/index.js'),
           name: 'NvgUI',
-          fileName: (format) => `nvg-ui.${format}.js`
+          fileName: format => `nvg-ui.${format}.js`
         },
         rollupOptions: {
-          external: ['vue', 'primevue'],
+          // **Solo externaliza Vue**, no primevue ni @primeuix/themes
+          external: ['vue'], 
           output: {
             globals: {
-              vue: 'Vue',
-              primevue: 'PrimeVue'
+              vue: 'Vue'
             },
-            // Aseguramos que los assets CSS mantengan su nombre
-            assetFileNames: (assetInfo) => {
-              if (assetInfo.name === 'style.css') {
-                return 'style.css';
-              }
-              return assetInfo.name;
-            }
+            assetFileNames: assetInfo => assetInfo.name === 'style.css' ? 'style.css' : assetInfo.name
           }
         },
-        // Aseguramos que el CSS se genere
         cssCodeSplit: false
       }
     }
