@@ -1,7 +1,7 @@
 import PrimeVue from 'primevue/config'
 import Aura from '@primeuix/themes/aura'
 import AutoComplete from './components/AutoComplete.vue'
-import { DataTable } from 'primevue'
+import DataTable from "primevue/datatable"
 
 const components = { AutoComplete, DataTable }
 
