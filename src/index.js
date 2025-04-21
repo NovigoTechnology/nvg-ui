@@ -1,6 +1,7 @@
 import PrimeVue from 'primevue/config'
 import Lara from '@primeuix/themes/lara'
 import AutoComplete from './components/AutoComplete.vue'
+import '../dist/style.css'  // Importamos el CSS generado por el build
 
 const components = { AutoComplete }
 

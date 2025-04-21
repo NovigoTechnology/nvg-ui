@@ -1,4 +1,3 @@
-(function(){"use strict";try{if(typeof document<"u"){var t=document.createElement("style");t.appendChild(document.createTextNode(".p-disabled[data-v-e324d7fc]{opacity:1!important;background:var(--p-inputtext-disabled-background);color:var(--p-inputtext-disabled-color)}.custom-button[data-v-e324d7fc]{border:1px solid var(--p-inputtext-border-color)}[data-v-e324d7fc] .p-autocomplete-fluid{width:100%}")),document.head.appendChild(t)}}catch(e){console.error("vite-plugin-css-injected-by-js",e)}})();
 import { ref as Z, readonly as ot, getCurrentInstance as Bo, onMounted as ar, nextTick as rt, watch as ae, reactive as tt, useId as nt, mergeProps as w, openBlock as C, createElementBlock as I, createElementVNode as E, renderSlot as L, createBlock as re, resolveDynamicComponent as oo, createCommentVNode as A, toDisplayString as Q, Teleport as it, resolveComponent as he, Fragment as Se, renderList as ro, createVNode as Te, resolveDirective as lr, normalizeClass as ue, normalizeStyle as at, withCtx as fe, Transition as lt, createSlots as sr, createTextVNode as eo, withDirectives as dr, onUnmounted as st, unref as _o, withModifiers as dt } from "vue";
 var ct = Object.defineProperty, Io = Object.getOwnPropertySymbols, ut = Object.prototype.hasOwnProperty, ft = Object.prototype.propertyIsEnumerable, Po = (e, o, r) => o in e ? ct(e, o, { enumerable: !0, configurable: !0, writable: !0, value: r }) : e[o] = r, pt = (e, o) => {
   for (var r in o || (o = {}))
@@ -6895,7 +6894,8 @@ const Zh = (e, o) => {
       ], 64);
     };
   }
-}, tm = /* @__PURE__ */ Zh(rm, [["__scopeId", "data-v-e324d7fc"]]), nm = { AutoComplete: tm }, am = {
+}, tm = /* @__PURE__ */ Zh(rm, [["__scopeId", "data-v-e324d7fc"]]);
+const nm = { AutoComplete: tm }, am = {
   /** Instala NvgUI como plugin */
   install(e, { preset: o = Zp, primevue: r = {} } = {}) {
     e._primevueInstalled || (e.use($n, {
