@@ -6,6 +6,5 @@
   </template>
   
   <script setup>
-  import MiComponente from '../src/components/MiComponente.vue'
   import Autocomplete from '../src/components/Autocomplete.vue';
   </script>

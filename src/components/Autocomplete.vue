@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<label>{{ __(props.field.label) }}</label>
+		<!-- <label>{{ __(props.field.label) }}</label> -->
 		<span
 			v-if="props.field.required || props.field.reqd"
 			style="color: #eb9091; margin-left: 0.5rem"
@@ -14,7 +14,7 @@
 				:inputId="props.field.fieldname"
 				:suggestions="translatedSuggestions"
 				@complete="search"
-				:placeholder="__(props.field.placeholder) || __(props.field.label)"
+				:placeholder="props.field.placeholder || props.field.label"
 				:completeOnFocus="true"
 				fluid
 				:disabled="disabled"
@@ -103,7 +103,6 @@
 import { ref, onMounted, watch, reactive, onUnmounted } from "vue";
 import AutoComplete from "primevue/autocomplete";
 import Button from "primevue/button";
-// Remove QuickEntry import
 
 // Define props and emit
 const props = defineProps({
