@@ -341,21 +341,4 @@ onUnmounted(() => {
 :deep(.p-autocomplete-fluid) {
 	width: 100%;
 }
-
-.p-autocomplete-dropdown {
-  background: transparent;
-  border: none;
-  padding: 0.5rem;
-  cursor: pointer;
-}
-
-.p-autocomplete-dropdown:hover {
-  background: var(--p-inputtext-disabled-background);
-}
-
-.icon-sm {
-  width: 1rem;
-  height: 1rem;
-  stroke: var(--p-inputtext-disabled-color);
-}
 </style>
