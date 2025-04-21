@@ -25,6 +25,7 @@ import FileUpload from "primevue/fileupload";
 import Image from "primevue/image";
 import Divider from "primevue/divider";
 import Select from "primevue/select";
+import Calendar from "primevue/calendar";
 
 import {useToast} from "primevue/usetoast"
 import { useConfirm, usePrimeVue } from "primevue";
@@ -53,7 +54,8 @@ const components = {
   FileUpload,
   Image,
   Divider,
-  Select
+  Select,
+  Calendar
 }
 
 export default {
@@ -102,5 +104,6 @@ export {
   FileUpload,
   Image,
   Divider,
-  Select
+  Select,
+  Calendar
 }
