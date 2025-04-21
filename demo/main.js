@@ -7,6 +7,13 @@ import PrimeVue from 'primevue/config';
 const app = createApp(App);
 
 app.use(PrimeVue, {
-    theme: { preset: Aura }
-  })
+  theme: {
+    preset: Aura,
+    options: {
+      prefix: "p",
+      darkModeSelector: '[data-theme="dark"]',
+      cssLayer: false,
+    },
+  },
+})
 app.mount('#app');

@@ -6,10 +6,17 @@ const components = { AutoComplete }
 
 export default {
   /** Instala NvgUI como plugin */
-  install(app, { themes = { light: Lara.light }, primevue = {} } = {}) {
+  install(app, { themes = { light: Lara }, primevue = {} } = {}) {
     if (!app._primevueInstalled) {
       app.use(PrimeVue, {
-        theme: themes.light, // Asegura que el tema light sea el predeterminado
+        theme: {
+          preset: themes.light,
+          options: {
+            prefix: "p",
+            darkModeSelector: '[data-theme="dark"]',
+            cssLayer: false,
+          }
+        },
         ...primevue
       })
       app._primevueInstalled = true
