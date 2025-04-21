@@ -22683,14 +22683,14 @@ var vC = Symbol();
 function yC() {
   var e = mo(vC);
   if (!e)
-    throw new Error("No PrimeVue Toast provided!");
+    throw new Error("No PrimeVue Confirmation provided!");
   return e;
 }
 var wC = Symbol();
 function CC() {
   var e = mo(wC);
   if (!e)
-    throw new Error("No PrimeVue Confirmation provided!");
+    throw new Error("No PrimeVue Toast provided!");
   return e;
 }
 const kC = {
@@ -22705,8 +22705,8 @@ const kC = {
   StepPanel: $a,
   ConfirmDialog: Pa,
   Toast: Ra,
-  useToast: yC,
-  useConfirm: CC,
+  useToast: CC,
+  useConfirm: yC,
   usePrimeVue: is
 }, SC = {
   install: (e, { themes: t = { light: Ib } } = {}) => {
@@ -22737,7 +22737,7 @@ export {
   ma as Tag,
   Ra as Toast,
   SC as default,
-  CC as useConfirm,
+  yC as useConfirm,
   is as usePrimeVue,
-  yC as useToast
+  CC as useToast
 };

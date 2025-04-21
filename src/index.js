@@ -11,8 +11,7 @@ import Step from "primevue/step"
 import StepPanel from "primevue/steppanel"
 import ConfirmDialog from "primevue/confirmdialog"
 import Toast from "primevue/toast"
-
-import {useToast} from "primevue/usetoast"
+import {useToast} from "primevue"
 import { useConfirm, usePrimeVue } from "primevue";
 
 const components = { 
