@@ -19,10 +19,12 @@ import ConfirmDialog from "primevue/confirmdialog"
 import Toast from "primevue/toast"
 import InputText from "primevue/inputtext";
 import DatePicker from "primevue/datepicker";
+import InputNumber from "primevue/inputnumber";
 import Dialog from "primevue/dialog";
 import FileUpload from "primevue/fileupload";
 import Image from "primevue/image";
 import Divider from "primevue/divider";
+import Select from "primevue/select";
 
 import {useToast} from "primevue/usetoast"
 import { useConfirm, usePrimeVue } from "primevue";
@@ -46,10 +48,12 @@ const components = {
   usePrimeVue,
   InputText,
   DatePicker,
+  InputNumber,
   Dialog,
   FileUpload,
   Image,
-  Divider
+  Divider,
+  Select
 }
 
 export default {
@@ -93,8 +97,10 @@ export {
   usePrimeVue,
   InputText,
   DatePicker,
+  InputNumber,
   Dialog,
   FileUpload,
   Image,
-  Divider
+  Divider,
+  Select
 }
