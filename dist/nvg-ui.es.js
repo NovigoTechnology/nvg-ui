@@ -19871,8 +19871,7 @@ function Gw(e, t, n, o, i, r) {
 }
 Ni.render = Gw;
 const Ww = { AutoComplete: Y0, DataTable: Ni, Button: fa }, Zw = {
-  /** Instala NvgUI como plugin */
-  install(e, { themes: t = { light: jm }, primevue: n = {} } = {}) {
+  install: (e, { themes: t = { light: jm } } = {}) => {
     e.use(wl, {
       theme: {
         preset: t.light,
@@ -19881,10 +19880,9 @@ const Ww = { AutoComplete: Y0, DataTable: Ni, Button: fa }, Zw = {
           darkModeSelector: '[data-theme="dark"]',
           cssLayer: !1
         }
-      },
-      ...n
-    }), e._primevueInstalled = !0, Object.entries(Ww).forEach(
-      ([o, i]) => e.component(o, i)
+      }
+    }), Object.entries(Ww).forEach(
+      ([n, o]) => e.component(n, o)
     );
   }
 };
