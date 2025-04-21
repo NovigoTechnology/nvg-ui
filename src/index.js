@@ -5,9 +5,10 @@ import { ToastService } from "primevue";
 import PrimeVue from 'primevue/config'
 import Aura from '@primeuix/themes/aura'
 import AutoComplete from './components/AutoComplete.vue'
-import DataTable from "primevue/datatable"
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
 import Tag from "primevue/tag";
-import Button from "primevue/button"
+import Button from "primevue/button";
 import Stepper from "primevue/stepper"
 import StepList from "primevue/steplist"
 import StepPanels from "primevue/steppanels"
@@ -20,11 +21,10 @@ import InputText from "primevue/inputtext";
 import {useToast} from "primevue/usetoast"
 import { useConfirm, usePrimeVue } from "primevue";
 
-
-
 const components = { 
   AutoComplete, 
   DataTable, 
+  Column,
   Button, 
   Tag, 
   Stepper, 
@@ -65,6 +65,7 @@ export default {
 export { 
   AutoComplete, 
   DataTable, 
+  Column,
   Button, 
   Tag, 
   Stepper, 
