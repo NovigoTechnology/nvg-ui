@@ -18,7 +18,7 @@ import StepPanel from "primevue/steppanel"
 import ConfirmDialog from "primevue/confirmdialog"
 import Toast from "primevue/toast"
 import InputText from "primevue/inputtext";
-
+import DatePicker from "primevue/datepicker";
 
 import {useToast} from "primevue/usetoast"
 import { useConfirm, usePrimeVue } from "primevue";
@@ -40,7 +40,8 @@ const components = {
   useToast,
   useConfirm,
   usePrimeVue,
-  InputText
+  InputText,
+  DatePicker
 }
 
 export default {
@@ -82,5 +83,6 @@ export {
   useToast,
   useConfirm,
   usePrimeVue,
-  InputText
+  InputText,
+  DatePicker
 }
