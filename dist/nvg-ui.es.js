@@ -19873,7 +19873,7 @@ Ni.render = Gw;
 const Ww = { AutoComplete: Y0, DataTable: Ni, Button: fa }, Zw = {
   /** Instala NvgUI como plugin */
   install(e, { themes: t = { light: jm }, primevue: n = {} } = {}) {
-    e._primevueInstalled || (e.use(wl, {
+    e.use(wl, {
       theme: {
         preset: t.light,
         options: {
@@ -19883,7 +19883,7 @@ const Ww = { AutoComplete: Y0, DataTable: Ni, Button: fa }, Zw = {
         }
       },
       ...n
-    }), e._primevueInstalled = !0), Object.entries(Ww).forEach(
+    }), e._primevueInstalled = !0, Object.entries(Ww).forEach(
       ([o, i]) => e.component(o, i)
     );
   }

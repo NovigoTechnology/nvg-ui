@@ -9,7 +9,7 @@ const components = { AutoComplete, DataTable, Button }
 export default {
   /** Instala NvgUI como plugin */
   install(app, { themes = { light: Aura }, primevue = {} } = {}) {
-    if (!app._primevueInstalled) {
+
       app.use(PrimeVue, {
         theme: {
           preset: themes.light,
@@ -22,7 +22,7 @@ export default {
         ...primevue
       })
       app._primevueInstalled = true
-    }
+    
 
     Object.entries(components).forEach(([name, cmp]) =>
       app.component(name, cmp)
