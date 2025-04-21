@@ -62,4 +62,20 @@ export default {
   }
 }
 
-export { components }
+export { 
+  AutoComplete, 
+  DataTable, 
+  Button, 
+  Tag, 
+  Stepper, 
+  StepList, 
+  StepPanels, 
+  Step, 
+  StepPanel, 
+  ConfirmDialog, 
+  Toast,
+  useToast,
+  useConfirm,
+  usePrimeVue,
+  InputText
+}
