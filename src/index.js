@@ -2,9 +2,10 @@ import PrimeVue from 'primevue/config'
 import Aura from '@primeuix/themes/aura'
 import AutoComplete from './components/AutoComplete.vue'
 import DataTable from "primevue/datatable"
+import Tag from "primevue/tag";
 import { Button } from 'primevue'
 
-const components = { AutoComplete, DataTable, Button }
+const components = { AutoComplete, DataTable, Button, Tag }
 
 export default {
   install: (app, { themes = { light: Aura } } = {}) => {
@@ -25,4 +26,4 @@ export default {
   }
 }
 
-export { AutoComplete, DataTable, Button }
+export { AutoComplete, DataTable, Button, Tag }
