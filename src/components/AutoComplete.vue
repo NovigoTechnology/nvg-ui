@@ -126,6 +126,7 @@ const props = defineProps({
 	},
 	needFilter: Boolean,
 	editing: Boolean,
+	delInputValue: String,
 });
 
 const emit = defineEmits(["update-autocomplete-value", "update-filter"]);
@@ -156,9 +157,12 @@ onMounted(() => {
 watch(
 	() => props.field.value,
 	(newValue) => {
-		inputValue.value[props.field.fieldname] = newValue; // Cuando le llega desde otro componente un campo con value ya determinado, asigna ese value al input.
+		if (newValue) {
+			inputValue.value[props.field.fieldname] = newValue; // Cuando le llega desde otro componente un campo con value ya determinado, asigna ese value al input.
+			emit("update-autocomplete-value", newValue, props.field);
+		}
 	},
-	{ deep: true, immediate: true },
+	{ immediate: true },
 );
 
 watch(
@@ -173,6 +177,8 @@ watch(
 	(newValue) => {
 		if (props.field.needFilter && newValue[props.field.dependingField]) {
 			getLinkOptions(props.field.options, newValue);
+		} else {
+			getLinkOptions(props.field.options);
 		}
 	},
 	{ deep: true },
@@ -196,11 +202,41 @@ watch(
 	},
 );
 
+watch(
+	() => store.edited,
+	(newValue) => {
+		update_input(
+			{
+				label: newValue.first_name + " " + newValue.last_name,
+				value: newValue.name,
+			},
+			null,
+			newValue.editingFieldname,
+		);
+	},
+	{ deep: true },
+);
+
+watch(
+	() => props.delInputValue,
+	(newValue) => {
+		if (newValue) {
+			inputValue.value[newValue] = "";
+			store.dataForm[newValue] = null;
+			store.fullDataForm[newValue] = null;
+			refresh.value = !refresh.value;
+		}
+	},
+);
+
 // Methods
-const update_input = (valueObj, field) => {
-	inputValue.value[field.fieldname] = valueObj.label;
-	store.dataForm[field.fieldname] = valueObj.value;
-	store.fullDataForm[field.fieldname] = valueObj;
+const update_input = (valueObj, field, fieldname) => {
+	let editingFieldname = "";
+	field?.fieldname ? (editingFieldname = field.fieldname) : (editingFieldname = fieldname);
+	inputValue.value[editingFieldname] = valueObj.label;
+	store.dataForm[editingFieldname] = valueObj.value;
+	store.fullDataForm[editingFieldname] = valueObj;
+	refresh.value = !refresh.value;
 };
 
 const clear_input = () => {
@@ -247,6 +283,7 @@ const selectOption = (selectedOption, field) => {
 
 	if (field.clear_input_after_selection) {
 		inputValue.value[field.fieldname] = null;
+		refresh.value = !refresh.value;
 	}
 };
 
@@ -274,10 +311,17 @@ const getLinkOptions = (doctype, filters = {}) => {
 	});
 };
 
+const removeAccents = (str) => {
+	if (!str) return "";
+	return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+};
+
 const search = (event) => {
 	let _suggestions = listData.value.slice(0, 10);
 
 	if (event.query) {
+		const queryNorm = removeAccents(event.query.toLowerCase());
+
 		const translatedList = listData.value.map((item) => ({
 			original: item,
 			translated: {
@@ -286,17 +330,23 @@ const search = (event) => {
 				value: item.value ? __(item.value) : item.value,
 			},
 		}));
-		const queryLower = event.query.toLowerCase();
 
 		const filtered = translatedList
 			.filter((item) => {
+				const desc = item.translated.description
+					? removeAccents(item.translated.description.toLowerCase())
+					: "";
+				const label = item.translated.label
+					? removeAccents(item.translated.label.toLowerCase())
+					: "";
+				const value = item.translated.value
+					? removeAccents(item.translated.value.toLowerCase())
+					: "";
+
 				return (
-					(item.translated.description &&
-						item.translated.description.toLowerCase().includes(queryLower)) ||
-					(item.translated.label &&
-						item.translated.label.toLowerCase().includes(queryLower)) ||
-					(item.translated.value &&
-						item.translated.value.toLowerCase().includes(queryLower))
+					desc.includes(queryNorm) ||
+					label.includes(queryNorm) ||
+					value.includes(queryNorm)
 				);
 			})
 			.slice(0, 10);
@@ -304,7 +354,6 @@ const search = (event) => {
 		suggestions.value = filtered.map((item) => item.original);
 		translatedSuggestions.value = filtered.map((item) => item.translated);
 	} else {
-		// Si no hay query, devolver las sugerencias originales
 		suggestions.value = _suggestions;
 		translatedSuggestions.value = _suggestions.map((item) => ({
 			description: item.description ? __(item.description) : item.description,
