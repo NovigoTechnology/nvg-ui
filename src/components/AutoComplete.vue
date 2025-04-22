@@ -73,35 +73,36 @@
 			</AutoComplete>
 
 			<Button
-    v-if="props.field.quick_entry"
-    :raised="true"
-    severity="info"
-    class="ml-4"
-    size="small"
-    @click="() => (showQuickEntry = !showQuickEntry)"
-    :id="'new_' + props.field.fieldname"
-  >
-    <span style="text-wrap: nowrap">
-      {{ __("New {0}", [__(props.field.placeholder)]) }}
-    </span>
-  </Button>
+				v-if="props.field.quick_entry"
+				:raised="true"
+				severity="info"
+				class="ml-4"
+				size="small"
+				@click="() => (createNew = !createNew)"
+				:id="'new_' + props.field.fieldname"
+			>
+				<!-- @click="create_New(props.field.quick_entry, props.field.fieldname)" -->
+				<span style="text-wrap: nowrap">
+					{{ __("New {0}", [__(props.field.placeholder)]) }}</span
+				>
+			</Button>
 		</div>
 	</div>
 	<slot
-        name="quick-entry"
-        v-if="showQuickEntry"
-        :field="props.field"
-        :createNew="showQuickEntry"
+		name="quick-entry"
+		v-if="createNew"
+		:field="props.field"
+		:createNew="createNew"
 		:on-update="(value, field) => update_input(value, field, field.fieldname)"
-        :on-close="closeQuickEntry"
-    ></slot>
+		:on-close="closeQuickEntry"
+	></slot>
 </template>
 
 <script setup>
 import { ref, onMounted, watch, reactive, onUnmounted } from "vue";
 import AutoComplete from "primevue/autocomplete";
 import Button from "primevue/button";
-// import QuickEntry from "./QuickEntry.vue";
+import QuickEntry from "./QuickEntry.vue";
 
 // Define props and emit
 const props = defineProps({
@@ -126,14 +127,9 @@ const props = defineProps({
 	},
 	needFilter: Boolean,
 	editing: Boolean,
-	delInputValue: String,
 });
 
 const emit = defineEmits(["update-autocomplete-value", "update-filter"]);
-
-const closeQuickEntry = () => {
-  showQuickEntry.value = false;
-};
 
 // Data
 const store = props.store;
@@ -142,7 +138,7 @@ const listData = ref([]);
 const suggestions = ref([]);
 const translatedSuggestions = ref([]);
 const filters = ref({});
-const showQuickEntry = ref(false);
+const createNew = ref(false);
 const refresh = ref(false);
 const autoCompleteRef = ref(null);
 
@@ -161,12 +157,9 @@ onMounted(() => {
 watch(
 	() => props.field.value,
 	(newValue) => {
-		if (newValue) {
-			inputValue.value[props.field.fieldname] = newValue; // Cuando le llega desde otro componente un campo con value ya determinado, asigna ese value al input.
-			emit("update-autocomplete-value", newValue, props.field);
-		}
+		inputValue.value[props.field.fieldname] = newValue; // Cuando le llega desde otro componente un campo con value ya determinado, asigna ese value al input.
 	},
-	{ immediate: true },
+	{ deep: true, immediate: true },
 );
 
 watch(
@@ -181,8 +174,6 @@ watch(
 	(newValue) => {
 		if (props.field.needFilter && newValue[props.field.dependingField]) {
 			getLinkOptions(props.field.options, newValue);
-		} else {
-			getLinkOptions(props.field.options);
 		}
 	},
 	{ deep: true },
@@ -206,42 +197,15 @@ watch(
 	},
 );
 
-watch(
-	() => store.edited,
-	(newValue) => {
-		update_input(
-			{
-				label: newValue.first_name + " " + newValue.last_name,
-				value: newValue.name,
-			},
-			null,
-			newValue.editingFieldname,
-		);
-	},
-	{ deep: true },
-);
-
-watch(
-	() => props.delInputValue,
-	(newValue) => {
-		if (newValue) {
-			inputValue.value[newValue] = "";
-			store.dataForm[newValue] = null;
-			store.fullDataForm[newValue] = null;
-			refresh.value = !refresh.value;
-		}
-	},
-);
-
 // Methods
+const update_input = (valueObj, field) => {
+	inputValue.value[field.fieldname] = valueObj.label;
+	store.dataForm[field.fieldname] = valueObj.value;
+	store.fullDataForm[field.fieldname] = valueObj;
+};
 
-const update_input = (valueObj, field, fieldname) => {
-	let editingFieldname = "";
-	field?.fieldname ? (editingFieldname = field.fieldname) : (editingFieldname = fieldname);
-	inputValue.value[editingFieldname] = valueObj.label;
-	store.dataForm[editingFieldname] = valueObj.value;
-	store.fullDataForm[editingFieldname] = valueObj;
-	refresh.value = !refresh.value;
+const closeQuickEntry = () => {
+	showQuickEntry.value = false;
 };
 
 const clear_input = () => {
@@ -288,7 +252,6 @@ const selectOption = (selectedOption, field) => {
 
 	if (field.clear_input_after_selection) {
 		inputValue.value[field.fieldname] = null;
-		refresh.value = !refresh.value;
 	}
 };
 
@@ -316,17 +279,10 @@ const getLinkOptions = (doctype, filters = {}) => {
 	});
 };
 
-const removeAccents = (str) => {
-	if (!str) return "";
-	return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-};
-
 const search = (event) => {
 	let _suggestions = listData.value.slice(0, 10);
 
 	if (event.query) {
-		const queryNorm = removeAccents(event.query.toLowerCase());
-
 		const translatedList = listData.value.map((item) => ({
 			original: item,
 			translated: {
@@ -335,23 +291,17 @@ const search = (event) => {
 				value: item.value ? __(item.value) : item.value,
 			},
 		}));
+		const queryLower = event.query.toLowerCase();
 
 		const filtered = translatedList
 			.filter((item) => {
-				const desc = item.translated.description
-					? removeAccents(item.translated.description.toLowerCase())
-					: "";
-				const label = item.translated.label
-					? removeAccents(item.translated.label.toLowerCase())
-					: "";
-				const value = item.translated.value
-					? removeAccents(item.translated.value.toLowerCase())
-					: "";
-
 				return (
-					desc.includes(queryNorm) ||
-					label.includes(queryNorm) ||
-					value.includes(queryNorm)
+					(item.translated.description &&
+						item.translated.description.toLowerCase().includes(queryLower)) ||
+					(item.translated.label &&
+						item.translated.label.toLowerCase().includes(queryLower)) ||
+					(item.translated.value &&
+						item.translated.value.toLowerCase().includes(queryLower))
 				);
 			})
 			.slice(0, 10);
@@ -359,6 +309,7 @@ const search = (event) => {
 		suggestions.value = filtered.map((item) => item.original);
 		translatedSuggestions.value = filtered.map((item) => item.translated);
 	} else {
+		// Si no hay query, devolver las sugerencias originales
 		suggestions.value = _suggestions;
 		translatedSuggestions.value = _suggestions.map((item) => ({
 			description: item.description ? __(item.description) : item.description,
