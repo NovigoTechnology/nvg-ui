@@ -73,35 +73,35 @@
 			</AutoComplete>
 
 			<Button
-				v-if="props.field.quick_entry"
-				:raised="true"
-				severity="info"
-				class="ml-4"
-				size="small"
-				@click="() => (createNew = !createNew)"
-				:id="'new_' + props.field.fieldname"
-			>
-				<!-- @click="create_New(props.field.quick_entry, props.field.fieldname)" -->
-				<span style="text-wrap: nowrap">
-					{{ __("New {0}", [__(props.field.placeholder)]) }}</span
-				>
-			</Button>
+    v-if="props.field.quick_entry"
+    :raised="true"
+    severity="info"
+    class="ml-4"
+    size="small"
+    @click="() => (showQuickEntry = !showQuickEntry)"
+    :id="'new_' + props.field.fieldname"
+  >
+    <span style="text-wrap: nowrap">
+      {{ __("New {0}", [__(props.field.placeholder)]) }}
+    </span>
+  </Button>
 		</div>
 	</div>
-	<slot name="quick-entry" 
-        :createNew="createNew"
+	<slot
+        name="quick-entry"
+        v-if="showQuickEntry"
         :field="props.field"
-        :store="store"
-        :update-autocomplete-input="update_input"
-        :close-modal="(value) => createNew = value">
-    </slot>
+        :createNew="showQuickEntry"
+		:on-update="(value, field) => update_input(value, field, field.fieldname)"
+        :on-close="closeQuickEntry"
+    ></slot>
 </template>
 
 <script setup>
 import { ref, onMounted, watch, reactive, onUnmounted } from "vue";
 import AutoComplete from "primevue/autocomplete";
 import Button from "primevue/button";
-import QuickEntry from "./QuickEntry.vue";
+// import QuickEntry from "./QuickEntry.vue";
 
 // Define props and emit
 const props = defineProps({
@@ -131,6 +131,10 @@ const props = defineProps({
 
 const emit = defineEmits(["update-autocomplete-value", "update-filter"]);
 
+const closeQuickEntry = () => {
+  showQuickEntry.value = false;
+};
+
 // Data
 const store = props.store;
 const inputValue = ref({});
@@ -138,7 +142,7 @@ const listData = ref([]);
 const suggestions = ref([]);
 const translatedSuggestions = ref([]);
 const filters = ref({});
-const createNew = ref(false);
+const showQuickEntry = ref(false);
 const refresh = ref(false);
 const autoCompleteRef = ref(null);
 
@@ -230,6 +234,7 @@ watch(
 );
 
 // Methods
+
 const update_input = (valueObj, field, fieldname) => {
 	let editingFieldname = "";
 	field?.fieldname ? (editingFieldname = field.fieldname) : (editingFieldname = fieldname);
