@@ -29,6 +29,7 @@ import Image from "primevue/image";
 import Divider from "primevue/divider";
 import Select from "primevue/select";
 import Calendar from "primevue/calendar";
+import { MultiSelect } from "primevue";
 
 import { useToast } from "primevue/usetoast";
 import { useConfirm, usePrimeVue } from "primevue";
@@ -62,7 +63,8 @@ const components = {
   Image,
   Divider,
   Select,
-  Calendar
+  Calendar,
+  MultiSelect
 }
 
 export default {
@@ -116,5 +118,6 @@ export {
   Image,
   Divider,
   Select,
-  Calendar
+  Calendar,
+  MultiSelect
 }
