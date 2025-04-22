@@ -51,11 +51,8 @@ const components = {
   StepPanels, 
   Step, 
   StepPanel, 
-  ConfirmDialog, 
+  ConfirmDialog, // Asegúrate que esté aquí
   Toast,
-  useToast,
-  useConfirm,
-  usePrimeVue,
   InputText,
   DatePicker,
   InputNumber,
@@ -80,13 +77,18 @@ export default {
         }
       }
     })
+
+    // Registrar los servicios
     app.use(ConfirmationService);
     app.use(DialogService);
     app.use(ToastService);
     
-    Object.entries(components).forEach(([name, cmp]) => 
-      app.component(name, cmp)
-    )
+    // Registrar los componentes
+    Object.entries(components).forEach(([name, component]) => {
+      if (typeof component === 'object' && component.name) {
+        app.component(component.name, component)
+      }
+    })
   }
 }
 
@@ -106,7 +108,7 @@ export {
   StepPanels, 
   Step, 
   StepPanel, 
-  ConfirmDialog, 
+  ConfirmDialog,
   Toast,
   useToast,
   useConfirm,
@@ -120,5 +122,8 @@ export {
   Divider,
   Select,
   Calendar,
-  MultiSelect
+  MultiSelect,
+  ConfirmationService,
+  DialogService,
+  ToastService
 }
