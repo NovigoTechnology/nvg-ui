@@ -88,14 +88,13 @@
 			</Button>
 		</div>
 	</div>
-	<QuickEntry
-		v-if="createNew"
-		@update-autocomplete-input="update_input"
-		@close-modal="createNew = false"
-		:createNew="createNew"
-		:field="props.field"
-		:store="store"
-	/>
+	<slot name="quick-entry" 
+		:createNew="createNew" 
+		@update-autocomplete-input="update_input" 
+		@close-modal="createNew = false" 
+		:field="props.field" 
+		:store="store">
+	</slot>
 </template>
 
 <script setup>
