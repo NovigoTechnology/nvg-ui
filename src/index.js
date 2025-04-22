@@ -19,7 +19,7 @@ import StepList from "primevue/steplist"
 import StepPanels from "primevue/steppanels"
 import Step from "primevue/step"
 import StepPanel from "primevue/steppanel"
-import ConfirmDialog from "primevue/confirmdialog"
+import ConfirmDialog from "primevue/confirmdialog";
 import Toast from "primevue/toast"
 import InputText from "primevue/inputtext";
 import DatePicker from "primevue/datepicker";
