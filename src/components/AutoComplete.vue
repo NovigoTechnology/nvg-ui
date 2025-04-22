@@ -1,93 +1,108 @@
 <template>
 	<div>
-	  <label>{{ __(props.field.label) }}</label>
-	  <span
-		v-if="props.field.required || props.field.reqd"
-		style="color: #eb9091; margin-left: 0.5rem"
-	  >*</span>
-	  <div :class="{ flex: props.field.quick_entry }" class="relative">
-		<AutoComplete
-		  v-model="inputValue[props.field.fieldname]"
-		  :key="refresh"
-		  ref="autoCompleteRef"
-		  :inputId="props.field.fieldname"
-		  :suggestions="translatedSuggestions"
-		  @complete="search"
-		  :placeholder="__(props.field.placeholder) || __(props.field.label)"
-		  :completeOnFocus="true"
-		  fluid
-		  :disabled="disabled"
-		  :class="{ 'p-inputtext:disabled': disabled }"
-		  @clear="() => clear_input"
-		  :size="props.size"
-		  @option-select="(e) => selectOption(suggestions[translatedSuggestions.indexOf(e.value)], field)"
-		  :optionLabel="(option) => option.label || option.value"
-		  forceSelection
+		<label>{{ __(props.field.label) }}</label>
+		<span
+			v-if="props.field.required || props.field.reqd"
+			style="color: #eb9091; margin-left: 0.5rem"
+			>*</span
 		>
-		  <template #dropdown>
-			<slot name="dropdown">
-			  <button
-				v-if="props.field.fieldtype !== 'Table' && !disabled"
-				type="button"
-				class="p-autocomplete-dropdown"
-				@click.stop="clear_input"
-			  >
-				<svg
-				  class="icon icon-sm"
-				  style="stroke: var(--p-inputtext-color)"
-				  aria-hidden="true"
+		<div :class="{ flex: props.field.quick_entry }" class="relative">
+			<AutoComplete
+				v-model="inputValue[props.field.fieldname]"
+				:key="refresh"
+				ref="autoCompleteRef"
+				:inputId="props.field.fieldname"
+				:suggestions="translatedSuggestions"
+				@complete="search"
+				:placeholder="__(props.field.placeholder) || __(props.field.label)"
+				:completeOnFocus="true"
+				fluid
+				:disabled="disabled"
+				:class="{ 'p-inputtext:disabled': disabled }"
+				@clear="() => clear_input"
+				:size="props.size"
+				@option-select="
+					(e) => selectOption(suggestions[translatedSuggestions.indexOf(e.value)], field)
+				"
+				:optionLabel="(option) => option.label || option.value"
+				:dropdown="
+					props.field.fieldtype !== 'Table' &&
+					!inputValue[props.field.fieldname] === '' &&
+					inputValue[props.field.fieldname]
+				"
+				:invalid="
+					(invalid_fields?.includes(props.field.fieldname) ||
+						invalid_fields?.includes(props.field.label)) &&
+					!inputValue[props.field.fieldname]
+				"
+				@click="
+					() => {
+						if (props.field.fieldtype === 'Table') {
+							handleClick();
+						}
+					}
+				"
+				forceSelection
+			>
+				<template v-if="props.field.fieldtype !== 'Table' && !disabled" #dropdown>
+					<button
+						type="button"
+						class="p-autocomplete-dropdown"
+						@click.stop="clear_input"
+					>
+						<svg
+							class="icon icon-sm"
+							style="stroke: var(--p-inputtext-color)"
+							aria-hidden="true"
+						>
+							<use href="#icon-close"></use>
+						</svg>
+					</button>
+				</template>
+				<template #option="slotProps">
+					<div v-if="!slotProps.option.label && !slotProps.option.description">
+						<strong>{{ slotProps.option.value }}</strong>
+					</div>
+					<div>
+						<strong>{{
+							__(slotProps.option.label) || __(slotProps.option.description)
+						}}</strong>
+						<div>{{ __(slotProps.option.description) }}</div>
+					</div>
+				</template>
+			</AutoComplete>
+
+			<Button
+				v-if="props.field.quick_entry"
+				:raised="true"
+				severity="info"
+				class="ml-4"
+				size="small"
+				@click="() => (createNew = !createNew)"
+				:id="'new_' + props.field.fieldname"
+			>
+				<!-- @click="create_New(props.field.quick_entry, props.field.fieldname)" -->
+				<span style="text-wrap: nowrap">
+					{{ __("New {0}", [__(props.field.placeholder)]) }}</span
 				>
-				  <use href="#icon-close"></use>
-				</svg>
-			  </button>
-			</slot>
-		  </template>
-  
-		  <template #option="slotProps">
-			<slot name="option" :option="slotProps.option">
-			  <div v-if="!slotProps.option.label && !slotProps.option.description">
-				<strong>{{ slotProps.option.value }}</strong>
-			  </div>
-			  <div v-else>
-				<strong>{{ __(slotProps.option.label) || __(slotProps.option.description) }}</strong>
-				<div>{{ __(slotProps.option.description) }}</div>
-			  </div>
-			</slot>
-		  </template>
-		</AutoComplete>
-  
-		<slot name="quick-entry-button">
-		  <Button
-			v-if="props.field.quick_entry"
-			:raised="true"
-			severity="info"
-			class="ml-4"
-			size="small"
-			@click="() => (createNew = !createNew)"
-			:id="'new_' + props.field.fieldname"
-		  >
-			<span style="text-wrap: nowrap">
-			  {{ __("New {0}", [__(props.field.placeholder)]) }}
-			</span>
-		  </Button>
-		</slot>
-	  </div>
-  
-	  <slot
-		name="quick-entry"
+			</Button>
+		</div>
+	</div>
+	<QuickEntry
 		v-if="createNew"
+		@update-autocomplete-input="update_input"
+		@close-modal="createNew = false"
 		:createNew="createNew"
 		:field="props.field"
-		:update-input="update_input"
-		:close-modal="() => (createNew = false)"
-	  ></slot>
-	</div>
-  </template>
+		:store="store"
+	/>
+</template>
 
 <script setup>
 import { ref, onMounted, watch, reactive, onUnmounted } from "vue";
 import AutoComplete from "primevue/autocomplete";
 import Button from "primevue/button";
+import QuickEntry from "./QuickEntry.vue";
 
 // Define props and emit
 const props = defineProps({
@@ -115,12 +130,7 @@ const props = defineProps({
 	delInputValue: String,
 });
 
-const emit = defineEmits([
-  'update-autocomplete-value', 
-  'update-filter',
-  'update-input',
-  'close-modal'
-]);
+const emit = defineEmits(["update-autocomplete-value", "update-filter"]);
 
 // Data
 const store = props.store;
@@ -222,15 +232,12 @@ watch(
 
 // Methods
 const update_input = (valueObj, field, fieldname) => {
-  let editingFieldname = "";
-  field?.fieldname ? (editingFieldname = field.fieldname) : (editingFieldname = fieldname);
-  inputValue.value[editingFieldname] = valueObj.label;
-  store.dataForm[editingFieldname] = valueObj.value;
-  store.fullDataForm[editingFieldname] = valueObj;
-  refresh.value = !refresh.value;
-  
-  // Emitir el evento para que el padre pueda reaccionar
-  emit('update-input', valueObj, field || props.field);
+	let editingFieldname = "";
+	field?.fieldname ? (editingFieldname = field.fieldname) : (editingFieldname = fieldname);
+	inputValue.value[editingFieldname] = valueObj.label;
+	store.dataForm[editingFieldname] = valueObj.value;
+	store.fullDataForm[editingFieldname] = valueObj;
+	refresh.value = !refresh.value;
 };
 
 const clear_input = () => {

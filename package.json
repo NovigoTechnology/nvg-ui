@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@primeuix/themes": "^1.0.3",
+    "lodash": "^4.17.21",
     "primeflex": "^4.0.0",
     "primevue": "^4.3.3"
   },
