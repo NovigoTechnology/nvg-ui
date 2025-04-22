@@ -7,6 +7,9 @@ import Aura from '@primeuix/themes/aura'
 import AutoComplete from './components/AutoComplete.vue'
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
+import Paginator from "primevue/paginator";
+import Menu from "primevue/menu";
+import { Checkbox, DynamicDialog } from "primevue";
 import Tag from "primevue/tag";
 import Button from "primevue/button";
 import ButtonGroup from "primevue/buttongroup";
@@ -27,13 +30,17 @@ import Divider from "primevue/divider";
 import Select from "primevue/select";
 import Calendar from "primevue/calendar";
 
-import {useToast} from "primevue/usetoast"
+import { useToast } from "primevue/usetoast";
 import { useConfirm, usePrimeVue } from "primevue";
 
 const components = { 
   AutoComplete, 
   DataTable, 
   Column,
+  Paginator,
+  Menu,
+  Checkbox,
+  DynamicDialog,
   Button, 
   ButtonGroup,
   Tag, 
@@ -84,6 +91,10 @@ export {
   AutoComplete, 
   DataTable, 
   Column,
+  Paginator,
+  Menu,
+  Checkbox,
+  DynamicDialog,
   Button, 
   ButtonGroup,
   Tag, 
