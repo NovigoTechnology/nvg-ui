@@ -35,7 +35,7 @@ import { MultiSelect } from "primevue";
 import { useToast } from "primevue/usetoast";
 import { useConfirm, usePrimeVue } from "primevue";
 
- import translatableLocale from "./utils/utils";
+ import translatableLocale from "./utils/primeLocale";
 
 const components = { 
   AutoComplete, 
