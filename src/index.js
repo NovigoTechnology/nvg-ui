@@ -35,6 +35,8 @@ import { MultiSelect } from "primevue";
 import { useToast } from "primevue/usetoast";
 import { useConfirm, usePrimeVue } from "primevue";
 
+ import translatableLocale from "./utils/utils";
+
 const components = { 
   AutoComplete, 
   DataTable, 
@@ -78,7 +80,8 @@ export default {
           darkModeSelector: '[data-theme="dark"]',
           cssLayer: false,
         }
-      }
+      },
+      locale: translatableLocale,
     })
     app.use(ConfirmationService);
     app.use(DialogService);
