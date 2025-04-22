@@ -89,12 +89,12 @@
 		</div>
 	</div>
 	<slot name="quick-entry" 
-		:createNew="createNew" 
-		@update-autocomplete-input="update_input" 
-		@close-modal="createNew = false" 
-		:field="props.field" 
-		:store="store">
-	</slot>
+        :createNew="createNew"
+        :field="props.field"
+        :store="store"
+        :update-autocomplete-input="update_input"
+        :close-modal="(value) => createNew = value">
+    </slot>
 </template>
 
 <script setup>
