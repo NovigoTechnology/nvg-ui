@@ -93,8 +93,8 @@
 		v-if="createNew"
 		:createNew="createNew"
 		:field="props.field"
-		:onUpdate="update_input"
-		:onClose="() => (createNew = false)"
+		@update-autocomplete-input="update_input"
+		@close-modal="createNew = false"
 	></slot>
 </template>
 
