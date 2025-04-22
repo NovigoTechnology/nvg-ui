@@ -14,12 +14,12 @@
 				:inputId="props.field.fieldname"
 				:suggestions="translatedSuggestions"
 				@complete="search"
-				:placeholder="props.field.placeholder || props.field.label"
+				:placeholder="__(props.field.placeholder) || __(props.field.label)"
 				:completeOnFocus="true"
 				fluid
 				:disabled="disabled"
 				:class="{ 'p-inputtext:disabled': disabled }"
-				@clear="clear_input"
+				@clear="() => clear_input"
 				:size="props.size"
 				@option-select="
 					(e) => selectOption(suggestions[translatedSuggestions.indexOf(e.value)], field)
@@ -88,7 +88,6 @@
 			</Button>
 		</div>
 	</div>
-	<!-- Replace QuickEntry component with a slot -->
 	<slot
 		name="quick-entry"
 		v-if="createNew"
@@ -126,6 +125,7 @@ const props = defineProps({
 		default: false,
 	},
 	needFilter: Boolean,
+	editing: Boolean,
 });
 
 const emit = defineEmits(["update-autocomplete-value", "update-filter"]);
@@ -139,7 +139,6 @@ const translatedSuggestions = ref([]);
 const filters = ref({});
 const createNew = ref(false);
 const refresh = ref(false);
-
 const autoCompleteRef = ref(null);
 
 // Hooks
@@ -323,11 +322,16 @@ const handleClick = () => {
 };
 
 onUnmounted(() => {
-	clear_input();
+	if (props.editing && !props.field.value) {
+		clear_input();
+	}
+	if (props.quickEntry) {
+		clear_input();
+	}
 });
 </script>
 
-<style>
+<style scoped>
 .p-disabled {
 	opacity: 1 !important;
 	background: var(--p-inputtext-disabled-background);
