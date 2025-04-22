@@ -71,7 +71,7 @@ const components = {
 }
 
 export default {
-  install: (app, { themes = { light: Aura } } = {}) => {
+  install: (app, { locale = translatableLocale } = {}) => {
     app.use(PrimeVue, {
       theme: {
         preset: Aura,
@@ -81,7 +81,7 @@ export default {
           cssLayer: false,
         }
       },
-      locale: translatableLocale,
+      locale,
     })
     app.use(ConfirmationService);
     app.use(DialogService);
