@@ -51,8 +51,11 @@ const components = {
   StepPanels, 
   Step, 
   StepPanel, 
-  ConfirmDialog, // Asegúrate que esté aquí
+  ConfirmDialog, 
   Toast,
+  useToast,
+  useConfirm,
+  usePrimeVue,
   InputText,
   DatePicker,
   InputNumber,
@@ -69,7 +72,7 @@ export default {
   install: (app, { themes = { light: Aura } } = {}) => {
     app.use(PrimeVue, {
       theme: {
-        preset: themes.light,
+        preset: Aura,
         options: {
           prefix: "p",
           darkModeSelector: '[data-theme="dark"]',
@@ -77,18 +80,13 @@ export default {
         }
       }
     })
-
-    // Registrar los servicios
     app.use(ConfirmationService);
     app.use(DialogService);
     app.use(ToastService);
     
-    // Registrar los componentes
-    Object.entries(components).forEach(([name, component]) => {
-      if (typeof component === 'object' && component.name) {
-        app.component(component.name, component)
-      }
-    })
+    Object.entries(components).forEach(([name, cmp]) => 
+      app.component(name, cmp)
+    )
   }
 }
 
@@ -108,7 +106,7 @@ export {
   StepPanels, 
   Step, 
   StepPanel, 
-  ConfirmDialog,
+  ConfirmDialog, 
   Toast,
   useToast,
   useConfirm,
@@ -122,8 +120,5 @@ export {
   Divider,
   Select,
   Calendar,
-  MultiSelect,
-  ConfirmationService,
-  DialogService,
-  ToastService
+  MultiSelect
 }
