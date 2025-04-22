@@ -89,13 +89,8 @@
 		</div>
 	</div>
 	<slot
-		name="quick-entry"
-		v-if="createNew"
-		:createNew="createNew"
-		:field="props.field"
-		@update-autocomplete-input="update_input"
-		@close-modal="createNew = false"
-	></slot>
+	>
+	</slot>
 </template>
 
 <script setup>
