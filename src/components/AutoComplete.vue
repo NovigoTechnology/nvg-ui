@@ -157,7 +157,10 @@ onMounted(() => {
 watch(
 	() => props.field.value,
 	(newValue) => {
-		inputValue.value[props.field.fieldname] = newValue; // Cuando le llega desde otro componente un campo con value ya determinado, asigna ese value al input.
+		if (newValue) {
+			inputValue.value[props.field.fieldname] = newValue; // Cuando le llega desde otro componente un campo con value ya determinado, asigna ese value al input.
+			emit("update-autocomplete-value", newValue, props.field);
+		}
 	},
 	{ immediate: true },
 );
