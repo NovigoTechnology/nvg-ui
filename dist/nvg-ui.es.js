@@ -34452,7 +34452,7 @@ const uD = (e, t) => {
     const y = (O, U) => {
       r.value[U.fieldname] = O.label, l.dataForm[U.fieldname] = O.value, l.fullDataForm[U.fieldname] = O;
     }, R = () => {
-      showQuickEntry.value = !1;
+      h.value = !1;
     }, z = () => {
       l.dataForm[n.field.fieldname] = null, r.value[n.field.fieldname] = null, l.filters[n.field.fieldname] = null, o("update-autocomplete-value", null, n.field), n.field.provideFilter && (f.value = {}, l.autocompleteFilter = f.value), v.value = !v.value, V(n.field.options);
     }, L = (O, U) => {
@@ -34588,7 +34588,7 @@ const uD = (e, t) => {
       ], 64);
     };
   }
-}, mD = /* @__PURE__ */ uD(hD, [["__scopeId", "data-v-0e04a0ad"]]);
+}, mD = /* @__PURE__ */ uD(hD, [["__scopeId", "data-v-1d5d6ba2"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {

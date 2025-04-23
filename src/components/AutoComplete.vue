@@ -205,7 +205,7 @@ const update_input = (valueObj, field) => {
 };
 
 const closeQuickEntry = () => {
-	showQuickEntry.value = false;
+	createNew.value = false;
 };
 
 const clear_input = () => {
