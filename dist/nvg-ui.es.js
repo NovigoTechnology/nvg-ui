@@ -30938,7 +30938,7 @@ const f4 = (e, t) => {
       ], 64);
     };
   }
-}, y4 = /* @__PURE__ */ f4(v4, [["__scopeId", "data-v-0a9677a7"]]);
+}, y4 = /* @__PURE__ */ f4(v4, [["__scopeId", "data-v-f55be9a0"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {
