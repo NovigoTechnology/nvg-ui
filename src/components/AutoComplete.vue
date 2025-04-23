@@ -129,7 +129,7 @@ const props = defineProps({
 	delInputValue: String,
 });
 
-const emit = defineEmits(["update-autocomplete-value", "update-filter"]);
+const emit = defineEmits(["update-autocomplete-value", "update-filter", "update-data"]);
 
 // Data
 const store = props.store;
@@ -159,7 +159,7 @@ watch(
 	(newValue) => {
 		if (newValue) {
 			inputValue.value[props.field.fieldname] = newValue;
-			emit("update-autocomplete-value", newValue, props.field);
+			emit("update-data", newValue, props.field);
 		}
 	},
 	{ immediate: true },
