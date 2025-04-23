@@ -33,6 +33,10 @@
   },
   "scripts": {
     "dev": "vite --config vite.config.js",
-    "build": "vite build --config vite.config.js"
+    "build": "vite build --config vite.config.js",
+    "version:patch": "npm version patch",
+    "version:minor": "npm version minor", 
+    "version:major": "npm version major",
+    "release": "npm run build && npm run version:patch && git push && git push --tags"
   }
 }
