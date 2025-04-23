@@ -30744,7 +30744,7 @@ const f4 = (e, t) => {
     editing: Boolean,
     delInputValue: String
   },
-  emits: ["update-autocomplete-value", "update-filter"],
+  emits: ["update-autocomplete-value", "update-filter", "update-data"],
   setup(e, { emit: t }) {
     const n = e, r = t, i = n.store, o = Ee({}), a = Ee([]), l = Ee([]), s = Ee([]), u = Ee({}), d = Ee(!1), f = Ee(!1), m = Ee(null);
     Yi(() => {
@@ -30752,7 +30752,7 @@ const f4 = (e, t) => {
     }), ze(
       () => n.field.value,
       (x) => {
-        x && (o.value[n.field.fieldname] = x, r("update-autocomplete-value", x, n.field));
+        x && (o.value[n.field.fieldname] = x, r("update-data", x, n.field));
       },
       { immediate: !0 }
     ), ze(
@@ -30938,7 +30938,7 @@ const f4 = (e, t) => {
       ], 64);
     };
   }
-}, y4 = /* @__PURE__ */ f4(v4, [["__scopeId", "data-v-f55be9a0"]]);
+}, y4 = /* @__PURE__ */ f4(v4, [["__scopeId", "data-v-09329192"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {
