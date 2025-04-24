@@ -102,6 +102,7 @@
 import { ref, onMounted, watch, reactive, onUnmounted } from "vue";
 import AutoComplete from "primevue/autocomplete";
 import Button from "primevue/button";
+import emitter from "../utils/mitt"
 
 // Define props and emit
 const props = defineProps({
@@ -144,6 +145,17 @@ const autoCompleteRef = ref(null);
 
 // Hooks
 onMounted(() => {
+
+	if (props.field.dependingField) {
+        emitter.on(props.field.dependingField + '_cleared', () => {
+            clear_input();
+            getLinkOptions(props.field.options, {});
+        });
+		emitter.on(props.field.dependingField + '_updated', () => {
+            clear_input();
+			getLinkOptions(props.field.options);
+        });
+    }
 	if (store.filters[props.field.fieldname]) {
 		inputValue.value[props.field.fieldname] = store.filters[props.field.fieldname];
 	}
@@ -166,31 +178,19 @@ watch(
 );
 
 watch(
-	() => store.clear,
-	() => {
-		inputValue.value[props.field.fieldname] = "";
-	},
-);
-
-watch(
-	() => props.filters,
-	(newValue) => {
-		if (props.field.needFilter && newValue[props.field.dependingField]) {
-			getLinkOptions(props.field.options, newValue);
-		} else {
-			getLinkOptions(props.field.options);
-		}
-	},
-	{ deep: true },
-);
-
-watch(
-	() => props.clearFilters,
-	(newValue) => {
-		if (newValue) {
-			inputValue.value[props.field.fieldname] = "";
-		}
-	},
+    () => props.filters,
+    (newValue) => {
+        if (props.field.needFilter && props.field.dependingField) {
+            if (newValue && newValue[props.field.dependingField]) {
+                getLinkOptions(props.field.options, {
+                    [props.field.dependingField]: newValue[props.field.dependingField]
+                });
+            } else {
+                clear_input();
+            }
+        }
+    },
+    { deep: true }
 );
 
 watch(
@@ -243,17 +243,23 @@ const closeQuickEntry = () => {
 };
 
 const clear_input = () => {
-	store.dataForm[props.field.fieldname] = null; // Para que se borre el valor en el formulario final
-	inputValue.value[props.field.fieldname] = null;
-	store.filters[props.field.fieldname] = null;
-	emit("update-autocomplete-value", null, props.field);
-	if (props.field.provideFilter) {
-		filters.value = {};
-		store.autocompleteFilter = filters.value;
-	}
-	refresh.value = !refresh.value;
+    store.dataForm[props.field.fieldname] = null;
+    inputValue.value[props.field.fieldname] = null;
+    store.filters[props.field.fieldname] = null;
 
-	getLinkOptions(props.field.options);
+	if (props.field.hasDependencies) {
+		emitter.emit(props.field.fieldname + '_cleared');
+	}
+
+    
+    emit("update-autocomplete-value", null, props.field);
+    if (props.field.provideFilter) {
+        filters.value = {};
+        store.autocompleteFilter = filters.value;
+    }
+    refresh.value = !refresh.value;
+
+    getLinkOptions(props.field.options);
 };
 
 const selectOption = (selectedOption, field) => {
@@ -284,6 +290,10 @@ const selectOption = (selectedOption, field) => {
 	store.filters[field.fieldname] = translatedValue;
 	emit("update-autocomplete-value", selectedOption, field);
 
+	if (props.field.hasDependencies) {
+		emitter.emit(props.field.fieldname + '_updated');
+	}
+
 	if (field.clear_input_after_selection) {
 		inputValue.value[field.fieldname] = null;
 		refresh.value = !refresh.value;
@@ -291,27 +301,37 @@ const selectOption = (selectedOption, field) => {
 };
 
 const getLinkOptions = (doctype, filters = {}) => {
-	if (props.quickEntry && props.filters) {
-		filters = props.filters;
-	}
-	if (props.needFilter && props.filters) {
-		filters = props.filters;
-	}
+    let finalFilters = {...filters};
 
-	frappe.call({
-		method: "frappe.desk.search.search_link",
-		args: {
-			doctype: doctype,
-			txt: "",
-			page_length: 0,
-			filters: filters,
-		},
-		callback: (r) => {
-			if (r.message) {
-				listData.value = r.message;
-			}
-		},
-	});
+    // Si estamos en quickEntry, usar los filtros de props
+    if (props.quickEntry && props.filters) {
+        finalFilters = {...finalFilters, ...props.filters};
+    }
+
+    // Si el campo necesita filtros, asegurarse de que existan
+    if (props.field.needFilter && props.filters) {
+        const dependingFieldValue = props.filters[props.field.dependingField];
+        if (dependingFieldValue) {
+            finalFilters[props.field.dependingField] = dependingFieldValue;
+        }
+    }
+
+    frappe.call({
+        method: "frappe.desk.search.search_link",
+        args: {
+            doctype: doctype,
+            txt: "",
+            page_length: 0,
+            filters: finalFilters,
+        },
+        callback: (r) => {
+            if (r.message) {
+                listData.value = r.message;
+            } else {
+                listData.value = [];
+            }
+        },
+    });
 };
 
 const removeAccents = (str) => {
@@ -374,6 +394,11 @@ const handleClick = () => {
 };
 
 onUnmounted(() => {
+
+	if (props.field.dependingField) {
+        emitter.off(props.field.dependingField + '_cleared');
+    }
+
 	if (props.editing && !props.field.value) {
 		clear_input();
 	}
