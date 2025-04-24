@@ -397,6 +397,7 @@ onUnmounted(() => {
 
 	if (props.field.dependingField) {
         emitter.off(props.field.dependingField + '_cleared');
+        emitter.off(props.field.dependingField + '_updated');
     }
 
 	if (props.editing && !props.field.value) {
