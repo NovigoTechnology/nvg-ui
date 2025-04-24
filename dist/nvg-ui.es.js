@@ -30818,7 +30818,7 @@ const Ot = h4(), m4 = (e, t) => {
     }, v = () => {
       d.value = !1;
     }, I = () => {
-      i.dataForm[n.field.fieldname] = null, o.value[n.field.fieldname] = null, i.filters[n.field.fieldname] = null, n.field.hasDependencies && Ot.emit(n.field.fieldname + "_cleared"), r("update-autocomplete-value", null, n.field), n.field.provideFilter && (u.value = {}, i.autocompleteFilter = u.value), f.value = !f.value, P(n.field.options);
+      i.dataForm[n.field.fieldname] = null, o.value[n.field.fieldname] = null, i.filters[n.field.fieldname] = null, n.field.hasDependencies && Ot.emit(n.field.fieldname + "_cleared"), r("update-autocomplete-value", null, n.field), n.field.provideFilter && (u.value = {}, i.autocompleteFilter = u.value, n.field.value = null), f.value = !f.value, P(n.field.options);
     }, C = (x, F) => {
       F.fieldtype === "Table" || (i.dataForm[F.fieldname] = x.value, F.fieldname == "referring_physician" && (i.physician = x), i.fullDataForm[F.fieldname] = {
         value: x.value,
@@ -30960,7 +30960,7 @@ const Ot = h4(), m4 = (e, t) => {
       ], 64);
     };
   }
-}, k4 = /* @__PURE__ */ m4(w4, [["__scopeId", "data-v-f9ef5fb0"]]);
+}, k4 = /* @__PURE__ */ m4(w4, [["__scopeId", "data-v-dbe8a174"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {

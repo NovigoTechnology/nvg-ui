@@ -265,6 +265,7 @@ const clear_input = () => {
     if (props.field.provideFilter) {
         filters.value = {};
         store.autocompleteFilter = filters.value;
+		props.field.value = null;
     }
     refresh.value = !refresh.value;
 
