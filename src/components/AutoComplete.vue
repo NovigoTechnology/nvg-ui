@@ -205,6 +205,13 @@ watch(
 );
 
 watch(
+	() => store.clear,
+	() => {
+		inputValue.value[props.field.fieldname] = "";
+	},
+);
+
+watch(
 	() => store.edited,
 	(newValue) => {
 		update_input(

@@ -1,4 +1,4 @@
-import { inject as _o, markRaw as _l, ref as Ee, readonly as es, getCurrentInstance as br, onMounted as Zi, nextTick as ts, watch as We, useId as ns, mergeProps as p, createElementBlock as g, openBlock as c, createElementVNode as O, createCommentVNode as k, renderSlot as w, createBlock as b, resolveDynamicComponent as A, toDisplayString as K, Teleport as os, resolveComponent as M, Fragment as V, renderList as re, createVNode as N, resolveDirective as Ie, normalizeStyle as co, normalizeClass as H, withCtx as T, Transition as Je, createSlots as Ve, withDirectives as ge, createTextVNode as be, vShow as Zt, withKeys as se, reactive as rs, computed as is, normalizeProps as Me, toHandlers as Un, withModifiers as er, guardReactiveProps as Vt, TransitionGroup as as, onUnmounted as ls, unref as vr } from "vue";
+import { inject as _o, markRaw as _l, ref as Ee, readonly as es, getCurrentInstance as br, onMounted as Zi, nextTick as ts, watch as Ne, useId as ns, mergeProps as p, createElementBlock as g, openBlock as c, createElementVNode as O, createCommentVNode as k, renderSlot as w, createBlock as b, resolveDynamicComponent as A, toDisplayString as K, Teleport as os, resolveComponent as M, Fragment as V, renderList as re, createVNode as N, resolveDirective as Ie, normalizeStyle as co, normalizeClass as H, withCtx as T, Transition as Je, createSlots as Ve, withDirectives as ge, createTextVNode as be, vShow as Zt, withKeys as se, reactive as rs, computed as is, normalizeProps as Me, toHandlers as Un, withModifiers as er, guardReactiveProps as Vt, TransitionGroup as as, onUnmounted as ls, unref as vr } from "vue";
 function Et() {
   const e = /* @__PURE__ */ new Map();
   return {
@@ -676,7 +676,7 @@ function zs() {
     getCurrent: (a) => r(a)
   };
 }
-var ce = zs(), As = Object.defineProperty, js = Object.defineProperties, Vs = Object.getOwnPropertyDescriptors, ro = Object.getOwnPropertySymbols, ia = Object.prototype.hasOwnProperty, aa = Object.prototype.propertyIsEnumerable, xr = (e, t, n) => t in e ? As(e, t, { enumerable: !0, configurable: !0, writable: !0, value: n }) : e[t] = n, Ne = (e, t) => {
+var ce = zs(), As = Object.defineProperty, js = Object.defineProperties, Vs = Object.getOwnPropertyDescriptors, ro = Object.getOwnPropertySymbols, ia = Object.prototype.hasOwnProperty, aa = Object.prototype.propertyIsEnumerable, xr = (e, t, n) => t in e ? As(e, t, { enumerable: !0, configurable: !0, writable: !0, value: n }) : e[t] = n, Ge = (e, t) => {
   for (var n in t || (t = {}))
     ia.call(t, n) && xr(e, n, t[n]);
   if (ro)
@@ -817,7 +817,7 @@ var He = {
     const { preset: m, options: h } = t;
     let v, I, C, P, B, D, S;
     if (X(m) && h.transform !== "strict") {
-      const { primitive: x, semantic: F, extend: L } = m, j = F || {}, { colorScheme: U } = j, Z = nt(j, ["colorScheme"]), ne = L || {}, { colorScheme: de } = ne, ve = nt(ne, ["colorScheme"]), ke = U || {}, { dark: pe } = ke, z = nt(ke, ["dark"]), R = de || {}, { dark: E } = R, G = nt(R, ["dark"]), q = X(x) ? this._toVariables({ primitive: x }, h) : {}, W = X(Z) ? this._toVariables({ semantic: Z }, h) : {}, le = X(z) ? this._toVariables({ light: z }, h) : {}, Se = X(pe) ? this._toVariables({ dark: pe }, h) : {}, Ce = X(ve) ? this._toVariables({ semantic: ve }, h) : {}, Ge = X(G) ? this._toVariables({ light: G }, h) : {}, Ke = X(E) ? this._toVariables({ dark: E }, h) : {}, [tt, Fl] = [(o = q.declarations) != null ? o : "", q.tokens], [zl, Al] = [(a = W.declarations) != null ? a : "", W.tokens || []], [jl, Vl] = [(l = le.declarations) != null ? l : "", le.tokens || []], [Kl, Hl] = [(s = Se.declarations) != null ? s : "", Se.tokens || []], [Nl, Gl] = [(u = Ce.declarations) != null ? u : "", Ce.tokens || []], [Ul, Wl] = [(d = Ge.declarations) != null ? d : "", Ge.tokens || []], [Yl, Zl] = [(f = Ke.declarations) != null ? f : "", Ke.tokens || []];
+      const { primitive: x, semantic: F, extend: L } = m, j = F || {}, { colorScheme: U } = j, Z = nt(j, ["colorScheme"]), ne = L || {}, { colorScheme: de } = ne, ve = nt(ne, ["colorScheme"]), ke = U || {}, { dark: pe } = ke, z = nt(ke, ["dark"]), R = de || {}, { dark: E } = R, G = nt(R, ["dark"]), q = X(x) ? this._toVariables({ primitive: x }, h) : {}, W = X(Z) ? this._toVariables({ semantic: Z }, h) : {}, le = X(z) ? this._toVariables({ light: z }, h) : {}, Se = X(pe) ? this._toVariables({ dark: pe }, h) : {}, Ce = X(ve) ? this._toVariables({ semantic: ve }, h) : {}, Ue = X(G) ? this._toVariables({ light: G }, h) : {}, Ke = X(E) ? this._toVariables({ dark: E }, h) : {}, [tt, Fl] = [(o = q.declarations) != null ? o : "", q.tokens], [zl, Al] = [(a = W.declarations) != null ? a : "", W.tokens || []], [jl, Vl] = [(l = le.declarations) != null ? l : "", le.tokens || []], [Kl, Hl] = [(s = Se.declarations) != null ? s : "", Se.tokens || []], [Nl, Gl] = [(u = Ce.declarations) != null ? u : "", Ce.tokens || []], [Ul, Wl] = [(d = Ue.declarations) != null ? d : "", Ue.tokens || []], [Yl, Zl] = [(f = Ke.declarations) != null ? f : "", Ke.tokens || []];
       v = this.transformCSS(e, tt, "light", "variable", h, r, i), I = Fl;
       const ql = this.transformCSS(e, `${zl}${jl}`, "light", "variable", h, r, i), Xl = this.transformCSS(e, `${Kl}`, "dark", "variable", h, r, i);
       C = `${ql}${Xl}`, P = [.../* @__PURE__ */ new Set([...Al, ...Vl, ...Hl])];
@@ -844,7 +844,7 @@ var He = {
     var l, s, u;
     let d, f, m;
     if (X(t) && n.transform !== "strict") {
-      const h = e.replace("-directive", ""), v = t, { colorScheme: I, extend: C, css: P } = v, B = nt(v, ["colorScheme", "extend", "css"]), D = C || {}, { colorScheme: S } = D, x = nt(D, ["colorScheme"]), F = I || {}, { dark: L } = F, j = nt(F, ["dark"]), U = S || {}, { dark: Z } = U, ne = nt(U, ["dark"]), de = X(B) ? this._toVariables({ [h]: Ne(Ne({}, B), x) }, n) : {}, ve = X(j) ? this._toVariables({ [h]: Ne(Ne({}, j), ne) }, n) : {}, ke = X(L) ? this._toVariables({ [h]: Ne(Ne({}, L), Z) }, n) : {}, [pe, z] = [(l = de.declarations) != null ? l : "", de.tokens || []], [R, E] = [(s = ve.declarations) != null ? s : "", ve.tokens || []], [G, q] = [(u = ke.declarations) != null ? u : "", ke.tokens || []], W = this.transformCSS(h, `${pe}${R}`, "light", "variable", n, i, o, a), le = this.transformCSS(h, G, "dark", "variable", n, i, o, a);
+      const h = e.replace("-directive", ""), v = t, { colorScheme: I, extend: C, css: P } = v, B = nt(v, ["colorScheme", "extend", "css"]), D = C || {}, { colorScheme: S } = D, x = nt(D, ["colorScheme"]), F = I || {}, { dark: L } = F, j = nt(F, ["dark"]), U = S || {}, { dark: Z } = U, ne = nt(U, ["dark"]), de = X(B) ? this._toVariables({ [h]: Ge(Ge({}, B), x) }, n) : {}, ve = X(j) ? this._toVariables({ [h]: Ge(Ge({}, j), ne) }, n) : {}, ke = X(L) ? this._toVariables({ [h]: Ge(Ge({}, L), Z) }, n) : {}, [pe, z] = [(l = de.declarations) != null ? l : "", de.tokens || []], [R, E] = [(s = ve.declarations) != null ? s : "", ve.tokens || []], [G, q] = [(u = ke.declarations) != null ? u : "", ke.tokens || []], W = this.transformCSS(h, `${pe}${R}`, "light", "variable", n, i, o, a), le = this.transformCSS(h, G, "dark", "variable", n, i, o, a);
       d = `${W}${le}`, f = [.../* @__PURE__ */ new Set([...z, ...E, ...q])], m = De(P, { dt: Yt });
     }
     return {
@@ -972,8 +972,8 @@ var He = {
   _tokens: {},
   update(e = {}) {
     const { theme: t } = e;
-    t && (this._theme = ko(Ne({}, t), {
-      options: Ne(Ne({}, this.defaults.options), t.options)
+    t && (this._theme = ko(Ge({}, t), {
+      options: Ge(Ge({}, this.defaults.options), t.options)
     }), this._tokens = He.createTokens(this.preset, this.defaults), this.clearLoadedStyleNames());
   },
   get theme() {
@@ -1000,13 +1000,13 @@ var He = {
     return this.preset;
   },
   setPreset(e) {
-    this._theme = ko(Ne({}, this.theme), { preset: e }), this._tokens = He.createTokens(e, this.defaults), this.clearLoadedStyleNames(), Oe.emit("preset:change", e), Oe.emit("theme:change", this.theme);
+    this._theme = ko(Ge({}, this.theme), { preset: e }), this._tokens = He.createTokens(e, this.defaults), this.clearLoadedStyleNames(), Oe.emit("preset:change", e), Oe.emit("theme:change", this.theme);
   },
   getOptions() {
     return this.options;
   },
   setOptions(e) {
-    this._theme = ko(Ne({}, this.theme), { options: e }), this.clearLoadedStyleNames(), Oe.emit("options:change", e), Oe.emit("theme:change", this.theme);
+    this._theme = ko(Ge({}, this.theme), { options: e }), this.clearLoadedStyleNames(), Oe.emit("options:change", e), Oe.emit("theme:change", this.theme);
   },
   getLayerNames() {
     return [...this._layerNames];
@@ -1153,7 +1153,7 @@ function _s(e) {
         return ne == null ? void 0 : ne(Ce, {
           name: W
         });
-      }, L == null || L(W)), !n.value && (ke = We(r, function(Ce) {
+      }, L == null || L(W)), !n.value && (ke = Ne(r, function(Ce) {
         i.value.textContent = Ce, U == null || U(W);
       }, {
         immediate: !0
@@ -6474,7 +6474,7 @@ function un(e) {
     return t && typeof Symbol == "function" && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t;
   }, un(e);
 }
-function Ue(e, t, n) {
+function We(e, t, n) {
   return (t = uc(t)) in e ? Object.defineProperty(e, t, { value: n, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = n, e;
 }
 function uc(e) {
@@ -6494,7 +6494,7 @@ function dc(e, t) {
 var cc = {
   root: function(t) {
     var n = t.instance, r = t.props;
-    return ["p-button p-component", Ue(Ue(Ue(Ue(Ue(Ue(Ue(Ue(Ue({
+    return ["p-button p-component", We(We(We(We(We(We(We(We(We({
       "p-button-icon-only": n.hasIcon && !r.label && !r.badge,
       "p-button-vertical": (r.iconPos === "top" || r.iconPos === "bottom") && r.label,
       "p-button-loading": r.loading,
@@ -6504,7 +6504,7 @@ var cc = {
   loadingIcon: "p-button-loading-icon",
   icon: function(t) {
     var n = t.props;
-    return ["p-button-icon", Ue({}, "p-button-icon-".concat(n.iconPos), n.label)];
+    return ["p-button-icon", We({}, "p-button-icon-".concat(n.iconPos), n.label)];
   },
   label: "p-button-label"
 }, pc = Y.extend({
@@ -11152,7 +11152,7 @@ function Lp(e, t) {
   Oe.on("theme:change", function(s) {
     n.value || (e.config.globalProperties.$primevue.config.theme = s, n.value = !0);
   });
-  var i = We(t.config, function(s, u) {
+  var i = Ne(t.config, function(s, u) {
     ft.emit("config:change", {
       newValue: s,
       oldValue: u
@@ -11160,7 +11160,7 @@ function Lp(e, t) {
   }, {
     immediate: !0,
     deep: !0
-  }), o = We(function() {
+  }), o = Ne(function() {
     return t.config.ripple;
   }, function(s, u) {
     ft.emit("config:ripple:change", {
@@ -11170,7 +11170,7 @@ function Lp(e, t) {
   }, {
     immediate: !0,
     deep: !0
-  }), a = We(function() {
+  }), a = Ne(function() {
     return t.config.theme;
   }, function(s, u) {
     n.value || ue.setTheme(s), t.config.unstyled || r(), n.value = !1, ft.emit("config:theme:change", {
@@ -11180,7 +11180,7 @@ function Lp(e, t) {
   }, {
     immediate: !0,
     deep: !1
-  }), l = We(function() {
+  }), l = Ne(function() {
     return t.config.unstyled;
   }, function(s, u) {
     !s && t.config.theme && r(), ft.emit("config:unstyled:change", {
@@ -18011,13 +18011,13 @@ function Ut() {
     function E(q, W, le, Se) {
       var Ce = f(z[q], z, W);
       if (Ce.type !== "throw") {
-        var Ge = Ce.arg, Ke = Ge.value;
+        var Ue = Ce.arg, Ke = Ue.value;
         return Ke && uo(Ke) == "object" && r.call(Ke, "__await") ? R.resolve(Ke.__await).then(function(tt) {
           E("next", tt, le, Se);
         }, function(tt) {
           E("throw", tt, le, Se);
         }) : R.resolve(Ke).then(function(tt) {
-          Ge.value = tt, le(Ge);
+          Ue.value = tt, le(Ue);
         }, function(tt) {
           return E("throw", tt, le, Se);
         });
@@ -18027,8 +18027,8 @@ function Ut() {
     var G;
     i(this, "_invoke", { value: function(W, le) {
       function Se() {
-        return new R(function(Ce, Ge) {
-          E(W, le, Ce, Ge);
+        return new R(function(Ce, Ue) {
+          E(W, le, Ce, Ue);
         });
       }
       return G = G ? G.then(Se, Se) : Se();
@@ -18139,8 +18139,8 @@ function Ut() {
   }, dispatchException: function(R) {
     if (this.done) throw R;
     var E = this;
-    function G(Ge, Ke) {
-      return le.type = "throw", le.arg = R, E.next = Ge, Ke && (E.method = "next", E.arg = e), !!Ke;
+    function G(Ue, Ke) {
+      return le.type = "throw", le.arg = R, E.next = Ue, Ke && (E.method = "next", E.arg = e), !!Ke;
     }
     for (var q = this.tryEntries.length - 1; q >= 0; --q) {
       var W = this.tryEntries[q], le = W.completion;
@@ -30769,13 +30769,13 @@ const Ot = h4(), m4 = (e, t) => {
       }), Ot.on(n.field.dependingField + "_updated", () => {
         I(), P(n.field.options);
       })), i.filters[n.field.fieldname] && (o.value[n.field.fieldname] = i.filters[n.field.fieldname]), n.field.needFilter && n.filters[n.field.dependingField] ? P(n.field.options, n.filters) : P(n.field.options);
-    }), We(
+    }), Ne(
       () => n.field.value,
       (x) => {
         x ? (o.value[n.field.fieldname] = x, r("update-data", x, n.field)) : o.value[n.field.fieldname] = x;
       },
       { immediate: !0 }
-    ), We(
+    ), Ne(
       () => n.filters,
       (x) => {
         n.field.needFilter && n.field.dependingField && (x && x[n.field.dependingField] ? P(n.field.options, {
@@ -30783,12 +30783,17 @@ const Ot = h4(), m4 = (e, t) => {
         }) : I());
       },
       { deep: !0 }
-    ), We(
+    ), Ne(
       () => n.clearInput,
       (x) => {
         x && I();
       }
-    ), We(
+    ), Ne(
+      () => i.clear,
+      () => {
+        o.value[n.field.fieldname] = "";
+      }
+    ), Ne(
       () => i.edited,
       (x) => {
         h(
@@ -30801,7 +30806,7 @@ const Ot = h4(), m4 = (e, t) => {
         );
       },
       { deep: !0 }
-    ), We(
+    ), Ne(
       () => n.delInputValue,
       (x) => {
         x && (o.value[x] = "", i.dataForm[x] = null, i.fullDataForm[x] = null, f.value = !f.value);
@@ -30955,7 +30960,7 @@ const Ot = h4(), m4 = (e, t) => {
       ], 64);
     };
   }
-}, k4 = /* @__PURE__ */ m4(w4, [["__scopeId", "data-v-cdd5bf32"]]);
+}, k4 = /* @__PURE__ */ m4(w4, [["__scopeId", "data-v-f9ef5fb0"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {
