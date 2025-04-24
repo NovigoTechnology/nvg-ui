@@ -172,6 +172,8 @@ watch(
 		if (newValue) {
 			inputValue.value[props.field.fieldname] = newValue;
 			emit("update-data", newValue, props.field);
+		} else {
+			inputValue.value[props.field.fieldname] = newValue;
 		}
 	},
 	{ immediate: true },
@@ -408,6 +410,12 @@ onUnmounted(() => {
 	}
 });
 </script>
+
+<style>
+.p-autocomplete-overlay {
+	z-index: 2000 !important;
+}
+</style>
 
 <style scoped>
 .p-disabled {
