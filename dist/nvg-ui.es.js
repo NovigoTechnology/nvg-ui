@@ -30901,7 +30901,6 @@ const Ot = h4(), m4 = (e, t) => {
               class: H({ "p-inputtext:disabled": e.disabled }),
               onClear: F[1] || (F[1] = () => I),
               size: n.size,
-              '"': "",
               onOptionSelect: F[3] || (F[3] = (G) => C(l.value[s.value.indexOf(G.value)], e.field)),
               optionLabel: (G) => G.label || G.value,
               dropdown: n.field.fieldtype !== "Table" && !o.value[n.field.fieldname] === "" && o.value[n.field.fieldname],
@@ -30964,7 +30963,7 @@ const Ot = h4(), m4 = (e, t) => {
       ], 64);
     };
   }
-}, k4 = /* @__PURE__ */ m4(w4, [["__scopeId", "data-v-2037ad23"]]);
+}, k4 = /* @__PURE__ */ m4(w4, [["__scopeId", "data-v-274af4c9"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {

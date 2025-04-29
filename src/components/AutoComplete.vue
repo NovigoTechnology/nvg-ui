@@ -21,7 +21,7 @@
 				:class="{ 'p-inputtext:disabled': disabled }"
 				@clear="() => clear_input"
 				:size="props.size"
-				@update:modelValue="(e) => e === '' && clear_input()""
+				@update:modelValue="(e) => e === '' && clear_input()"
 				@option-select="
 					(e) => selectOption(suggestions[translatedSuggestions.indexOf(e.value)], field)
 				"
