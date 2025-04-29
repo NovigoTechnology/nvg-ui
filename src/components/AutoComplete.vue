@@ -21,6 +21,7 @@
 				:class="{ 'p-inputtext:disabled': disabled }"
 				@clear="() => clear_input"
 				:size="props.size"
+				@update:modelValue="(e) => e === '' && clear_input()""
 				@option-select="
 					(e) => selectOption(suggestions[translatedSuggestions.indexOf(e.value)], field)
 				"
@@ -99,10 +100,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, reactive, onUnmounted } from "vue";
+import { ref, onMounted, watch, onUnmounted } from "vue";
 import AutoComplete from "primevue/autocomplete";
 import Button from "primevue/button";
-import emitter from "../utils/mitt"
+import emitter from "../mitt/mitt"
 
 // Define props and emit
 const props = defineProps({
