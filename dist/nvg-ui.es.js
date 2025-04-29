@@ -817,7 +817,7 @@ var He = {
     const { preset: m, options: h } = t;
     let v, I, C, P, B, D, S;
     if (X(m) && h.transform !== "strict") {
-      const { primitive: x, semantic: F, extend: L } = m, j = F || {}, { colorScheme: U } = j, Z = nt(j, ["colorScheme"]), ne = L || {}, { colorScheme: de } = ne, ve = nt(ne, ["colorScheme"]), ke = U || {}, { dark: pe } = ke, z = nt(ke, ["dark"]), R = de || {}, { dark: E } = R, G = nt(R, ["dark"]), q = X(x) ? this._toVariables({ primitive: x }, h) : {}, W = X(Z) ? this._toVariables({ semantic: Z }, h) : {}, le = X(z) ? this._toVariables({ light: z }, h) : {}, Se = X(pe) ? this._toVariables({ dark: pe }, h) : {}, Ce = X(ve) ? this._toVariables({ semantic: ve }, h) : {}, Ue = X(G) ? this._toVariables({ light: G }, h) : {}, Ke = X(E) ? this._toVariables({ dark: E }, h) : {}, [tt, Fl] = [(o = q.declarations) != null ? o : "", q.tokens], [zl, Al] = [(a = W.declarations) != null ? a : "", W.tokens || []], [jl, Vl] = [(l = le.declarations) != null ? l : "", le.tokens || []], [Kl, Hl] = [(s = Se.declarations) != null ? s : "", Se.tokens || []], [Nl, Gl] = [(u = Ce.declarations) != null ? u : "", Ce.tokens || []], [Ul, Wl] = [(d = Ue.declarations) != null ? d : "", Ue.tokens || []], [Yl, Zl] = [(f = Ke.declarations) != null ? f : "", Ke.tokens || []];
+      const { primitive: x, semantic: F, extend: L } = m, j = F || {}, { colorScheme: G } = j, Z = nt(j, ["colorScheme"]), ne = L || {}, { colorScheme: de } = ne, ve = nt(ne, ["colorScheme"]), ke = G || {}, { dark: pe } = ke, z = nt(ke, ["dark"]), R = de || {}, { dark: E } = R, U = nt(R, ["dark"]), q = X(x) ? this._toVariables({ primitive: x }, h) : {}, W = X(Z) ? this._toVariables({ semantic: Z }, h) : {}, le = X(z) ? this._toVariables({ light: z }, h) : {}, Se = X(pe) ? this._toVariables({ dark: pe }, h) : {}, Ce = X(ve) ? this._toVariables({ semantic: ve }, h) : {}, Ue = X(U) ? this._toVariables({ light: U }, h) : {}, Ke = X(E) ? this._toVariables({ dark: E }, h) : {}, [tt, Fl] = [(o = q.declarations) != null ? o : "", q.tokens], [zl, Al] = [(a = W.declarations) != null ? a : "", W.tokens || []], [jl, Vl] = [(l = le.declarations) != null ? l : "", le.tokens || []], [Kl, Hl] = [(s = Se.declarations) != null ? s : "", Se.tokens || []], [Nl, Gl] = [(u = Ce.declarations) != null ? u : "", Ce.tokens || []], [Ul, Wl] = [(d = Ue.declarations) != null ? d : "", Ue.tokens || []], [Yl, Zl] = [(f = Ke.declarations) != null ? f : "", Ke.tokens || []];
       v = this.transformCSS(e, tt, "light", "variable", h, r, i), I = Fl;
       const ql = this.transformCSS(e, `${zl}${jl}`, "light", "variable", h, r, i), Xl = this.transformCSS(e, `${Kl}`, "dark", "variable", h, r, i);
       C = `${ql}${Xl}`, P = [.../* @__PURE__ */ new Set([...Al, ...Vl, ...Hl])];
@@ -844,7 +844,7 @@ var He = {
     var l, s, u;
     let d, f, m;
     if (X(t) && n.transform !== "strict") {
-      const h = e.replace("-directive", ""), v = t, { colorScheme: I, extend: C, css: P } = v, B = nt(v, ["colorScheme", "extend", "css"]), D = C || {}, { colorScheme: S } = D, x = nt(D, ["colorScheme"]), F = I || {}, { dark: L } = F, j = nt(F, ["dark"]), U = S || {}, { dark: Z } = U, ne = nt(U, ["dark"]), de = X(B) ? this._toVariables({ [h]: Ge(Ge({}, B), x) }, n) : {}, ve = X(j) ? this._toVariables({ [h]: Ge(Ge({}, j), ne) }, n) : {}, ke = X(L) ? this._toVariables({ [h]: Ge(Ge({}, L), Z) }, n) : {}, [pe, z] = [(l = de.declarations) != null ? l : "", de.tokens || []], [R, E] = [(s = ve.declarations) != null ? s : "", ve.tokens || []], [G, q] = [(u = ke.declarations) != null ? u : "", ke.tokens || []], W = this.transformCSS(h, `${pe}${R}`, "light", "variable", n, i, o, a), le = this.transformCSS(h, G, "dark", "variable", n, i, o, a);
+      const h = e.replace("-directive", ""), v = t, { colorScheme: I, extend: C, css: P } = v, B = nt(v, ["colorScheme", "extend", "css"]), D = C || {}, { colorScheme: S } = D, x = nt(D, ["colorScheme"]), F = I || {}, { dark: L } = F, j = nt(F, ["dark"]), G = S || {}, { dark: Z } = G, ne = nt(G, ["dark"]), de = X(B) ? this._toVariables({ [h]: Ge(Ge({}, B), x) }, n) : {}, ve = X(j) ? this._toVariables({ [h]: Ge(Ge({}, j), ne) }, n) : {}, ke = X(L) ? this._toVariables({ [h]: Ge(Ge({}, L), Z) }, n) : {}, [pe, z] = [(l = de.declarations) != null ? l : "", de.tokens || []], [R, E] = [(s = ve.declarations) != null ? s : "", ve.tokens || []], [U, q] = [(u = ke.declarations) != null ? u : "", ke.tokens || []], W = this.transformCSS(h, `${pe}${R}`, "light", "variable", n, i, o, a), le = this.transformCSS(h, U, "dark", "variable", n, i, o, a);
       d = `${W}${le}`, f = [.../* @__PURE__ */ new Set([...z, ...E, ...q])], m = De(P, { dt: Yt });
     }
     return {
@@ -1139,11 +1139,11 @@ function Js(e) {
 }
 var Qs = 0;
 function _s(e) {
-  var t = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, n = Ee(!1), r = Ee(e), i = Ee(null), o = oa() ? window.document : void 0, a = t.document, l = a === void 0 ? o : a, s = t.immediate, u = s === void 0 ? !0 : s, d = t.manual, f = d === void 0 ? !1 : d, m = t.name, h = m === void 0 ? "style_".concat(++Qs) : m, v = t.id, I = v === void 0 ? void 0 : v, C = t.media, P = C === void 0 ? void 0 : C, B = t.nonce, D = B === void 0 ? void 0 : B, S = t.first, x = S === void 0 ? !1 : S, F = t.onMounted, L = F === void 0 ? void 0 : F, j = t.onUpdated, U = j === void 0 ? void 0 : j, Z = t.onLoad, ne = Z === void 0 ? void 0 : Z, de = t.props, ve = de === void 0 ? {} : de, ke = function() {
+  var t = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, n = Ee(!1), r = Ee(e), i = Ee(null), o = oa() ? window.document : void 0, a = t.document, l = a === void 0 ? o : a, s = t.immediate, u = s === void 0 ? !0 : s, d = t.manual, f = d === void 0 ? !1 : d, m = t.name, h = m === void 0 ? "style_".concat(++Qs) : m, v = t.id, I = v === void 0 ? void 0 : v, C = t.media, P = C === void 0 ? void 0 : C, B = t.nonce, D = B === void 0 ? void 0 : B, S = t.first, x = S === void 0 ? !1 : S, F = t.onMounted, L = F === void 0 ? void 0 : F, j = t.onUpdated, G = j === void 0 ? void 0 : j, Z = t.onLoad, ne = Z === void 0 ? void 0 : Z, de = t.props, ve = de === void 0 ? {} : de, ke = function() {
   }, pe = function(E) {
-    var G = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+    var U = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
     if (l) {
-      var q = Br(Br({}, ve), G), W = q.name || h, le = q.id || I, Se = q.nonce || D;
+      var q = Br(Br({}, ve), U), W = q.name || h, le = q.id || I, Se = q.nonce || D;
       i.value = l.querySelector('style[data-primevue-style-id="'.concat(W, '"]')) || l.getElementById(le) || l.createElement("style"), i.value.isConnected || (r.value = E || e, no(i.value, {
         type: "text/css",
         id: le,
@@ -1154,7 +1154,7 @@ function _s(e) {
           name: W
         });
       }, L == null || L(W)), !n.value && (ke = Ne(r, function(Ce) {
-        i.value.textContent = Ce, U == null || U(W);
+        i.value.textContent = Ce, G == null || G(W);
       }, {
         immediate: !0
       }), n.value = !0);
@@ -3668,15 +3668,15 @@ var Hn = {
       }) : t > -1;
       if (a) {
         var l = this.first, s = this.element, u = s.scrollTop, d = u === void 0 ? 0 : u, f = s.scrollLeft, m = f === void 0 ? 0 : f, h = this.calculateNumItems(), v = h.numToleratedItems, I = this.getContentPosition(), C = this.itemSize, P = function() {
-          var j = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0, U = arguments.length > 1 ? arguments[1] : void 0;
-          return j <= U ? 0 : j;
-        }, B = function(j, U, Z) {
-          return j * U + Z;
+          var j = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0, G = arguments.length > 1 ? arguments[1] : void 0;
+          return j <= G ? 0 : j;
+        }, B = function(j, G, Z) {
+          return j * G + Z;
         }, D = function() {
-          var j = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0, U = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
+          var j = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0, G = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
           return n.scrollTo({
             left: j,
-            top: U,
+            top: G,
             behavior: r
           });
         }, S = i ? {
@@ -3875,8 +3875,8 @@ var Hn = {
         return ne <= pe ? pe : z ? ve - ke - pe : de + pe - 1;
       }, d = function(ne, de, ve, ke, pe, z, R, E) {
         if (ne <= z) return 0;
-        var G = Math.max(0, R ? ne < de ? ve : ne - z : ne > de ? ve : ne - 2 * z), q = n.getLast(G, E);
-        return G > q ? q - pe : G;
+        var U = Math.max(0, R ? ne < de ? ve : ne - z : ne > de ? ve : ne - 2 * z), q = n.getLast(U, E);
+        return U > q ? q - pe : U;
       }, f = function(ne, de, ve, ke, pe, z) {
         var R = de + ke + 2 * pe;
         return ne >= pe && (R += pe + 1), n.getLast(R, z);
@@ -3908,8 +3908,8 @@ var Hn = {
       } else {
         var F = o ? h : m, L = this.lastScrollPos <= F;
         if (!this.appendOnly || this.appendOnly && L) {
-          var j = s(F, this.itemSize), U = u(j, this.first, this.last, this.numItemsInViewport, this.d_numToleratedItems, L);
-          v = d(j, U, this.first, this.last, this.numItemsInViewport, this.d_numToleratedItems, L), I = f(j, v, this.last, this.numItemsInViewport, this.d_numToleratedItems), C = v !== this.first || I !== this.last || this.isRangeChanged, P = F;
+          var j = s(F, this.itemSize), G = u(j, this.first, this.last, this.numItemsInViewport, this.d_numToleratedItems, L);
+          v = d(j, G, this.first, this.last, this.numItemsInViewport, this.d_numToleratedItems, L), I = f(j, v, this.last, this.numItemsInViewport, this.d_numToleratedItems), C = v !== this.first || I !== this.last || this.isRangeChanged, P = F;
         }
       }
       return {
@@ -8364,8 +8364,8 @@ var ar = {
           throw "Missing number at position " + a;
         return a += j[0].length, parseInt(j[0], 10);
       }, C = function(D, S, x) {
-        for (var F = -1, L = v(D) ? x : S, j = [], U = 0; U < L.length; U++)
-          j.push([U, L[U]]);
+        for (var F = -1, L = v(D) ? x : S, j = [], G = 0; G < L.length; G++)
+          j.push([G, L[G]]);
         j.sort(function(de, ve) {
           return -(de[1].length - ve[1].length);
         });
@@ -8511,7 +8511,7 @@ var ar = {
           i.tabIndex = "-1";
           var j = o.nextElementSibling;
           if (j) {
-            var U = Array.from(o.parentElement.children), Z = U.slice(a + 1), ne = Z.find(function(R) {
+            var G = Array.from(o.parentElement.children), Z = G.slice(a + 1), ne = Z.find(function(R) {
               var E = R.children[0];
               return !fe(E, "data-p-disabled");
             });
@@ -17970,19 +17970,19 @@ function Ut() {
   try {
     u({}, "");
   } catch {
-    u = function(E, G, q) {
-      return E[G] = q;
+    u = function(E, U, q) {
+      return E[U] = q;
     };
   }
-  function d(z, R, E, G) {
-    var q = R && R.prototype instanceof P ? R : P, W = Object.create(q.prototype), le = new ke(G || []);
+  function d(z, R, E, U) {
+    var q = R && R.prototype instanceof P ? R : P, W = Object.create(q.prototype), le = new ke(U || []);
     return i(W, "_invoke", { value: Z(z, E, le) }), W;
   }
   function f(z, R, E) {
     try {
       return { type: "normal", arg: z.call(R, E) };
-    } catch (G) {
-      return { type: "throw", arg: G };
+    } catch (U) {
+      return { type: "throw", arg: U };
     }
   }
   t.wrap = d;
@@ -18007,7 +18007,7 @@ function Ut() {
       });
     });
   }
-  function U(z, R) {
+  function G(z, R) {
     function E(q, W, le, Se) {
       var Ce = f(z[q], z, W);
       if (Ce.type !== "throw") {
@@ -18024,21 +18024,21 @@ function Ut() {
       }
       Se(Ce.arg);
     }
-    var G;
+    var U;
     i(this, "_invoke", { value: function(W, le) {
       function Se() {
         return new R(function(Ce, Ue) {
           E(W, le, Ce, Ue);
         });
       }
-      return G = G ? G.then(Se, Se) : Se();
+      return U = U ? U.then(Se, Se) : Se();
     } });
   }
   function Z(z, R, E) {
-    var G = m;
+    var U = m;
     return function(q, W) {
-      if (G === v) throw Error("Generator is already running");
-      if (G === I) {
+      if (U === v) throw Error("Generator is already running");
+      if (U === I) {
         if (q === "throw") throw W;
         return { value: e, done: !0 };
       }
@@ -18053,23 +18053,23 @@ function Ut() {
         }
         if (E.method === "next") E.sent = E._sent = E.arg;
         else if (E.method === "throw") {
-          if (G === m) throw G = I, E.arg;
+          if (U === m) throw U = I, E.arg;
           E.dispatchException(E.arg);
         } else E.method === "return" && E.abrupt("return", E.arg);
-        G = v;
+        U = v;
         var Ce = f(z, R, E);
         if (Ce.type === "normal") {
-          if (G = E.done ? I : h, Ce.arg === C) continue;
+          if (U = E.done ? I : h, Ce.arg === C) continue;
           return { value: Ce.arg, done: E.done };
         }
-        Ce.type === "throw" && (G = I, E.method = "throw", E.arg = Ce.arg);
+        Ce.type === "throw" && (U = I, E.method = "throw", E.arg = Ce.arg);
       }
     };
   }
   function ne(z, R) {
-    var E = R.method, G = z.iterator[E];
-    if (G === e) return R.delegate = null, E === "throw" && z.iterator.return && (R.method = "return", R.arg = e, ne(z, R), R.method === "throw") || E !== "return" && (R.method = "throw", R.arg = new TypeError("The iterator does not provide a '" + E + "' method")), C;
-    var q = f(G, z.iterator, R.arg);
+    var E = R.method, U = z.iterator[E];
+    if (U === e) return R.delegate = null, E === "throw" && z.iterator.return && (R.method = "return", R.arg = e, ne(z, R), R.method === "throw") || E !== "return" && (R.method = "throw", R.arg = new TypeError("The iterator does not provide a '" + E + "' method")), C;
+    var q = f(U, z.iterator, R.arg);
     if (q.type === "throw") return R.method = "throw", R.arg = q.arg, R.delegate = null, C;
     var W = q.arg;
     return W ? W.done ? (R[z.resultName] = W.value, R.next = z.nextLoc, R.method !== "return" && (R.method = "next", R.arg = e), R.delegate = null, C) : W : (R.method = "throw", R.arg = new TypeError("iterator result is not an object"), R.delegate = null, C);
@@ -18091,11 +18091,11 @@ function Ut() {
       if (R) return R.call(z);
       if (typeof z.next == "function") return z;
       if (!isNaN(z.length)) {
-        var E = -1, G = function q() {
+        var E = -1, U = function q() {
           for (; ++E < z.length; ) if (r.call(z, E)) return q.value = z[E], q.done = !1, q;
           return q.value = e, q.done = !0, q;
         };
-        return G.next = G;
+        return U.next = U;
       }
     }
     throw new TypeError(uo(z) + " is not iterable");
@@ -18107,11 +18107,11 @@ function Ut() {
     return Object.setPrototypeOf ? Object.setPrototypeOf(z, D) : (z.__proto__ = D, u(z, s, "GeneratorFunction")), z.prototype = Object.create(L), z;
   }, t.awrap = function(z) {
     return { __await: z };
-  }, j(U.prototype), u(U.prototype, l, function() {
+  }, j(G.prototype), u(G.prototype, l, function() {
     return this;
-  }), t.AsyncIterator = U, t.async = function(z, R, E, G, q) {
+  }), t.AsyncIterator = G, t.async = function(z, R, E, U, q) {
     q === void 0 && (q = Promise);
-    var W = new U(d(z, R, E, G), q);
+    var W = new G(d(z, R, E, U), q);
     return t.isGeneratorFunction(R) ? W : W.next().then(function(le) {
       return le.done ? le.value : W.next();
     });
@@ -18121,7 +18121,7 @@ function Ut() {
     return "[object Generator]";
   }), t.keys = function(z) {
     var R = Object(z), E = [];
-    for (var G in R) E.push(G);
+    for (var U in R) E.push(U);
     return E.reverse(), function q() {
       for (; E.length; ) {
         var W = E.pop();
@@ -18139,28 +18139,28 @@ function Ut() {
   }, dispatchException: function(R) {
     if (this.done) throw R;
     var E = this;
-    function G(Ue, Ke) {
+    function U(Ue, Ke) {
       return le.type = "throw", le.arg = R, E.next = Ue, Ke && (E.method = "next", E.arg = e), !!Ke;
     }
     for (var q = this.tryEntries.length - 1; q >= 0; --q) {
       var W = this.tryEntries[q], le = W.completion;
-      if (W.tryLoc === "root") return G("end");
+      if (W.tryLoc === "root") return U("end");
       if (W.tryLoc <= this.prev) {
         var Se = r.call(W, "catchLoc"), Ce = r.call(W, "finallyLoc");
         if (Se && Ce) {
-          if (this.prev < W.catchLoc) return G(W.catchLoc, !0);
-          if (this.prev < W.finallyLoc) return G(W.finallyLoc);
+          if (this.prev < W.catchLoc) return U(W.catchLoc, !0);
+          if (this.prev < W.finallyLoc) return U(W.finallyLoc);
         } else if (Se) {
-          if (this.prev < W.catchLoc) return G(W.catchLoc, !0);
+          if (this.prev < W.catchLoc) return U(W.catchLoc, !0);
         } else {
           if (!Ce) throw Error("try statement without catch or finally");
-          if (this.prev < W.finallyLoc) return G(W.finallyLoc);
+          if (this.prev < W.finallyLoc) return U(W.finallyLoc);
         }
       }
     }
   }, abrupt: function(R, E) {
-    for (var G = this.tryEntries.length - 1; G >= 0; --G) {
-      var q = this.tryEntries[G];
+    for (var U = this.tryEntries.length - 1; U >= 0; --U) {
+      var q = this.tryEntries[U];
       if (q.tryLoc <= this.prev && r.call(q, "finallyLoc") && this.prev < q.finallyLoc) {
         var W = q;
         break;
@@ -18174,24 +18174,24 @@ function Ut() {
     return R.type === "break" || R.type === "continue" ? this.next = R.arg : R.type === "return" ? (this.rval = this.arg = R.arg, this.method = "return", this.next = "end") : R.type === "normal" && E && (this.next = E), C;
   }, finish: function(R) {
     for (var E = this.tryEntries.length - 1; E >= 0; --E) {
-      var G = this.tryEntries[E];
-      if (G.finallyLoc === R) return this.complete(G.completion, G.afterLoc), ve(G), C;
+      var U = this.tryEntries[E];
+      if (U.finallyLoc === R) return this.complete(U.completion, U.afterLoc), ve(U), C;
     }
   }, catch: function(R) {
     for (var E = this.tryEntries.length - 1; E >= 0; --E) {
-      var G = this.tryEntries[E];
-      if (G.tryLoc === R) {
-        var q = G.completion;
+      var U = this.tryEntries[E];
+      if (U.tryLoc === R) {
+        var q = U.completion;
         if (q.type === "throw") {
           var W = q.arg;
-          ve(G);
+          ve(U);
         }
         return W;
       }
     }
     throw Error("illegal catch attempt");
-  }, delegateYield: function(R, E, G) {
-    return this.delegate = { iterator: pe(R), resultName: E, nextLoc: G }, this.method === "next" && (this.arg = e), C;
+  }, delegateYield: function(R, E, U) {
+    return this.delegate = { iterator: pe(R), resultName: E, nextLoc: U }, this.method === "next" && (this.arg = e), C;
   } }, t;
 }
 function ci(e, t, n, r, i, o, a) {
@@ -28881,14 +28881,14 @@ function M0(e, t, n, r, i, o) {
                     novalidate: !0
                   }
                 }, {
-                  icon: T(function(U) {
+                  icon: T(function(G) {
                     return [e.$slots.optioncheckboxicon || e.$slots.itemcheckboxicon ? (c(), b(A(e.$slots.optioncheckboxicon || e.$slots.itemcheckboxicon), {
                       key: 0,
-                      checked: U.checked,
-                      class: H(U.class)
-                    }, null, 8, ["checked", "class"])) : U.checked ? (c(), b(A(e.checkboxIcon ? "span" : "CheckIcon"), p({
+                      checked: G.checked,
+                      class: H(G.class)
+                    }, null, 8, ["checked", "class"])) : G.checked ? (c(), b(A(e.checkboxIcon ? "span" : "CheckIcon"), p({
                       key: 1,
-                      class: [U.class, Ki({}, e.checkboxIcon, U.checked)],
+                      class: [G.class, Ki({}, e.checkboxIcon, G.checked)],
                       ref_for: !0
                     }, o.getCheckboxPTOptions(L, S, j, "pcOptionCheckbox.icon")), null, 16, ["class"])) : k("", !0)];
                   }),
@@ -30850,7 +30850,7 @@ const Ot = h4(), m4 = (e, t) => {
     }, B = (x) => x ? x.normalize("NFD").replace(/[\u0300-\u036f]/g, "") : "", D = (x) => {
       let F = a.value.slice(0, 10);
       if (x.query) {
-        const L = B(x.query.toLowerCase()), U = a.value.map((Z) => ({
+        const L = B(x.query.toLowerCase()), G = a.value.map((Z) => ({
           original: Z,
           translated: {
             description: Z.description ? __(Z.description) : Z.description,
@@ -30861,7 +30861,7 @@ const Ot = h4(), m4 = (e, t) => {
           const ne = Z.translated.description ? B(Z.translated.description.toLowerCase()) : "", de = Z.translated.label ? B(Z.translated.label.toLowerCase()) : "", ve = Z.translated.value ? B(Z.translated.value.toLowerCase()) : "";
           return ne.includes(L) || de.includes(L) || ve.includes(L);
         }).slice(0, 10);
-        l.value = U.map((Z) => Z.original), s.value = U.map((Z) => Z.translated);
+        l.value = G.map((Z) => Z.original), s.value = G.map((Z) => Z.translated);
       } else
         l.value = F, s.value = F.map((L) => ({
           description: L.description ? __(L.description) : L.description,
@@ -30884,7 +30884,10 @@ const Ot = h4(), m4 = (e, t) => {
           }, [
             (c(), b(vr(ba), {
               modelValue: o.value[n.field.fieldname],
-              "onUpdate:modelValue": F[0] || (F[0] = (U) => o.value[n.field.fieldname] = U),
+              "onUpdate:modelValue": [
+                F[0] || (F[0] = (G) => o.value[n.field.fieldname] = G),
+                F[2] || (F[2] = (G) => G === "" && I())
+              ],
               key: f.value,
               ref_key: "autoCompleteRef",
               ref: m,
@@ -30898,22 +30901,23 @@ const Ot = h4(), m4 = (e, t) => {
               class: H({ "p-inputtext:disabled": e.disabled }),
               onClear: F[1] || (F[1] = () => I),
               size: n.size,
-              onOptionSelect: F[2] || (F[2] = (U) => C(l.value[s.value.indexOf(U.value)], e.field)),
-              optionLabel: (U) => U.label || U.value,
+              '"': "",
+              onOptionSelect: F[3] || (F[3] = (G) => C(l.value[s.value.indexOf(G.value)], e.field)),
+              optionLabel: (G) => G.label || G.value,
               dropdown: n.field.fieldtype !== "Table" && !o.value[n.field.fieldname] === "" && o.value[n.field.fieldname],
               invalid: (((L = e.invalid_fields) == null ? void 0 : L.includes(n.field.fieldname)) || ((j = e.invalid_fields) == null ? void 0 : j.includes(n.field.label))) && !o.value[n.field.fieldname],
-              onClick: F[3] || (F[3] = () => {
+              onClick: F[4] || (F[4] = () => {
                 n.field.fieldtype === "Table" && S();
               }),
               forceSelection: ""
             }, Ve({
-              option: T((U) => [
-                !U.option.label && !U.option.description ? (c(), g("div", v4, [
-                  O("strong", null, K(U.option.value), 1)
+              option: T((G) => [
+                !G.option.label && !G.option.description ? (c(), g("div", v4, [
+                  O("strong", null, K(G.option.value), 1)
                 ])) : k("", !0),
                 O("div", null, [
-                  O("strong", null, K(x.__(U.option.label) || x.__(U.option.description)), 1),
-                  O("div", null, K(x.__(U.option.description)), 1)
+                  O("strong", null, K(x.__(G.option.label) || x.__(G.option.description)), 1),
+                  O("div", null, K(x.__(G.option.description)), 1)
                 ])
               ]),
               _: 2
@@ -30926,7 +30930,7 @@ const Ot = h4(), m4 = (e, t) => {
                     class: "p-autocomplete-dropdown",
                     onClick: er(I, ["stop"])
                   }, [
-                    (c(), g("svg", b4, F[5] || (F[5] = [
+                    (c(), g("svg", b4, F[6] || (F[6] = [
                       O("use", { href: "#icon-close" }, null, -1)
                     ])))
                   ])
@@ -30940,7 +30944,7 @@ const Ot = h4(), m4 = (e, t) => {
               severity: "info",
               class: "ml-4",
               size: "small",
-              onClick: F[4] || (F[4] = () => d.value = !d.value),
+              onClick: F[5] || (F[5] = () => d.value = !d.value),
               id: "new_" + n.field.fieldname
             }, {
               default: T(() => [
@@ -30954,13 +30958,13 @@ const Ot = h4(), m4 = (e, t) => {
           key: 0,
           field: n.field,
           createNew: d.value,
-          onUpdate: (U, Z) => h(U, Z, Z.fieldname),
+          onUpdate: (G, Z) => h(G, Z, Z.fieldname),
           onClose: v
         }, void 0, !0) : k("", !0)
       ], 64);
     };
   }
-}, k4 = /* @__PURE__ */ m4(w4, [["__scopeId", "data-v-dbe8a174"]]);
+}, k4 = /* @__PURE__ */ m4(w4, [["__scopeId", "data-v-2037ad23"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {
