@@ -1,4 +1,4 @@
-import { inject as _o, markRaw as _l, ref as Ee, readonly as es, getCurrentInstance as br, onMounted as Zi, nextTick as ts, watch as Ne, useId as ns, mergeProps as p, createElementBlock as g, openBlock as c, createElementVNode as O, createCommentVNode as k, renderSlot as w, createBlock as b, resolveDynamicComponent as A, toDisplayString as K, Teleport as os, resolveComponent as M, Fragment as V, renderList as re, createVNode as N, resolveDirective as Ie, normalizeStyle as co, normalizeClass as H, withCtx as T, Transition as Je, createSlots as Ve, withDirectives as ge, createTextVNode as be, vShow as Zt, withKeys as se, reactive as rs, computed as is, normalizeProps as Me, toHandlers as Un, withModifiers as er, guardReactiveProps as Vt, TransitionGroup as as, onUnmounted as ls, unref as vr } from "vue";
+import { inject as _o, markRaw as _l, ref as Ee, readonly as es, getCurrentInstance as br, onMounted as Zi, nextTick as ts, watch as ze, useId as ns, mergeProps as p, createElementBlock as g, openBlock as c, createElementVNode as O, createCommentVNode as k, renderSlot as w, createBlock as b, resolveDynamicComponent as A, toDisplayString as K, Teleport as os, resolveComponent as M, Fragment as V, renderList as re, createVNode as N, resolveDirective as Ie, normalizeStyle as co, normalizeClass as H, withCtx as T, Transition as Je, createSlots as Ke, withDirectives as ge, createTextVNode as be, vShow as Zt, withKeys as se, reactive as rs, computed as is, normalizeProps as Me, toHandlers as Un, withModifiers as er, guardReactiveProps as Vt, TransitionGroup as as, onUnmounted as ls, unref as vr } from "vue";
 function Et() {
   const e = /* @__PURE__ */ new Map();
   return {
@@ -138,13 +138,13 @@ function Q(e, t) {
   }
   return null;
 }
-function Ae(e, t, n) {
+function je(e, t, n) {
   return n ? Q(e, n) === Q(t, n) : bs(e, t);
 }
 function vs(e, t) {
   if (e != null && t && t.length) {
     for (const n of t)
-      if (Ae(e, n)) return !0;
+      if (je(e, n)) return !0;
   }
   return !1;
 }
@@ -348,7 +348,7 @@ function xs(e, t) {
   });
   window.navigator.msSaveOrOpenBlob ? navigator.msSaveOrOpenBlob(n, t + ".csv") : Is({ name: t + ".csv", src: URL.createObjectURL(n) }) || (e = "data:text/csv;charset=utf-8," + e, window.open(encodeURI(e)));
 }
-function ze(e, t) {
+function Ae(e, t) {
   if (e && t) {
     const n = (r) => {
       e.classList ? e.classList.remove(r) : e.className = e.className.replace(new RegExp("(^|\\b)" + r.split(" ").join("|") + "(\\b|$)", "gi"), " ");
@@ -357,7 +357,7 @@ function ze(e, t) {
   }
 }
 function Ps(e) {
-  typeof e == "string" ? ze(document.body, e || "p-overflow-hidden") : (e != null && e.variableName && document.body.style.removeProperty(e.variableName), ze(document.body, (e == null ? void 0 : e.className) || "p-overflow-hidden"));
+  typeof e == "string" ? Ae(document.body, e || "p-overflow-hidden") : (e != null && e.variableName && document.body.style.removeProperty(e.variableName), Ae(document.body, (e == null ? void 0 : e.className) || "p-overflow-hidden"));
 }
 function to(e) {
   for (const t of document == null ? void 0 : document.styleSheets)
@@ -768,7 +768,7 @@ function Ws(e, t = {}) {
     css: xt(i, l.join(""))
   };
 }
-var He = {
+var Ne = {
   regex: {
     rules: {
       class: {
@@ -817,7 +817,7 @@ var He = {
     const { preset: m, options: h } = t;
     let v, I, C, P, B, D, S;
     if (X(m) && h.transform !== "strict") {
-      const { primitive: x, semantic: F, extend: L } = m, j = F || {}, { colorScheme: G } = j, Z = nt(j, ["colorScheme"]), ne = L || {}, { colorScheme: de } = ne, ve = nt(ne, ["colorScheme"]), ke = G || {}, { dark: pe } = ke, z = nt(ke, ["dark"]), R = de || {}, { dark: E } = R, U = nt(R, ["dark"]), q = X(x) ? this._toVariables({ primitive: x }, h) : {}, W = X(Z) ? this._toVariables({ semantic: Z }, h) : {}, le = X(z) ? this._toVariables({ light: z }, h) : {}, Se = X(pe) ? this._toVariables({ dark: pe }, h) : {}, Ce = X(ve) ? this._toVariables({ semantic: ve }, h) : {}, Ue = X(U) ? this._toVariables({ light: U }, h) : {}, Ke = X(E) ? this._toVariables({ dark: E }, h) : {}, [tt, Fl] = [(o = q.declarations) != null ? o : "", q.tokens], [zl, Al] = [(a = W.declarations) != null ? a : "", W.tokens || []], [jl, Vl] = [(l = le.declarations) != null ? l : "", le.tokens || []], [Kl, Hl] = [(s = Se.declarations) != null ? s : "", Se.tokens || []], [Nl, Gl] = [(u = Ce.declarations) != null ? u : "", Ce.tokens || []], [Ul, Wl] = [(d = Ue.declarations) != null ? d : "", Ue.tokens || []], [Yl, Zl] = [(f = Ke.declarations) != null ? f : "", Ke.tokens || []];
+      const { primitive: x, semantic: F, extend: L } = m, j = F || {}, { colorScheme: G } = j, Z = nt(j, ["colorScheme"]), ne = L || {}, { colorScheme: de } = ne, ve = nt(ne, ["colorScheme"]), ke = G || {}, { dark: pe } = ke, z = nt(ke, ["dark"]), R = de || {}, { dark: E } = R, U = nt(R, ["dark"]), q = X(x) ? this._toVariables({ primitive: x }, h) : {}, W = X(Z) ? this._toVariables({ semantic: Z }, h) : {}, le = X(z) ? this._toVariables({ light: z }, h) : {}, Se = X(pe) ? this._toVariables({ dark: pe }, h) : {}, Ce = X(ve) ? this._toVariables({ semantic: ve }, h) : {}, Ue = X(U) ? this._toVariables({ light: U }, h) : {}, He = X(E) ? this._toVariables({ dark: E }, h) : {}, [tt, Fl] = [(o = q.declarations) != null ? o : "", q.tokens], [zl, Al] = [(a = W.declarations) != null ? a : "", W.tokens || []], [jl, Vl] = [(l = le.declarations) != null ? l : "", le.tokens || []], [Kl, Hl] = [(s = Se.declarations) != null ? s : "", Se.tokens || []], [Nl, Gl] = [(u = Ce.declarations) != null ? u : "", Ce.tokens || []], [Ul, Wl] = [(d = Ue.declarations) != null ? d : "", Ue.tokens || []], [Yl, Zl] = [(f = He.declarations) != null ? f : "", He.tokens || []];
       v = this.transformCSS(e, tt, "light", "variable", h, r, i), I = Fl;
       const ql = this.transformCSS(e, `${zl}${jl}`, "light", "variable", h, r, i), Xl = this.transformCSS(e, `${Kl}`, "dark", "variable", h, r, i);
       C = `${ql}${Xl}`, P = [.../* @__PURE__ */ new Set([...Al, ...Vl, ...Hl])];
@@ -974,7 +974,7 @@ var He = {
     const { theme: t } = e;
     t && (this._theme = ko(Ge({}, t), {
       options: Ge(Ge({}, this.defaults.options), t.options)
-    }), this._tokens = He.createTokens(this.preset, this.defaults), this.clearLoadedStyleNames());
+    }), this._tokens = Ne.createTokens(this.preset, this.defaults), this.clearLoadedStyleNames());
   },
   get theme() {
     return this._theme;
@@ -1000,7 +1000,7 @@ var He = {
     return this.preset;
   },
   setPreset(e) {
-    this._theme = ko(Ge({}, this.theme), { preset: e }), this._tokens = He.createTokens(e, this.defaults), this.clearLoadedStyleNames(), Oe.emit("preset:change", e), Oe.emit("theme:change", this.theme);
+    this._theme = ko(Ge({}, this.theme), { preset: e }), this._tokens = Ne.createTokens(e, this.defaults), this.clearLoadedStyleNames(), Oe.emit("preset:change", e), Oe.emit("theme:change", this.theme);
   },
   getOptions() {
     return this.options;
@@ -1030,35 +1030,35 @@ var He = {
     this._loadedStyleNames.clear();
   },
   getTokenValue(e) {
-    return He.getTokenValue(this.tokens, e, this.defaults);
+    return Ne.getTokenValue(this.tokens, e, this.defaults);
   },
   getCommon(e = "", t) {
-    return He.getCommon({ name: e, theme: this.theme, params: t, defaults: this.defaults, set: { layerNames: this.setLayerNames.bind(this) } });
+    return Ne.getCommon({ name: e, theme: this.theme, params: t, defaults: this.defaults, set: { layerNames: this.setLayerNames.bind(this) } });
   },
   getComponent(e = "", t) {
     const n = { name: e, theme: this.theme, params: t, defaults: this.defaults, set: { layerNames: this.setLayerNames.bind(this) } };
-    return He.getPresetC(n);
+    return Ne.getPresetC(n);
   },
   // @deprecated - use getComponent instead
   getDirective(e = "", t) {
     const n = { name: e, theme: this.theme, params: t, defaults: this.defaults, set: { layerNames: this.setLayerNames.bind(this) } };
-    return He.getPresetD(n);
+    return Ne.getPresetD(n);
   },
   getCustomPreset(e = "", t, n, r) {
     const i = { name: e, preset: t, options: this.options, selector: n, params: r, defaults: this.defaults, set: { layerNames: this.setLayerNames.bind(this) } };
-    return He.getPreset(i);
+    return Ne.getPreset(i);
   },
   getLayerOrderCSS(e = "") {
-    return He.getLayerOrder(e, this.options, { names: this.getLayerNames() }, this.defaults);
+    return Ne.getLayerOrder(e, this.options, { names: this.getLayerNames() }, this.defaults);
   },
   transformCSS(e = "", t, n = "style", r) {
-    return He.transformCSS(e, t, r, n, this.options, { layerNames: this.setLayerNames.bind(this) }, this.defaults);
+    return Ne.transformCSS(e, t, r, n, this.options, { layerNames: this.setLayerNames.bind(this) }, this.defaults);
   },
   getCommonStyleSheet(e = "", t, n = {}) {
-    return He.getCommonStyleSheet({ name: e, theme: this.theme, params: t, props: n, defaults: this.defaults, set: { layerNames: this.setLayerNames.bind(this) } });
+    return Ne.getCommonStyleSheet({ name: e, theme: this.theme, params: t, props: n, defaults: this.defaults, set: { layerNames: this.setLayerNames.bind(this) } });
   },
   getStyleSheet(e, t, n = {}) {
-    return He.getStyleSheet({ name: e, theme: this.theme, params: t, props: n, defaults: this.defaults, set: { layerNames: this.setLayerNames.bind(this) } });
+    return Ne.getStyleSheet({ name: e, theme: this.theme, params: t, props: n, defaults: this.defaults, set: { layerNames: this.setLayerNames.bind(this) } });
   },
   onStyleMounted(e) {
     this._loadingStyles.add(e);
@@ -1153,7 +1153,7 @@ function _s(e) {
         return ne == null ? void 0 : ne(Ce, {
           name: W
         });
-      }, L == null || L(W)), !n.value && (ke = Ne(r, function(Ce) {
+      }, L == null || L(W)), !n.value && (ke = ze(r, function(Ce) {
         i.value.textContent = Ce, G == null || G(W);
       }, {
         immediate: !0
@@ -2558,18 +2558,18 @@ var xe = Tu.extend("ripple", {
     onMouseDown: function(t) {
       var n = this, r = t.currentTarget, i = this.getInk(r);
       if (!(!i || getComputedStyle(i, null).display === "none")) {
-        if (!this.isUnstyled() && ze(i, "p-ink-active"), i.setAttribute("data-p-ink-active", "false"), !yt(i) && !wt(i)) {
+        if (!this.isUnstyled() && Ae(i, "p-ink-active"), i.setAttribute("data-p-ink-active", "false"), !yt(i) && !wt(i)) {
           var o = Math.max(we(r), qt(r));
           i.style.height = o + "px", i.style.width = o + "px";
         }
         var a = It(r), l = t.pageX - a.left + document.body.scrollTop - wt(i) / 2, s = t.pageY - a.top + document.body.scrollLeft - yt(i) / 2;
         i.style.top = s + "px", i.style.left = l + "px", !this.isUnstyled() && qe(i, "p-ink-active"), i.setAttribute("data-p-ink-active", "true"), this.timeout = setTimeout(function() {
-          i && (!n.isUnstyled() && ze(i, "p-ink-active"), i.setAttribute("data-p-ink-active", "false"));
+          i && (!n.isUnstyled() && Ae(i, "p-ink-active"), i.setAttribute("data-p-ink-active", "false"));
         }, 401);
       }
     },
     onAnimationEnd: function(t) {
-      this.timeout && clearTimeout(this.timeout), !this.isUnstyled() && ze(t.currentTarget, "p-ink-active"), t.currentTarget.setAttribute("data-p-ink-active", "false");
+      this.timeout && clearTimeout(this.timeout), !this.isUnstyled() && Ae(t.currentTarget, "p-ink-active"), t.currentTarget.setAttribute("data-p-ink-active", "false");
     },
     getInk: function(t) {
       return t && t.children ? Eu(t.children).find(function(n) {
@@ -3300,7 +3300,7 @@ function wd(e, t, n, r, i, o) {
   }, o.attrs), null, 16, yd);
 }
 St.render = wd;
-var je = Et(), Qe = {
+var Ve = Et(), Qe = {
   name: "Portal",
   props: {
     appendTo: {
@@ -4905,7 +4905,7 @@ var ba = {
       }
     },
     onOverlayClick: function(t) {
-      je.emit("overlay-click", {
+      Ve.emit("overlay-click", {
         originalEvent: t,
         target: this.$el
       });
@@ -5058,7 +5058,7 @@ var ba = {
       return this.isValidOption(t) && this.isSelected(t);
     },
     isEquals: function(t, n) {
-      return Ae(t, n, this.equalityKey);
+      return je(t, n, this.equalityKey);
     },
     isSelected: function(t) {
       var n = this, r = this.getOptionValue(t);
@@ -5559,7 +5559,7 @@ function _d(e, t, n, r, i, o) {
             tabindex: -1,
             disabled: o.virtualScrollerDisabled,
             pt: e.ptm("virtualScroller")
-          }), Ve({
+          }), Ke({
             content: T(function(m) {
               var h = m.styleClass, v = m.contentRef, I = m.items, C = m.getItemOptions, P = m.contentStyle, B = m.itemSize;
               return [O("ul", p({
@@ -8829,7 +8829,7 @@ var ar = {
       return this.currentView === "month" ? this.currentYear : t.year;
     },
     onOverlayClick: function(t) {
-      t.stopPropagation(), this.inline || je.emit("overlay-click", {
+      t.stopPropagation(), this.inline || Ve.emit("overlay-click", {
         originalEvent: t,
         target: this.$el
       });
@@ -10442,7 +10442,7 @@ var Nn = {
       if (!this.disabled && !this.readonly) {
         var r = this.$pcCheckboxGroup ? this.$pcCheckboxGroup.d_value : this.d_value, i;
         this.binary ? i = this.d_indeterminate ? this.trueValue : this.checked ? this.falseValue : this.trueValue : this.checked || this.d_indeterminate ? i = r.filter(function(o) {
-          return !Ae(o, n.value);
+          return !je(o, n.value);
         }) : i = r ? [].concat(cp(r), [this.value]) : [this.value], this.d_indeterminate && (this.d_indeterminate = !1, this.$emit("update:indeterminate", this.d_indeterminate)), this.$pcCheckboxGroup ? this.$pcCheckboxGroup.writeValue(i, t) : this.writeValue(i, t), this.$emit("change", t);
       }
     },
@@ -10884,7 +10884,7 @@ var so = {
       if (n == null || n.length === 0)
         return !0;
       for (var r = 0; r < n.length; r++)
-        if (Ae(t, n[r]))
+        if (je(t, n[r]))
           return !0;
       return !1;
     },
@@ -11152,7 +11152,7 @@ function Lp(e, t) {
   Oe.on("theme:change", function(s) {
     n.value || (e.config.globalProperties.$primevue.config.theme = s, n.value = !0);
   });
-  var i = Ne(t.config, function(s, u) {
+  var i = ze(t.config, function(s, u) {
     ft.emit("config:change", {
       newValue: s,
       oldValue: u
@@ -11160,7 +11160,7 @@ function Lp(e, t) {
   }, {
     immediate: !0,
     deep: !0
-  }), o = Ne(function() {
+  }), o = ze(function() {
     return t.config.ripple;
   }, function(s, u) {
     ft.emit("config:ripple:change", {
@@ -11170,7 +11170,7 @@ function Lp(e, t) {
   }, {
     immediate: !0,
     deep: !0
-  }), a = Ne(function() {
+  }), a = ze(function() {
     return t.config.theme;
   }, function(s, u) {
     n.value || ue.setTheme(s), t.config.unstyled || r(), n.value = !1, ft.emit("config:theme:change", {
@@ -11180,7 +11180,7 @@ function Lp(e, t) {
   }, {
     immediate: !0,
     deep: !1
-  }), l = Ne(function() {
+  }), l = ze(function() {
     return t.config.unstyled;
   }, function(s, u) {
     !s && t.config.theme && r(), ft.emit("config:unstyled:change", {
@@ -12228,7 +12228,7 @@ function of(e, t, n, r, i, o) {
     draggable: e.draggable,
     pt: e.pt,
     unstyled: e.unstyled
-  }, Ve({
+  }, Ke({
     default: T(function() {
       return [e.$slots.container ? k("", !0) : (c(), g(V, {
         key: 0
@@ -12276,7 +12276,7 @@ function of(e, t, n, r, i, o) {
       }, i.confirmation.rejectProps, {
         label: o.rejectLabel,
         pt: e.ptm("pcRejectButton")
-      }), Ve({
+      }), Ke({
         _: 2
       }, [o.rejectIcon || e.$slots.rejecticon ? {
         name: "icon",
@@ -12300,7 +12300,7 @@ function of(e, t, n, r, i, o) {
         })
       }, i.confirmation.acceptProps, {
         pt: e.ptm("pcAcceptButton")
-      }), Ve({
+      }), Ke({
         _: 2
       }, [o.acceptIcon || e.$slots.accepticon ? {
         name: "icon",
@@ -13454,7 +13454,7 @@ var Gn = {
       this.overlayVisible && this.alignOverlay();
     },
     onOverlayClick: function(t) {
-      je.emit("overlay-click", {
+      Ve.emit("overlay-click", {
         originalEvent: t,
         target: this.$el
       });
@@ -13632,7 +13632,7 @@ var Gn = {
       return this.isValidOption(t) && this.isSelected(t);
     },
     isSelected: function(t) {
-      return Ae(this.d_value, this.getOptionValue(t), this.equalityKey);
+      return je(this.d_value, this.getOptionValue(t), this.equalityKey);
     },
     findFirstOptionIndex: function() {
       var t = this;
@@ -14064,7 +14064,7 @@ function Nf(e, t, n, r, i, o) {
             tabindex: -1,
             disabled: o.virtualScrollerDisabled,
             pt: e.ptm("virtualScroller")
-          }), Ve({
+          }), Ke({
             content: T(function(C) {
               var P = C.styleClass, B = C.contentRef, D = C.items, S = C.getItemOptions, x = C.contentStyle, F = C.itemSize;
               return [O("ul", p({
@@ -15579,7 +15579,7 @@ function mh(e, t, n, r, i, o) {
     unstyled: e.unstyled,
     pt: e.ptm("pcJumpToPageDropdown"),
     "data-pc-group-section": "pagedropdown"
-  }, Ve({
+  }, Ke({
     _: 2
   }, [n.templates.jumptopagedropdownicon ? {
     name: "dropdownicon",
@@ -15857,7 +15857,7 @@ function Ch(e, t, n, r, i, o) {
     unstyled: e.unstyled,
     pt: e.ptm("pcRowPerPageDropdown"),
     "data-pc-group-section": "pagedropdown"
-  }, Ve({
+  }, Ke({
     _: 2
   }, [n.templates.rowsperpagedropdownicon ? {
     name: "dropdownicon",
@@ -17263,7 +17263,7 @@ var Ya = {
     },
     checked: function() {
       var t = this.$pcRadioButtonGroup ? this.$pcRadioButtonGroup.d_value : this.d_value;
-      return t != null && (this.binary ? !!t : Ae(t, this.value));
+      return t != null && (this.binary ? !!t : je(t, this.value));
     },
     dataP: function() {
       return te(Ah({
@@ -18011,12 +18011,12 @@ function Ut() {
     function E(q, W, le, Se) {
       var Ce = f(z[q], z, W);
       if (Ce.type !== "throw") {
-        var Ue = Ce.arg, Ke = Ue.value;
-        return Ke && uo(Ke) == "object" && r.call(Ke, "__await") ? R.resolve(Ke.__await).then(function(tt) {
+        var Ue = Ce.arg, He = Ue.value;
+        return He && uo(He) == "object" && r.call(He, "__await") ? R.resolve(He.__await).then(function(tt) {
           E("next", tt, le, Se);
         }, function(tt) {
           E("throw", tt, le, Se);
-        }) : R.resolve(Ke).then(function(tt) {
+        }) : R.resolve(He).then(function(tt) {
           Ue.value = tt, le(Ue);
         }, function(tt) {
           return E("throw", tt, le, Se);
@@ -18139,8 +18139,8 @@ function Ut() {
   }, dispatchException: function(R) {
     if (this.done) throw R;
     var E = this;
-    function U(Ue, Ke) {
-      return le.type = "throw", le.arg = R, E.next = Ue, Ke && (E.method = "next", E.arg = e), !!Ke;
+    function U(Ue, He) {
+      return le.type = "throw", le.arg = R, E.next = Ue, He && (E.method = "next", E.arg = e), !!He;
     }
     for (var q = this.tryEntries.length - 1; q >= 0; --q) {
       var W = this.tryEntries[q], le = W.completion;
@@ -18322,7 +18322,7 @@ var el = {
     }, 1);
   },
   beforeUnmount: function() {
-    this.overlayEventListener && (je.off("overlay-click", this.overlayEventListener), this.overlayEventListener = null);
+    this.overlayEventListener && (Ve.off("overlay-click", this.overlayEventListener), this.overlayEventListener = null);
   },
   methods: {
     columnProp: function(t) {
@@ -18387,7 +18387,7 @@ var el = {
       this.documentEditListener && (document.removeEventListener("mousedown", this.documentEditListener), this.documentEditListener = null, this.selfClick = !1, this.editCompleteTimeout && (clearTimeout(this.editCompleteTimeout), this.editCompleteTimeout = null));
     },
     switchCellToViewMode: function() {
-      this.d_editing = !1, this.unbindDocumentEditListener(), je.off("overlay-click", this.overlayEventListener), this.overlayEventListener = null;
+      this.d_editing = !1, this.unbindDocumentEditListener(), Ve.off("overlay-click", this.overlayEventListener), this.overlayEventListener = null;
     },
     onClick: function(t) {
       var n = this;
@@ -18398,7 +18398,7 @@ var el = {
         index: this.rowIndex
       }), this.overlayEventListener = function(r) {
         n.selfClick = n.$el && n.$el.contains(r.target);
-      }, je.on("overlay-click", this.overlayEventListener)));
+      }, Ve.on("overlay-click", this.overlayEventListener)));
     },
     completeEdit: function(t, n) {
       var r = {
@@ -19203,7 +19203,7 @@ var tl = {
       return r;
     },
     equals: function(t, n) {
-      return this.compareSelectionBy === "equals" ? t === n : Ae(t, n, this.dataKey);
+      return this.compareSelectionBy === "equals" ? t === n : je(t, n, this.dataKey);
     },
     onRowGroupToggle: function(t) {
       this.$emit("rowgroup-toggle", {
@@ -20466,7 +20466,7 @@ var hr = {
   selfClick: !1,
   overlayEventListener: null,
   beforeUnmount: function() {
-    this.overlayEventListener && (je.off("overlay-click", this.overlayEventListener), this.overlayEventListener = null), this.overlay && (ce.clear(this.overlay), this.onOverlayHide());
+    this.overlayEventListener && (Ve.off("overlay-click", this.overlayEventListener), this.overlayEventListener = null), this.overlay && (ce.clear(this.overlay), this.onOverlayHide());
   },
   mounted: function() {
     if (this.filters && this.filters[this.field]) {
@@ -20610,7 +20610,7 @@ var hr = {
       this.overlayVisible = !1, this.showMenuButton && ie(this.$refs.icon.$el);
     },
     onContentClick: function(t) {
-      this.selfClick = !0, je.emit("overlay-click", {
+      this.selfClick = !0, Ve.emit("overlay-click", {
         originalEvent: t,
         target: this.overlay
       });
@@ -20625,7 +20625,7 @@ var hr = {
         top: "0"
       }), Ft(this.overlay, this.$refs.icon.$el), this.bindOutsideClickListener(), this.bindScrollListener(), this.bindResizeListener(), this.overlayEventListener = function(r) {
         n.isOutsideClicked(r.target) || (n.selfClick = !0);
-      }, je.on("overlay-click", this.overlayEventListener);
+      }, Ve.on("overlay-click", this.overlayEventListener);
     },
     onOverlayAfterEnter: function() {
       var t;
@@ -20638,7 +20638,7 @@ var hr = {
       ce.clear(t);
     },
     onOverlayHide: function() {
-      this.unbindOutsideClickListener(), this.unbindResizeListener(), this.unbindScrollListener(), this.overlay = null, je.off("overlay-click", this.overlayEventListener), this.overlayEventListener = null;
+      this.unbindOutsideClickListener(), this.unbindResizeListener(), this.unbindScrollListener(), this.overlay = null, Ve.off("overlay-click", this.overlayEventListener), this.overlayEventListener = null;
     },
     overlayRef: function(t) {
       this.overlay = t;
@@ -22936,7 +22936,7 @@ var sl = {
         this.d_editingRowKeys = null;
     },
     equals: function(t, n) {
-      return this.compareSelectionBy === "equals" ? t === n : Ae(t, n, this.dataKey);
+      return this.compareSelectionBy === "equals" ? t === n : je(t, n, this.dataKey);
     },
     selectRange: function(t) {
       var n, r;
@@ -23126,12 +23126,12 @@ var sl = {
       var n = t.originalEvent, r = t.index;
       if (this.rowDragging && this.draggedRowIndex !== r) {
         var i = n.currentTarget, o = It(i).top, a = n.pageY, l = o + qt(i) / 2, s = i.previousElementSibling;
-        a < l ? (i.setAttribute("data-p-datatable-dragpoint-bottom", "false"), !this.isUnstyled && ze(i, "p-datatable-dragpoint-bottom"), this.droppedRowIndex = r, s ? (s.setAttribute("data-p-datatable-dragpoint-bottom", "true"), !this.isUnstyled && qe(s, "p-datatable-dragpoint-bottom")) : (i.setAttribute("data-p-datatable-dragpoint-top", "true"), !this.isUnstyled && qe(i, "p-datatable-dragpoint-top"))) : (s ? (s.setAttribute("data-p-datatable-dragpoint-bottom", "false"), !this.isUnstyled && ze(s, "p-datatable-dragpoint-bottom")) : (i.setAttribute("data-p-datatable-dragpoint-top", "true"), !this.isUnstyled && qe(i, "p-datatable-dragpoint-top")), this.droppedRowIndex = r + 1, i.setAttribute("data-p-datatable-dragpoint-bottom", "true"), !this.isUnstyled && qe(i, "p-datatable-dragpoint-bottom")), n.preventDefault();
+        a < l ? (i.setAttribute("data-p-datatable-dragpoint-bottom", "false"), !this.isUnstyled && Ae(i, "p-datatable-dragpoint-bottom"), this.droppedRowIndex = r, s ? (s.setAttribute("data-p-datatable-dragpoint-bottom", "true"), !this.isUnstyled && qe(s, "p-datatable-dragpoint-bottom")) : (i.setAttribute("data-p-datatable-dragpoint-top", "true"), !this.isUnstyled && qe(i, "p-datatable-dragpoint-top"))) : (s ? (s.setAttribute("data-p-datatable-dragpoint-bottom", "false"), !this.isUnstyled && Ae(s, "p-datatable-dragpoint-bottom")) : (i.setAttribute("data-p-datatable-dragpoint-top", "true"), !this.isUnstyled && qe(i, "p-datatable-dragpoint-top")), this.droppedRowIndex = r + 1, i.setAttribute("data-p-datatable-dragpoint-bottom", "true"), !this.isUnstyled && qe(i, "p-datatable-dragpoint-bottom")), n.preventDefault();
       }
     },
     onRowDragLeave: function(t) {
       var n = t.currentTarget, r = n.previousElementSibling;
-      r && (r.setAttribute("data-p-datatable-dragpoint-bottom", "false"), !this.isUnstyled && ze(r, "p-datatable-dragpoint-bottom")), n.setAttribute("data-p-datatable-dragpoint-bottom", "false"), !this.isUnstyled && ze(n, "p-datatable-dragpoint-bottom"), n.setAttribute("data-p-datatable-dragpoint-top", "false"), !this.isUnstyled && ze(n, "p-datatable-dragpoint-top");
+      r && (r.setAttribute("data-p-datatable-dragpoint-bottom", "false"), !this.isUnstyled && Ae(r, "p-datatable-dragpoint-bottom")), n.setAttribute("data-p-datatable-dragpoint-bottom", "false"), !this.isUnstyled && Ae(n, "p-datatable-dragpoint-bottom"), n.setAttribute("data-p-datatable-dragpoint-top", "false"), !this.isUnstyled && Ae(n, "p-datatable-dragpoint-top");
     },
     onRowDragEnd: function(t) {
       this.rowDragging = !1, this.draggedRowIndex = null, this.droppedRowIndex = null, t.currentTarget.draggable = !1;
@@ -23579,7 +23579,7 @@ function Ig(e, t, n, r, i, o) {
     unstyled: e.unstyled,
     "data-p-top": !0,
     pt: e.ptm("pcPaginator")
-  }, Ve({
+  }, Ke({
     _: 2
   }, [e.$slots.paginatorcontainer ? {
     name: "container",
@@ -23953,7 +23953,7 @@ function Ig(e, t, n, r, i, o) {
     unstyled: e.unstyled,
     "data-p-bottom": !0,
     pt: e.ptm("pcPaginator")
-  }, Ve({
+  }, Ke({
     _: 2
   }, [e.$slots.paginatorcontainer ? {
     name: "container",
@@ -24325,7 +24325,7 @@ function jg(e, t, n, r, i, o) {
       onAfterHide: function(d) {
         return o.onDialogAfterHide(l);
       }
-    }), Ve({
+    }), Ke({
       default: T(function() {
         return [(c(), b(A(l.content), p({
           ref_for: !0
@@ -25671,11 +25671,11 @@ var gl = {
       this.disabled || (!this.isUnstyled && qe(this.$refs.content, "p-fileupload-highlight"), this.$refs.content.setAttribute("data-p-highlight", !0), t.stopPropagation(), t.preventDefault());
     },
     onDragLeave: function() {
-      this.disabled || (!this.isUnstyled && ze(this.$refs.content, "p-fileupload-highlight"), this.$refs.content.setAttribute("data-p-highlight", !1));
+      this.disabled || (!this.isUnstyled && Ae(this.$refs.content, "p-fileupload-highlight"), this.$refs.content.setAttribute("data-p-highlight", !1));
     },
     onDrop: function(t) {
       if (!this.disabled) {
-        !this.isUnstyled && ze(this.$refs.content, "p-fileupload-highlight"), this.$refs.content.setAttribute("data-p-highlight", !1), t.stopPropagation(), t.preventDefault();
+        !this.isUnstyled && Ae(this.$refs.content, "p-fileupload-highlight"), this.$refs.content.setAttribute("data-p-highlight", !1), t.stopPropagation(), t.preventDefault();
         var n = t.dataTransfer ? t.dataTransfer.files : t.target.files, r = this.multiple || n && n.length === 1;
         r && this.onFileSelect(t);
       }
@@ -27138,7 +27138,7 @@ var $l = {
       return typeof t.label == "function" ? t.label() : t.label;
     },
     onOverlayClick: function(t) {
-      je.emit("overlay-click", {
+      Ve.emit("overlay-click", {
         originalEvent: t,
         target: this.target
       });
@@ -27996,7 +27996,7 @@ var Ol = {
       if (!(this.disabled || this.isOptionDisabled(n))) {
         var a = this.isSelected(n), l = null;
         a ? l = this.d_value.filter(function(s) {
-          return !Ae(s, r.getOptionValue(n), r.equalityKey);
+          return !je(s, r.getOptionValue(n), r.equalityKey);
         }) : l = [].concat(Vi(this.d_value || []), [this.getOptionValue(n)]), this.updateModel(t, l), i !== -1 && (this.focusedOptionIndex = i), o && ie(this.$refs.focusInput);
       }
     },
@@ -28058,7 +28058,7 @@ var Ol = {
       this.overlayVisible && this.alignOverlay();
     },
     onOverlayClick: function(t) {
-      je.emit("overlay-click", {
+      Ve.emit("overlay-click", {
         originalEvent: t,
         target: this.$el
       });
@@ -28188,7 +28188,7 @@ var Ol = {
     },
     getLabelByValue: function(t) {
       var n = this, r = this.optionGroupLabel ? this.flatOptions(this.options) : this.options || [], i = r.find(function(o) {
-        return !n.isOptionGroup(o) && Ae(n.getOptionValue(o), t, n.equalityKey);
+        return !n.isOptionGroup(o) && je(n.getOptionValue(o), t, n.equalityKey);
       });
       return i ? this.getOptionLabel(i) : null;
     },
@@ -28216,7 +28216,7 @@ var Ol = {
       var r = this;
       t.stopPropagation();
       var i = this.d_value.filter(function(o) {
-        return !Ae(o, n, r.equalityKey);
+        return !je(o, n, r.equalityKey);
       });
       this.updateModel(t, i);
     },
@@ -28237,7 +28237,7 @@ var Ol = {
       return this.isValidOption(t) && this.isSelected(t);
     },
     isEquals: function(t, n) {
-      return Ae(t, n, this.equalityKey);
+      return je(t, n, this.equalityKey);
     },
     isSelected: function(t) {
       var n = this, r = this.getOptionValue(t);
@@ -28812,7 +28812,7 @@ function M0(e, t, n, r, i, o) {
             tabindex: -1,
             disabled: o.virtualScrollerDisabled,
             pt: e.ptm("virtualScroller")
-          }), Ve({
+          }), Ke({
             content: T(function(C) {
               var P = C.styleClass, B = C.contentRef, D = C.items, S = C.getItemOptions, x = C.contentStyle, F = C.itemSize;
               return [O("ul", p({
@@ -30769,13 +30769,19 @@ const Ot = h4(), m4 = (e, t) => {
       }), Ot.on(n.field.dependingField + "_updated", () => {
         I(), P(n.field.options);
       })), i.filters[n.field.fieldname] && (o.value[n.field.fieldname] = i.filters[n.field.fieldname]), n.field.needFilter && n.filters[n.field.dependingField] ? P(n.field.options, n.filters) : P(n.field.options);
-    }), Ne(
+    }), ze(
       () => n.field.value,
       (x) => {
         x ? (o.value[n.field.fieldname] = x, r("update-data", x, n.field)) : o.value[n.field.fieldname] = x;
       },
       { immediate: !0 }
-    ), Ne(
+    ), ze(
+      () => n.clearFilters,
+      () => {
+        I();
+      },
+      { deep: !0 }
+    ), ze(
       () => n.filters,
       (x) => {
         n.field.needFilter && n.field.dependingField && (x && x[n.field.dependingField] ? P(n.field.options, {
@@ -30783,17 +30789,17 @@ const Ot = h4(), m4 = (e, t) => {
         }) : I());
       },
       { deep: !0 }
-    ), Ne(
+    ), ze(
       () => n.clearInput,
       (x) => {
         x && I();
       }
-    ), Ne(
+    ), ze(
       () => i.clear,
       () => {
         o.value[n.field.fieldname] = "";
       }
-    ), Ne(
+    ), ze(
       () => i.edited,
       (x) => {
         h(
@@ -30806,7 +30812,7 @@ const Ot = h4(), m4 = (e, t) => {
         );
       },
       { deep: !0 }
-    ), Ne(
+    ), ze(
       () => n.delInputValue,
       (x) => {
         x && (o.value[x] = "", i.dataForm[x] = null, i.fullDataForm[x] = null, f.value = !f.value);
@@ -30909,7 +30915,7 @@ const Ot = h4(), m4 = (e, t) => {
                 n.field.fieldtype === "Table" && S();
               }),
               forceSelection: ""
-            }, Ve({
+            }, Ke({
               option: T((G) => [
                 !G.option.label && !G.option.description ? (c(), g("div", v4, [
                   O("strong", null, K(G.option.value), 1)
@@ -30963,7 +30969,7 @@ const Ot = h4(), m4 = (e, t) => {
       ], 64);
     };
   }
-}, k4 = /* @__PURE__ */ m4(w4, [["__scopeId", "data-v-274af4c9"]]);
+}, k4 = /* @__PURE__ */ m4(w4, [["__scopeId", "data-v-eab524ca"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {

@@ -181,6 +181,14 @@ watch(
 );
 
 watch(
+	() => props.clearFilters,
+	() => {
+		clear_input();
+	},
+	{ deep: true },
+);
+
+watch(
     () => props.filters,
     (newValue) => {
         if (props.field.needFilter && props.field.dependingField) {
