@@ -1,11 +1,13 @@
 <template>
 	<div>
-		<label>{{ __(props.field.label) }}</label>
-		<span
-			v-if="props.field.required || props.field.reqd"
-			style="color: #eb9091; margin-left: 0.5rem"
-			>*</span
-		>
+		<div class="flex items-center mb-2">
+			<label>{{ __(props.field.label) }}</label>
+			<span
+				v-if="props.field.required || props.field.reqd"
+				style="color: #eb9091; margin-left: 0.5rem"
+				>*</span
+			>
+		</div>
 		<div :class="{ flex: props.field.quick_entry }" class="relative">
 			<AutoComplete
 				v-model="inputValue[props.field.fieldname]"
@@ -17,7 +19,7 @@
 				:placeholder="__(props.field.placeholder) || __(props.field.label)"
 				:completeOnFocus="true"
 				fluid
-				:disabled="disabled"
+				:disabled="disabled || props.field.read_only ? true : false"
 				:class="{ 'p-inputtext:disabled': disabled }"
 				@clear="() => clear_input"
 				:size="props.size"
@@ -103,7 +105,7 @@
 import { ref, onMounted, watch, onUnmounted } from "vue";
 import AutoComplete from "primevue/autocomplete";
 import Button from "primevue/button";
-import emitter from "../mitt/mitt"
+import emitter from "../mitt/mitt";
 
 // Define props and emit
 const props = defineProps({
@@ -146,19 +148,20 @@ const autoCompleteRef = ref(null);
 
 // Hooks
 onMounted(() => {
-
 	if (props.field.dependingField) {
-        emitter.on(props.field.dependingField + '_cleared', () => {
-            clear_input();
-            getLinkOptions(props.field.options, {});
-        });
-		emitter.on(props.field.dependingField + '_updated', () => {
-            clear_input();
+		emitter.on(props.field.dependingField + "_cleared", () => {
+			clear_input();
+			getLinkOptions(props.field.options, {});
+		});
+		emitter.on(props.field.dependingField + "_updated", () => {
+			clear_input();
 			getLinkOptions(props.field.options);
-        });
-    }
-	if (store.filters[props.field.fieldname]) {
-		inputValue.value[props.field.fieldname] = store.filters[props.field.fieldname];
+		});
+	}
+	if (store.filters && store.filters[props.field.fieldname]) {
+		if (store.filters) {
+			inputValue.value[props.field.fieldname] = store.filters[props.field.fieldname];
+		}
 	}
 	if (props.field.needFilter && props.filters[props.field.dependingField]) {
 		getLinkOptions(props.field.options, props.filters);
@@ -189,19 +192,19 @@ watch(
 );
 
 watch(
-    () => props.filters,
-    (newValue) => {
-        if (props.field.needFilter && props.field.dependingField) {
-            if (newValue && newValue[props.field.dependingField]) {
-                getLinkOptions(props.field.options, {
-                    [props.field.dependingField]: newValue[props.field.dependingField]
-                });
-            } else {
-                clear_input();
-            }
-        }
-    },
-    { deep: true }
+	() => props.filters,
+	(newValue) => {
+		if (props.field.needFilter && props.field.dependingField) {
+			if (newValue && newValue[props.field.dependingField]) {
+				getLinkOptions(props.field.options, {
+					[props.field.dependingField]: newValue[props.field.dependingField],
+				});
+			} else {
+				clear_input();
+			}
+		}
+	},
+	{ deep: true },
 );
 
 watch(
@@ -240,7 +243,9 @@ watch(
 		if (newValue) {
 			inputValue.value[newValue] = "";
 			store.dataForm[newValue] = null;
-			store.fullDataForm[newValue] = null;
+			if (store.fullDataForm) {
+				store.fullDataForm[newValue] = null;
+			}
 			refresh.value = !refresh.value;
 		}
 	},
@@ -252,7 +257,9 @@ const update_input = (valueObj, field, fieldname) => {
 	field?.fieldname ? (editingFieldname = field.fieldname) : (editingFieldname = fieldname);
 	inputValue.value[editingFieldname] = valueObj.label;
 	store.dataForm[editingFieldname] = valueObj.value;
-	store.fullDataForm[editingFieldname] = valueObj;
+	if (store.fullDataForm) {
+		store.fullDataForm[editingFieldname] = valueObj;
+	}
 	refresh.value = !refresh.value;
 };
 
@@ -261,24 +268,25 @@ const closeQuickEntry = () => {
 };
 
 const clear_input = () => {
-    store.dataForm[props.field.fieldname] = null;
-    inputValue.value[props.field.fieldname] = null;
-    store.filters[props.field.fieldname] = null;
-
-	if (props.field.hasDependencies) {
-		emitter.emit(props.field.fieldname + '_cleared');
+	store.dataForm[props.field.fieldname] = null;
+	inputValue.value[props.field.fieldname] = null;
+	if (store.filters) {
+		store.filters[props.field.fieldname] = null;
 	}
 
-    
-    emit("update-autocomplete-value", null, props.field);
-    if (props.field.provideFilter) {
-        filters.value = {};
-        store.autocompleteFilter = filters.value;
-		props.field.value = null;
-    }
-    refresh.value = !refresh.value;
+	if (props.field.hasDependencies) {
+		emitter.emit(props.field.fieldname + "_cleared");
+	}
 
-    getLinkOptions(props.field.options);
+	emit("update-autocomplete-value", null, props.field);
+	if (props.field.provideFilter) {
+		filters.value = {};
+		store.autocompleteFilter = filters.value;
+		props.field.value = null;
+	}
+	refresh.value = !refresh.value;
+
+	getLinkOptions(props.field.options);
 };
 
 const selectOption = (selectedOption, field) => {
@@ -288,11 +296,13 @@ const selectOption = (selectedOption, field) => {
 		if (field.fieldname == "referring_physician") {
 			store.physician = selectedOption;
 		}
-		store.fullDataForm[field.fieldname] = {
-			value: selectedOption.value,
-			label: selectedOption.label,
-			description: selectedOption.description,
-		};
+		if (store.fullDataForm) {
+			store.fullDataForm[field.fieldname] = {
+				value: selectedOption.value,
+				label: selectedOption.label,
+				description: selectedOption.description,
+			};
+		}
 	}
 
 	const translatedValue =
@@ -306,11 +316,13 @@ const selectOption = (selectedOption, field) => {
 		store.autocompleteFilter = filters.value;
 	}
 
-	store.filters[field.fieldname] = translatedValue;
+	if (store.filters) {
+		store.filters[field.fieldname] = translatedValue;
+	}
 	emit("update-autocomplete-value", selectedOption, field);
 
 	if (props.field.hasDependencies) {
-		emitter.emit(props.field.fieldname + '_updated');
+		emitter.emit(props.field.fieldname + "_updated");
 	}
 
 	if (field.clear_input_after_selection) {
@@ -320,37 +332,37 @@ const selectOption = (selectedOption, field) => {
 };
 
 const getLinkOptions = (doctype, filters = {}) => {
-    let finalFilters = {...filters};
+	let finalFilters = { ...filters };
 
-    // Si estamos en quickEntry, usar los filtros de props
-    if (props.quickEntry && props.filters) {
-        finalFilters = {...finalFilters, ...props.filters};
-    }
+	// Si estamos en quickEntry, usar los filtros de props
+	if (props.quickEntry && props.filters) {
+		finalFilters = { ...finalFilters, ...props.filters };
+	}
 
-    // Si el campo necesita filtros, asegurarse de que existan
-    if (props.field.needFilter && props.filters) {
-        const dependingFieldValue = props.filters[props.field.dependingField];
-        if (dependingFieldValue) {
-            finalFilters[props.field.dependingField] = dependingFieldValue;
-        }
-    }
+	// Si el campo necesita filtros, asegurarse de que existan
+	if (props.field.needFilter && props.filters) {
+		const dependingFieldValue = props.filters[props.field.dependingField];
+		if (dependingFieldValue) {
+			finalFilters[props.field.dependingField] = dependingFieldValue;
+		}
+	}
 
-    frappe.call({
-        method: "frappe.desk.search.search_link",
-        args: {
-            doctype: doctype,
-            txt: "",
-            page_length: 0,
-            filters: finalFilters,
-        },
-        callback: (r) => {
-            if (r.message) {
-                listData.value = r.message;
-            } else {
-                listData.value = [];
-            }
-        },
-    });
+	frappe.call({
+		method: "frappe.desk.search.search_link",
+		args: {
+			doctype: doctype,
+			txt: "",
+			page_length: 0,
+			filters: finalFilters,
+		},
+		callback: (r) => {
+			if (r.message) {
+				listData.value = r.message;
+			} else {
+				listData.value = [];
+			}
+		},
+	});
 };
 
 const removeAccents = (str) => {
@@ -413,11 +425,10 @@ const handleClick = () => {
 };
 
 onUnmounted(() => {
-
 	if (props.field.dependingField) {
-        emitter.off(props.field.dependingField + '_cleared');
-        emitter.off(props.field.dependingField + '_updated');
-    }
+		emitter.off(props.field.dependingField + "_cleared");
+		emitter.off(props.field.dependingField + "_updated");
+	}
 
 	if (props.editing && !props.field.value) {
 		clear_input();

@@ -30727,14 +30727,14 @@ const Ot = h4(), m4 = (e, t) => {
   for (const [r, i] of t)
     n[r] = i;
   return n;
-}, g4 = {
+}, g4 = { class: "flex items-center mb-2" }, b4 = {
   key: 0,
   style: { color: "#eb9091", "margin-left": "0.5rem" }
-}, b4 = {
+}, v4 = {
   class: "icon icon-sm",
   style: { stroke: "var(--p-inputtext-color)" },
   "aria-hidden": "true"
-}, v4 = { key: 0 }, y4 = { style: { "text-wrap": "nowrap" } }, w4 = {
+}, y4 = { key: 0 }, w4 = { style: { "text-wrap": "nowrap" } }, k4 = {
   __name: "AutoComplete",
   props: {
     field: Object,
@@ -30768,7 +30768,7 @@ const Ot = h4(), m4 = (e, t) => {
         I(), P(n.field.options, {});
       }), Ot.on(n.field.dependingField + "_updated", () => {
         I(), P(n.field.options);
-      })), i.filters[n.field.fieldname] && (o.value[n.field.fieldname] = i.filters[n.field.fieldname]), n.field.needFilter && n.filters[n.field.dependingField] ? P(n.field.options, n.filters) : P(n.field.options);
+      })), i.filters && i.filters[n.field.fieldname] && i.filters && (o.value[n.field.fieldname] = i.filters[n.field.fieldname]), n.field.needFilter && n.filters[n.field.dependingField] ? P(n.field.options, n.filters) : P(n.field.options);
     }), ze(
       () => n.field.value,
       (x) => {
@@ -30815,26 +30815,26 @@ const Ot = h4(), m4 = (e, t) => {
     ), ze(
       () => n.delInputValue,
       (x) => {
-        x && (o.value[x] = "", i.dataForm[x] = null, i.fullDataForm[x] = null, f.value = !f.value);
+        x && (o.value[x] = "", i.dataForm[x] = null, i.fullDataForm && (i.fullDataForm[x] = null), f.value = !f.value);
       }
     );
     const h = (x, F, L) => {
       let j = "";
-      F != null && F.fieldname ? j = F.fieldname : j = L, o.value[j] = x.label, i.dataForm[j] = x.value, i.fullDataForm[j] = x, f.value = !f.value;
+      F != null && F.fieldname ? j = F.fieldname : j = L, o.value[j] = x.label, i.dataForm[j] = x.value, i.fullDataForm && (i.fullDataForm[j] = x), f.value = !f.value;
     }, v = () => {
       d.value = !1;
     }, I = () => {
-      i.dataForm[n.field.fieldname] = null, o.value[n.field.fieldname] = null, i.filters[n.field.fieldname] = null, n.field.hasDependencies && Ot.emit(n.field.fieldname + "_cleared"), r("update-autocomplete-value", null, n.field), n.field.provideFilter && (u.value = {}, i.autocompleteFilter = u.value, n.field.value = null), f.value = !f.value, P(n.field.options);
+      i.dataForm[n.field.fieldname] = null, o.value[n.field.fieldname] = null, i.filters && (i.filters[n.field.fieldname] = null), n.field.hasDependencies && Ot.emit(n.field.fieldname + "_cleared"), r("update-autocomplete-value", null, n.field), n.field.provideFilter && (u.value = {}, i.autocompleteFilter = u.value, n.field.value = null), f.value = !f.value, P(n.field.options);
     }, C = (x, F) => {
-      F.fieldtype === "Table" || (i.dataForm[F.fieldname] = x.value, F.fieldname == "referring_physician" && (i.physician = x), i.fullDataForm[F.fieldname] = {
+      F.fieldtype === "Table" || (i.dataForm[F.fieldname] = x.value, F.fieldname == "referring_physician" && (i.physician = x), i.fullDataForm && (i.fullDataForm[F.fieldname] = {
         value: x.value,
         label: x.label,
         description: x.description
-      });
+      }));
       const L = x.label || x.description || x.value;
       o.value[F.fieldname] = __(L), F.provideFilter && (u.value = {
         [F.fieldname]: x.value
-      }, i.autocompleteFilter = u.value), i.filters[F.fieldname] = L, r("update-autocomplete-value", x, F), n.field.hasDependencies && Ot.emit(n.field.fieldname + "_updated"), F.clear_input_after_selection && (o.value[F.fieldname] = null, f.value = !f.value);
+      }, i.autocompleteFilter = u.value), i.filters && (i.filters[F.fieldname] = L), r("update-autocomplete-value", x, F), n.field.hasDependencies && Ot.emit(n.field.fieldname + "_updated"), F.clear_input_after_selection && (o.value[F.fieldname] = null, f.value = !f.value);
     }, P = (x, F = {}) => {
       let L = { ...F };
       if (n.quickEntry && n.filters && (L = { ...L, ...n.filters }), n.field.needFilter && n.filters) {
@@ -30883,8 +30883,10 @@ const Ot = h4(), m4 = (e, t) => {
       var L, j;
       return c(), g(V, null, [
         O("div", null, [
-          O("label", null, K(x.__(n.field.label)), 1),
-          n.field.required || n.field.reqd ? (c(), g("span", g4, "*")) : k("", !0),
+          O("div", g4, [
+            O("label", null, K(x.__(n.field.label)), 1),
+            n.field.required || n.field.reqd ? (c(), g("span", b4, "*")) : k("", !0)
+          ]),
           O("div", {
             class: H([{ flex: n.field.quick_entry }, "relative"])
           }, [
@@ -30903,7 +30905,7 @@ const Ot = h4(), m4 = (e, t) => {
               placeholder: x.__(n.field.placeholder) || x.__(n.field.label),
               completeOnFocus: !0,
               fluid: "",
-              disabled: e.disabled,
+              disabled: !!(e.disabled || n.field.read_only),
               class: H({ "p-inputtext:disabled": e.disabled }),
               onClear: F[1] || (F[1] = () => I),
               size: n.size,
@@ -30917,7 +30919,7 @@ const Ot = h4(), m4 = (e, t) => {
               forceSelection: ""
             }, Ke({
               option: T((G) => [
-                !G.option.label && !G.option.description ? (c(), g("div", v4, [
+                !G.option.label && !G.option.description ? (c(), g("div", y4, [
                   O("strong", null, K(G.option.value), 1)
                 ])) : k("", !0),
                 O("div", null, [
@@ -30935,7 +30937,7 @@ const Ot = h4(), m4 = (e, t) => {
                     class: "p-autocomplete-dropdown",
                     onClick: er(I, ["stop"])
                   }, [
-                    (c(), g("svg", b4, F[6] || (F[6] = [
+                    (c(), g("svg", v4, F[6] || (F[6] = [
                       O("use", { href: "#icon-close" }, null, -1)
                     ])))
                   ])
@@ -30953,7 +30955,7 @@ const Ot = h4(), m4 = (e, t) => {
               id: "new_" + n.field.fieldname
             }, {
               default: T(() => [
-                O("span", y4, K(x.__("New {0}", [x.__(n.field.placeholder)])), 1)
+                O("span", w4, K(x.__("New {0}", [x.__(n.field.placeholder)])), 1)
               ]),
               _: 1
             }, 8, ["id"])) : k("", !0)
@@ -30969,7 +30971,7 @@ const Ot = h4(), m4 = (e, t) => {
       ], 64);
     };
   }
-}, k4 = /* @__PURE__ */ m4(w4, [["__scopeId", "data-v-eab524ca"]]);
+}, C4 = /* @__PURE__ */ m4(k4, [["__scopeId", "data-v-db09f5a0"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {
@@ -30977,7 +30979,7 @@ $.extend(heracles.utils, {
   }
 });
 const y = heracles.utils.__;
-let C4 = {
+let S4 = {
   accept: y("Yes"),
   addRule: y("Add Rule"),
   am: y("AM"),
@@ -31156,8 +31158,8 @@ let C4 = {
     zoomOut: y("Zoom Out")
   }
 };
-const S4 = {
-  AutoComplete: k4,
+const $4 = {
+  AutoComplete: C4,
   DataTable: sl,
   Column: Cp,
   Paginator: pr,
@@ -31187,8 +31189,8 @@ const S4 = {
   Select: Gn,
   Calendar: _c,
   MultiSelect: Ol
-}, O4 = {
-  install: (e, { locale: t = C4 } = {}) => {
+}, I4 = {
+  install: (e, { locale: t = S4 } = {}) => {
     e.use(Mp, {
       theme: {
         preset: f4,
@@ -31199,13 +31201,13 @@ const S4 = {
         }
       },
       locale: t
-    }), e.use(us), e.use(cs), e.use(q1), Object.entries(S4).forEach(
+    }), e.use(us), e.use(cs), e.use(q1), Object.entries($4).forEach(
       ([n, r]) => e.component(n, r)
     );
   }
 };
 export {
-  k4 as AutoComplete,
+  C4 as AutoComplete,
   _e as Button,
   va as ButtonGroup,
   _c as Calendar,
@@ -31232,7 +31234,7 @@ export {
   Ml as Stepper,
   Dl as Tag,
   El as Toast,
-  O4 as default,
+  I4 as default,
   ss as useConfirm,
   Pp as usePrimeVue,
   Ys as useToast
