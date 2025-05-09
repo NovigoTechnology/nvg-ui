@@ -10,6 +10,74 @@
 		</div>
 		<div :class="{ flex: props.field.quick_entry }" class="relative">
 			<AutoComplete
+				v-if="isTable"
+				:v-model="inputValue[props.field.fieldname]"
+				:key="refresh + props.field.fieldname"
+				ref="autoCompleteRef"
+				:inputId="props.field.fieldname"
+				:suggestions="translatedSuggestions"
+				@complete="search"
+				:placeholder="__(props.field.placeholder) || __(props.field.label)"
+				:completeOnFocus="true"
+				fluid
+				:disabled="disabled || props.field.read_only ? true : false"
+				:class="{ 'p-inputtext:disabled': disabled }"
+				@clear="() => clear_input"
+				:size="props.size"
+				@update:modelValue="(e) => e === '' && clear_input()"
+				@option-select="
+					(e) => selectOption(suggestions[translatedSuggestions.indexOf(e.value)], field)
+				"
+				:optionLabel="(option) => option.label || option.value"
+				:dropdown="
+					props.field.fieldtype !== 'Table' &&
+					!inputValue[props.field.fieldname] === '' &&
+					inputValue[props.field.fieldname]
+				"
+				:invalid="
+					(invalid_fields?.includes(props.field.fieldname) ||
+						invalid_fields?.includes(props.field.label)) &&
+					!inputValue[props.field.fieldname]
+				"
+				@click="
+					() => {
+						if (props.field.fieldtype === 'Table') {
+							handleClick();
+						}
+					}
+				"
+				forceSelection
+			>
+				<template v-if="props.field.fieldtype !== 'Table' && !disabled" #dropdown>
+					<button
+						type="button"
+						class="p-autocomplete-dropdown"
+						@click.stop="clear_input"
+					>
+						<svg
+							class="icon icon-sm"
+							style="stroke: var(--p-inputtext-color)"
+							aria-hidden="true"
+						>
+							<use href="#icon-close"></use>
+						</svg>
+					</button>
+				</template>
+				<template #option="slotProps">
+					<div v-if="!slotProps.option.label && !slotProps.option.description">
+						<strong>{{ slotProps.option.value }}</strong>
+					</div>
+					<div>
+						<strong>{{
+							__(slotProps.option.label) || __(slotProps.option.description)
+						}}</strong>
+						<div>{{ __(slotProps.option.description) }}</div>
+					</div>
+				</template>
+			</AutoComplete>
+
+			<AutoComplete
+				v-else
 				v-model="inputValue[props.field.fieldname]"
 				:key="refresh"
 				ref="autoCompleteRef"
@@ -131,20 +199,21 @@ const props = defineProps({
 	needFilter: Boolean,
 	editing: Boolean,
 	delInputValue: String,
+	isTable: Boolean,
 });
 
 const emit = defineEmits(["update-autocomplete-value", "update-filter", "update-data"]);
 
 // Data
 const store = props.store;
-const inputValue = ref({});
 const listData = ref([]);
-const suggestions = ref([]);
-const translatedSuggestions = ref([]);
 const filters = ref({});
 const createNew = ref(false);
 const refresh = ref(false);
 const autoCompleteRef = ref(null);
+const inputValue = ref({});
+const suggestions = ref([]);
+const translatedSuggestions = ref([]);
 
 // Hooks
 onMounted(() => {
@@ -213,13 +282,6 @@ watch(
 		if (newVal) {
 			clear_input();
 		}
-	},
-);
-
-watch(
-	() => store.clear,
-	() => {
-		inputValue.value[props.field.fieldname] = "";
 	},
 );
 
