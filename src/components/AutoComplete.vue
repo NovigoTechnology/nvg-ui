@@ -286,6 +286,13 @@ watch(
 );
 
 watch(
+	() => store.clear,
+	() => {
+		clear_input();
+	},
+);
+
+watch(
 	() => store.edited,
 	(newValue) => {
 		update_input(
