@@ -145,6 +145,7 @@
 
 			<Button
 				v-if="props.field.quick_entry"
+				:disabled="disabled"
 				:raised="true"
 				severity="info"
 				class="ml-4"
@@ -506,6 +507,17 @@ onUnmounted(() => {
 		clear_input();
 	}
 });
+
+watch(
+	() => store.fullDataForm,
+	(newValue) => {
+		if (newValue && newValue[props.field.fieldname]) {
+			const value = newValue[props.field.fieldname];
+			inputValue.value[props.field.fieldname] = value.label || value.value;
+		}
+	},
+	{ deep: true, immediate: true },
+);
 </script>
 
 <style>
