@@ -30948,7 +30948,7 @@ const Ot = h4(), m4 = (e, t) => {
                     class: "p-autocomplete-dropdown",
                     onClick: to(I, ["stop"])
                   }, [
-                    (c(), g("svg", v4, L[10] || (L[10] = [
+                    (c(), g("svg", v4, L[9] || (L[9] = [
                       O("use", { href: "#icon-close" }, null, -1)
                     ])))
                   ])
@@ -30956,11 +30956,7 @@ const Ot = h4(), m4 = (e, t) => {
                 key: "0"
               } : void 0
             ]), 1032, ["v-model", "inputId", "suggestions", "placeholder", "disabled", "class", "size", "optionLabel", "dropdown", "invalid"])) : (c(), b(ko(jo), {
-              modelValue: d.value[n.field.fieldname],
-              "onUpdate:modelValue": [
-                L[4] || (L[4] = (N) => d.value[n.field.fieldname] = N),
-                L[6] || (L[6] = (N) => N === "" && I())
-              ],
+              "v-model": d.value[n.field.fieldname],
               key: s.value,
               ref_key: "autoCompleteRef",
               ref: u,
@@ -30972,13 +30968,14 @@ const Ot = h4(), m4 = (e, t) => {
               fluid: "",
               disabled: !!(e.disabled || n.field.read_only),
               class: H({ "p-inputtext:disabled": e.disabled }),
-              onClear: L[5] || (L[5] = () => I),
+              onClear: L[4] || (L[4] = () => I),
               size: n.size,
-              onOptionSelect: L[7] || (L[7] = (N) => C(f.value[m.value.indexOf(N.value)], e.field)),
+              "onUpdate:modelValue": L[5] || (L[5] = (N) => N === "" && I()),
+              onOptionSelect: L[6] || (L[6] = (N) => C(f.value[m.value.indexOf(N.value)], e.field)),
               optionLabel: (N) => N.label || N.value,
               dropdown: n.field.fieldtype !== "Table" && !d.value[n.field.fieldname] === "" && d.value[n.field.fieldname],
               invalid: (((_ = e.invalid_fields) == null ? void 0 : _.includes(n.field.fieldname)) || ((Z = e.invalid_fields) == null ? void 0 : Z.includes(n.field.label))) && !d.value[n.field.fieldname],
-              onClick: L[8] || (L[8] = () => {
+              onClick: L[7] || (L[7] = () => {
                 n.field.fieldtype === "Table" && S();
               }),
               forceSelection: ""
@@ -31002,14 +30999,14 @@ const Ot = h4(), m4 = (e, t) => {
                     class: "p-autocomplete-dropdown",
                     onClick: to(I, ["stop"])
                   }, [
-                    (c(), g("svg", w4, L[11] || (L[11] = [
+                    (c(), g("svg", w4, L[10] || (L[10] = [
                       O("use", { href: "#icon-close" }, null, -1)
                     ])))
                   ])
                 ]),
                 key: "0"
               } : void 0
-            ]), 1032, ["modelValue", "inputId", "suggestions", "placeholder", "disabled", "class", "size", "optionLabel", "dropdown", "invalid"])),
+            ]), 1032, ["v-model", "inputId", "suggestions", "placeholder", "disabled", "class", "size", "optionLabel", "dropdown", "invalid"])),
             n.field.quick_entry ? (c(), b(ko(_e), {
               key: 2,
               disabled: e.disabled,
@@ -31017,7 +31014,7 @@ const Ot = h4(), m4 = (e, t) => {
               severity: "info",
               class: "ml-4",
               size: "small",
-              onClick: L[9] || (L[9] = () => l.value = !l.value),
+              onClick: L[8] || (L[8] = () => l.value = !l.value),
               id: "new_" + n.field.fieldname
             }, {
               default: T(() => [
@@ -31037,7 +31034,7 @@ const Ot = h4(), m4 = (e, t) => {
       ], 64);
     };
   }
-}, $4 = /* @__PURE__ */ m4(S4, [["__scopeId", "data-v-d5c2cbb0"]]);
+}, $4 = /* @__PURE__ */ m4(S4, [["__scopeId", "data-v-835d2080"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {

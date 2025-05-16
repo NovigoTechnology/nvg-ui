@@ -78,7 +78,7 @@
 
 			<AutoComplete
 				v-else
-				v-model="inputValue[props.field.fieldname]"
+				:v-model="inputValue[props.field.fieldname]"
 				:key="refresh"
 				ref="autoCompleteRef"
 				:inputId="props.field.fieldname"
