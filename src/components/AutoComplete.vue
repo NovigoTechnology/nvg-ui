@@ -78,7 +78,7 @@
 
 			<AutoComplete
 				v-else
-				:v-model="inputValue[props.field.fieldname]"
+				v-model="inputValue[props.field.fieldname]"
 				:key="refresh"
 				ref="autoCompleteRef"
 				:inputId="props.field.fieldname"
@@ -92,10 +92,8 @@
 				@clear="() => clear_input"
 				:size="props.size"
 				@update:modelValue="(e) => e === '' && clear_input()"
-				@option-select="
-					(e) => selectOption(suggestions[translatedSuggestions.indexOf(e.value)], field)
-				"
-				:optionLabel="(option) => option.label || option.value"
+@option-select="(e) => selectOption(e.value, props.field)"
+				:optionLabel="(option) => option.description || option.label || option.value"
 				:dropdown="
 					props.field.fieldtype !== 'Table' &&
 					!inputValue[props.field.fieldname] === '' &&
@@ -321,6 +319,21 @@ watch(
 	},
 );
 
+watch(
+	() => inputValue.value[props.field.fieldname],
+	(newValue) => {
+		if (newValue) {
+			const idx = suggestions.value.findIndex(item => item.value === newValue);
+			if (idx !== -1) {
+				inputValue.value[props.field.fieldname] =
+					translatedSuggestions.value[idx].label ||
+					translatedSuggestions.value[idx].description ||
+					newValue;
+			}
+		}
+	}
+);
+
 // Methods
 const update_input = (valueObj, field, fieldname) => {
 	let editingFieldname = "";
@@ -360,46 +373,58 @@ const clear_input = () => {
 };
 
 const selectOption = (selectedOption, field) => {
-	if (field.fieldtype === "Table") {
-	} else {
-		store.dataForm[field.fieldname] = selectedOption.value;
-		if (field.fieldname == "referring_physician") {
-			store.physician = selectedOption;
-		}
-		if (store.fullDataForm) {
-			store.fullDataForm[field.fieldname] = {
-				value: selectedOption.value,
-				label: selectedOption.label,
-				description: selectedOption.description,
-			};
-		}
-	}
+  // 1) Guarda el valor real en el store (cuando no es Table)
+  if (field.fieldtype !== "Table") {
+    store.dataForm[field.fieldname] = selectedOption.value;
+    if (field.fieldname === "referring_physician") {
+      store.physician = selectedOption;
+    }
+    if (store.fullDataForm) {
+      store.fullDataForm[field.fieldname] = {
+        value: selectedOption.value,
+        label: selectedOption.label,
+        description: selectedOption.description,
+      };
+    }
+  }
 
-	const translatedValue =
-		selectedOption.label || selectedOption.description || selectedOption.value;
-	inputValue.value[field.fieldname] = __(translatedValue);
+  // 2) Busca la opción traducida acorde al índice
+  const idx = suggestions.value.findIndex(
+    (item) => item.value === selectedOption.value
+  );
+  const translatedOption =
+    idx !== -1 ? translatedSuggestions.value[idx] : selectedOption;
+  
+  // Asigna el label traducido al input
+  inputValue.value[field.fieldname] =
+    translatedOption.label ?? translatedOption.description ?? translatedOption.value;
 
-	if (field.provideFilter) {
-		filters.value = {
-			[field.fieldname]: selectedOption.value,
-		};
-		store.autocompleteFilter = filters.value;
-	}
+  // 3) Configura filtros si corresponde  
+  if (field.provideFilter) {
+    filters.value = { [field.fieldname]: selectedOption.value };
+    store.autocompleteFilter = filters.value;
+  }
+  if (store.filters) {
+    store.filters[field.fieldname] = selectedOption.value;
+  }
 
-	if (store.filters) {
-		store.filters[field.fieldname] = translatedValue;
-	}
-	emit("update-autocomplete-value", selectedOption, field);
+  // 4) Emite el evento con la opción seleccionada
+  emit("update-autocomplete-value", selectedOption, field);
 
-	if (props.field.hasDependencies) {
-		emitter.emit(props.field.fieldname + "_updated");
-	}
+  // 5) Dispara dependencias si existen
+  if (props.field.hasDependencies) {
+    emitter.emit(props.field.fieldname + "_updated");
+  }
 
-	if (field.clear_input_after_selection) {
-		inputValue.value[field.fieldname] = null;
-		refresh.value = !refresh.value;
-	}
+  // 6) Limpia el input si está configurado para hacerlo
+  if (field.clear_input_after_selection) {
+    inputValue.value[field.fieldname] = null;
+    refresh.value = !refresh.value;
+  }
 };
+
+
+
 
 const getLinkOptions = (doctype, filters = {}) => {
 	let finalFilters = { ...filters };
@@ -441,51 +466,56 @@ const removeAccents = (str) => {
 };
 
 const search = (event) => {
-	let _suggestions = listData.value.slice(0, 10);
+  let _suggestions = listData.value.slice(0, 10);
 
-	if (event.query) {
-		const queryNorm = removeAccents(event.query.toLowerCase());
+  if (event.query) {
+    const queryNorm = removeAccents(event.query.toLowerCase());
 
-		const translatedList = listData.value.map((item) => ({
-			original: item,
-			translated: {
-				description: item.description ? __(item.description) : item.description,
-				label: item.label ? __(item.label) : item.label,
-				value: item.value ? __(item.value) : item.value,
-			},
-		}));
+    // 1) Prepara una lista con original + traducido (pero sin tocar value)
+    const translatedList = listData.value.map((item) => ({
+      original: item,
+      translated: {
+        // traduce sólo label y description
+        label:       item.label       ? __(item.label)       : item.label,
+        description: item.description ? __(item.description) : item.description,
+        value:       item.value                             // SIN __()
+      },
+    }));
 
-		const filtered = translatedList
-			.filter((item) => {
-				const desc = item.translated.description
-					? removeAccents(item.translated.description.toLowerCase())
-					: "";
-				const label = item.translated.label
-					? removeAccents(item.translated.label.toLowerCase())
-					: "";
-				const value = item.translated.value
-					? removeAccents(item.translated.value.toLowerCase())
-					: "";
+    // 2) Filtra sobre la versión traducida (solo para buscar)
+    const filtered = translatedList
+      .filter(({ translated }) => {
+        const desc  = translated.description
+          ? removeAccents(translated.description.toLowerCase())
+          : "";
+        const label = translated.label
+          ? removeAccents(translated.label.toLowerCase())
+          : "";
+        const value = translated.value
+          ? removeAccents(translated.value.toLowerCase())
+          : "";
+        return desc.includes(queryNorm)
+            || label.includes(queryNorm)
+            || value.includes(queryNorm);
+      })
+      .slice(0, 10);
 
-				return (
-					desc.includes(queryNorm) ||
-					label.includes(queryNorm) ||
-					value.includes(queryNorm)
-				);
-			})
-			.slice(0, 10);
+    // 3) suggestions conserva el objeto original (con value en inglés)
+    suggestions.value = filtered.map((item) => item.original);
 
-		suggestions.value = filtered.map((item) => item.original);
-		translatedSuggestions.value = filtered.map((item) => item.translated);
-	} else {
-		suggestions.value = _suggestions;
-		translatedSuggestions.value = _suggestions.map((item) => ({
-			description: item.description ? __(item.description) : item.description,
-			label: item.label ? __(item.label) : item.label,
-			value: item.value ? __(item.value) : item.value,
-		}));
-	}
+    // 4) translatedSuggestions trae label/description traducidos, pero value en inglés
+    translatedSuggestions.value = filtered.map((item) => item.translated);
+  } else {
+    // Caso sin query: igual traducimos solo label/description
+    suggestions.value = _suggestions;
+    translatedSuggestions.value = _suggestions.map((item) => ({
+      label:       item.label       ? __(item.label)       : item.label,
+      description: item.description ? __(item.description) : item.description,
+      value:       item.value                             // SIN __()
+    }));
+  }
 };
+
 
 const handleClick = () => {
 	// Forzamos la apertura del dropdown de sugerencias
