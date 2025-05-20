@@ -92,7 +92,7 @@
 				@clear="() => clear_input"
 				:size="props.size"
 				@update:modelValue="(e) => e === '' && clear_input()"
-@option-select="(e) => selectOption(e.value, props.field)"
+				@option-select="(e) => selectOption(e.value, props.field)"
 				:optionLabel="(option) => option.description || option.label || option.value"
 				:dropdown="
 					props.field.fieldtype !== 'Table' &&
@@ -216,6 +216,11 @@ const translatedSuggestions = ref([]);
 
 // Hooks
 onMounted(() => {
+	frappe.realtime.doctype_subscribe(props.field.options);
+	frappe.realtime.on("list_update", (data) => {
+		getLinkOptions(props.field.options);
+	});
+
 	if (props.field.dependingField) {
 		emitter.on(props.field.dependingField + "_cleared", () => {
 			clear_input();
@@ -323,7 +328,7 @@ watch(
 	() => inputValue.value[props.field.fieldname],
 	(newValue) => {
 		if (newValue) {
-			const idx = suggestions.value.findIndex(item => item.value === newValue);
+			const idx = suggestions.value.findIndex((item) => item.value === newValue);
 			if (idx !== -1) {
 				inputValue.value[props.field.fieldname] =
 					translatedSuggestions.value[idx].label ||
@@ -331,7 +336,7 @@ watch(
 					newValue;
 			}
 		}
-	}
+	},
 );
 
 // Methods
@@ -373,58 +378,52 @@ const clear_input = () => {
 };
 
 const selectOption = (selectedOption, field) => {
-  // 1) Guarda el valor real en el store (cuando no es Table)
-  if (field.fieldtype !== "Table") {
-    store.dataForm[field.fieldname] = selectedOption.value;
-    if (field.fieldname === "referring_physician") {
-      store.physician = selectedOption;
-    }
-    if (store.fullDataForm) {
-      store.fullDataForm[field.fieldname] = {
-        value: selectedOption.value,
-        label: selectedOption.label,
-        description: selectedOption.description,
-      };
-    }
-  }
+	// 1) Guarda el valor real en el store (cuando no es Table)
+	if (field.fieldtype !== "Table") {
+		store.dataForm[field.fieldname] = selectedOption.value;
+		if (field.fieldname === "referring_physician") {
+			store.physician = selectedOption;
+		}
+		if (store.fullDataForm) {
+			store.fullDataForm[field.fieldname] = {
+				value: selectedOption.value,
+				label: selectedOption.label,
+				description: selectedOption.description,
+			};
+		}
+	}
 
-  // 2) Busca la opción traducida acorde al índice
-  const idx = suggestions.value.findIndex(
-    (item) => item.value === selectedOption.value
-  );
-  const translatedOption =
-    idx !== -1 ? translatedSuggestions.value[idx] : selectedOption;
-  
-  // Asigna el label traducido al input
-  inputValue.value[field.fieldname] =
-    translatedOption.label ?? translatedOption.description ?? translatedOption.value;
+	// 2) Busca la opción traducida acorde al índice
+	const idx = suggestions.value.findIndex((item) => item.value === selectedOption.value);
+	const translatedOption = idx !== -1 ? translatedSuggestions.value[idx] : selectedOption;
 
-  // 3) Configura filtros si corresponde  
-  if (field.provideFilter) {
-    filters.value = { [field.fieldname]: selectedOption.value };
-    store.autocompleteFilter = filters.value;
-  }
-  if (store.filters) {
-    store.filters[field.fieldname] = selectedOption.value;
-  }
+	// Asigna el label traducido al input
+	inputValue.value[field.fieldname] =
+		translatedOption.label ?? translatedOption.description ?? translatedOption.value;
 
-  // 4) Emite el evento con la opción seleccionada
-  emit("update-autocomplete-value", selectedOption, field);
+	// 3) Configura filtros si corresponde
+	if (field.provideFilter) {
+		filters.value = { [field.fieldname]: selectedOption.value };
+		store.autocompleteFilter = filters.value;
+	}
+	if (store.filters) {
+		store.filters[field.fieldname] = selectedOption.value;
+	}
 
-  // 5) Dispara dependencias si existen
-  if (props.field.hasDependencies) {
-    emitter.emit(props.field.fieldname + "_updated");
-  }
+	// 4) Emite el evento con la opción seleccionada
+	emit("update-autocomplete-value", selectedOption, field);
 
-  // 6) Limpia el input si está configurado para hacerlo
-  if (field.clear_input_after_selection) {
-    inputValue.value[field.fieldname] = null;
-    refresh.value = !refresh.value;
-  }
+	// 5) Dispara dependencias si existen
+	if (props.field.hasDependencies) {
+		emitter.emit(props.field.fieldname + "_updated");
+	}
+
+	// 6) Limpia el input si está configurado para hacerlo
+	if (field.clear_input_after_selection) {
+		inputValue.value[field.fieldname] = null;
+		refresh.value = !refresh.value;
+	}
 };
-
-
-
 
 const getLinkOptions = (doctype, filters = {}) => {
 	let finalFilters = { ...filters };
@@ -466,56 +465,57 @@ const removeAccents = (str) => {
 };
 
 const search = (event) => {
-  let _suggestions = listData.value.slice(0, 10);
+	let _suggestions = listData.value.slice(0, 10);
 
-  if (event.query) {
-    const queryNorm = removeAccents(event.query.toLowerCase());
+	if (event.query) {
+		const queryNorm = removeAccents(event.query.toLowerCase());
 
-    // 1) Prepara una lista con original + traducido (pero sin tocar value)
-    const translatedList = listData.value.map((item) => ({
-      original: item,
-      translated: {
-        // traduce sólo label y description
-        label:       item.label       ? __(item.label)       : item.label,
-        description: item.description ? __(item.description) : item.description,
-        value:       item.value                             // SIN __()
-      },
-    }));
+		// 1) Prepara una lista con original + traducido (pero sin tocar value)
+		const translatedList = listData.value.map((item) => ({
+			original: item,
+			translated: {
+				// traduce sólo label y description
+				label: item.label ? __(item.label) : item.label,
+				description: item.description ? __(item.description) : item.description,
+				value: item.value, // SIN __()
+			},
+		}));
 
-    // 2) Filtra sobre la versión traducida (solo para buscar)
-    const filtered = translatedList
-      .filter(({ translated }) => {
-        const desc  = translated.description
-          ? removeAccents(translated.description.toLowerCase())
-          : "";
-        const label = translated.label
-          ? removeAccents(translated.label.toLowerCase())
-          : "";
-        const value = translated.value
-          ? removeAccents(translated.value.toLowerCase())
-          : "";
-        return desc.includes(queryNorm)
-            || label.includes(queryNorm)
-            || value.includes(queryNorm);
-      })
-      .slice(0, 10);
+		// 2) Filtra sobre la versión traducida (solo para buscar)
+		const filtered = translatedList
+			.filter(({ translated }) => {
+				const desc = translated.description
+					? removeAccents(translated.description.toLowerCase())
+					: "";
+				const label = translated.label
+					? removeAccents(translated.label.toLowerCase())
+					: "";
+				const value = translated.value
+					? removeAccents(translated.value.toLowerCase())
+					: "";
+				return (
+					desc.includes(queryNorm) ||
+					label.includes(queryNorm) ||
+					value.includes(queryNorm)
+				);
+			})
+			.slice(0, 10);
 
-    // 3) suggestions conserva el objeto original (con value en inglés)
-    suggestions.value = filtered.map((item) => item.original);
+		// 3) suggestions conserva el objeto original (con value en inglés)
+		suggestions.value = filtered.map((item) => item.original);
 
-    // 4) translatedSuggestions trae label/description traducidos, pero value en inglés
-    translatedSuggestions.value = filtered.map((item) => item.translated);
-  } else {
-    // Caso sin query: igual traducimos solo label/description
-    suggestions.value = _suggestions;
-    translatedSuggestions.value = _suggestions.map((item) => ({
-      label:       item.label       ? __(item.label)       : item.label,
-      description: item.description ? __(item.description) : item.description,
-      value:       item.value                             // SIN __()
-    }));
-  }
+		// 4) translatedSuggestions trae label/description traducidos, pero value en inglés
+		translatedSuggestions.value = filtered.map((item) => item.translated);
+	} else {
+		// Caso sin query: igual traducimos solo label/description
+		suggestions.value = _suggestions;
+		translatedSuggestions.value = _suggestions.map((item) => ({
+			label: item.label ? __(item.label) : item.label,
+			description: item.description ? __(item.description) : item.description,
+			value: item.value, // SIN __()
+		}));
+	}
 };
-
 
 const handleClick = () => {
 	// Forzamos la apertura del dropdown de sugerencias

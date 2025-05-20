@@ -30769,7 +30769,9 @@ const Ot = h4(), m4 = (e, t) => {
   setup(e, { emit: t }) {
     const n = e, r = t, i = n.store, o = ze([]), a = ze({}), l = ze(!1), s = ze(!1), d = ze(null), u = ze({}), f = ze([]), m = ze([]);
     qi(() => {
-      n.field.dependingField && (Ot.on(n.field.dependingField + "_cleared", () => {
+      frappe.realtime.doctype_subscribe(n.field.options), frappe.realtime.on("list_update", (x) => {
+        P(n.field.options);
+      }), n.field.dependingField && (Ot.on(n.field.dependingField + "_cleared", () => {
         I(), P(n.field.options, {});
       }), Ot.on(n.field.dependingField + "_updated", () => {
         I(), P(n.field.options);
@@ -30844,9 +30846,7 @@ const Ot = h4(), m4 = (e, t) => {
         label: x.label,
         description: x.description
       }));
-      const M = f.value.findIndex(
-        (_) => _.value === x.value
-      ), j = M !== -1 ? m.value[M] : x;
+      const M = f.value.findIndex((_) => _.value === x.value), j = M !== -1 ? m.value[M] : x;
       u.value[L.fieldname] = j.label ?? j.description ?? j.value, L.provideFilter && (a.value = { [L.fieldname]: x.value }, i.autocompleteFilter = a.value), i.filters && (i.filters[L.fieldname] = x.value), r("update-autocomplete-value", x, L), n.field.hasDependencies && Ot.emit(n.field.fieldname + "_updated"), L.clear_input_after_selection && (u.value[L.fieldname] = null, s.value = !s.value);
     }, P = (x, L = {}) => {
       let M = { ...L };
@@ -31048,7 +31048,7 @@ const Ot = h4(), m4 = (e, t) => {
       ], 64);
     };
   }
-}, $4 = /* @__PURE__ */ m4(S4, [["__scopeId", "data-v-74df6874"]]);
+}, $4 = /* @__PURE__ */ m4(S4, [["__scopeId", "data-v-8696205f"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {
