@@ -10,13 +10,13 @@
 		</div>
 		<div :class="{ flex: props.field.quick_entry }" class="relative">
 			<AutoComplete
-				v-if="isTable"
-				:v-model="inputValue[props.field.fieldname]"
-				:key="refresh + props.field.fieldname"
-				ref="autoCompleteRef"
-				:inputId="props.field.fieldname"
-				:suggestions="translatedSuggestions"
-				@complete="search"
+				    v-if="isTable"
+    :v-model="inputValue[props.field.fieldname]"
+    :key="refresh + props.field.fieldname"
+    ref="autoCompleteRef"
+    :inputId="props.field.fieldname"
+    :suggestions="translatedSuggestions"
+    @complete="(e) => getLinkOptions(props.field.options, {}, e.query)"
 				:placeholder="__(props.field.placeholder) || __(props.field.label)"
 				:completeOnFocus="true"
 				fluid
@@ -77,13 +77,13 @@
 			</AutoComplete>
 
 			<AutoComplete
-				v-else
-				v-model="inputValue[props.field.fieldname]"
-				:key="refresh"
-				ref="autoCompleteRef"
-				:inputId="props.field.fieldname"
-				:suggestions="translatedSuggestions"
-				@complete="search"
+				    v-else
+    v-model="inputValue[props.field.fieldname]"
+    :key="refresh"
+    ref="autoCompleteRef"
+    :inputId="props.field.fieldname"
+    :suggestions="translatedSuggestions"
+    @complete="(e) => getLinkOptions(props.field.options, {}, e.query)"
 				:placeholder="__(props.field.placeholder) || __(props.field.label)"
 				:completeOnFocus="true"
 				fluid
@@ -199,13 +199,13 @@ const props = defineProps({
 	editing: Boolean,
 	delInputValue: String,
 	isTable: Boolean,
+	query: String,
 });
 
 const emit = defineEmits(["update-autocomplete-value", "update-filter", "update-data"]);
 
 // Data
 const store = props.store;
-const listData = ref([]);
 const filters = ref({});
 const createNew = ref(false);
 const refresh = ref(false);
@@ -425,96 +425,51 @@ const selectOption = (selectedOption, field) => {
 	}
 };
 
-const getLinkOptions = (doctype, filters = {}) => {
-	let finalFilters = { ...filters };
+const getLinkOptions = (doctype, filters = {}, searchText = "") => {
+    let finalFilters = { ...filters };
 
-	// Si estamos en quickEntry, usar los filtros de props
-	if (props.quickEntry && props.filters) {
-		finalFilters = { ...finalFilters, ...props.filters };
-	}
+    // Si estamos en quickEntry, usar los filtros de props
+    if (props.quickEntry && props.filters) {
+        finalFilters = { ...finalFilters, ...props.filters };
+    }
 
-	// Si el campo necesita filtros, asegurarse de que existan
-	if (props.field.needFilter && props.filters) {
-		const dependingFieldValue = props.filters[props.field.dependingField];
-		if (dependingFieldValue) {
-			finalFilters[props.field.dependingField] = dependingFieldValue;
-		}
-	}
+    // Si el campo necesita filtros, asegurarse de que existan
+    if (props.field.needFilter && props.filters) {
+        const dependingFieldValue = props.filters[props.field.dependingField];
+        if (dependingFieldValue) {
+            finalFilters[props.field.dependingField] = dependingFieldValue;
+        }
+    }
 
-	frappe.call({
-		method: "frappe.desk.search.search_link",
-		args: {
-			doctype: doctype,
-			txt: "",
-			page_length: 0,
-			filters: finalFilters,
-		},
-		callback: (r) => {
-			if (r.message) {
-				listData.value = r.message;
-			} else {
-				listData.value = [];
-			}
-		},
-	});
-};
+    const args = {
+        doctype: doctype,
+        txt: searchText,
+        page_length: 10,
+        filters: finalFilters,
+    };
 
-const removeAccents = (str) => {
-	if (!str) return "";
-	return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-};
+    if(props.query) {
+        args.query = props.query;
+    }
 
-const search = (event) => {
-	let _suggestions = listData.value.slice(0, 10);
-
-	if (event.query) {
-		const queryNorm = removeAccents(event.query.toLowerCase());
-
-		// 1) Prepara una lista con original + traducido (pero sin tocar value)
-		const translatedList = listData.value.map((item) => ({
-			original: item,
-			translated: {
-				// traduce sólo label y description
-				label: item.label ? __(item.label) : item.label,
-				description: item.description ? __(item.description) : item.description,
-				value: item.value, // SIN __()
-			},
-		}));
-
-		// 2) Filtra sobre la versión traducida (solo para buscar)
-		const filtered = translatedList
-			.filter(({ translated }) => {
-				const desc = translated.description
-					? removeAccents(translated.description.toLowerCase())
-					: "";
-				const label = translated.label
-					? removeAccents(translated.label.toLowerCase())
-					: "";
-				const value = translated.value
-					? removeAccents(translated.value.toLowerCase())
-					: "";
-				return (
-					desc.includes(queryNorm) ||
-					label.includes(queryNorm) ||
-					value.includes(queryNorm)
-				);
-			})
-			.slice(0, 10);
-
-		// 3) suggestions conserva el objeto original (con value en inglés)
-		suggestions.value = filtered.map((item) => item.original);
-
-		// 4) translatedSuggestions trae label/description traducidos, pero value en inglés
-		translatedSuggestions.value = filtered.map((item) => item.translated);
-	} else {
-		// Caso sin query: igual traducimos solo label/description
-		suggestions.value = _suggestions;
-		translatedSuggestions.value = _suggestions.map((item) => ({
-			label: item.label ? __(item.label) : item.label,
-			description: item.description ? __(item.description) : item.description,
-			value: item.value, // SIN __()
-		}));
-	}
+    frappe.call({
+        method: "frappe.desk.search.search_link",
+        args: args,
+        callback: (r) => {
+            if (r.message) {
+                // Traducir las sugerencias directamente aquí
+                suggestions.value = r.message;
+                translatedSuggestions.value = r.message.map(item => ({
+                    label: item.label ? __(item.label) : item.label,
+                    description: item.description ? __(item.description) : item.description,
+                    value: item.value
+                }));
+            } else {
+                suggestions.value = [];
+                translatedSuggestions.value = [];
+            }
+        },
+    });
 };
 
 const handleClick = () => {
