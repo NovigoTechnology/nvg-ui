@@ -10,13 +10,13 @@
 		</div>
 		<div :class="{ flex: props.field.quick_entry }" class="relative">
 			<AutoComplete
-				    v-if="isTable"
-    :v-model="inputValue[props.field.fieldname]"
-    :key="refresh + props.field.fieldname"
-    ref="autoCompleteRef"
-    :inputId="props.field.fieldname"
-    :suggestions="translatedSuggestions"
-    @complete="(e) => getLinkOptions(props.field.options, {}, e.query)"
+				v-if="isTable"
+				:v-model="inputValue[props.field.fieldname]"
+				:key="refresh + props.field.fieldname"
+				ref="autoCompleteRef"
+				:inputId="props.field.fieldname"
+				:suggestions="translatedSuggestions"
+				@complete="(e) => getLinkOptions(props.field.options, {}, e.query)"
 				:placeholder="__(props.field.placeholder) || __(props.field.label)"
 				:completeOnFocus="true"
 				fluid
@@ -67,23 +67,29 @@
 					<div v-if="!slotProps.option.label && !slotProps.option.description">
 						<strong>{{ slotProps.option.value }}</strong>
 					</div>
-					<div>
+					<div v-else>
 						<strong>{{
-							__(slotProps.option.label) || __(slotProps.option.description)
+							slotProps.option.label ? __(slotProps.option.label) : ""
 						}}</strong>
-						<div>{{ __(slotProps.option.description) }}</div>
+						<div>
+							{{
+								slotProps.option.description
+									? __(slotProps.option.description)
+									: ""
+							}}
+						</div>
 					</div>
 				</template>
 			</AutoComplete>
 
 			<AutoComplete
-				    v-else
-    v-model="inputValue[props.field.fieldname]"
-    :key="refresh"
-    ref="autoCompleteRef"
-    :inputId="props.field.fieldname"
-    :suggestions="translatedSuggestions"
-    @complete="(e) => getLinkOptions(props.field.options, {}, e.query)"
+				v-else
+				v-model="inputValue[props.field.fieldname]"
+				:key="refresh"
+				ref="autoCompleteRef"
+				:inputId="props.field.fieldname"
+				:suggestions="translatedSuggestions"
+				@complete="(e) => getLinkOptions(props.field.options, {}, e.query)"
 				:placeholder="__(props.field.placeholder) || __(props.field.label)"
 				:completeOnFocus="true"
 				fluid
@@ -132,11 +138,17 @@
 					<div v-if="!slotProps.option.label && !slotProps.option.description">
 						<strong>{{ slotProps.option.value }}</strong>
 					</div>
-					<div>
+					<div v-else>
 						<strong>{{
-							__(slotProps.option.label) || __(slotProps.option.description)
+							slotProps.option.label ? __(slotProps.option.label) : ""
 						}}</strong>
-						<div>{{ __(slotProps.option.description) }}</div>
+						<div>
+							{{
+								slotProps.option.description
+									? __(slotProps.option.description)
+									: ""
+							}}
+						</div>
 					</div>
 				</template>
 			</AutoComplete>
@@ -387,19 +399,22 @@ const selectOption = (selectedOption, field) => {
 		if (store.fullDataForm) {
 			store.fullDataForm[field.fieldname] = {
 				value: selectedOption.value,
-				label: selectedOption.label,
-				description: selectedOption.description,
+				label: __(selectedOption.label),
+				description: __(selectedOption.description),
 			};
 		}
 	}
 
 	// 2) Busca la opción traducida acorde al índice
-	const idx = suggestions.value.findIndex((item) => item.value === selectedOption.value);
-	const translatedOption = idx !== -1 ? translatedSuggestions.value[idx] : selectedOption;
+	const translatedOption = {
+		label: selectedOption.label ? __(selectedOption.label) : "",
+		description: selectedOption.description ? __(selectedOption.description) : "",
+		value: selectedOption.value,
+	};
 
 	// Asigna el label traducido al input
 	inputValue.value[field.fieldname] =
-		translatedOption.label ?? translatedOption.description ?? translatedOption.value;
+		translatedOption.label || translatedOption.description || translatedOption.value;
 
 	// 3) Configura filtros si corresponde
 	if (field.provideFilter) {
@@ -410,8 +425,16 @@ const selectOption = (selectedOption, field) => {
 		store.filters[field.fieldname] = selectedOption.value;
 	}
 
-	// 4) Emite el evento con la opción seleccionada
-	emit("update-autocomplete-value", selectedOption, field);
+	// 4) Emite el evento con la opción seleccionada (incluimos la versión traducida)
+	emit(
+		"update-autocomplete-value",
+		{
+			...selectedOption,
+			label: translatedOption.label,
+			description: translatedOption.description,
+		},
+		field,
+	);
 
 	// 5) Dispara dependencias si existen
 	if (props.field.hasDependencies) {
@@ -426,50 +449,57 @@ const selectOption = (selectedOption, field) => {
 };
 
 const getLinkOptions = (doctype, filters = {}, searchText = "") => {
-    let finalFilters = { ...filters };
+	let finalFilters = { ...filters };
 
-    // Si estamos en quickEntry, usar los filtros de props
-    if (props.quickEntry && props.filters) {
-        finalFilters = { ...finalFilters, ...props.filters };
-    }
+	if (props.quickEntry && props.filters) {
+		finalFilters = { ...finalFilters, ...props.filters };
+	}
 
-    // Si el campo necesita filtros, asegurarse de que existan
-    if (props.field.needFilter && props.filters) {
-        const dependingFieldValue = props.filters[props.field.dependingField];
-        if (dependingFieldValue) {
-            finalFilters[props.field.dependingField] = dependingFieldValue;
-        }
-    }
+	if (props.field.needFilter && props.filters) {
+		const dependingFieldValue = props.filters[props.field.dependingField];
+		if (dependingFieldValue) {
+			finalFilters[props.field.dependingField] = dependingFieldValue;
+		}
+	}
 
-    const args = {
-        doctype: doctype,
-        txt: searchText,
-        page_length: 10,
-        filters: finalFilters,
-    };
+	const args = {
+		doctype: doctype,
+		txt: searchText,
+		page_length: 10,
+		filters: finalFilters,
+	};
 
-    if(props.query) {
-        args.query = props.query;
-    }
+	if (props.query) {
+		args.query = props.query;
+	}
 
-    frappe.call({
-        method: "frappe.desk.search.search_link",
-        args: args,
-        callback: (r) => {
-            if (r.message) {
-                // Traducir las sugerencias directamente aquí
-                suggestions.value = r.message;
-                translatedSuggestions.value = r.message.map(item => ({
-                    label: item.label ? __(item.label) : item.label,
-                    description: item.description ? __(item.description) : item.description,
-                    value: item.value
-                }));
-            } else {
-                suggestions.value = [];
-                translatedSuggestions.value = [];
-            }
-        },
-    });
+	frappe.call({
+		method: "frappe.desk.search.search_link",
+		args: args,
+		callback: (r) => {
+			if (r.message) {
+				// Guardamos las sugerencias originales
+				suggestions.value = r.message;
+
+				// Creamos las sugerencias traducidas asegurándonos de que los textos se traduzcan
+				translatedSuggestions.value = r.message.map((item) => {
+					const translatedLabel = item.label ? frappe._(item.label) : "";
+					const translatedDescription = item.description
+						? frappe._(item.description)
+						: "";
+
+					return {
+						label: translatedLabel || translatedDescription || item.value,
+						description: translatedDescription,
+						value: item.value,
+					};
+				});
+			} else {
+				suggestions.value = [];
+				translatedSuggestions.value = [];
+			}
+		},
+	});
 };
 
 const handleClick = () => {
