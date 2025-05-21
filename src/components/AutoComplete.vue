@@ -337,18 +337,21 @@ watch(
 );
 
 watch(
-	() => inputValue.value[props.field.fieldname],
-	(newValue) => {
-		if (newValue) {
-			const idx = suggestions.value.findIndex((item) => item.value === newValue);
-			if (idx !== -1) {
-				inputValue.value[props.field.fieldname] =
-					translatedSuggestions.value[idx].label ||
-					translatedSuggestions.value[idx].description ||
-					newValue;
-			}
-		}
-	},
+    () => inputValue.value[props.field.fieldname],
+    (newValue) => {
+        if (newValue === null || newValue === '') {
+            clear_input();
+            return;
+        }
+        // Solo actualizar si hay un valor válido seleccionado
+        const idx = suggestions.value.findIndex((item) => item.value === newValue);
+        if (idx !== -1) {
+            inputValue.value[props.field.fieldname] =
+                translatedSuggestions.value[idx].label ||
+                translatedSuggestions.value[idx].description ||
+                newValue;
+        }
+    }
 );
 
 // Methods
@@ -368,25 +371,40 @@ const closeQuickEntry = () => {
 };
 
 const clear_input = () => {
-	store.dataForm[props.field.fieldname] = null;
-	inputValue.value[props.field.fieldname] = null;
-	if (store.filters) {
-		store.filters[props.field.fieldname] = null;
-	}
+    // Limpiar el store
+    store.dataForm[props.field.fieldname] = null;
+    
+    // Limpiar el input local
+    inputValue.value[props.field.fieldname] = null;
+    
+    // Limpiar las sugerencias
+    suggestions.value = [];
+    translatedSuggestions.value = [];
+    
+    // Limpiar filtros relacionados
+    if (store.filters) {
+        store.filters[props.field.fieldname] = null;
+    }
+    
+    if (store.fullDataForm) {
+        store.fullDataForm[props.field.fieldname] = null;
+    }
 
-	if (props.field.hasDependencies) {
-		emitter.emit(props.field.fieldname + "_cleared");
-	}
+    // Emitir eventos de limpieza
+    if (props.field.hasDependencies) {
+        emitter.emit(props.field.fieldname + "_cleared");
+    }
 
-	emit("update-autocomplete-value", null, props.field);
-	if (props.field.provideFilter) {
-		filters.value = {};
-		store.autocompleteFilter = filters.value;
-		props.field.value = null;
-	}
-	refresh.value = !refresh.value;
-
-	getLinkOptions(props.field.options);
+    emit("update-autocomplete-value", null, props.field);
+    
+    if (props.field.provideFilter) {
+        filters.value = {};
+        store.autocompleteFilter = filters.value;
+        props.field.value = null;
+    }
+    
+    // Forzar re-render
+    refresh.value = !refresh.value;
 };
 
 const selectOption = (selectedOption, field) => {
