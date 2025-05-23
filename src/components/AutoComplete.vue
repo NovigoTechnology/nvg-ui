@@ -99,7 +99,7 @@
 				:size="props.size"
 				@update:modelValue="(e) => e === '' && clear_input()"
 				@option-select="(e) => selectOption(e.value, props.field)"
-				:optionLabel="(option) => option.description || option.label || option.value"
+				:optionLabel="(option) => option.label || option.description || option.value"
 				:dropdown="
 					props.field.fieldtype !== 'Table' &&
 					!inputValue[props.field.fieldname] === '' &&
@@ -542,14 +542,30 @@ onUnmounted(() => {
 });
 
 watch(
-	() => store.fullDataForm,
-	(newValue) => {
-		if (newValue && newValue[props.field.fieldname]) {
-			const value = newValue[props.field.fieldname];
-			inputValue.value[props.field.fieldname] = value.label || value.value;
-		}
-	},
-	{ deep: true, immediate: true },
+    () => store.fullDataForm,
+    (newValue) => {
+        if (newValue && newValue[props.field.fieldname]) {
+            const value = newValue[props.field.fieldname];
+            // Traducir el valor cuando se carga para editar
+            inputValue.value[props.field.fieldname] = value.label ? __(value.label) : (value.description ? __(value.description) : value.value);
+            
+            // También actualizar las sugerencias con el valor actual
+            if (value.value) {
+                suggestions.value = [{
+                    label: value.label,
+                    description: value.description,
+                    value: value.value
+                }];
+                
+                translatedSuggestions.value = [{
+                    label: value.label ? __(value.label) : "",
+                    description: value.description ? __(value.description) : "",
+                    value: value.value
+                }];
+            }
+        }
+    },
+    { deep: true, immediate: true }
 );
 </script>
 
