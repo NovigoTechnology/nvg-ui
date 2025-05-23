@@ -35,25 +35,27 @@ import { MultiSelect } from "primevue";
 import { useToast } from "primevue/usetoast";
 import { useConfirm, usePrimeVue } from "primevue";
 
- import translatableLocale from "./utils/primeLocale";
+import translatableLocale from "./utils/primeLocale";
 
-const components = { 
-  AutoComplete, 
-  DataTable, 
+import { groupFields } from "./functions/groupFields";
+
+const components = {
+  AutoComplete,
+  DataTable,
   Column,
   Paginator,
   Menu,
   Checkbox,
   DynamicDialog,
-  Button, 
+  Button,
   ButtonGroup,
-  Tag, 
-  Stepper, 
-  StepList, 
-  StepPanels, 
-  Step, 
-  StepPanel, 
-  ConfirmDialog, 
+  Tag,
+  Stepper,
+  StepList,
+  StepPanels,
+  Step,
+  StepPanel,
+  ConfirmDialog,
   Toast,
   useToast,
   useConfirm,
@@ -67,7 +69,8 @@ const components = {
   Divider,
   Select,
   Calendar,
-  MultiSelect
+  MultiSelect,
+  groupFields
 }
 
 export default {
@@ -86,30 +89,30 @@ export default {
     app.use(ConfirmationService);
     app.use(DialogService);
     app.use(ToastService);
-    
-    Object.entries(components).forEach(([name, cmp]) => 
+
+    Object.entries(components).forEach(([name, cmp]) =>
       app.component(name, cmp)
     )
   }
 }
 
-export { 
-  AutoComplete, 
-  DataTable, 
+export {
+  AutoComplete,
+  DataTable,
   Column,
   Paginator,
   Menu,
   Checkbox,
   DynamicDialog,
-  Button, 
+  Button,
   ButtonGroup,
-  Tag, 
-  Stepper, 
-  StepList, 
-  StepPanels, 
-  Step, 
-  StepPanel, 
-  ConfirmDialog, 
+  Tag,
+  Stepper,
+  StepList,
+  StepPanels,
+  Step,
+  StepPanel,
+  ConfirmDialog,
   Toast,
   useToast,
   useConfirm,
@@ -123,5 +126,6 @@ export {
   Divider,
   Select,
   Calendar,
-  MultiSelect
+  MultiSelect,
+  groupFields
 }
