@@ -31240,7 +31240,40 @@ let x4 = {
     zoomOut: k("Zoom Out")
   }
 };
-const P4 = {
+const P4 = (e) => {
+  const t = [];
+  let n = { tabName: "initial_tab", label: "Details", sections: [] }, r = {
+    sectionName: "initial_section",
+    label: "Details",
+    columns: []
+  }, i = { columnName: "initial_column", fields: [] };
+  const o = () => {
+    i.fields.length && r.columns.push(i);
+  }, a = () => {
+    o(), r.columns.length && n.sections.push(r);
+  }, l = () => {
+    a(), n.sections.length && t.push(n);
+  };
+  return e.forEach((s) => {
+    switch (s.fieldtype) {
+      case "Tab Break":
+        l(), n = { tabName: s.fieldname, label: s.label, sections: [] }, r = {
+          sectionName: s.fieldname + "_init",
+          label: "General",
+          columns: []
+        }, i = { columnName: s.fieldname + "_col", fields: [] };
+        break;
+      case "Section Break":
+        a(), r = { sectionName: s.fieldname, label: s.label, columns: [] }, i = { columnName: s.fieldname + "_col", fields: [] };
+        break;
+      case "Column Break":
+        o(), i = { columnName: s.fieldname, fields: [] };
+        break;
+      default:
+        i.fields.push(s);
+    }
+  }), l(), t;
+}, R4 = {
   AutoComplete: I4,
   DataTable: sl,
   Column: Cp,
@@ -31270,8 +31303,9 @@ const P4 = {
   Divider: ul,
   Select: Gn,
   Calendar: _c,
-  MultiSelect: Ol
-}, B4 = {
+  MultiSelect: Ol,
+  groupFields: P4
+}, L4 = {
   install: (e, { locale: t = x4 } = {}) => {
     e.use(Mp, {
       theme: {
@@ -31283,7 +31317,7 @@ const P4 = {
         }
       },
       locale: t
-    }), e.use(us), e.use(cs), e.use(q1), Object.entries(P4).forEach(
+    }), e.use(us), e.use(cs), e.use(q1), Object.entries(R4).forEach(
       ([n, r]) => e.component(n, r)
     );
   }
@@ -31316,7 +31350,8 @@ export {
   Ml as Stepper,
   Dl as Tag,
   El as Toast,
-  B4 as default,
+  L4 as default,
+  P4 as groupFields,
   ss as useConfirm,
   Pp as usePrimeVue,
   Ys as useToast
