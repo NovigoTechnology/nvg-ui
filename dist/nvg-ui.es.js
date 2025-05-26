@@ -30828,8 +30828,8 @@ const Ot = h4(), m4 = (e, t) => {
     ), Be(
       () => u.value[n.field.fieldname],
       (C) => {
-        if (C === null || C === "") {
-          b();
+        if (C === "") {
+          console.log(C), b();
           return;
         }
         const I = d.value.findIndex((v) => v.value === C);
@@ -31053,7 +31053,7 @@ const Ot = h4(), m4 = (e, t) => {
       ], 64);
     };
   }
-}, I4 = /* @__PURE__ */ m4(O4, [["__scopeId", "data-v-43b56fa5"]]);
+}, I4 = /* @__PURE__ */ m4(O4, [["__scopeId", "data-v-527b5013"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {

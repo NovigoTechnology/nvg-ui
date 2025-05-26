@@ -339,7 +339,8 @@ watch(
 watch(
     () => inputValue.value[props.field.fieldname],
     (newValue) => {
-        if (newValue === null || newValue === '') {
+        if ( newValue === '') {
+					console.log(newValue);
             clear_input();
             return;
         }
