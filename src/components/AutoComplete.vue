@@ -270,7 +270,8 @@ watch(
 
 watch(
 	() => props.clearFilters,
-	() => {
+	(newValue) => {
+		if (!newValue) return;
 		clear_input();
 	},
 	{ deep: true },
@@ -337,22 +338,21 @@ watch(
 );
 
 watch(
-    () => inputValue.value[props.field.fieldname],
-    (newValue) => {
-        if ( newValue === '') {
-					console.log(newValue);
-            clear_input();
-            return;
-        }
-        // Solo actualizar si hay un valor válido seleccionado
-        const idx = suggestions.value.findIndex((item) => item.value === newValue);
-        if (idx !== -1) {
-            inputValue.value[props.field.fieldname] =
-                translatedSuggestions.value[idx].label ||
-                translatedSuggestions.value[idx].description ||
-                newValue;
-        }
-    }
+	() => inputValue.value[props.field.fieldname],
+	(newValue) => {
+		if (newValue === "") {
+			clear_input();
+			return;
+		}
+		// Solo actualizar si hay un valor válido seleccionado
+		const idx = suggestions.value.findIndex((item) => item.value === newValue);
+		if (idx !== -1) {
+			inputValue.value[props.field.fieldname] =
+				translatedSuggestions.value[idx].label ||
+				translatedSuggestions.value[idx].description ||
+				newValue;
+		}
+	},
 );
 
 // Methods
@@ -372,40 +372,40 @@ const closeQuickEntry = () => {
 };
 
 const clear_input = () => {
-    // Limpiar el store
-    store.dataForm[props.field.fieldname] = null;
-    
-    // Limpiar el input local
-    inputValue.value[props.field.fieldname] = null;
-    
-    // Limpiar las sugerencias
-    suggestions.value = [];
-    translatedSuggestions.value = [];
-    
-    // Limpiar filtros relacionados
-    if (store.filters) {
-        store.filters[props.field.fieldname] = null;
-    }
-    
-    if (store.fullDataForm) {
-        store.fullDataForm[props.field.fieldname] = null;
-    }
+	// Limpiar el store
+	store.dataForm[props.field.fieldname] = null;
 
-    // Emitir eventos de limpieza
-    if (props.field.hasDependencies) {
-        emitter.emit(props.field.fieldname + "_cleared");
-    }
+	// Limpiar el input local
+	inputValue.value[props.field.fieldname] = null;
 
-    emit("update-autocomplete-value", null, props.field);
-    
-    if (props.field.provideFilter) {
-        filters.value = {};
-        store.autocompleteFilter = filters.value;
-        props.field.value = null;
-    }
-    
-    // Forzar re-render
-    refresh.value = !refresh.value;
+	// Limpiar las sugerencias
+	suggestions.value = [];
+	translatedSuggestions.value = [];
+
+	// Limpiar filtros relacionados
+	if (store.filters) {
+		store.filters[props.field.fieldname] = null;
+	}
+
+	if (store.fullDataForm) {
+		store.fullDataForm[props.field.fieldname] = null;
+	}
+
+	// Emitir eventos de limpieza
+	if (props.field.hasDependencies) {
+		emitter.emit(props.field.fieldname + "_cleared");
+	}
+
+	emit("update-autocomplete-value", null, props.field);
+
+	if (props.field.provideFilter) {
+		filters.value = {};
+		store.autocompleteFilter = filters.value;
+		props.field.value = null;
+	}
+
+	// Forzar re-render
+	refresh.value = !refresh.value;
 };
 
 const selectOption = (selectedOption, field) => {
@@ -543,30 +543,38 @@ onUnmounted(() => {
 });
 
 watch(
-    () => store.fullDataForm,
-    (newValue) => {
-        if (newValue && newValue[props.field.fieldname]) {
-            const value = newValue[props.field.fieldname];
-            // Traducir el valor cuando se carga para editar
-            inputValue.value[props.field.fieldname] = value.label ? __(value.label) : (value.description ? __(value.description) : value.value);
-            
-            // También actualizar las sugerencias con el valor actual
-            if (value.value) {
-                suggestions.value = [{
-                    label: value.label,
-                    description: value.description,
-                    value: value.value
-                }];
-                
-                translatedSuggestions.value = [{
-                    label: value.label ? __(value.label) : "",
-                    description: value.description ? __(value.description) : "",
-                    value: value.value
-                }];
-            }
-        }
-    },
-    { deep: true, immediate: true }
+	() => store.fullDataForm,
+	(newValue) => {
+		if (newValue && newValue[props.field.fieldname]) {
+			const value = newValue[props.field.fieldname];
+			// Traducir el valor cuando se carga para editar
+			inputValue.value[props.field.fieldname] = value.label
+				? __(value.label)
+				: value.description
+				  ? __(value.description)
+				  : value.value;
+
+			// También actualizar las sugerencias con el valor actual
+			if (value.value) {
+				suggestions.value = [
+					{
+						label: value.label,
+						description: value.description,
+						value: value.value,
+					},
+				];
+
+				translatedSuggestions.value = [
+					{
+						label: value.label ? __(value.label) : "",
+						description: value.description ? __(value.description) : "",
+						value: value.value,
+					},
+				];
+			}
+		}
+	},
+	{ deep: true, immediate: true },
 );
 </script>
 

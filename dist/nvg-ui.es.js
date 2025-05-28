@@ -30785,8 +30785,8 @@ const Ot = h4(), m4 = (e, t) => {
       { immediate: !0 }
     ), Be(
       () => n.clearFilters,
-      () => {
-        b();
+      (C) => {
+        C && b();
       },
       { deep: !0 }
     ), Be(
@@ -30829,7 +30829,7 @@ const Ot = h4(), m4 = (e, t) => {
       () => u.value[n.field.fieldname],
       (C) => {
         if (C === "") {
-          console.log(C), b();
+          b();
           return;
         }
         const I = d.value.findIndex((v) => v.value === C);
@@ -30899,15 +30899,19 @@ const Ot = h4(), m4 = (e, t) => {
       (C) => {
         if (C && C[n.field.fieldname]) {
           const I = C[n.field.fieldname];
-          u.value[n.field.fieldname] = I.label ? __(I.label) : I.description ? __(I.description) : I.value, I.value && (d.value = [{
-            label: I.label,
-            description: I.description,
-            value: I.value
-          }], f.value = [{
-            label: I.label ? __(I.label) : "",
-            description: I.description ? __(I.description) : "",
-            value: I.value
-          }]);
+          u.value[n.field.fieldname] = I.label ? __(I.label) : I.description ? __(I.description) : I.value, I.value && (d.value = [
+            {
+              label: I.label,
+              description: I.description,
+              value: I.value
+            }
+          ], f.value = [
+            {
+              label: I.label ? __(I.label) : "",
+              description: I.description ? __(I.description) : "",
+              value: I.value
+            }
+          ]);
         }
       },
       { deep: !0, immediate: !0 }
@@ -31053,7 +31057,7 @@ const Ot = h4(), m4 = (e, t) => {
       ], 64);
     };
   }
-}, I4 = /* @__PURE__ */ m4(O4, [["__scopeId", "data-v-527b5013"]]);
+}, I4 = /* @__PURE__ */ m4(O4, [["__scopeId", "data-v-42ff5f6b"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {
