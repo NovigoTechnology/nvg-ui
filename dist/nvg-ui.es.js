@@ -396,8 +396,8 @@ function Ft(e, t, n = !0) {
   var r, i, o, a;
   if (e) {
     const l = e.offsetParent ? { width: e.offsetWidth, height: e.offsetHeight } : ea(e), s = l.height, u = l.width, d = t.offsetHeight, f = t.offsetWidth, m = t.getBoundingClientRect(), h = Bs(), b = Rs(), P = rr();
-    let w, R, C = "top";
-    m.top + d + s > P.height ? (w = m.top + h - s, C = "bottom", w < 0 && (w = h)) : w = d + m.top + h, m.left + u > P.width ? R = Math.max(0, m.left + b + f - u) : R = m.left + b, ta(e) ? e.style.insetInlineEnd = R + "px" : e.style.insetInlineStart = R + "px", e.style.top = w + "px", e.style.transformOrigin = C, n && (e.style.marginTop = C === "bottom" ? `calc(${(i = (r = no(/-anchor-gutter$/)) == null ? void 0 : r.value) != null ? i : "2px"} * -1)` : (a = (o = no(/-anchor-gutter$/)) == null ? void 0 : o.value) != null ? a : "");
+    let w, R, k = "top";
+    m.top + d + s > P.height ? (w = m.top + h - s, k = "bottom", w < 0 && (w = h)) : w = d + m.top + h, m.left + u > P.width ? R = Math.max(0, m.left + b + f - u) : R = m.left + b, ta(e) ? e.style.insetInlineEnd = R + "px" : e.style.insetInlineStart = R + "px", e.style.top = w + "px", e.style.transformOrigin = k, n && (e.style.marginTop = k === "bottom" ? `calc(${(i = (r = no(/-anchor-gutter$/)) == null ? void 0 : r.value) != null ? i : "2px"} * -1)` : (a = (o = no(/-anchor-gutter$/)) == null ? void 0 : o.value) != null ? a : "");
   }
 }
 function at(e, t) {
@@ -815,14 +815,14 @@ var He = {
   getCommon({ name: e = "", theme: t = {}, params: n, set: r, defaults: i }) {
     var o, a, l, s, u, d, f;
     const { preset: m, options: h } = t;
-    let b, P, w, R, C, I, v;
+    let b, P, w, R, k, I, v;
     if (Z(m) && h.transform !== "strict") {
       const { primitive: A, semantic: H, extend: z } = m, L = H || {}, { colorScheme: J } = L, ie = nt(L, ["colorScheme"]), te = z || {}, { colorScheme: ce } = te, we = nt(te, ["colorScheme"]), ke = J || {}, { dark: pe } = ke, E = nt(ke, ["dark"]), B = ce || {}, { dark: T } = B, G = nt(B, ["dark"]), Y = Z(A) ? this._toVariables({ primitive: A }, h) : {}, U = Z(ie) ? this._toVariables({ semantic: ie }, h) : {}, le = Z(E) ? this._toVariables({ light: E }, h) : {}, Se = Z(pe) ? this._toVariables({ dark: pe }, h) : {}, Ce = Z(we) ? this._toVariables({ semantic: we }, h) : {}, Ue = Z(G) ? this._toVariables({ light: G }, h) : {}, Ke = Z(T) ? this._toVariables({ dark: T }, h) : {}, [tt, Fl] = [(o = Y.declarations) != null ? o : "", Y.tokens], [zl, Al] = [(a = U.declarations) != null ? a : "", U.tokens || []], [jl, Vl] = [(l = le.declarations) != null ? l : "", le.tokens || []], [Kl, Hl] = [(s = Se.declarations) != null ? s : "", Se.tokens || []], [Nl, Gl] = [(u = Ce.declarations) != null ? u : "", Ce.tokens || []], [Ul, Wl] = [(d = Ue.declarations) != null ? d : "", Ue.tokens || []], [Yl, Zl] = [(f = Ke.declarations) != null ? f : "", Ke.tokens || []];
       b = this.transformCSS(e, tt, "light", "variable", h, r, i), P = Fl;
       const ql = this.transformCSS(e, `${zl}${jl}`, "light", "variable", h, r, i), Xl = this.transformCSS(e, `${Kl}`, "dark", "variable", h, r, i);
       w = `${ql}${Xl}`, R = [.../* @__PURE__ */ new Set([...Al, ...Vl, ...Hl])];
       const Jl = this.transformCSS(e, `${Nl}${Ul}color-scheme:light`, "light", "variable", h, r, i), Ql = this.transformCSS(e, `${Yl}color-scheme:dark`, "dark", "variable", h, r, i);
-      C = `${Jl}${Ql}`, I = [.../* @__PURE__ */ new Set([...Gl, ...Wl, ...Zl])], v = Te(m.css, { dt: Yt });
+      k = `${Jl}${Ql}`, I = [.../* @__PURE__ */ new Set([...Gl, ...Wl, ...Zl])], v = Te(m.css, { dt: Yt });
     }
     return {
       primitive: {
@@ -834,7 +834,7 @@ var He = {
         tokens: R
       },
       global: {
-        css: C,
+        css: k,
         tokens: I
       },
       style: v
@@ -844,7 +844,7 @@ var He = {
     var l, s, u;
     let d, f, m;
     if (Z(t) && n.transform !== "strict") {
-      const h = e.replace("-directive", ""), b = t, { colorScheme: P, extend: w, css: R } = b, C = nt(b, ["colorScheme", "extend", "css"]), I = w || {}, { colorScheme: v } = I, A = nt(I, ["colorScheme"]), H = P || {}, { dark: z } = H, L = nt(H, ["dark"]), J = v || {}, { dark: ie } = J, te = nt(J, ["dark"]), ce = Z(C) ? this._toVariables({ [h]: Ge(Ge({}, C), A) }, n) : {}, we = Z(L) ? this._toVariables({ [h]: Ge(Ge({}, L), te) }, n) : {}, ke = Z(z) ? this._toVariables({ [h]: Ge(Ge({}, z), ie) }, n) : {}, [pe, E] = [(l = ce.declarations) != null ? l : "", ce.tokens || []], [B, T] = [(s = we.declarations) != null ? s : "", we.tokens || []], [G, Y] = [(u = ke.declarations) != null ? u : "", ke.tokens || []], U = this.transformCSS(h, `${pe}${B}`, "light", "variable", n, i, o, a), le = this.transformCSS(h, G, "dark", "variable", n, i, o, a);
+      const h = e.replace("-directive", ""), b = t, { colorScheme: P, extend: w, css: R } = b, k = nt(b, ["colorScheme", "extend", "css"]), I = w || {}, { colorScheme: v } = I, A = nt(I, ["colorScheme"]), H = P || {}, { dark: z } = H, L = nt(H, ["dark"]), J = v || {}, { dark: ie } = J, te = nt(J, ["dark"]), ce = Z(k) ? this._toVariables({ [h]: Ge(Ge({}, k), A) }, n) : {}, we = Z(L) ? this._toVariables({ [h]: Ge(Ge({}, L), te) }, n) : {}, ke = Z(z) ? this._toVariables({ [h]: Ge(Ge({}, z), ie) }, n) : {}, [pe, E] = [(l = ce.declarations) != null ? l : "", ce.tokens || []], [B, T] = [(s = we.declarations) != null ? s : "", we.tokens || []], [G, Y] = [(u = ke.declarations) != null ? u : "", ke.tokens || []], U = this.transformCSS(h, `${pe}${B}`, "light", "variable", n, i, o, a), le = this.transformCSS(h, G, "dark", "variable", n, i, o, a);
       d = `${U}${le}`, f = [.../* @__PURE__ */ new Set([...E, ...T, ...Y])], m = Te(R, { dt: Yt });
     }
     return {
@@ -908,8 +908,8 @@ var He = {
           let m = a;
           if (d.name = this.path, d.binding || (d.binding = {}), it(a, f)) {
             const b = a.trim().replaceAll(f, (R) => {
-              var C;
-              const I = R.replace(/{|}/g, ""), v = (C = i[I]) == null ? void 0 : C.computed(u, d);
+              var k;
+              const I = R.replace(/{|}/g, ""), v = (k = i[I]) == null ? void 0 : k.computed(u, d);
               return ho(v) && v.length === 2 ? `light-dark(${v[0].value},${v[1].value})` : v == null ? void 0 : v.value;
             }), P = /(\d+\w*\s+[\+\-\*\/]\s+\d+\w*)/g, w = /var\([^)]+\)/g;
             m = it(b.replace(w, "0"), P) ? `calc(${b})` : b;
@@ -1139,7 +1139,7 @@ function Js(e) {
 }
 var Qs = 0;
 function _s(e) {
-  var t = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, n = Ne(!1), r = Ne(e), i = Ne(null), o = ra() ? window.document : void 0, a = t.document, l = a === void 0 ? o : a, s = t.immediate, u = s === void 0 ? !0 : s, d = t.manual, f = d === void 0 ? !1 : d, m = t.name, h = m === void 0 ? "style_".concat(++Qs) : m, b = t.id, P = b === void 0 ? void 0 : b, w = t.media, R = w === void 0 ? void 0 : w, C = t.nonce, I = C === void 0 ? void 0 : C, v = t.first, A = v === void 0 ? !1 : v, H = t.onMounted, z = H === void 0 ? void 0 : H, L = t.onUpdated, J = L === void 0 ? void 0 : L, ie = t.onLoad, te = ie === void 0 ? void 0 : ie, ce = t.props, we = ce === void 0 ? {} : ce, ke = function() {
+  var t = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, n = Ne(!1), r = Ne(e), i = Ne(null), o = ra() ? window.document : void 0, a = t.document, l = a === void 0 ? o : a, s = t.immediate, u = s === void 0 ? !0 : s, d = t.manual, f = d === void 0 ? !1 : d, m = t.name, h = m === void 0 ? "style_".concat(++Qs) : m, b = t.id, P = b === void 0 ? void 0 : b, w = t.media, R = w === void 0 ? void 0 : w, k = t.nonce, I = k === void 0 ? void 0 : k, v = t.first, A = v === void 0 ? !1 : v, H = t.onMounted, z = H === void 0 ? void 0 : H, L = t.onUpdated, J = L === void 0 ? void 0 : L, ie = t.onLoad, te = ie === void 0 ? void 0 : ie, ce = t.props, we = ce === void 0 ? {} : ce, ke = function() {
   }, pe = function(T) {
     var G = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
     if (l) {
@@ -1729,7 +1729,7 @@ var q = {
           }, this.$styleOptions), w), ue.setLoadedStyleName(this.$style.name);
         }
         if (!ue.isStyleNameLoaded("layer-order")) {
-          var R, C, I = (R = this.$style) === null || R === void 0 || (C = R.getLayerOrderThemeCSS) === null || C === void 0 ? void 0 : C.call(R);
+          var R, k, I = (R = this.$style) === null || R === void 0 || (k = R.getLayerOrderThemeCSS) === null || k === void 0 ? void 0 : k.call(R);
           W.load(I, ne({
             name: "layer-order",
             first: !0
@@ -2204,10 +2204,10 @@ var Q = {
   _getOptionValue: or,
   _getPTValue: function() {
     var t, n, r = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, i = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, o = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : "", a = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {}, l = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : !0, s = function() {
-      var C = Q._getOptionValue.apply(Q, arguments);
-      return Le(C) || ho(C) ? {
-        class: C
-      } : C;
+      var k = Q._getOptionValue.apply(Q, arguments);
+      return Le(k) || ho(k) ? {
+        class: k
+      } : k;
     }, u = ((t = r.binding) === null || t === void 0 || (t = t.value) === null || t === void 0 ? void 0 : t.ptOptions) || ((n = r.$primevueConfig) === null || n === void 0 ? void 0 : n.ptOptions) || {}, d = u.mergeSections, f = d === void 0 ? !0 : d, m = u.mergeProps, h = m === void 0 ? !1 : m, b = l ? Q._useDefaultPT(r, r.defaultPT(), s, o, a) : void 0, P = Q._usePT(r, Q._getPT(i, r.$name), s, o, ae(ae({}, a), {}, {
       global: b || {}
     })), w = Q._getPTDatasets(r, o);
@@ -2273,8 +2273,8 @@ var Q = {
         }, o), m), ue.setLoadedStyleName("common");
       }
       if (!ue.isStyleNameLoaded((n = i.$style) === null || n === void 0 ? void 0 : n.name) && (r = i.$style) !== null && r !== void 0 && r.name) {
-        var h, b, P, w, R = ((h = i.$style) === null || h === void 0 || (b = h.getDirectiveTheme) === null || b === void 0 ? void 0 : b.call(h)) || {}, C = R.css, I = R.style;
-        (P = i.$style) === null || P === void 0 || P.load(C, ae({
+        var h, b, P, w, R = ((h = i.$style) === null || h === void 0 || (b = h.getDirectiveTheme) === null || b === void 0 ? void 0 : b.call(h)) || {}, k = R.css, I = R.style;
+        (P = i.$style) === null || P === void 0 || P.load(k, ae({
           name: "".concat(i.$style.name, "-variables")
         }, o)), (w = i.$style) === null || w === void 0 || w.loadStyle(ae({
           name: "".concat(i.$style.name, "-style")
@@ -2326,7 +2326,7 @@ var Q = {
     var n = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, r = function(l, s, u, d, f) {
       var m, h, b, P;
       s._$instances = s._$instances || {};
-      var w = Q._getConfig(u, d), R = s._$instances[t] || {}, C = Pe(R) ? ae(ae({}, n), n == null ? void 0 : n.methods) : {};
+      var w = Q._getConfig(u, d), R = s._$instances[t] || {}, k = Pe(R) ? ae(ae({}, n), n == null ? void 0 : n.methods) : {};
       s._$instances[t] = ae(ae({}, R), {}, {
         /* new instance variables to pass in directive methods */
         $name: t,
@@ -2383,17 +2383,17 @@ var Q = {
           var v, A = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "", H = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !0, z = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
           return H ? Q._getOptionValue((v = s._$instances[t]) === null || v === void 0 || (v = v.$style) === null || v === void 0 ? void 0 : v.inlineStyles, A, ae({}, z)) : void 0;
         }
-      }, C), s.$instance = s._$instances[t], (h = (b = s.$instance)[l]) === null || h === void 0 || h.call(b, s, u, d, f), s["$".concat(t)] = s.$instance, Q._hook(t, l, s, u, d, f), s.$pd || (s.$pd = {}), s.$pd[t] = ae(ae({}, (P = s.$pd) === null || P === void 0 ? void 0 : P[t]), {}, {
+      }, k), s.$instance = s._$instances[t], (h = (b = s.$instance)[l]) === null || h === void 0 || h.call(b, s, u, d, f), s["$".concat(t)] = s.$instance, Q._hook(t, l, s, u, d, f), s.$pd || (s.$pd = {}), s.$pd[t] = ae(ae({}, (P = s.$pd) === null || P === void 0 ? void 0 : P[t]), {}, {
         name: t,
         instance: s._$instances[t]
       });
     }, i = function(l) {
       var s, u, d, f = l._$instances[t], m = f == null ? void 0 : f.watch, h = function(w) {
-        var R, C = w.newValue, I = w.oldValue;
-        return m == null || (R = m.config) === null || R === void 0 ? void 0 : R.call(f, C, I);
+        var R, k = w.newValue, I = w.oldValue;
+        return m == null || (R = m.config) === null || R === void 0 ? void 0 : R.call(f, k, I);
       }, b = function(w) {
-        var R, C = w.newValue, I = w.oldValue;
-        return m == null || (R = m["config.ripple"]) === null || R === void 0 ? void 0 : R.call(f, C, I);
+        var R, k = w.newValue, I = w.oldValue;
+        return m == null || (R = m["config.ripple"]) === null || R === void 0 ? void 0 : R.call(f, k, I);
       };
       f.$watchersCallback = {
         config: h,
@@ -3670,7 +3670,7 @@ var Hn = {
         var l = this.first, s = this.element, u = s.scrollTop, d = u === void 0 ? 0 : u, f = s.scrollLeft, m = f === void 0 ? 0 : f, h = this.calculateNumItems(), b = h.numToleratedItems, P = this.getContentPosition(), w = this.itemSize, R = function() {
           var L = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0, J = arguments.length > 1 ? arguments[1] : void 0;
           return L <= J ? 0 : L;
-        }, C = function(L, J, ie) {
+        }, k = function(L, J, ie) {
           return L * J + ie;
         }, I = function() {
           var L = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0, J = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
@@ -3686,7 +3686,7 @@ var Hn = {
         i ? (v = {
           rows: R(t[0], b[0]),
           cols: R(t[1], b[1])
-        }, I(C(v.cols, w[1], P.left), C(v.rows, w[0], P.top)), H = this.lastScrollPos.top !== d || this.lastScrollPos.left !== m, A = v.rows !== l.rows || v.cols !== l.cols) : (v = R(t, b), o ? I(C(v, w, P.left), d) : I(m, C(v, w, P.top)), H = this.lastScrollPos !== (o ? m : d), A = v !== l), this.isRangeChanged = A, H && (this.first = v);
+        }, I(k(v.cols, w[1], P.left), k(v.rows, w[0], P.top)), H = this.lastScrollPos.top !== d || this.lastScrollPos.left !== m, A = v.rows !== l.rows || v.cols !== l.cols) : (v = R(t, b), o ? I(k(v, w, P.left), d) : I(m, k(v, w, P.top)), H = this.lastScrollPos !== (o ? m : d), A = v !== l), this.isRangeChanged = A, H && (this.first = v);
       }
     },
     scrollInView: function(t, n) {
@@ -3697,10 +3697,10 @@ var Hn = {
         }) : t > -1;
         if (l) {
           var s = this.getRenderedRange(), u = s.first, d = s.viewport, f = function() {
-            var R = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0, C = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
+            var R = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0, k = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
             return r.scrollTo({
               left: R,
-              top: C,
+              top: k,
               behavior: i
             });
           }, m = n === "to-start", h = n === "to-end";
@@ -3885,17 +3885,17 @@ var Hn = {
         cols: 0
       } : 0, P = this.last, w = !1, R = this.lastScrollPos;
       if (i) {
-        var C = this.lastScrollPos.top <= m, I = this.lastScrollPos.left <= h;
-        if (!this.appendOnly || this.appendOnly && (C || I)) {
+        var k = this.lastScrollPos.top <= m, I = this.lastScrollPos.left <= h;
+        if (!this.appendOnly || this.appendOnly && (k || I)) {
           var v = {
             rows: s(m, this.itemSize[0]),
             cols: s(h, this.itemSize[1])
           }, A = {
-            rows: u(v.rows, this.first.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0], C),
+            rows: u(v.rows, this.first.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0], k),
             cols: u(v.cols, this.first.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], I)
           };
           b = {
-            rows: d(v.rows, A.rows, this.first.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0], C),
+            rows: d(v.rows, A.rows, this.first.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0], k),
             cols: d(v.cols, A.cols, this.first.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], I, !0)
           }, P = {
             rows: f(v.rows, b.rows, this.last.rows, this.numItemsInViewport.rows, this.d_numToleratedItems[0]),
@@ -5561,7 +5561,7 @@ function _d(e, t, n, r, i, o) {
             pt: e.ptm("virtualScroller")
           }), Ee({
             content: D(function(m) {
-              var h = m.styleClass, b = m.contentRef, P = m.items, w = m.getItemOptions, R = m.contentStyle, C = m.itemSize;
+              var h = m.styleClass, b = m.contentRef, P = m.items, w = m.getItemOptions, R = m.contentStyle, k = m.itemSize;
               return [x("ul", p({
                 ref: function(v) {
                   return o.listRef(v, b);
@@ -5578,7 +5578,7 @@ function _d(e, t, n, r, i, o) {
                   key: 0,
                   id: e.$id + "_" + o.getOptionIndex(v, w),
                   style: {
-                    height: C ? C + "px" : void 0
+                    height: k ? k + "px" : void 0
                   },
                   class: e.cx("optionGroup"),
                   role: "option",
@@ -5592,7 +5592,7 @@ function _d(e, t, n, r, i, o) {
                   key: 1,
                   id: e.$id + "_" + o.getOptionIndex(v, w),
                   style: {
-                    height: C ? C + "px" : void 0
+                    height: k ? k + "px" : void 0
                   },
                   class: e.cx("option", {
                     option: I,
@@ -8475,8 +8475,8 @@ var sr = {
                 return !fe(T, "data-p-disabled");
               });
               if (R) {
-                var C = R.children[a].children[0];
-                C.tabIndex = "0", C.focus();
+                var k = R.children[a].children[0];
+                k.tabIndex = "0", k.focus();
               } else
                 this.navigationState = {
                   backward: !0
@@ -8917,7 +8917,7 @@ var sr = {
                 selectable: this.isSelectable(P, w.month, w.year, !0)
               });
             }
-            for (var R = 7 - b.length, C = 0; C < R; C++)
+            for (var R = 7 - b.length, k = 0; k < R; k++)
               b.push({
                 day: u,
                 month: r,
@@ -14066,10 +14066,10 @@ function Nf(e, t, n, r, i, o) {
             pt: e.ptm("virtualScroller")
           }), Ee({
             content: D(function(w) {
-              var R = w.styleClass, C = w.contentRef, I = w.items, v = w.getItemOptions, A = w.contentStyle, H = w.itemSize;
+              var R = w.styleClass, k = w.contentRef, I = w.items, v = w.getItemOptions, A = w.contentStyle, H = w.itemSize;
               return [x("ul", p({
                 ref: function(L) {
-                  return o.listRef(L, C);
+                  return o.listRef(L, k);
                 },
                 id: e.$id + "_list",
                 class: [e.cx("list"), R],
@@ -14936,14 +14936,14 @@ var fr = {
           }
           case "Delete":
             if (t.preventDefault(), n === r) {
-              var w = o.charAt(n), R = this.getDecimalCharIndexes(o), C = R.decimalCharIndex, I = R.decimalCharIndexWithoutPrefix;
+              var w = o.charAt(n), R = this.getDecimalCharIndexes(o), k = R.decimalCharIndex, I = R.decimalCharIndexWithoutPrefix;
               if (this.isNumeralChar(w)) {
                 var v = this.getDecimalLength(o);
                 if (this._group.test(w))
                   this._group.lastIndex = 0, a = o.slice(0, n) + o.slice(n + 2);
                 else if (this._decimal.test(w))
                   this._decimal.lastIndex = 0, v ? this.$refs.input.$el.setSelectionRange(n + 1, n + 1) : a = o.slice(0, n) + o.slice(n + 1);
-                else if (C > 0 && n > C) {
+                else if (k > 0 && n > k) {
                   var A = this.isDecimalMode() && (this.minFractionDigits || 0) < v ? "" : "0";
                   a = o.slice(0, n) + A + o.slice(n + 1);
                 } else I === 1 ? (a = o.slice(0, n) + "0" + o.slice(n + 1), a = this.parseValue(a) > 0 ? a : "") : a = o.slice(0, n) + o.slice(n + 1);
@@ -15128,8 +15128,8 @@ var fr = {
         if (r === "range-insert") {
           var h = this.parseValue((o || "").slice(0, d)), b = h !== null ? h.toString() : "", P = b.split("").join("(".concat(this.groupChar, ")?")), w = new RegExp(P, "g");
           w.test(a);
-          var R = n.split("").join("(".concat(this.groupChar, ")?")), C = new RegExp(R, "g");
-          C.test(a.slice(w.lastIndex)), f = w.lastIndex + C.lastIndex, this.$refs.input.$el.setSelectionRange(f, f);
+          var R = n.split("").join("(".concat(this.groupChar, ")?")), k = new RegExp(R, "g");
+          k.test(a.slice(w.lastIndex)), f = w.lastIndex + k.lastIndex, this.$refs.input.$el.setSelectionRange(f, f);
         } else if (m === l)
           r === "insert" || r === "delete-back-single" ? this.$refs.input.$el.setSelectionRange(f + 1, f + 1) : r === "delete-single" ? this.$refs.input.$el.setSelectionRange(f - 1, f - 1) : (r === "delete-range" || r === "spin") && this.$refs.input.$el.setSelectionRange(f, f);
         else if (r === "delete-back-single") {
@@ -16132,8 +16132,8 @@ function xh(e, t, n, r, i, o) {
         key: 0,
         "aria-label": o.getAriaLabel("firstPageLabel"),
         template: e.$slots.firsticon || e.$slots.firstpagelinkicon,
-        onClick: t[0] || (t[0] = function(C) {
-          return o.changePageToFirst(C);
+        onClick: t[0] || (t[0] = function(k) {
+          return o.changePageToFirst(k);
         }),
         disabled: o.isFirstPage || o.empty,
         unstyled: e.unstyled,
@@ -16142,8 +16142,8 @@ function xh(e, t, n, r, i, o) {
         key: 1,
         "aria-label": o.getAriaLabel("prevPageLabel"),
         template: e.$slots.previcon || e.$slots.prevpagelinkicon,
-        onClick: t[1] || (t[1] = function(C) {
-          return o.changePageToPrev(C);
+        onClick: t[1] || (t[1] = function(k) {
+          return o.changePageToPrev(k);
         }),
         disabled: o.isFirstPage || o.empty,
         unstyled: e.unstyled,
@@ -16152,8 +16152,8 @@ function xh(e, t, n, r, i, o) {
         key: 2,
         "aria-label": o.getAriaLabel("nextPageLabel"),
         template: e.$slots.nexticon || e.$slots.nextpagelinkicon,
-        onClick: t[2] || (t[2] = function(C) {
-          return o.changePageToNext(C);
+        onClick: t[2] || (t[2] = function(k) {
+          return o.changePageToNext(k);
         }),
         disabled: o.isLastPage || o.empty,
         unstyled: e.unstyled,
@@ -16162,8 +16162,8 @@ function xh(e, t, n, r, i, o) {
         key: 3,
         "aria-label": o.getAriaLabel("lastPageLabel"),
         template: e.$slots.lasticon || e.$slots.lastpagelinkicon,
-        onClick: t[3] || (t[3] = function(C) {
-          return o.changePageToLast(C);
+        onClick: t[3] || (t[3] = function(k) {
+          return o.changePageToLast(k);
         }),
         disabled: o.isLastPage || o.empty,
         unstyled: e.unstyled,
@@ -16173,8 +16173,8 @@ function xh(e, t, n, r, i, o) {
         "aria-label": o.getAriaLabel("pageLabel"),
         value: o.pageLinks,
         page: o.page,
-        onClick: t[4] || (t[4] = function(C) {
-          return o.changePageLink(C);
+        onClick: t[4] || (t[4] = function(k) {
+          return o.changePageLink(k);
         }),
         unstyled: e.unstyled,
         pt: e.pt
@@ -16195,8 +16195,8 @@ function xh(e, t, n, r, i, o) {
         "aria-label": o.getAriaLabel("rowsPerPageLabel"),
         rows: i.d_rows,
         options: e.rowsPerPageOptions,
-        onRowsChange: t[5] || (t[5] = function(C) {
-          return o.onRowChange(C);
+        onRowsChange: t[5] || (t[5] = function(k) {
+          return o.onRowChange(k);
         }),
         disabled: o.empty,
         templates: e.$slots,
@@ -16207,8 +16207,8 @@ function xh(e, t, n, r, i, o) {
         "aria-label": o.getAriaLabel("jumpToPageDropdownLabel"),
         page: o.page,
         pageCount: o.pageCount,
-        onPageChange: t[6] || (t[6] = function(C) {
-          return o.changePage(C);
+        onPageChange: t[6] || (t[6] = function(k) {
+          return o.changePage(k);
         }),
         disabled: o.empty,
         templates: e.$slots,
@@ -16217,8 +16217,8 @@ function xh(e, t, n, r, i, o) {
       }, null, 8, ["aria-label", "page", "pageCount", "disabled", "templates", "unstyled", "pt"])) : R === "JumpToPageInput" ? (c(), y(b, {
         key: 8,
         page: o.currentPage,
-        onPageChange: t[7] || (t[7] = function(C) {
-          return o.changePage(C);
+        onPageChange: t[7] || (t[7] = function(k) {
+          return o.changePage(k);
         }),
         disabled: o.empty,
         unstyled: e.unstyled,
@@ -17989,7 +17989,7 @@ function Ut() {
   var m = "suspendedStart", h = "suspendedYield", b = "executing", P = "completed", w = {};
   function R() {
   }
-  function C() {
+  function k() {
   }
   function I() {
   }
@@ -18100,9 +18100,9 @@ function Ut() {
     }
     throw new TypeError(co(E) + " is not iterable");
   }
-  return C.prototype = I, i(z, "constructor", { value: I, configurable: !0 }), i(I, "constructor", { value: C, configurable: !0 }), C.displayName = u(I, s, "GeneratorFunction"), t.isGeneratorFunction = function(E) {
+  return k.prototype = I, i(z, "constructor", { value: I, configurable: !0 }), i(I, "constructor", { value: k, configurable: !0 }), k.displayName = u(I, s, "GeneratorFunction"), t.isGeneratorFunction = function(E) {
     var B = typeof E == "function" && E.constructor;
-    return !!B && (B === C || (B.displayName || B.name) === "GeneratorFunction");
+    return !!B && (B === k || (B.displayName || B.name) === "GeneratorFunction");
   }, t.mark = function(E) {
     return Object.setPrototypeOf ? Object.setPrototypeOf(E, I) : (E.__proto__ = I, u(E, s, "GeneratorFunction")), E.prototype = Object.create(z), E;
   }, t.awrap = function(E) {
@@ -22603,8 +22603,8 @@ var sl = {
               if (s = uo.filters[r.global.matchMode || $e.CONTAINS](X(t[a], R), r.global.value, this.filterLocale), s)
                 break;
             }
-          var C = void 0;
-          r.global ? C = u ? u && l && s : s : C = u && l, C && o.push(t[a]);
+          var k = void 0;
+          r.global ? k = u ? u && l && s : s : k = u && l, k && o.push(t[a]);
         }
         (o.length === this.value.length || Object.keys(r).length == 0) && (o = t);
         var I = this.createLazyLoadEvent();
@@ -22692,8 +22692,8 @@ var sl = {
         if (this.rowTouched = !1, i) {
           var w, R;
           if (((w = n.target) === null || w === void 0 ? void 0 : w.getAttribute("data-pc-section")) === "rowtoggleicon") return;
-          var C = (R = n.currentTarget) === null || R === void 0 ? void 0 : R.closest('tr[data-p-selectable-row="true"]');
-          i.tabIndex = "-1", C && (C.tabIndex = "0");
+          var k = (R = n.currentTarget) === null || R === void 0 ? void 0 : R.closest('tr[data-p-selectable-row="true"]');
+          i.tabIndex = "-1", k && (k.tabIndex = "0");
         }
       }
     },
@@ -23075,8 +23075,8 @@ var sl = {
       if (r.preventDefault(), this.draggedColumnElement) {
         var o = ot(this.draggedColumnElement), a = ot(this.findParentHeader(r.target)), l = o !== a;
         if (l && (a - o === 1 && this.dropPosition === -1 || a - o === -1 && this.dropPosition === 1) && (l = !1), l) {
-          var s = function(R, C) {
-            return n.columnProp(R, "columnKey") || n.columnProp(C, "columnKey") ? n.columnProp(R, "columnKey") === n.columnProp(C, "columnKey") : n.columnProp(R, "field") === n.columnProp(C, "field");
+          var s = function(R, k) {
+            return n.columnProp(R, "columnKey") || n.columnProp(k, "columnKey") ? n.columnProp(R, "columnKey") === n.columnProp(k, "columnKey") : n.columnProp(R, "field") === n.columnProp(k, "field");
           }, u = this.columns.findIndex(function(w) {
             return s(w, n.draggedColumn);
           }), d = this.columns.findIndex(function(w) {
@@ -28610,8 +28610,8 @@ function M0(e, t, n, r, i, o) {
         ref_for: !0
       }, e.ptm("chipItem")), [S(e.$slots, "chip", {
         value: w,
-        removeCallback: function(C) {
-          return o.removeOption(C, w);
+        removeCallback: function(k) {
+          return o.removeOption(k, w);
         }
       }, function() {
         return [N(a, {
@@ -28620,8 +28620,8 @@ function M0(e, t, n, r, i, o) {
           removeIcon: e.chipIcon || e.removeTokenIcon,
           removable: "",
           unstyled: e.unstyled,
-          onRemove: function(C) {
-            return o.removeOption(C, w);
+          onRemove: function(k) {
+            return o.removeOption(k, w);
           },
           pt: e.ptm("pcChip")
         }, {
@@ -28629,8 +28629,8 @@ function M0(e, t, n, r, i, o) {
             return [S(e.$slots, e.$slots.chipicon ? "chipicon" : "removetokenicon", {
               class: K(e.cx("chipIcon")),
               item: w,
-              removeCallback: function(C) {
-                return o.removeOption(C, w);
+              removeCallback: function(k) {
+                return o.removeOption(k, w);
               }
             })];
           }),
@@ -28814,10 +28814,10 @@ function M0(e, t, n, r, i, o) {
             pt: e.ptm("virtualScroller")
           }), Ee({
             content: D(function(w) {
-              var R = w.styleClass, C = w.contentRef, I = w.items, v = w.getItemOptions, A = w.contentStyle, H = w.itemSize;
+              var R = w.styleClass, k = w.contentRef, I = w.items, v = w.getItemOptions, A = w.contentStyle, H = w.itemSize;
               return [x("ul", p({
                 ref: function(L) {
-                  return o.listRef(L, C);
+                  return o.listRef(L, k);
                 },
                 id: e.$id + "_list",
                 class: [e.cx("list"), R],
@@ -30770,7 +30770,7 @@ const Ot = h4(), m4 = (e, t) => {
   setup(e, { emit: t }) {
     const n = e, r = t, i = n.store, o = Ne({}), a = Ne(!1), l = Ne(!1), s = Ne(null), u = Ne({}), d = Ne([]), f = Ne([]);
     qi(() => {
-      frappe.realtime.doctype_subscribe(n.field.options), frappe.realtime.on("list_update", (C) => {
+      frappe.realtime.doctype_subscribe(n.field.options), frappe.realtime.on("list_update", (k) => {
         w(n.field.options);
       }), n.field.dependingField && (Ot.on(n.field.dependingField + "_cleared", () => {
         b(), w(n.field.options, {});
@@ -30779,28 +30779,28 @@ const Ot = h4(), m4 = (e, t) => {
       })), i.filters && i.filters[n.field.fieldname] && i.filters && (u.value[n.field.fieldname] = i.filters[n.field.fieldname]), n.field.needFilter && n.filters[n.field.dependingField] ? w(n.field.options, n.filters) : w(n.field.options);
     }), Be(
       () => n.field.value,
-      (C) => {
-        C ? (u.value[n.field.fieldname] = C, r("update-data", C, n.field)) : u.value[n.field.fieldname] = C;
+      (k) => {
+        k ? (u.value[n.field.fieldname] = k, r("update-data", k, n.field)) : u.value[n.field.fieldname] = k;
       },
       { immediate: !0 }
     ), Be(
       () => n.clearFilters,
-      (C) => {
-        C && b();
+      (k) => {
+        k && b();
       },
       { deep: !0 }
     ), Be(
       () => n.filters,
-      (C) => {
-        n.field.needFilter && n.field.dependingField && (C && C[n.field.dependingField] ? w(n.field.options, {
-          [n.field.dependingField]: C[n.field.dependingField]
+      (k) => {
+        n.field.needFilter && n.field.dependingField && (k && k[n.field.dependingField] ? w(n.field.options, {
+          [n.field.dependingField]: k[n.field.dependingField]
         }) : b());
       },
       { deep: !0 }
     ), Be(
       () => n.clearInput,
-      (C) => {
-        C && b();
+      (k) => {
+        k && b();
       }
     ), Be(
       () => i.clear,
@@ -30809,68 +30809,68 @@ const Ot = h4(), m4 = (e, t) => {
       }
     ), Be(
       () => i.edited,
-      (C) => {
+      (k) => {
         m(
           {
-            label: C.first_name + " " + C.last_name,
-            value: C.name
+            label: k.first_name + " " + k.last_name,
+            value: k.name
           },
           null,
-          C.editingFieldname
+          k.editingFieldname
         );
       },
       { deep: !0 }
     ), Be(
       () => n.delInputValue,
-      (C) => {
-        C && (u.value[C] = "", i.dataForm[C] = null, i.fullDataForm && (i.fullDataForm[C] = null), l.value = !l.value);
+      (k) => {
+        k && (u.value[k] = "", i.dataForm[k] = null, i.fullDataForm && (i.fullDataForm[k] = null), l.value = !l.value);
       }
     ), Be(
       () => u.value[n.field.fieldname],
-      (C) => {
-        if (C === "") {
+      (k) => {
+        if (k === "") {
           b();
           return;
         }
-        const I = d.value.findIndex((v) => v.value === C);
-        I !== -1 && (u.value[n.field.fieldname] = f.value[I].label || f.value[I].description || C);
+        const I = d.value.findIndex((v) => v.value === k);
+        I !== -1 && (u.value[n.field.fieldname] = f.value[I].label || f.value[I].description || k);
       }
     );
-    const m = (C, I, v) => {
+    const m = (k, I, v) => {
       let A = "";
-      I != null && I.fieldname ? A = I.fieldname : A = v, u.value[A] = C.label, i.dataForm[A] = C.value, i.fullDataForm && (i.fullDataForm[A] = C), l.value = !l.value;
+      I != null && I.fieldname ? A = I.fieldname : A = v, u.value[A] = k.label, i.dataForm[A] = k.value, i.fullDataForm && (i.fullDataForm[A] = k), l.value = !l.value;
     }, h = () => {
       a.value = !1;
     }, b = () => {
       i.dataForm[n.field.fieldname] = null, u.value[n.field.fieldname] = null, d.value = [], f.value = [], i.filters && (i.filters[n.field.fieldname] = null), i.fullDataForm && (i.fullDataForm[n.field.fieldname] = null), n.field.hasDependencies && Ot.emit(n.field.fieldname + "_cleared"), r("update-autocomplete-value", null, n.field), n.field.provideFilter && (o.value = {}, i.autocompleteFilter = o.value, n.field.value = null), l.value = !l.value;
-    }, P = (C, I) => {
-      I.fieldtype !== "Table" && (i.dataForm[I.fieldname] = C.value, I.fieldname === "referring_physician" && (i.physician = C), i.fullDataForm && (i.fullDataForm[I.fieldname] = {
-        value: C.value,
-        label: __(C.label),
-        description: __(C.description)
+    }, P = (k, I) => {
+      I.fieldtype !== "Table" && (i.dataForm[I.fieldname] = k.value, I.fieldname === "referring_physician" && (i.physician = k), i.fullDataForm && (i.fullDataForm[I.fieldname] = {
+        value: k.value,
+        label: __(k.label),
+        description: __(k.description)
       }));
       const v = {
-        label: C.label ? __(C.label) : "",
-        description: C.description ? __(C.description) : "",
-        value: C.value
+        label: k.label ? __(k.label) : "",
+        description: k.description ? __(k.description) : "",
+        value: k.value
       };
-      u.value[I.fieldname] = v.label || v.description || v.value, I.provideFilter && (o.value = { [I.fieldname]: C.value }, i.autocompleteFilter = o.value), i.filters && (i.filters[I.fieldname] = C.value), r(
+      u.value[I.fieldname] = v.label || v.description || v.value, I.provideFilter && (o.value = { [I.fieldname]: k.value }, i.autocompleteFilter = o.value), i.filters && (i.filters[I.fieldname] = k.value), r(
         "update-autocomplete-value",
         {
-          ...C,
+          ...k,
           label: v.label,
           description: v.description
         },
         I
       ), n.field.hasDependencies && Ot.emit(n.field.fieldname + "_updated"), I.clear_input_after_selection && (u.value[I.fieldname] = null, l.value = !l.value);
-    }, w = (C, I = {}, v = "") => {
+    }, w = (k, I = {}, v = "") => {
       let A = { ...I };
       if (n.quickEntry && n.filters && (A = { ...A, ...n.filters }), n.field.needFilter && n.filters) {
         const z = n.filters[n.field.dependingField];
         z && (A[n.field.dependingField] = z);
       }
       const H = {
-        doctype: C,
+        doctype: k,
         txt: v,
         page_length: 10,
         filters: A
@@ -30896,10 +30896,10 @@ const Ot = h4(), m4 = (e, t) => {
       n.field.dependingField && (Ot.off(n.field.dependingField + "_cleared"), Ot.off(n.field.dependingField + "_updated")), n.editing && !n.field.value && b(), n.quickEntry && b();
     }), Be(
       () => i.fullDataForm,
-      (C) => {
-        if (C && C[n.field.fieldname]) {
-          const I = C[n.field.fieldname];
-          u.value[n.field.fieldname] = I.label ? __(I.label) : I.description ? __(I.description) : I.value, I.value && (d.value = [
+      (k) => {
+        if (console.log("Store fullDataForm updated:", k[n.field.fieldname]), k && k[n.field.fieldname]) {
+          const I = k[n.field.fieldname];
+          u.value[n.field.fieldname] = I.label ? __(I.label) : I.description ? __(I.description) : I.value ? __(I.value) : __(I), I.value && (d.value = [
             {
               label: I.label,
               description: I.description,
@@ -30915,12 +30915,12 @@ const Ot = h4(), m4 = (e, t) => {
         }
       },
       { deep: !0, immediate: !0 }
-    ), (C, I) => {
+    ), (k, I) => {
       var v, A, H, z;
       return c(), g(V, null, [
         x("div", null, [
           x("div", g4, [
-            x("label", null, j(C.__(n.field.label)), 1),
+            x("label", null, j(k.__(n.field.label)), 1),
             n.field.required || n.field.reqd ? (c(), g("span", b4, "*")) : O("", !0)
           ]),
           x("div", {
@@ -30934,7 +30934,7 @@ const Ot = h4(), m4 = (e, t) => {
               inputId: n.field.fieldname,
               suggestions: f.value,
               onComplete: I[0] || (I[0] = (L) => w(n.field.options, {}, L.query)),
-              placeholder: C.__(n.field.placeholder) || C.__(n.field.label),
+              placeholder: k.__(n.field.placeholder) || k.__(n.field.label),
               completeOnFocus: !0,
               fluid: "",
               disabled: !!(e.disabled || n.field.read_only),
@@ -30955,8 +30955,8 @@ const Ot = h4(), m4 = (e, t) => {
                 !L.option.label && !L.option.description ? (c(), g("div", y4, [
                   x("strong", null, j(L.option.value), 1)
                 ])) : (c(), g("div", w4, [
-                  x("strong", null, j(L.option.label ? C.__(L.option.label) : ""), 1),
-                  x("div", null, j(L.option.description ? C.__(L.option.description) : ""), 1)
+                  x("strong", null, j(L.option.label ? k.__(L.option.label) : ""), 1),
+                  x("div", null, j(L.option.description ? k.__(L.option.description) : ""), 1)
                 ]))
               ]),
               _: 2
@@ -30988,7 +30988,7 @@ const Ot = h4(), m4 = (e, t) => {
               inputId: n.field.fieldname,
               suggestions: f.value,
               onComplete: I[6] || (I[6] = (L) => w(n.field.options, {}, L.query)),
-              placeholder: C.__(n.field.placeholder) || C.__(n.field.label),
+              placeholder: k.__(n.field.placeholder) || k.__(n.field.label),
               completeOnFocus: !0,
               fluid: "",
               disabled: !!(e.disabled || n.field.read_only),
@@ -31008,8 +31008,8 @@ const Ot = h4(), m4 = (e, t) => {
                 !L.option.label && !L.option.description ? (c(), g("div", C4, [
                   x("strong", null, j(L.option.value), 1)
                 ])) : (c(), g("div", S4, [
-                  x("strong", null, j(L.option.label ? C.__(L.option.label) : ""), 1),
-                  x("div", null, j(L.option.description ? C.__(L.option.description) : ""), 1)
+                  x("strong", null, j(L.option.label ? k.__(L.option.label) : ""), 1),
+                  x("div", null, j(L.option.description ? k.__(L.option.description) : ""), 1)
                 ]))
               ]),
               _: 2
@@ -31041,13 +31041,13 @@ const Ot = h4(), m4 = (e, t) => {
               id: "new_" + n.field.fieldname
             }, {
               default: D(() => [
-                x("span", $4, j(C.__("New {0}", [C.__(n.field.placeholder)])), 1)
+                x("span", $4, j(k.__("New {0}", [k.__(n.field.placeholder)])), 1)
               ]),
               _: 1
             }, 8, ["disabled", "id"])) : O("", !0)
           ], 2)
         ]),
-        a.value ? S(C.$slots, "quick-entry", {
+        a.value ? S(k.$slots, "quick-entry", {
           key: 0,
           field: n.field,
           createNew: a.value,
@@ -31057,191 +31057,191 @@ const Ot = h4(), m4 = (e, t) => {
       ], 64);
     };
   }
-}, I4 = /* @__PURE__ */ m4(O4, [["__scopeId", "data-v-42ff5f6b"]]);
+}, I4 = /* @__PURE__ */ m4(O4, [["__scopeId", "data-v-db5a8698"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {
     return frappe._(e, t, n);
   }
 });
-const k = heracles.utils.__;
+const C = heracles.utils.__;
 let x4 = {
-  accept: k("Yes"),
-  addRule: k("Add Rule"),
-  am: k("AM"),
-  apply: k("Apply"),
-  cancel: k("Cancel"),
-  choose: k("Choose"),
-  chooseDate: k("Choose Date"),
-  chooseMonth: k("Choose Month"),
-  chooseYear: k("Choose Year"),
-  clear: k("Clear"),
-  completed: k("Completed"),
-  contains: k("Contains"),
-  custom: k("Custom"),
-  dateAfter: k("Date is after"),
-  dateBefore: k("Date is before"),
+  accept: C("Yes"),
+  addRule: C("Add Rule"),
+  am: C("AM"),
+  apply: C("Apply"),
+  cancel: C("Cancel"),
+  choose: C("Choose"),
+  chooseDate: C("Choose Date"),
+  chooseMonth: C("Choose Month"),
+  chooseYear: C("Choose Year"),
+  clear: C("Clear"),
+  completed: C("Completed"),
+  contains: C("Contains"),
+  custom: C("Custom"),
+  dateAfter: C("Date is after"),
+  dateBefore: C("Date is before"),
   //TODO: Check if this is correct
   //dateFormat: __("mm/dd/yy"),
-  dateIs: k("Date is"),
-  dateIsNot: k("Date is not"),
+  dateIs: C("Date is"),
+  dateIsNot: C("Date is not"),
   dayNames: [
-    k("Sunday"),
-    k("Monday"),
-    k("Tuesday"),
-    k("Wednesday"),
-    k("Thursday"),
-    k("Friday"),
-    k("Saturday")
+    C("Sunday"),
+    C("Monday"),
+    C("Tuesday"),
+    C("Wednesday"),
+    C("Thursday"),
+    C("Friday"),
+    C("Saturday")
   ],
-  dayNamesMin: [k("Su"), k("Mo"), k("Tu"), k("We"), k("Th"), k("Fr"), k("Sa")],
-  dayNamesShort: [k("Sun"), k("Mon"), k("Tue"), k("Wed"), k("Thu"), k("Fri"), k("Sat")],
-  emptyFilterMessage: k("No results found"),
-  emptyMessage: k("No available options"),
-  emptySearchMessage: k("No results found"),
-  emptySelectionMessage: k("No selected item"),
-  endsWith: k("Ends with"),
-  equals: k("Equals"),
-  fileChosenMessage: k("{0} files"),
+  dayNamesMin: [C("Su"), C("Mo"), C("Tu"), C("We"), C("Th"), C("Fr"), C("Sa")],
+  dayNamesShort: [C("Sun"), C("Mon"), C("Tue"), C("Wed"), C("Thu"), C("Fri"), C("Sat")],
+  emptyFilterMessage: C("No results found"),
+  emptyMessage: C("No available options"),
+  emptySearchMessage: C("No results found"),
+  emptySelectionMessage: C("No selected item"),
+  endsWith: C("Ends with"),
+  equals: C("Equals"),
+  fileChosenMessage: C("{0} files"),
   fileSizeTypes: [
-    k("B"),
-    k("KB"),
-    k("MB"),
-    k("GB"),
-    k("TB"),
-    k("PB"),
-    k("EB"),
-    k("ZB"),
-    k("YB")
+    C("B"),
+    C("KB"),
+    C("MB"),
+    C("GB"),
+    C("TB"),
+    C("PB"),
+    C("EB"),
+    C("ZB"),
+    C("YB")
   ],
-  filter: k("Filter"),
+  filter: C("Filter"),
   firstDayOfWeek: 0,
-  gt: k("Greater than"),
-  gte: k("Greater than or equal to"),
-  lt: k("Less than"),
-  lte: k("Less than or equal to"),
-  matchAll: k("Match All"),
-  matchAny: k("Match Any"),
-  medium: k("Medium"),
+  gt: C("Greater than"),
+  gte: C("Greater than or equal to"),
+  lt: C("Less than"),
+  lte: C("Less than or equal to"),
+  matchAll: C("Match All"),
+  matchAny: C("Match Any"),
+  medium: C("Medium"),
   monthNames: [
-    k("January"),
-    k("February"),
-    k("March"),
-    k("April"),
-    k("May"),
-    k("June"),
-    k("July"),
-    k("August"),
-    k("September"),
-    k("October"),
-    k("November"),
-    k("December")
+    C("January"),
+    C("February"),
+    C("March"),
+    C("April"),
+    C("May"),
+    C("June"),
+    C("July"),
+    C("August"),
+    C("September"),
+    C("October"),
+    C("November"),
+    C("December")
   ],
   monthNamesShort: [
-    k("Jan"),
-    k("Feb"),
-    k("Mar"),
-    k("Apr"),
-    k("May"),
-    k("Jun"),
-    k("Jul"),
-    k("Aug"),
-    k("Sep"),
-    k("Oct"),
-    k("Nov"),
-    k("Dec")
+    C("Jan"),
+    C("Feb"),
+    C("Mar"),
+    C("Apr"),
+    C("May"),
+    C("Jun"),
+    C("Jul"),
+    C("Aug"),
+    C("Sep"),
+    C("Oct"),
+    C("Nov"),
+    C("Dec")
   ],
-  nextDecade: k("Next Decade"),
-  nextHour: k("Next Hour"),
-  nextMinute: k("Next Minute"),
-  nextMonth: k("Next Month"),
-  nextSecond: k("Next Second"),
-  nextYear: k("Next Year"),
-  noFileChosenMessage: k("No file chosen"),
-  noFilter: k("No Filter"),
-  notContains: k("Not contains"),
-  notEquals: k("Not equals"),
-  now: k("Now"),
-  passwordPrompt: k("Enter a password"),
-  pending: k("Pending"),
-  pm: k("PM"),
-  prevDecade: k("Previous Decade"),
-  prevHour: k("Previous Hour"),
-  prevMinute: k("Previous Minute"),
-  prevMonth: k("Previous Month"),
-  prevSecond: k("Previous Second"),
-  prevYear: k("Previous Year"),
-  reject: k("No"),
-  removeRule: k("Remove Rule"),
-  searchMessage: k("{0} results are available"),
-  selectionMessage: k("{0} items selected"),
+  nextDecade: C("Next Decade"),
+  nextHour: C("Next Hour"),
+  nextMinute: C("Next Minute"),
+  nextMonth: C("Next Month"),
+  nextSecond: C("Next Second"),
+  nextYear: C("Next Year"),
+  noFileChosenMessage: C("No file chosen"),
+  noFilter: C("No Filter"),
+  notContains: C("Not contains"),
+  notEquals: C("Not equals"),
+  now: C("Now"),
+  passwordPrompt: C("Enter a password"),
+  pending: C("Pending"),
+  pm: C("PM"),
+  prevDecade: C("Previous Decade"),
+  prevHour: C("Previous Hour"),
+  prevMinute: C("Previous Minute"),
+  prevMonth: C("Previous Month"),
+  prevSecond: C("Previous Second"),
+  prevYear: C("Previous Year"),
+  reject: C("No"),
+  removeRule: C("Remove Rule"),
+  searchMessage: C("{0} results are available"),
+  selectionMessage: C("{0} items selected"),
   //TODO: Check if this is correct
   //showMonthAfterYear: false,
-  startsWith: k("Starts with"),
-  strong: k("Strong"),
-  today: k("Today"),
-  upload: k("Upload"),
-  weak: k("Weak"),
-  weekHeader: k("Wk"),
+  startsWith: C("Starts with"),
+  strong: C("Strong"),
+  today: C("Today"),
+  upload: C("Upload"),
+  weak: C("Weak"),
+  weekHeader: C("Wk"),
   aria: {
-    cancelEdit: k("Cancel Edit"),
-    close: k("Close"),
-    collapseLabel: k("Collapse"),
-    collapseRow: k("Row Collapsed"),
-    editRow: k("Edit Row"),
-    expandLabel: k("Expand"),
-    expandRow: k("Row Expanded"),
-    falseLabel: k("False"),
-    filterConstraint: k("Filter Constraint"),
-    filterOperator: k("Filter Operator"),
-    firstPageLabel: k("First Page"),
-    gridView: k("Grid View"),
-    hideFilterMenu: k("Hide Filter Menu"),
-    jumpToPageDropdownLabel: k("Jump to Page Dropdown"),
-    jumpToPageInputLabel: k("Jump to Page Input"),
-    lastPageLabel: k("Last Page"),
-    listLabel: k("Option List"),
-    listView: k("List View"),
-    moveAllToSource: k("Move All to Source"),
-    moveAllToTarget: k("Move All to Target"),
-    moveBottom: k("Move Bottom"),
-    moveDown: k("Move Down"),
-    moveToSource: k("Move to Source"),
-    moveToTarget: k("Move to Target"),
-    moveTop: k("Move Top"),
-    moveUp: k("Move Up"),
-    navigation: k("Navigation"),
-    next: k("Next"),
-    nextPageLabel: k("Next Page"),
-    nullLabel: k("Not Selected"),
-    otpLabel: k("Please enter one time password character {0}"),
-    pageLabel: k("Page {page}"),
-    passwordHide: k("Hide Password"),
-    passwordShow: k("Show Password"),
-    previous: k("Previous"),
-    prevPageLabel: k("Previous Page"),
-    removeLabel: k("Remove"),
-    rotateLeft: k("Rotate Left"),
-    rotateRight: k("Rotate Right"),
-    rowsPerPageLabel: k("Rows per page"),
-    saveEdit: k("Save Edit"),
-    scrollTop: k("Scroll Top"),
-    selectAll: k("All items selected"),
-    selectLabel: k("Select"),
-    selectRow: k("Row Selected"),
-    showFilterMenu: k("Show Filter Menu"),
-    slide: k("Slide"),
+    cancelEdit: C("Cancel Edit"),
+    close: C("Close"),
+    collapseLabel: C("Collapse"),
+    collapseRow: C("Row Collapsed"),
+    editRow: C("Edit Row"),
+    expandLabel: C("Expand"),
+    expandRow: C("Row Expanded"),
+    falseLabel: C("False"),
+    filterConstraint: C("Filter Constraint"),
+    filterOperator: C("Filter Operator"),
+    firstPageLabel: C("First Page"),
+    gridView: C("Grid View"),
+    hideFilterMenu: C("Hide Filter Menu"),
+    jumpToPageDropdownLabel: C("Jump to Page Dropdown"),
+    jumpToPageInputLabel: C("Jump to Page Input"),
+    lastPageLabel: C("Last Page"),
+    listLabel: C("Option List"),
+    listView: C("List View"),
+    moveAllToSource: C("Move All to Source"),
+    moveAllToTarget: C("Move All to Target"),
+    moveBottom: C("Move Bottom"),
+    moveDown: C("Move Down"),
+    moveToSource: C("Move to Source"),
+    moveToTarget: C("Move to Target"),
+    moveTop: C("Move Top"),
+    moveUp: C("Move Up"),
+    navigation: C("Navigation"),
+    next: C("Next"),
+    nextPageLabel: C("Next Page"),
+    nullLabel: C("Not Selected"),
+    otpLabel: C("Please enter one time password character {0}"),
+    pageLabel: C("Page {page}"),
+    passwordHide: C("Hide Password"),
+    passwordShow: C("Show Password"),
+    previous: C("Previous"),
+    prevPageLabel: C("Previous Page"),
+    removeLabel: C("Remove"),
+    rotateLeft: C("Rotate Left"),
+    rotateRight: C("Rotate Right"),
+    rowsPerPageLabel: C("Rows per page"),
+    saveEdit: C("Save Edit"),
+    scrollTop: C("Scroll Top"),
+    selectAll: C("All items selected"),
+    selectLabel: C("Select"),
+    selectRow: C("Row Selected"),
+    showFilterMenu: C("Show Filter Menu"),
+    slide: C("Slide"),
     //TODO: Check if this is correct
     //slideNumber: __("{slideNumber}"),
-    star: k("1 star"),
-    stars: k("{star} stars"),
-    trueLabel: k("True"),
-    unselectAll: k("All items unselected"),
-    unselectLabel: k("Unselect"),
-    unselectRow: k("Row Unselected"),
-    zoomImage: k("Zoom Image"),
-    zoomIn: k("Zoom In"),
-    zoomOut: k("Zoom Out")
+    star: C("1 star"),
+    stars: C("{star} stars"),
+    trueLabel: C("True"),
+    unselectAll: C("All items unselected"),
+    unselectLabel: C("Unselect"),
+    unselectRow: C("Row Unselected"),
+    zoomImage: C("Zoom Image"),
+    zoomIn: C("Zoom In"),
+    zoomOut: C("Zoom Out")
   }
 };
 const P4 = (e) => {

@@ -545,6 +545,7 @@ onUnmounted(() => {
 watch(
 	() => store.fullDataForm,
 	(newValue) => {
+		console.log("Store fullDataForm updated:", newValue[props.field.fieldname]);
 		if (newValue && newValue[props.field.fieldname]) {
 			const value = newValue[props.field.fieldname];
 			// Traducir el valor cuando se carga para editar
@@ -552,7 +553,9 @@ watch(
 				? __(value.label)
 				: value.description
 				  ? __(value.description)
-				  : value.value;
+				  : value.value
+				    ? __(value.value)
+				    : __(value);
 
 			// También actualizar las sugerencias con el valor actual
 			if (value.value) {
