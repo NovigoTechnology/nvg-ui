@@ -578,6 +578,10 @@ watch(
 	},
 	{ deep: true, immediate: true },
 );
+
+defineExpose({
+	clear_input,
+});
 </script>
 
 <style>
