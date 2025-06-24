@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="flex items-center mb-2">
+		<div :class="'flex items-center mb-2 ' + props.labelstyles">
 			<label>{{ __(props.field.label) }}</label>
 			<span
 				v-if="props.field.required || props.field.reqd"
@@ -212,6 +212,7 @@ const props = defineProps({
 	delInputValue: String,
 	isTable: Boolean,
 	query: String,
+	labelstyles: String
 });
 
 const emit = defineEmits(["update-autocomplete-value", "update-filter", "update-data"]);
@@ -578,10 +579,6 @@ watch(
 	},
 	{ deep: true, immediate: true },
 );
-
-defineExpose({
-	clear_input,
-});
 </script>
 
 <style>
