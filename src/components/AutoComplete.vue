@@ -341,12 +341,12 @@ watch(
 );
 
 watch(
-  () => !props.quickEntry && currentStore.value?.clear ? currentStore.value.clear : false,
-  (newVal) => {
-    if (newVal && !props.quickEntry) {
-      clear_input();
-    }
-  },
+    () => (!props.quickEntry && currentStore.value?.clearTrigger ? currentStore.value.clearTrigger : 0),
+    (newVal, oldVal) => {
+        if (newVal !== oldVal && newVal > 0 && !props.quickEntry) {
+            clear_input();
+        }
+    },
 );
 
 watch(
