@@ -30818,10 +30818,10 @@ const Ot = h4(), m4 = (e, t) => {
     ), Oe(
       () => {
         var b;
-        return !o.quickEntry && ((b = a.value) != null && b.clearTrigger) ? a.value.clearTrigger : 0;
+        return !o.quickEntry && ((b = a.value) == null ? void 0 : b.clear) !== void 0 ? a.value.clear : null;
       },
       (b, I) => {
-        b !== I && b > 0 && !o.quickEntry && v();
+        b !== I && b !== null && !o.quickEntry && v();
       }
     ), Oe(
       () => a.value.edited,
@@ -31106,7 +31106,7 @@ const Ot = h4(), m4 = (e, t) => {
       ], 64);
     };
   }
-}, O4 = /* @__PURE__ */ m4($4, [["__scopeId", "data-v-fd14effb"]]);
+}, O4 = /* @__PURE__ */ m4($4, [["__scopeId", "data-v-e29de228"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {

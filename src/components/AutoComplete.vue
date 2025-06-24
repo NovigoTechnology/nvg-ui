@@ -341,9 +341,10 @@ watch(
 );
 
 watch(
-    () => (!props.quickEntry && currentStore.value?.clearTrigger ? currentStore.value.clearTrigger : 0),
+    () => (!props.quickEntry && currentStore.value?.clear !== undefined ? currentStore.value.clear : null),
     (newVal, oldVal) => {
-        if (newVal !== oldVal && newVal > 0 && !props.quickEntry) {
+        // Detectar cualquier cambio en el valor boolean (true->false o false->true)
+        if (newVal !== oldVal && newVal !== null && !props.quickEntry) {
             clear_input();
         }
     },
