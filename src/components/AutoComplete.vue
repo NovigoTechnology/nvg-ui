@@ -1,12 +1,13 @@
 <template>
 	<div>
-		<div :class="'flex items-center mb-2 ' + props.labelstyles">
+		<div :class="`${props.labelstyles ? props.labelstyles : 'flex items-center mb-2'}` ">
 			<label :for="props.field.fieldname">
 				{{ __(props.field.label) }}
 			</label>
 			<span
 				v-if="props.field.required || props.field.reqd"
-				:class="{ 'text-red-500 ml-2': props.field.required || props.field.reqd }"
+				:class="'ml-2 custom-label-required'"
+				style="color: #eb9091"
 			>
 				*
 			</span>

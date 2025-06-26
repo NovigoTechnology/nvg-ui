@@ -30728,14 +30728,18 @@ const Ot = h4(), m4 = (e, t) => {
     n[o] = i;
   return n;
 }, g4 = ["for"], b4 = {
+  key: 0,
+  class: /* @__PURE__ */ V("ml-2 custom-label-required"),
+  style: { color: "#eb9091" }
+}, v4 = {
   class: "icon icon-sm",
   style: { stroke: "var(--p-inputtext-color)" },
   "aria-hidden": "true"
-}, v4 = { key: 0 }, y4 = { key: 1 }, w4 = {
+}, y4 = { key: 0 }, w4 = { key: 1 }, k4 = {
   class: "icon icon-sm",
   style: { stroke: "var(--p-inputtext-color)" },
   "aria-hidden": "true"
-}, k4 = { key: 0 }, C4 = { key: 1 }, S4 = { style: { "text-wrap": "nowrap" } }, $4 = {
+}, C4 = { key: 0 }, S4 = { key: 1 }, $4 = { style: { "text-wrap": "nowrap" } }, O4 = {
   __name: "AutoComplete",
   props: {
     field: Object,
@@ -30962,15 +30966,12 @@ const Ot = h4(), m4 = (e, t) => {
       return c(), g(K, null, [
         O("div", null, [
           O("div", {
-            class: V("flex items-center mb-2 " + o.labelstyles)
+            class: V(`${o.labelstyles ? o.labelstyles : "flex items-center mb-2"}`)
           }, [
             O("label", {
               for: o.field.fieldname
             }, A(b.__(o.field.label)), 9, g4),
-            o.field.required || o.field.reqd ? (c(), g("span", {
-              key: 0,
-              class: V({ "text-red-500 ml-2": o.field.required || o.field.reqd })
-            }, " * ", 2)) : S("", !0)
+            o.field.required || o.field.reqd ? (c(), g("span", b4, " * ")) : S("", !0)
           ], 2),
           O("div", {
             class: V([{ flex: o.field.quick_entry }, "relative"])
@@ -31001,9 +31002,9 @@ const Ot = h4(), m4 = (e, t) => {
               forceSelection: ""
             }, Ee({
               option: M((j) => [
-                !j.option.label && !j.option.description ? (c(), g("div", v4, [
+                !j.option.label && !j.option.description ? (c(), g("div", y4, [
                   O("strong", null, A(j.option.value), 1)
-                ])) : (c(), g("div", y4, [
+                ])) : (c(), g("div", w4, [
                   O("strong", null, A(j.option.label ? b.__(j.option.label) : ""), 1),
                   O("div", null, A(j.option.description ? b.__(j.option.description) : ""), 1)
                 ]))
@@ -31018,7 +31019,7 @@ const Ot = h4(), m4 = (e, t) => {
                     class: "p-autocomplete-dropdown",
                     onClick: to(v, ["stop"])
                   }, [
-                    (c(), g("svg", b4, I[12] || (I[12] = [
+                    (c(), g("svg", v4, I[12] || (I[12] = [
                       O("use", { href: "#icon-close" }, null, -1)
                     ])))
                   ])
@@ -31054,9 +31055,9 @@ const Ot = h4(), m4 = (e, t) => {
               forceSelection: ""
             }, Ee({
               option: M((j) => [
-                !j.option.label && !j.option.description ? (c(), g("div", k4, [
+                !j.option.label && !j.option.description ? (c(), g("div", C4, [
                   O("strong", null, A(j.option.value), 1)
-                ])) : (c(), g("div", C4, [
+                ])) : (c(), g("div", S4, [
                   O("strong", null, A(j.option.label ? b.__(j.option.label) : ""), 1),
                   O("div", null, A(j.option.description ? b.__(j.option.description) : ""), 1)
                 ]))
@@ -31071,7 +31072,7 @@ const Ot = h4(), m4 = (e, t) => {
                     class: "p-autocomplete-dropdown",
                     onClick: to(v, ["stop"])
                   }, [
-                    (c(), g("svg", w4, I[13] || (I[13] = [
+                    (c(), g("svg", k4, I[13] || (I[13] = [
                       O("use", { href: "#icon-close" }, null, -1)
                     ])))
                   ])
@@ -31090,7 +31091,7 @@ const Ot = h4(), m4 = (e, t) => {
               id: "new_" + o.field.fieldname
             }, {
               default: M(() => [
-                O("span", S4, A(b.__("New {0}", [b.__(o.field.placeholder)])), 1)
+                O("span", $4, A(b.__("New {0}", [b.__(o.field.placeholder)])), 1)
               ]),
               _: 1
             }, 8, ["disabled", "id"])) : S("", !0)
@@ -31106,7 +31107,7 @@ const Ot = h4(), m4 = (e, t) => {
       ], 64);
     };
   }
-}, O4 = /* @__PURE__ */ m4($4, [["__scopeId", "data-v-e29de228"]]);
+}, I4 = /* @__PURE__ */ m4(O4, [["__scopeId", "data-v-910b9678"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {
@@ -31114,7 +31115,7 @@ $.extend(heracles.utils, {
   }
 });
 const k = heracles.utils.__;
-let I4 = {
+let x4 = {
   accept: k("Yes"),
   addRule: k("Add Rule"),
   am: k("AM"),
@@ -31293,7 +31294,7 @@ let I4 = {
     zoomOut: k("Zoom Out")
   }
 };
-const x4 = (e) => {
+const P4 = (e) => {
   const t = [];
   let n = { tabName: "initial_tab", label: "Details", sections: [] }, o = {
     sectionName: "initial_section",
@@ -31326,8 +31327,8 @@ const x4 = (e) => {
         i.fields.push(s);
     }
   }), l(), t;
-}, P4 = {
-  AutoComplete: O4,
+}, R4 = {
+  AutoComplete: I4,
   DataTable: ul,
   Column: Cp,
   Paginator: hr,
@@ -31357,9 +31358,9 @@ const x4 = (e) => {
   Select: Gn,
   Calendar: _c,
   MultiSelect: Il,
-  groupFields: x4
-}, B4 = {
-  install: (e, { locale: t = I4 } = {}) => {
+  groupFields: P4
+}, L4 = {
+  install: (e, { locale: t = x4 } = {}) => {
     e.use(Mp, {
       theme: {
         preset: f4,
@@ -31370,13 +31371,13 @@ const x4 = (e) => {
         }
       },
       locale: t
-    }), e.use(us), e.use(cs), e.use(q1), Object.entries(P4).forEach(
+    }), e.use(us), e.use(cs), e.use(q1), Object.entries(R4).forEach(
       ([n, o]) => e.component(n, o)
     );
   }
 };
 export {
-  O4 as AutoComplete,
+  I4 as AutoComplete,
   _e as Button,
   ya as ButtonGroup,
   _c as Calendar,
@@ -31403,8 +31404,8 @@ export {
   Dl as Stepper,
   Tl as Tag,
   Fl as Toast,
-  B4 as default,
-  x4 as groupFields,
+  L4 as default,
+  P4 as groupFields,
   ss as useConfirm,
   Pp as usePrimeVue,
   Ys as useToast
