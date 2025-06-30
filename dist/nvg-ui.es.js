@@ -30782,9 +30782,7 @@ const Ot = h4(), m4 = (e, t) => {
         v(), R(o.field.options, {});
       }), Ot.on(o.field.dependingField + "_updated", () => {
         v(), R(o.field.options);
-      })), o.quickEntry)
-        f.value[o.field.fieldname] = null;
-      else if (a.value.filters && a.value.filters[o.field.fieldname] && (f.value[o.field.fieldname] = a.value.filters[o.field.fieldname]), a.value.fullDataForm && a.value.fullDataForm[o.field.fieldname]) {
+      })), !o.quickEntry && (a.value.filters && a.value.filters[o.field.fieldname] && (f.value[o.field.fieldname] = a.value.filters[o.field.fieldname]), a.value.fullDataForm && a.value.fullDataForm[o.field.fieldname])) {
         const b = a.value.fullDataForm[o.field.fieldname];
         f.value[o.field.fieldname] = b.label || b.description || b.value;
       }
@@ -31107,7 +31105,7 @@ const Ot = h4(), m4 = (e, t) => {
       ], 64);
     };
   }
-}, I4 = /* @__PURE__ */ m4(O4, [["__scopeId", "data-v-910b9678"]]);
+}, I4 = /* @__PURE__ */ m4(O4, [["__scopeId", "data-v-93858f40"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {

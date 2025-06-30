@@ -273,9 +273,6 @@ onMounted(() => {
 			const existingValue = currentStore.value.fullDataForm[props.field.fieldname];
 			inputValue.value[props.field.fieldname] = existingValue.label || existingValue.description || existingValue.value;
 		}
-	} else {
-	
-		inputValue.value[props.field.fieldname] = null;
 	}
 
 	if (props.field.needFilter && props.filters[props.field.dependingField]) {
