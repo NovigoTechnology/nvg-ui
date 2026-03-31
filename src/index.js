@@ -41,7 +41,7 @@ import translatableLocale from "./utils/primeLocale";
 import { groupFields } from "./functions/groupFields";
 
 const components = {
-  // GridTable,
+  GridTable,
   AutoComplete,
   DataTable,
   Column,
@@ -99,7 +99,7 @@ export default {
 };
 
 export {
-  // GridTable,
+  GridTable,
   AutoComplete,
   DataTable,
   Column,
