@@ -30841,20 +30841,28 @@ var nv = {
 })({}, Dv), g4(qi, b4({ components: { accordion: lv, autocomplete: bv, avatar: $v, badge: Bv, blockui: Ev, breadcrumb: jv, button: Hv, card: Zv, carousel: ey, cascadeselect: ly, checkbox: dy, chip: gy, colorpicker: ky, confirmdialog: Sy, confirmpopup: Ry, contextmenu: Fy, datatable: nw, dataview: uw, datepicker: Rw, dialog: Ew, divider: Vw, dock: Nw, drawer: qw, editor: t2, fieldset: a2, fileupload: h2, floatlabel: y2, galleria: T2, iconfield: F2, iftalabel: j2, image: G2, imagecompare: W2, inlinemessage: J2, inplace: e6, inputchips: r6, inputgroup: a6, inputnumber: d6, inputotp: f6, inputtext: m6, knob: w6, listbox: P6, megamenu: A6, menu: G6, menubar: J6, message: lk, metergroup: hk, multiselect: Sk, orderlist: Ik, organizationchart: Mk, overlaybadge: Tk, paginator: jk, panel: Wk, panelmenu: Qk, password: r5, picklist: l5, popover: d5, progressbar: h5, progressspinner: g5, radiobutton: y5, rating: C5, ripple: S5, scrollpanel: P5, select: A5, selectbutton: K5, skeleton: G5, slider: X5, speeddial: Q5, splitbutton: e3, splitter: r3, stepper: f3, steps: y3, tabmenu: O3, tabs: D3, tabview: V3, tag: G3, terminal: Z3, textarea: X3, tieredmenu: oC, timeline: uC, toast: yC, togglebutton: SC, toggleswitch: PC, toolbar: BC, tooltip: DC, tree: VC, treeselect: ZC, treetable: p4, virtualscroller: h4 } })));
 async function Xi(e, t) {
   try {
-    const n = `/api/method/${e}`, o = await fetch(n, {
+    const n = `/api/method/${e}`, o = new URLSearchParams();
+    t && Object.keys(t).forEach((a) => {
+      const l = t[a];
+      typeof l == "object" && l !== null ? o.append(a, JSON.stringify(l)) : o.append(a, l);
+    });
+    const i = await fetch(n, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "X-Frappe-CSRF-Token": window.csrf_token || ""
+        "Content-Type": "application/x-www-form-urlencoded",
+        "X-Frappe-CSRF-Token": window.csrf_token || "",
+        Accept: "application/json"
       },
-      body: JSON.stringify(t)
+      body: o.toString()
     });
-    if (!o.ok)
-      throw new Error(`HTTP error! status: ${o.status}`);
-    const i = await o.json();
-    if (i.exc)
-      throw new Error(i.exc);
-    return i.message;
+    if (!i.ok) {
+      const a = await i.text();
+      throw console.error("Frappe API error response:", a), new Error(`HTTP error! status: ${i.status}`);
+    }
+    const r = await i.json();
+    if (r.exc)
+      throw console.error("Frappe exception:", r.exc), new Error(r.exc);
+    return r.message;
   } catch (n) {
     throw console.error("Frappe API call error:", n), n;
   }
