@@ -3,17 +3,17 @@ function getCsrfToken() {
   if (window.frappe && window.frappe.csrf_token) {
     return window.frappe.csrf_token;
   }
-  
+
   // Fallback: buscar en cookies
-  const cookies = document.cookie.split(';');
+  const cookies = document.cookie.split(";");
   for (let cookie of cookies) {
-    const [name, value] = cookie.trim().split('=');
-    if (name === 'csrf_token') {
+    const [name, value] = cookie.trim().split("=");
+    if (name === "csrf_token") {
       return decodeURIComponent(value);
     }
   }
-  
-  return '';
+
+  return "";
 }
 
 export async function call(method, params) {
@@ -37,12 +37,12 @@ export async function call(method, params) {
     }
 
     const csrfToken = getCsrfToken();
-    
+
     const headers = {
       "Content-Type": "application/x-www-form-urlencoded",
-      "Accept": "application/json",
+      Accept: "application/json",
     };
-    
+
     // Solo agregar el header si tenemos un token
     if (csrfToken) {
       headers["X-Frappe-CSRF-Token"] = csrfToken;
