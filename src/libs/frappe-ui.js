@@ -1,3 +1,21 @@
+function getCsrfToken() {
+  // Intentar obtener el token de varias fuentes en orden de prioridad
+  if (window.frappe && window.frappe.csrf_token) {
+    return window.frappe.csrf_token;
+  }
+  
+  // Fallback: buscar en cookies
+  const cookies = document.cookie.split(';');
+  for (let cookie of cookies) {
+    const [name, value] = cookie.trim().split('=');
+    if (name === 'csrf_token') {
+      return decodeURIComponent(value);
+    }
+  }
+  
+  return '';
+}
+
 export async function call(method, params) {
   try {
     const url = `/api/method/${method}`;
@@ -18,13 +36,22 @@ export async function call(method, params) {
       });
     }
 
+    const csrfToken = getCsrfToken();
+    
+    const headers = {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Accept": "application/json",
+    };
+    
+    // Solo agregar el header si tenemos un token
+    if (csrfToken) {
+      headers["X-Frappe-CSRF-Token"] = csrfToken;
+    }
+
     const response = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "X-Frappe-CSRF-Token": window.csrf_token || "",
-        Accept: "application/json",
-      },
+      headers: headers,
+      credentials: "same-origin", // Importante para incluir cookies
       body: formData.toString(),
     });
 
