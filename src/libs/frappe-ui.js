@@ -62,3 +62,13 @@ export async function call(method, params) {
     throw error;
   }
 }
+
+// Exportar frappe.call con su firma completa
+export function frappeCall(options) {
+  if (window.frappe && typeof window.frappe.call === "function") {
+    return window.frappe.call(options);
+  }
+
+  console.error("frappe.call no está disponible en window.frappe");
+  throw new Error("frappe.call is not available");
+}

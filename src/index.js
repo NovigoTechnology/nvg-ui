@@ -39,6 +39,7 @@ import { useConfirm, usePrimeVue } from "primevue";
 import translatableLocale from "./utils/primeLocale";
 
 import { groupFields } from "./functions/groupFields";
+import { call, frappeCall } from "./libs/frappe-ui";
 
 const components = {
   GridTable,
@@ -73,6 +74,8 @@ const components = {
   Calendar,
   MultiSelect,
   groupFields,
+  call,
+  frappeCall,
 };
 
 export default {
@@ -131,4 +134,6 @@ export {
   Calendar,
   MultiSelect,
   groupFields,
+  call,
+  frappeCall,
 };
