@@ -30839,49 +30839,50 @@ var nv = {
   if (Yi) for (var n of Yi(t)) y4.call(t, n) && Zi(e, n, t[n]);
   return e;
 })({}, Dv), g4(qi, b4({ components: { accordion: lv, autocomplete: bv, avatar: $v, badge: Bv, blockui: Ev, breadcrumb: jv, button: Hv, card: Zv, carousel: ey, cascadeselect: ly, checkbox: dy, chip: gy, colorpicker: ky, confirmdialog: Sy, confirmpopup: Ry, contextmenu: Fy, datatable: nw, dataview: uw, datepicker: Rw, dialog: Ew, divider: Vw, dock: Nw, drawer: qw, editor: t2, fieldset: a2, fileupload: h2, floatlabel: y2, galleria: T2, iconfield: F2, iftalabel: j2, image: G2, imagecompare: W2, inlinemessage: J2, inplace: e6, inputchips: r6, inputgroup: a6, inputnumber: d6, inputotp: f6, inputtext: m6, knob: w6, listbox: P6, megamenu: A6, menu: G6, menubar: J6, message: lk, metergroup: hk, multiselect: Sk, orderlist: Ik, organizationchart: Mk, overlaybadge: Tk, paginator: jk, panel: Wk, panelmenu: Qk, password: r5, picklist: l5, popover: d5, progressbar: h5, progressspinner: g5, radiobutton: y5, rating: C5, ripple: S5, scrollpanel: P5, select: A5, selectbutton: K5, skeleton: G5, slider: X5, speeddial: Q5, splitbutton: e3, splitter: r3, stepper: f3, steps: y3, tabmenu: O3, tabs: D3, tabview: V3, tag: G3, terminal: Z3, textarea: X3, tieredmenu: oC, timeline: uC, toast: yC, togglebutton: SC, toggleswitch: PC, toolbar: BC, tooltip: DC, tree: VC, treeselect: ZC, treetable: p4, virtualscroller: h4 } })));
-function k4() {
-  if (window.frappe && window.frappe.csrf_token)
-    return window.frappe.csrf_token;
-  const e = document.cookie.split(";");
-  for (let t of e) {
-    const [n, o] = t.trim().split("=");
-    if (n === "csrf_token")
-      return decodeURIComponent(o);
-  }
-  return "";
-}
 async function Xi(e, t) {
+  var n;
+  if (window.frappe && typeof window.frappe.call == "function")
+    return new Promise((o, i) => {
+      window.frappe.call({
+        method: e,
+        args: t,
+        callback: (r) => {
+          o(r.message);
+        },
+        error: (r) => {
+          console.error("Frappe API call error:", r), i(r);
+        }
+      });
+    });
   try {
-    const n = `/api/method/${e}`, o = new URLSearchParams();
-    t && Object.keys(t).forEach((s) => {
-      const u = t[s];
-      typeof u == "object" && u !== null ? o.append(s, JSON.stringify(u)) : o.append(s, u);
+    const o = `/api/method/${e}`, i = new URLSearchParams();
+    t && Object.keys(t).forEach((l) => {
+      const s = t[l];
+      typeof s == "object" && s !== null ? i.append(l, JSON.stringify(s)) : i.append(l, s);
     });
-    const i = k4(), r = {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Accept: "application/json"
-    };
-    i && (r["X-Frappe-CSRF-Token"] = i);
-    const a = await fetch(n, {
+    const r = await fetch(o, {
       method: "POST",
-      headers: r,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Accept: "application/json",
+        "X-Frappe-CSRF-Token": ((n = window.frappe) == null ? void 0 : n.csrf_token) || ""
+      },
       credentials: "same-origin",
-      // Importante para incluir cookies
-      body: o.toString()
+      body: i.toString()
     });
-    if (!a.ok) {
-      const s = await a.text();
-      throw console.error("Frappe API error response:", s), new Error(`HTTP error! status: ${a.status}`);
+    if (!r.ok) {
+      const l = await r.text();
+      throw console.error("Frappe API error response:", l), new Error(`HTTP error! status: ${r.status}`);
     }
-    const l = await a.json();
-    if (l.exc)
-      throw console.error("Frappe exception:", l.exc), new Error(l.exc);
-    return l.message;
-  } catch (n) {
-    throw console.error("Frappe API call error:", n), n;
+    const a = await r.json();
+    if (a.exc)
+      throw console.error("Frappe exception:", a.exc), new Error(a.exc);
+    return a.message;
+  } catch (o) {
+    throw console.error("Frappe API call error:", o), o;
   }
 }
-function C4(e) {
+function k4(e) {
   return { all: e = e || /* @__PURE__ */ new Map(), on: function(t, n) {
     var o = e.get(t);
     o ? o.push(n) : e.set(t, [n]);
@@ -30897,20 +30898,20 @@ function C4(e) {
     });
   } };
 }
-const eo = C4(), $4 = (e, t) => {
+const eo = k4(), C4 = (e, t) => {
   const n = e.__vccOpts || e;
   for (const [o, i] of t)
     n[o] = i;
   return n;
-}, S4 = {
+}, $4 = {
   class: "icon icon-sm",
   style: { stroke: "var(--p-inputtext-color)" },
   "aria-hidden": "true"
-}, O4 = { key: 0 }, x4 = { key: 1 }, I4 = {
+}, S4 = { key: 0 }, O4 = { key: 1 }, x4 = {
   class: "icon icon-sm",
   style: { stroke: "var(--p-inputtext-color)" },
   "aria-hidden": "true"
-}, P4 = { key: 0 }, R4 = { key: 1 }, B4 = ["for"], L4 = { style: { "text-wrap": "nowrap" } }, M4 = {
+}, I4 = { key: 0 }, P4 = { key: 1 }, R4 = ["for"], B4 = { style: { "text-wrap": "nowrap" } }, L4 = {
   __name: "AutoComplete",
   props: {
     field: Object,
@@ -31211,9 +31212,9 @@ const eo = C4(), $4 = (e, t) => {
                   forceSelection: ""
                 }, Ee({
                   option: T((V) => [
-                    !V.option.label && !V.option.description ? (c(), g("div", O4, [
+                    !V.option.label && !V.option.description ? (c(), g("div", S4, [
                       x("strong", null, K(V.option.value), 1)
-                    ])) : (c(), g("div", x4, [
+                    ])) : (c(), g("div", O4, [
                       x("strong", null, K(V.option.label ? v.__(V.option.label) : ""), 1),
                       x("div", null, K(V.option.description ? v.__(V.option.description) : ""), 1)
                     ]))
@@ -31228,7 +31229,7 @@ const eo = C4(), $4 = (e, t) => {
                         class: "p-autocomplete-dropdown",
                         onClick: no(P, ["stop"])
                       }, [
-                        (c(), g("svg", S4, I[12] || (I[12] = [
+                        (c(), g("svg", $4, I[12] || (I[12] = [
                           x("use", { href: "#icon-close" }, null, -1)
                         ])))
                       ])
@@ -31275,9 +31276,9 @@ const eo = C4(), $4 = (e, t) => {
                   forceSelection: ""
                 }, Ee({
                   option: T((V) => [
-                    !V.option.label && !V.option.description ? (c(), g("div", P4, [
+                    !V.option.label && !V.option.description ? (c(), g("div", I4, [
                       x("strong", null, K(V.option.value), 1)
-                    ])) : (c(), g("div", R4, [
+                    ])) : (c(), g("div", P4, [
                       x("strong", null, K(V.option.label ? v.__(V.option.label) : ""), 1),
                       x("div", null, K(V.option.description ? y(V.option.description) : ""), 1)
                     ]))
@@ -31292,7 +31293,7 @@ const eo = C4(), $4 = (e, t) => {
                         class: "p-autocomplete-dropdown",
                         onClick: no(P, ["stop"])
                       }, [
-                        (c(), g("svg", I4, I[13] || (I[13] = [
+                        (c(), g("svg", x4, I[13] || (I[13] = [
                           x("use", { href: "#icon-close" }, null, -1)
                         ])))
                       ])
@@ -31302,7 +31303,7 @@ const eo = C4(), $4 = (e, t) => {
                 ]), 1032, ["modelValue", "data-web", "inputId", "suggestions", "disabled", "class", "size", "optionLabel", "dropdown", "invalid"])),
                 x("label", {
                   for: o.field.fieldname
-                }, K(v.__(o.field.label)), 9, B4)
+                }, K(v.__(o.field.label)), 9, R4)
               ];
             }),
             _: 1
@@ -31318,7 +31319,7 @@ const eo = C4(), $4 = (e, t) => {
             id: "new_" + o.field.fieldname
           }, {
             default: T(() => [
-              x("span", L4, K(v.__("New {0}", [v.__(o.field.placeholder)])), 1)
+              x("span", B4, K(v.__("New {0}", [v.__(o.field.placeholder)])), 1)
             ]),
             _: 1
           }, 8, ["disabled", "id"])) : O("", !0)
@@ -31333,7 +31334,7 @@ const eo = C4(), $4 = (e, t) => {
       }, void 0, !0) : O("", !0)
     ], 64));
   }
-}, D4 = /* @__PURE__ */ $4(M4, [["__scopeId", "data-v-b90d006b"]]);
+}, M4 = /* @__PURE__ */ C4(L4, [["__scopeId", "data-v-b90d006b"]]);
 frappe.provide("heracles.utils");
 $.extend(heracles.utils, {
   __: function(e, t, n) {
@@ -31341,7 +31342,7 @@ $.extend(heracles.utils, {
   }
 });
 const w = heracles.utils.__;
-let T4 = {
+let D4 = {
   accept: w("Yes"),
   addRule: w("Add Rule"),
   am: w("AM"),
@@ -31520,7 +31521,7 @@ let T4 = {
     zoomOut: w("Zoom Out")
   }
 };
-const E4 = (e) => {
+const T4 = (e) => {
   const t = [];
   let n = { tabName: "initial_tab", label: "Details", sections: [] }, o = {
     sectionName: "initial_section",
@@ -31553,8 +31554,8 @@ const E4 = (e) => {
         i.fields.push(s);
     }
   }), l(), t;
-}, F4 = {
-  AutoComplete: D4,
+}, E4 = {
+  AutoComplete: M4,
   DataTable: cl,
   Column: Sp,
   Paginator: mr,
@@ -31584,9 +31585,9 @@ const E4 = (e) => {
   Select: Gn,
   Calendar: tp,
   MultiSelect: Pl,
-  groupFields: E4
-}, A4 = {
-  install: (e, { locale: t = T4 } = {}) => {
+  groupFields: T4
+}, z4 = {
+  install: (e, { locale: t = D4 } = {}) => {
     e.use(Tp, {
       theme: {
         preset: w4,
@@ -31597,13 +31598,13 @@ const E4 = (e) => {
         }
       },
       locale: t
-    }), e.use(cs), e.use(fs), e.use(nv), Object.entries(F4).forEach(
+    }), e.use(cs), e.use(fs), e.use(nv), Object.entries(E4).forEach(
       ([n, o]) => e.component(n, o)
     );
   }
 };
 export {
-  D4 as AutoComplete,
+  M4 as AutoComplete,
   _e as Button,
   ka as ButtonGroup,
   tp as Calendar,
@@ -31630,8 +31631,8 @@ export {
   El as Stepper,
   Fl as Tag,
   Al as Toast,
-  A4 as default,
-  E4 as groupFields,
+  z4 as default,
+  T4 as groupFields,
   ds as useConfirm,
   Bp as usePrimeVue,
   qs as useToast
