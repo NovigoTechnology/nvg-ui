@@ -1,6 +1,6 @@
 export async function call(method, params) {
   // Si frappe.call está disponible, usarlo (lo más confiable)
-  if (window.frappe && typeof window.frappe.call === 'function') {
+  if (window.frappe && typeof window.frappe.call === "function") {
     return new Promise((resolve, reject) => {
       window.frappe.call({
         method: method,
@@ -11,7 +11,7 @@ export async function call(method, params) {
         error: (error) => {
           console.error("Frappe API call error:", error);
           reject(error);
-        }
+        },
       });
     });
   }
@@ -36,7 +36,7 @@ export async function call(method, params) {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        "Accept": "application/json",
+        Accept: "application/json",
         "X-Frappe-CSRF-Token": window.frappe?.csrf_token || "",
       },
       credentials: "same-origin",
