@@ -1,16 +1,16 @@
 export async function call(method, params) {
   try {
     const url = `/api/method/${method}`;
-    
+
     // Frappe espera los parámetros en formato x-www-form-urlencoded
     const formData = new URLSearchParams();
-    
+
     // Agregar cada parámetro al formData
     if (params) {
-      Object.keys(params).forEach(key => {
+      Object.keys(params).forEach((key) => {
         const value = params[key];
         // Si el valor es un objeto o array, convertirlo a JSON
-        if (typeof value === 'object' && value !== null) {
+        if (typeof value === "object" && value !== null) {
           formData.append(key, JSON.stringify(value));
         } else {
           formData.append(key, value);
@@ -23,7 +23,7 @@ export async function call(method, params) {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "X-Frappe-CSRF-Token": window.csrf_token || "",
-        "Accept": "application/json",
+        Accept: "application/json",
       },
       body: formData.toString(),
     });
