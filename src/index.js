@@ -2,9 +2,9 @@ import ConfirmationService from "primevue/confirmationservice";
 import DialogService from "primevue/dialogservice";
 import { ToastService } from "primevue";
 
-import PrimeVue from 'primevue/config'
-import Aura from '@primeuix/themes/aura'
-import AutoComplete from './components/AutoComplete.vue'
+import PrimeVue from "primevue/config";
+import Aura from "@primeuix/themes/aura";
+import AutoComplete from "./components/AutoComplete.vue";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import Paginator from "primevue/paginator";
@@ -14,13 +14,13 @@ import DynamicDialog from "primevue/dynamicdialog";
 import Tag from "primevue/tag";
 import Button from "primevue/button";
 import ButtonGroup from "primevue/buttongroup";
-import Stepper from "primevue/stepper"
-import StepList from "primevue/steplist"
-import StepPanels from "primevue/steppanels"
-import Step from "primevue/step"
-import StepPanel from "primevue/steppanel"
+import Stepper from "primevue/stepper";
+import StepList from "primevue/steplist";
+import StepPanels from "primevue/steppanels";
+import Step from "primevue/step";
+import StepPanel from "primevue/steppanel";
 import ConfirmDialog from "primevue/confirmdialog";
-import Toast from "primevue/toast"
+import Toast from "primevue/toast";
 import InputText from "primevue/inputtext";
 import DatePicker from "primevue/datepicker";
 import InputNumber from "primevue/inputnumber";
@@ -31,6 +31,7 @@ import Divider from "primevue/divider";
 import Select from "primevue/select";
 import Calendar from "primevue/calendar";
 import { MultiSelect } from "primevue";
+import GridTable from "./components/GridTable.vue";
 
 import { useToast } from "primevue/usetoast";
 import { useConfirm, usePrimeVue } from "primevue";
@@ -40,6 +41,7 @@ import translatableLocale from "./utils/primeLocale";
 import { groupFields } from "./functions/groupFields";
 
 const components = {
+  GridTable,
   AutoComplete,
   DataTable,
   Column,
@@ -70,8 +72,8 @@ const components = {
   Select,
   Calendar,
   MultiSelect,
-  groupFields
-}
+  groupFields,
+};
 
 export default {
   install: (app, { locale = translatableLocale } = {}) => {
@@ -82,21 +84,22 @@ export default {
           prefix: "p",
           darkModeSelector: '[data-theme="dark"]',
           cssLayer: false,
-        }
+        },
       },
       locale,
-    })
+    });
     app.use(ConfirmationService);
     app.use(DialogService);
     app.use(ToastService);
 
     Object.entries(components).forEach(([name, cmp]) =>
-      app.component(name, cmp)
-    )
-  }
-}
+      app.component(name, cmp),
+    );
+  },
+};
 
 export {
+  GridTable,
   AutoComplete,
   DataTable,
   Column,
@@ -127,5 +130,5 @@ export {
   Select,
   Calendar,
   MultiSelect,
-  groupFields
-}
+  groupFields,
+};
