@@ -76,6 +76,7 @@ const components = {
   groupFields,
   call,
   frappeCall,
+  translatableLocale,
 };
 
 export default {
@@ -136,4 +137,5 @@ export {
   groupFields,
   call,
   frappeCall,
+  translatableLocale,
 };
