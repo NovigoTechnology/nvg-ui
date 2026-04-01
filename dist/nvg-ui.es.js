@@ -31542,8 +31542,6 @@ let V4 = {
   custom: k("Custom"),
   dateAfter: k("Date is after"),
   dateBefore: k("Date is before"),
-  //TODO: Check if this is correct
-  //dateFormat: __("mm/dd/yy"),
   dateIs: k("Date is"),
   dateIsNot: k("Date is not"),
   dayNames: [
@@ -31555,8 +31553,24 @@ let V4 = {
     k("Friday"),
     k("Saturday")
   ],
-  dayNamesMin: [k("Su"), k("Mo"), k("Tu"), k("We"), k("Th"), k("Fr"), k("Sa")],
-  dayNamesShort: [k("Sun"), k("Mon"), k("Tue"), k("Wed"), k("Thu"), k("Fri"), k("Sat")],
+  dayNamesMin: [
+    k("Sun"),
+    k("Mon"),
+    k("Tue"),
+    k("Wed"),
+    k("Thu"),
+    k("Fri"),
+    k("Sat")
+  ],
+  dayNamesShort: [
+    k("Sun"),
+    k("Mon"),
+    k("Tue"),
+    k("Wed"),
+    k("Thu"),
+    k("Fri"),
+    k("Sat")
+  ],
   emptyFilterMessage: k("No results found"),
   emptyMessage: k("No available options"),
   emptySearchMessage: k("No results found"),
@@ -31636,8 +31650,6 @@ let V4 = {
   removeRule: k("Remove Rule"),
   searchMessage: k("{0} results are available"),
   selectionMessage: k("{0} items selected"),
-  //TODO: Check if this is correct
-  //showMonthAfterYear: false,
   startsWith: k("Starts with"),
   strong: k("Strong"),
   today: k("Today"),
@@ -31692,8 +31704,6 @@ let V4 = {
     selectRow: k("Row Selected"),
     showFilterMenu: k("Show Filter Menu"),
     slide: k("Slide"),
-    //TODO: Check if this is correct
-    //slideNumber: __("{slideNumber}"),
     star: k("1 star"),
     stars: k("{star} stars"),
     trueLabel: k("True"),
