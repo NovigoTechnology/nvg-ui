@@ -1,6 +1,6 @@
 {
   "name": "nvg-ui",
-  "version": "1.0.48",
+  "version": "1.0.49",
   "description": "NVG components",
   "main": "dist/nvg-ui.umd.js",
   "module": "dist/nvg-ui.es.js",
