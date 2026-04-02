@@ -21,6 +21,11 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.3",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.20.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.2.5",
     "vite": "^6.4.1",
     "vite-plugin-css-injected-by-js": "^3.5.2",
     "vue": "^3.5.13"
@@ -35,9 +40,19 @@
   "scripts": {
     "dev": "vite --config vite.config.js",
     "build": "vite build --config vite.config.js",
+    "lint": "eslint src demo",
+    "lint:fix": "eslint src demo --fix",
+    "format": "prettier --write \"src/**/*.{js,vue}\" \"demo/**/*.{js,vue}\"",
+    "prepare": "husky",
     "version:patch": "npm version patch -m 'chore(deps): bump v%s'",
     "version:minor": "npm version minor -m 'chore(deps): bump v%s'",
     "version:major": "npm version major -m 'chore(deps): bump v%s'",
     "release": "npm run build && npm run version:patch && git push && git push --tags"
+  },
+  "lint-staged": {
+    "*.{js,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }
