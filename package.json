@@ -1,13 +1,17 @@
 {
-  "name": "nvg-ui",
+  "name": "@novigotechnology/nvg-ui",
   "version": "1.0.51",
   "description": "NVG components",
+  "private": false,
   "main": "dist/nvg-ui.umd.js",
   "module": "dist/nvg-ui.es.js",
   "type": "module",
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "homepage": "https://github.com/NovigoTechnology/nvg-ui#readme",
   "bugs": {
     "url": "https://github.com/NovigoTechnology/nvg-ui/issues"
@@ -15,7 +19,7 @@
   "repository": {
     "url": "git+https://github.com/NovigoTechnology/nvg-ui.git"
   },
-  "license": "ISC",
+  "license": "CSCL",
   "peerDependencies": {
     "vue": ">=3.0.0"
   },
@@ -43,10 +47,11 @@
     "lint": "eslint src demo",
     "lint:fix": "eslint src demo --fix",
     "format": "prettier --write \"src/**/*.{js,vue}\" \"demo/**/*.{js,vue}\"",
+    "format:check": "prettier --check \"src/**/*.{js,vue}\" \"demo/**/*.{js,vue}\"",
     "prepare": "husky",
-    "version:patch": "npm version patch -m 'chore(deps): bump v%s'",
-    "version:minor": "npm version minor -m 'chore(deps): bump v%s'",
-    "version:major": "npm version major -m 'chore(deps): bump v%s'",
+    "version:patch": "npm version patch -m 'chore(release): v%s'",
+    "version:minor": "npm version minor -m 'chore(release): v%s'",
+    "version:major": "npm version major -m 'chore(release): v%s'",
     "release": "npm run build && npm run version:patch && git push && git push --tags"
   },
   "lint-staged": {

@@ -2,9 +2,13 @@
 node_modules
 
 # Build output
-# Nota: dist/ está versionado en este proyecto (librería npm)
-# Si prefieres ignorarlo, descomenta la siguiente línea:
+# Note: dist/ is versioned in this project (npm library)
+# If you prefer to ignore it, uncomment the following line:
 # dist
+
+# npm
+.npmrc.local
+.npm
 
 # Logs
 *.log
