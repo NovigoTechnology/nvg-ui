@@ -23,13 +23,17 @@
   },
   "license": "CSCL",
   "peerDependencies": {
-    "vue": ">=3.0.0",
+    "@primeuix/themes": "^2.0.0",
     "primevue": "^4.0.0",
-    "@primeuix/themes": "^2.0.0"
+    "vue": ">=3.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
     "@primeuix/themes": "^2.0.3",
     "@vitejs/plugin-vue": "^5.2.4",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^10.2.0",
     "eslint-plugin-vue": "^10.8.0",
     "husky": "^9.0.11",
@@ -53,6 +57,7 @@
     "format": "prettier --write \"src/**/*.{js,vue}\" \"demo/**/*.{js,vue}\"",
     "format:check": "prettier --check \"src/**/*.{js,vue}\" \"demo/**/*.{js,vue}\"",
     "prepare": "husky",
+    "commit": "git-cz",
     "version:patch": "npm version patch -m 'chore(release): v%s'",
     "version:minor": "npm version minor -m 'chore(release): v%s'",
     "version:major": "npm version major -m 'chore(release): v%s'",
@@ -63,5 +68,10 @@
       "eslint --fix",
       "prettier --write"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }

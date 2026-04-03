@@ -117,6 +117,9 @@ npm run release          # Build + version patch + push + tags
 
 #### CI (Continuous Integration)
 Runs automatically on push and pull requests:
+- ✅ **Conventional Commits validation** (PRs only)
+  - Validates all commit messages in the PR
+  - Validates PR title follows Conventional Commits format
 - ✅ Linting with ESLint
 - ✅ Format check with Prettier
 - ✅ Library build
