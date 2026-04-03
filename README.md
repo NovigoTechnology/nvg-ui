@@ -109,6 +109,8 @@ npm run version:major    # Increment major version (1.0.0 -> 2.0.0)
 npm run release          # Build + version patch + push + tags
 ```
 
+**Note:** The `dist/` folder is not versioned. CI/CD builds it automatically during the release process.
+
 ## 🔄 CI/CD
 
 ### GitHub Actions Workflows

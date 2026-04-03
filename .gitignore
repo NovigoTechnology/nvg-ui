@@ -2,9 +2,7 @@
 node_modules
 
 # Build output
-# Note: dist/ is versioned in this project (npm library)
-# If you prefer to ignore it, uncomment the following line:
-# dist
+dist
 
 # npm
 .npmrc.local
