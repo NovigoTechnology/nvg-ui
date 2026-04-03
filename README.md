@@ -78,7 +78,7 @@ export default {
 ## 🛠️ Development
 
 ### Prerequisites
-- Node.js 20+
+- Node.js 24+
 - npm
 
 ### Install dependencies
@@ -122,11 +122,15 @@ Runs automatically on push and pull requests:
 
 **Branches:** `main`, `master`, `develop`, `feat/**`, `fix/**`
 
+**Actions versions:** Latest (checkout v6, setup-node v6, upload-artifact v7)
+**Node.js version:** 24 LTS
+
 #### Release & Publish
 Automatically publishes to GitHub Packages when a tag is pushed:
 - ✅ Validate code (lint + build)
 - ✅ Publish to GitHub Packages
 - ✅ Create GitHub Release with artifacts
+- ✅ Generate release notes automatically
 
 **Trigger:** Tags with format `v*.*.*` (e.g., `v1.0.52`)
 
@@ -136,6 +140,15 @@ npm run release
 ```
 
 **Note:** The workflow uses `GITHUB_TOKEN` automatically (no manual secret configuration needed).
+
+#### CodeQL Security Analysis
+Automated code security scanning:
+- 🔍 Scans for security vulnerabilities
+- 🔒 Identifies common coding errors
+- 📊 Security and quality queries
+- ⏰ Runs weekly (Mondays) + on every push/PR
+
+**Language:** JavaScript/TypeScript
 
 #### Dependabot
 Automatic dependency updates:
