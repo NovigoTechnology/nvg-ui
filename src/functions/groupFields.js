@@ -1,12 +1,12 @@
-export const groupFields = (fields) => {
+export const groupFields = fields => {
   const tabs = [];
-  let currentTab = { tabName: "initial_tab", label: "Details", sections: [] };
+  let currentTab = { tabName: 'initial_tab', label: 'Details', sections: [] };
   let currentSection = {
-    sectionName: "initial_section",
-    label: "Details",
+    sectionName: 'initial_section',
+    label: 'Details',
     columns: [],
   };
-  let currentColumn = { columnName: "initial_column", fields: [] };
+  let currentColumn = { columnName: 'initial_column', fields: [] };
 
   const closeColumn = () => {
     if (currentColumn.fields.length) currentSection.columns.push(currentColumn);
@@ -20,26 +20,26 @@ export const groupFields = (fields) => {
     if (currentTab.sections.length) tabs.push(currentTab);
   };
 
-  fields.forEach((field) => {
+  fields.forEach(field => {
     switch (field.fieldtype) {
-      case "Tab Break":
+      case 'Tab Break':
         closeTab();
         currentTab = { tabName: field.fieldname, label: field.label, sections: [] };
         currentSection = {
-          sectionName: field.fieldname + "_init",
-          label: "General",
+          sectionName: field.fieldname + '_init',
+          label: 'General',
           columns: [],
         };
-        currentColumn = { columnName: field.fieldname + "_col", fields: [] };
+        currentColumn = { columnName: field.fieldname + '_col', fields: [] };
         break;
 
-      case "Section Break":
+      case 'Section Break':
         closeSection();
         currentSection = { sectionName: field.fieldname, label: field.label, columns: [] };
-        currentColumn = { columnName: field.fieldname + "_col", fields: [] };
+        currentColumn = { columnName: field.fieldname + '_col', fields: [] };
         break;
 
-      case "Column Break":
+      case 'Column Break':
         closeColumn();
         currentColumn = { columnName: field.fieldname, fields: [] };
         break;

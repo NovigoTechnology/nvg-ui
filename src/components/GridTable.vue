@@ -28,10 +28,8 @@
             :placeholder="column.label"
             :disabled="column.readOnly"
             class="grid-input"
-            @update:modelValue="
-              (value) => onFieldValueUpdate(data, index, column.field, value)
-            "
-            @itemSelected="(doc) => onItemSelected(index, doc, column)"
+            @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
+            @itemSelected="doc => onItemSelected(index, doc, column)"
             @clear-row="() => clearRowItems(data)"
             :fullitem="true"
             :filters="column.filters"
@@ -42,9 +40,7 @@
             :modelValue="data[column.field]"
             v-bind="getProps(column)"
             class="grid-input"
-            @update:modelValue="
-              (value) => onFieldValueUpdate(data, index, column.field, value)
-            "
+            @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
           />
         </template>
       </Column>
@@ -74,73 +70,63 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-import DataTable from "primevue/datatable";
-import Column from "primevue/column";
-import Button from "primevue/button";
-import InputText from "primevue/inputtext";
-import InputNumber from "primevue/inputnumber";
-import LinkField from "./LinkField.vue";
+import { ref, watch } from 'vue';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
+import InputNumber from 'primevue/inputnumber';
+import LinkField from './LinkField.vue';
 
 const props = defineProps({
   data: { type: Array, default: () => [] },
   columns: { type: Array, required: true },
-  label: { type: String, default: "" },
-  emptyMessage: { type: String, default: "No Data" },
+  label: { type: String, default: '' },
+  emptyMessage: { type: String, default: 'No Data' },
   filters: { type: Object, default: () => ({}) },
 });
 
-const emit = defineEmits([
-  "update:data",
-  "rowChange",
-  "rowAdd",
-  "rowRemove",
-  "itemSelected",
-]);
+const emit = defineEmits(['update:data', 'rowChange', 'rowAdd', 'rowRemove', 'itemSelected']);
 
 const dataArray = ref([...props.data]);
 
 watch(
   () => props.data,
-  (newData) => {
+  newData => {
     dataArray.value = [...newData];
   },
-  { deep: true },
+  { deep: true }
 );
 
 // ── Filas ──────────────────────────────────────────────
 const createEmptyRow = () => {
   const row = { idx: dataArray.value.length + 1 };
-  props.columns.forEach((col) => {
-    row[col.field] = ["Float", "Currency", "Int", "Percent"].includes(col.type)
-      ? null
-      : "";
+  props.columns.forEach(col => {
+    row[col.field] = ['Float', 'Currency', 'Int', 'Percent'].includes(col.type) ? null : '';
   });
   return row;
 };
 
-const clearRowItems = (row) => {
-  props.columns.forEach((col) => {
-    row[col.field] = ["Float", "Currency", "Int", "Percent"].includes(col.type)
-      ? null
-      : "";
+const clearRowItems = row => {
+  props.columns.forEach(col => {
+    row[col.field] = ['Float', 'Currency', 'Int', 'Percent'].includes(col.type) ? null : '';
   });
-  emit("update:data", dataArray.value);
-  emit("rowChange", row);
+  emit('update:data', dataArray.value);
+  emit('rowChange', row);
 };
 
 const addRow = () => {
   const row = createEmptyRow();
   dataArray.value.push(row);
-  emit("update:data", dataArray.value);
-  emit("rowAdd", row);
+  emit('update:data', dataArray.value);
+  emit('rowAdd', row);
 };
 
-const removeRow = (index) => {
+const removeRow = index => {
   const row = dataArray.value[index];
   dataArray.value.splice(index, 1);
-  emit("update:data", dataArray.value);
-  emit("rowRemove", row, index);
+  emit('update:data', dataArray.value);
+  emit('rowRemove', row, index);
 };
 
 // ── Cambios ────────────────────────────────────────────
@@ -150,8 +136,8 @@ const onFieldValueUpdate = (editingRow, index, field, value) => {
   const row = dataArray.value[index];
   if (row) {
     row[field] = value;
-    emit("update:data", dataArray.value);
-    emit("rowChange", row);
+    emit('update:data', dataArray.value);
+    emit('rowChange', row);
   }
 };
 
@@ -159,50 +145,48 @@ const onItemSelected = (index, doc, column) => {
   const row = dataArray.value[index];
   if (!row) return;
 
-  emit("itemSelected", { row, itemData: doc, column, index });
-  emit("update:data", dataArray.value);
-  emit("rowChange", row);
+  emit('itemSelected', { row, itemData: doc, column, index });
+  emit('update:data', dataArray.value);
+  emit('rowChange', row);
 };
 
 // ── Helpers de columna ─────────────────────────────────
-const getComponent = (column) => {
-  return ["Int", "Float", "Currency", "Percent"].includes(column.type)
-    ? InputNumber
-    : InputText;
+const getComponent = column => {
+  return ['Int', 'Float', 'Currency', 'Percent'].includes(column.type) ? InputNumber : InputText;
 };
 
-const getProps = (column) => {
+const getProps = column => {
   const base = {
-    size: "small",
+    size: 'small',
     placeholder: column.label,
     disabled: column.readOnly,
   };
 
-  if (column.type === "Float" || column.type === "Currency") {
+  if (column.type === 'Float' || column.type === 'Currency') {
     return {
       ...base,
-      locale: "es-AR",
+      locale: 'es-AR',
       useGrouping: true,
       minFractionDigits: 2,
       maxFractionDigits: 2,
     };
   }
 
-  if (column.type === "Percent") {
+  if (column.type === 'Percent') {
     return {
       ...base,
-      locale: "es-AR",
+      locale: 'es-AR',
       useGrouping: false,
       minFractionDigits: 2,
       maxFractionDigits: 2,
-      suffix: "%",
+      suffix: '%',
     };
   }
 
-  if (column.type === "Int") {
+  if (column.type === 'Int') {
     return {
       ...base,
-      locale: "es-AR",
+      locale: 'es-AR',
       useGrouping: true,
       minFractionDigits: 0,
       maxFractionDigits: 0,

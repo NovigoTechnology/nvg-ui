@@ -9,7 +9,7 @@
           ref="autoCompleteRef"
           :inputId="props.field.fieldname"
           :suggestions="translatedSuggestions"
-          @complete="(e) => getLinkOptions(props.field.options, {}, e.query)"
+          @complete="e => getLinkOptions(props.field.options, {}, e.query)"
           :placeholder="__(props.field.placeholder) || __(props.field.label)"
           :completeOnFocus="true"
           fluid
@@ -17,15 +17,11 @@
           :class="{ 'p-inputtext:disabled': disabled }"
           @clear="() => clear_input"
           :size="props.size"
-          @update:modelValue="(e) => e === '' && clear_input()"
+          @update:modelValue="e => e === '' && clear_input()"
           @option-select="
-            (e) =>
-              selectOption(
-                suggestions[translatedSuggestions.indexOf(e.value)],
-                field,
-              )
+            e => selectOption(suggestions[translatedSuggestions.indexOf(e.value)], field)
           "
-          :optionLabel="(option) => option.label || option.value"
+          :optionLabel="option => option.label || option.value"
           :dropdown="
             props.field.fieldtype !== 'Table' &&
             !inputValue[props.field.fieldname] === '' &&
@@ -45,40 +41,21 @@
           "
           forceSelection
         >
-          <template
-            v-if="props.field.fieldtype !== 'Table' && !disabled"
-            #dropdown
-          >
-            <button
-              type="button"
-              class="p-autocomplete-dropdown"
-              @click.stop="clear_input"
-            >
-              <svg
-                class="icon icon-sm"
-                style="stroke: var(--p-inputtext-color)"
-                aria-hidden="true"
-              >
+          <template v-if="props.field.fieldtype !== 'Table' && !disabled" #dropdown>
+            <button type="button" class="p-autocomplete-dropdown" @click.stop="clear_input">
+              <svg class="icon icon-sm" style="stroke: var(--p-inputtext-color)" aria-hidden="true">
                 <use href="#icon-close"></use>
               </svg>
             </button>
           </template>
           <template #option="slotProps">
-            <div
-              v-if="!slotProps.option.label && !slotProps.option.description"
-            >
+            <div v-if="!slotProps.option.label && !slotProps.option.description">
               <strong>{{ slotProps.option.value }}</strong>
             </div>
             <div v-else>
-              <strong>{{
-                slotProps.option.label ? __(slotProps.option.label) : ""
-              }}</strong>
+              <strong>{{ slotProps.option.label ? __(slotProps.option.label) : '' }}</strong>
               <div>
-                {{
-                  slotProps.option.description
-                    ? __(slotProps.option.description)
-                    : ""
-                }}
+                {{ slotProps.option.description ? __(slotProps.option.description) : '' }}
               </div>
             </div>
           </template>
@@ -93,22 +70,16 @@
           ref="autoCompleteRef"
           :inputId="props.field.fieldname"
           :suggestions="translatedSuggestions"
-          @complete="(e) => getLinkOptions(props.field.options, {}, e.query)"
+          @complete="e => getLinkOptions(props.field.options, {}, e.query)"
           :completeOnFocus="true"
           fluid
-          :disabled="
-            disabled || (props.field.read_only && !props.filter_list)
-              ? true
-              : false
-          "
+          :disabled="disabled || (props.field.read_only && !props.filter_list) ? true : false"
           :class="{ 'p-inputtext:disabled': disabled }"
           @clear="() => clear_input"
           :size="props.size"
-          @update:modelValue="(e) => e === '' && clear_input()"
-          @option-select="(e) => selectOption(e.value, props.field)"
-          :optionLabel="
-            (option) => option.label || option.description || option.value
-          "
+          @update:modelValue="e => e === '' && clear_input()"
+          @option-select="e => selectOption(e.value, props.field)"
+          :optionLabel="option => option.label || option.description || option.value"
           :dropdown="
             props.field.fieldtype !== 'Table' &&
             !inputValue[props.field.fieldname] === '' &&
@@ -128,39 +99,24 @@
           "
           forceSelection
         >
-          <template
-            v-if="props.field.fieldtype !== 'Table' && !disabled"
-            #dropdown
-          >
-            <button
-              type="button"
-              class="p-autocomplete-dropdown"
-              @click.stop="clear_input"
-            >
-              <svg
-                class="icon icon-sm"
-                style="stroke: var(--p-inputtext-color)"
-                aria-hidden="true"
-              >
+          <template v-if="props.field.fieldtype !== 'Table' && !disabled" #dropdown>
+            <button type="button" class="p-autocomplete-dropdown" @click.stop="clear_input">
+              <svg class="icon icon-sm" style="stroke: var(--p-inputtext-color)" aria-hidden="true">
                 <use href="#icon-close"></use>
               </svg>
             </button>
           </template>
           <template #option="slotProps">
-            <div
-              v-if="!slotProps.option.label && !slotProps.option.description"
-            >
+            <div v-if="!slotProps.option.label && !slotProps.option.description">
               <strong>{{ slotProps.option.value }}</strong>
             </div>
             <div v-else>
-              <strong>{{
-                slotProps.option.label ? __(slotProps.option.label) : ""
-              }}</strong>
+              <strong>{{ slotProps.option.label ? __(slotProps.option.label) : '' }}</strong>
               <div>
                 {{
                   slotProps.option.description
                     ? normalizeDescription(slotProps.option.description)
-                    : ""
+                    : ''
                 }}
               </div>
             </div>
@@ -182,9 +138,7 @@
         :id="'new_' + props.field.fieldname"
       >
         <!-- @click="create_New(props.field.quick_entry, props.field.fieldname)" -->
-        <span style="text-wrap: nowrap">
-          {{ __("New {0}", [__(props.field.placeholder)]) }}</span
-        >
+        <span style="text-wrap: nowrap"> {{ __('New {0}', [__(props.field.placeholder)]) }}</span>
       </Button>
     </div>
   </div>
@@ -199,12 +153,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, onUnmounted, computed } from "vue";
-import AutoComplete from "primevue/autocomplete";
-import FloatLabel from "primevue/floatlabel";
-import Button from "primevue/button";
-import { call } from "../libs/frappe-ui";
-import emitter from "../libs/mitt";
+import { ref, onMounted, watch, onUnmounted, computed } from 'vue';
+import AutoComplete from 'primevue/autocomplete';
+import FloatLabel from 'primevue/floatlabel';
+import Button from 'primevue/button';
+import { call } from '../libs/frappe-ui';
+import emitter from '../libs/mitt';
 
 const props = defineProps({
   field: Object,
@@ -238,18 +192,18 @@ const props = defineProps({
   labelstyles: String,
   dataweb: {
     type: String,
-    default: "",
+    default: '',
   },
   filter_list: String,
   fullitem: Boolean,
 });
 
 const emit = defineEmits([
-  "update-autocomplete-value",
-  "update-filter",
-  "update-data",
-  "itemSelected",
-  "clearRow",
+  'update-autocomplete-value',
+  'update-filter',
+  'update-data',
+  'itemSelected',
+  'clearRow',
 ]);
 
 const store = props.store;
@@ -275,20 +229,15 @@ onMounted(() => {
     clear_input();
   }
   if (!props.quickEntry) {
-    if (
-      currentStore.value?.filters &&
-      currentStore.value.filters[props.field.fieldname]
-    ) {
-      inputValue.value[props.field.fieldname] =
-        currentStore.value.filters[props.field.fieldname];
+    if (currentStore.value?.filters && currentStore.value.filters[props.field.fieldname]) {
+      inputValue.value[props.field.fieldname] = currentStore.value.filters[props.field.fieldname];
     }
 
     if (
       currentStore.value?.fullDataForm &&
       currentStore.value.fullDataForm[props.field.fieldname]
     ) {
-      const existingValue =
-        currentStore.value.fullDataForm[props.field.fieldname];
+      const existingValue = currentStore.value.fullDataForm[props.field.fieldname];
       inputValue.value[props.field.fieldname] =
         existingValue.label || existingValue.description || existingValue.value;
     }
@@ -305,12 +254,12 @@ onMounted(() => {
   }
 });
 
-const normalizeDescription = (str) => {
-  if (str.includes(",")) {
+const normalizeDescription = str => {
+  if (str.includes(',')) {
     return str
-      .split(",")
-      .map((s) => __(s.trim()))
-      .join("/");
+      .split(',')
+      .map(s => __(s.trim()))
+      .join('/');
   }
 
   return str.trim();
@@ -318,29 +267,29 @@ const normalizeDescription = (str) => {
 
 watch(
   () => props.field.value,
-  (newValue) => {
+  newValue => {
     if (newValue) {
       inputValue.value[props.field.fieldname] = newValue;
-      emit("update-data", newValue, props.field);
+      emit('update-data', newValue, props.field);
     } else {
       inputValue.value[props.field.fieldname] = newValue;
     }
   },
-  { immediate: true },
+  { immediate: true }
 );
 
 watch(
   () => props.clearFilters,
-  (newValue) => {
+  newValue => {
     if (!newValue) return;
     clear_input();
   },
-  { deep: true },
+  { deep: true }
 );
 
 watch(
   () => props.filters,
-  (newValue) => {
+  newValue => {
     if (props.field.needFilter && props.field.dependingField) {
       if (newValue && newValue[props.field.dependingField]) {
         getLinkOptions(props.field.options, {
@@ -351,62 +300,60 @@ watch(
       }
     }
   },
-  { deep: true },
+  { deep: true }
 );
 
 watch(
   () => props.clearInput,
-  (newVal) => {
+  newVal => {
     if (newVal) {
       clear_input();
     }
-  },
+  }
 );
 
 watch(
   () => (props.quickEntry && props.clearInput ? props.clearInput : false),
-  (newVal) => {
+  newVal => {
     if (newVal && props.quickEntry) {
       clear_input();
     }
-  },
+  }
 );
 
 watch(
   () =>
-    !props.quickEntry && currentStore.value?.clear !== undefined
-      ? currentStore.value.clear
-      : null,
+    !props.quickEntry && currentStore.value?.clear !== undefined ? currentStore.value.clear : null,
   (newVal, oldVal) => {
     // Detectar cualquier cambio en el valor boolean (true->false o false->true)
     if (newVal !== oldVal && newVal !== null && !props.quickEntry) {
       clear_input();
     }
-  },
+  }
 );
 
 watch(
   () => currentStore?.value?.edited,
-  (newValue) => {
+  newValue => {
     if (newValue) {
       update_input(
         {
-          label: newValue.first_name + " " + newValue.last_name,
+          label: newValue.first_name + ' ' + newValue.last_name,
           value: newValue.name,
         },
         null,
-        newValue.editingFieldname,
+        newValue.editingFieldname
       );
     }
   },
-  { deep: true },
+  { deep: true }
 );
 
 watch(
   () => props.delInputValue,
-  (newValue) => {
+  newValue => {
     if (newValue) {
-      inputValue.value[newValue] = "";
+      inputValue.value[newValue] = '';
       if (currentStore.value?.dataForm) {
         currentStore.value.dataForm[newValue] = null;
       }
@@ -415,44 +362,42 @@ watch(
       }
       refresh.value = !refresh.value;
     }
-  },
+  }
 );
 
 watch(
   () => inputValue.value[props.field.fieldname],
-  (newValue) => {
-    if (newValue === "") {
+  newValue => {
+    if (newValue === '') {
       clear_input();
       return;
     }
 
-    const idx = suggestions.value.findIndex((item) => item.value === newValue);
+    const idx = suggestions.value.findIndex(item => item.value === newValue);
     if (idx !== -1) {
       inputValue.value[props.field.fieldname] =
         translatedSuggestions.value[idx].label ||
         translatedSuggestions.value[idx].description ||
         newValue;
     }
-  },
+  }
 );
 
 watch(
   () => createNew.value,
-  (newValue) => {
+  newValue => {
     if (newValue === true && props.useQuickEntryStore) {
       store.setQuickEntryActive(true);
       clear_input();
     } else if (newValue === false && props.useQuickEntryStore) {
       store.setQuickEntryActive(false);
     }
-  },
+  }
 );
 
 const update_input = (valueObj, field, fieldname) => {
-  let editingFieldname = "";
-  field?.fieldname
-    ? (editingFieldname = field.fieldname)
-    : (editingFieldname = fieldname);
+  let editingFieldname = '';
+  field?.fieldname ? (editingFieldname = field.fieldname) : (editingFieldname = fieldname);
   inputValue.value[editingFieldname] = valueObj.label;
 
   if (props.useQuickEntryStore) {
@@ -501,11 +446,11 @@ const clear_input = () => {
   translatedSuggestions.value = [];
 
   if (props.field.hasDependencies) {
-    emitter.emit(props.field.fieldname + "_cleared");
+    emitter.emit(props.field.fieldname + '_cleared');
   }
 
-  emit("update-autocomplete-value", null, props.field);
-  emit("clearRow", props.field);
+  emit('update-autocomplete-value', null, props.field);
+  emit('clearRow', props.field);
 
   if (props.field.provideFilter && !props.quickEntry) {
     filters.value = {};
@@ -522,13 +467,13 @@ const selectOption = async (selectedOption, field) => {
   if (props.quickEntry && props.useQuickEntryStore) {
     currentStore.value.fieldValues[field.fieldname] = selectedOption.value;
   } else {
-    if (field.fieldtype !== "Table") {
+    if (field.fieldtype !== 'Table') {
       // Solo actualiza store si existe
       if (currentStore.value?.dataForm) {
         currentStore.value.dataForm[field.fieldname] = selectedOption.value;
       }
 
-      if (field.fieldname === "referring_physician" && !props.quickEntry) {
+      if (field.fieldname === 'referring_physician' && !props.quickEntry) {
         if (store.physician !== undefined) {
           store.physician = selectedOption;
         }
@@ -545,39 +490,35 @@ const selectOption = async (selectedOption, field) => {
   }
 
   const translatedOption = {
-    label: selectedOption.label ? __(selectedOption.label) : "",
-    description: selectedOption.description
-      ? __(selectedOption.description)
-      : "",
+    label: selectedOption.label ? __(selectedOption.label) : '',
+    description: selectedOption.description ? __(selectedOption.description) : '',
     value: selectedOption.value,
   };
 
   inputValue.value[field.fieldname] =
-    translatedOption.label ||
-    translatedOption.description ||
-    translatedOption.value;
+    translatedOption.label || translatedOption.description || translatedOption.value;
 
   // GridTable
   if (props.fullitem) {
     try {
-      const fullDoc = await call("frappe.client.get", {
+      const fullDoc = await call('frappe.client.get', {
         doctype: field.options,
         name: selectedOption.value,
       });
 
       emit(
-        "itemSelected",
+        'itemSelected',
         {
           value: selectedOption.value,
           label: selectedOption.label,
           description: selectedOption.description,
           fullDoc: fullDoc,
         },
-        field,
+        field
       );
     } catch (error) {
-      console.error("Error fetching full document:", error);
-      emit("itemSelected", {
+      console.error('Error fetching full document:', error);
+      emit('itemSelected', {
         value: selectedOption.value,
         label: selectedOption.label,
         description: selectedOption.description,
@@ -599,17 +540,17 @@ const selectOption = async (selectedOption, field) => {
   }
 
   emit(
-    "update-autocomplete-value",
+    'update-autocomplete-value',
     {
       ...selectedOption,
       label: translatedOption.label,
       description: translatedOption.description,
     },
-    field,
+    field
   );
 
   if (props.field.hasDependencies) {
-    emitter.emit(props.field.fieldname + "_updated");
+    emitter.emit(props.field.fieldname + '_updated');
   }
 
   if (field.clear_input_after_selection) {
@@ -618,7 +559,7 @@ const selectOption = async (selectedOption, field) => {
   }
 };
 
-const getLinkOptions = async (doctype, filters = {}, searchText = "") => {
+const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
   let finalFilters = { ...filters };
 
   if (props.filters && Object.keys(props.filters).length > 0) {
@@ -647,15 +588,13 @@ const getLinkOptions = async (doctype, filters = {}, searchText = "") => {
     args.query = props.query;
   }
 
-  const r = await call("frappe.desk.search.search_link", args);
+  const r = await call('frappe.desk.search.search_link', args);
 
   if (r) {
     suggestions.value = r;
-    translatedSuggestions.value = r.map((item) => {
-      const translatedLabel = item.label ? __(item.label) : "";
-      const translatedDescription = item.description
-        ? __(item.description)
-        : "";
+    translatedSuggestions.value = r.map(item => {
+      const translatedLabel = item.label ? __(item.label) : '';
+      const translatedDescription = item.description ? __(item.description) : '';
 
       return {
         label: translatedLabel || translatedDescription || item.value,
@@ -670,18 +609,15 @@ const getLinkOptions = async (doctype, filters = {}, searchText = "") => {
 };
 
 const handleClick = () => {
-  if (
-    autoCompleteRef.value &&
-    typeof autoCompleteRef.value.show === "function"
-  ) {
+  if (autoCompleteRef.value && typeof autoCompleteRef.value.show === 'function') {
     autoCompleteRef.value.show();
   }
 };
 
 onUnmounted(() => {
   if (props.field.dependingField) {
-    emitter.off(props.field.dependingField + "_cleared");
-    emitter.off(props.field.dependingField + "_updated");
+    emitter.off(props.field.dependingField + '_cleared');
+    emitter.off(props.field.dependingField + '_updated');
   }
 
   if (props.editing && !props.field.value) {
@@ -694,10 +630,8 @@ onUnmounted(() => {
 
 watch(
   () =>
-    !props.quickEntry && currentStore.value?.fullDataForm
-      ? currentStore.value.fullDataForm
-      : null,
-  (newValue) => {
+    !props.quickEntry && currentStore.value?.fullDataForm ? currentStore.value.fullDataForm : null,
+  newValue => {
     if (newValue && newValue[props.field.fieldname] && !props.quickEntry) {
       const value = newValue[props.field.fieldname];
       inputValue.value[props.field.fieldname] = value.label
@@ -719,15 +653,15 @@ watch(
 
         translatedSuggestions.value = [
           {
-            label: value.label ? __(value.label) : "",
-            description: value.description ? __(value.description) : "",
+            label: value.label ? __(value.label) : '',
+            description: value.description ? __(value.description) : '',
             value: value.value,
           },
         ];
       }
     }
   },
-  { deep: true, immediate: true },
+  { deep: true, immediate: true }
 );
 
 watch(
@@ -735,19 +669,19 @@ watch(
     props.editing && !props.quickEntry && currentStore.value?.edited
       ? currentStore.value.edited
       : null,
-  (newValue) => {
+  newValue => {
     if (newValue && !props.quickEntry) {
       update_input(
         {
-          label: newValue.first_name + " " + newValue.last_name,
+          label: newValue.first_name + ' ' + newValue.last_name,
           value: newValue.name,
         },
         null,
-        newValue.editingFieldname,
+        newValue.editingFieldname
       );
     }
   },
-  { deep: true },
+  { deep: true }
 );
 
 defineExpose({
