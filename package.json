@@ -60,7 +60,7 @@
     "lint:fix": "eslint src demo --fix",
     "format": "prettier --write \"src/**/*.{js,vue}\" \"demo/**/*.{js,vue}\"",
     "format:check": "prettier --check \"src/**/*.{js,vue}\" \"demo/**/*.{js,vue}\"",
-    "prepare": "husky",
+    "prepare": "husky && npm run build",
     "commit": "git-cz",
     "version:patch": "npm version patch -m 'chore(release): v%s'",
     "version:minor": "npm version minor -m 'chore(release): v%s'",
