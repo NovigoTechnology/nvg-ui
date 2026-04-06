@@ -11,11 +11,19 @@
       :completeOnFocus="true"
       fluid
       :disabled="props.disabled"
+      :dropdown="!!inputValue"
       @update:modelValue="e => e === '' && clear_input()"
       @option-select="e => selectOption(e.value)"
       :optionLabel="option => option.label || option.value"
       forceSelection
     >
+      <template v-if="!props.disabled" #dropdown>
+        <button type="button" class="p-autocomplete-dropdown" @click.stop="clear_input">
+          <svg class="icon icon-sm" style="stroke: var(--p-inputtext-color)" aria-hidden="true">
+            <use href="#icon-close"></use>
+          </svg>
+        </button>
+      </template>
       <template #option="slotProps">
         <div v-if="!slotProps.option.label && !slotProps.option.description">
           <strong>{{ slotProps.option.value }}</strong>
@@ -98,20 +106,10 @@ const selectOption = async selectedOption => {
         doctype: props.doctype,
         name: selectedOption.value,
       });
-      emit('itemSelected', {
-        value: selectedOption.value,
-        label: selectedOption.label,
-        description: selectedOption.description,
-        fullDoc,
-      });
+      emit('itemSelected', fullDoc);
     } catch (error) {
       console.error('Error fetching full document:', error);
-      emit('itemSelected', {
-        value: selectedOption.value,
-        label: selectedOption.label,
-        description: selectedOption.description,
-        fullDoc: null,
-      });
+      emit('itemSelected', null);
     }
   }
 };
