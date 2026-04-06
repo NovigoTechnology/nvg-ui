@@ -1,15 +1,15 @@
 export async function call(method, params) {
   // Si frappe.call está disponible, usarlo (lo más confiable)
-  if (window.frappe && typeof window.frappe.call === "function") {
+  if (window.frappe && typeof window.frappe.call === 'function') {
     return new Promise((resolve, reject) => {
       window.frappe.call({
         method: method,
         args: params,
-        callback: (response) => {
+        callback: response => {
           resolve(response.message);
         },
-        error: (error) => {
-          console.error("Frappe API call error:", error);
+        error: error => {
+          console.error('Frappe API call error:', error);
           reject(error);
         },
       });
@@ -22,9 +22,9 @@ export async function call(method, params) {
     const formData = new URLSearchParams();
 
     if (params) {
-      Object.keys(params).forEach((key) => {
+      Object.keys(params).forEach(key => {
         const value = params[key];
-        if (typeof value === "object" && value !== null) {
+        if (typeof value === 'object' && value !== null) {
           formData.append(key, JSON.stringify(value));
         } else {
           formData.append(key, value);
@@ -33,42 +33,42 @@ export async function call(method, params) {
     }
 
     const response = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Accept: "application/json",
-        "X-Frappe-CSRF-Token": window.frappe?.csrf_token || "",
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Accept: 'application/json',
+        'X-Frappe-CSRF-Token': window.frappe?.csrf_token || '',
       },
-      credentials: "same-origin",
+      credentials: 'same-origin',
       body: formData.toString(),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Frappe API error response:", errorText);
+      console.error('Frappe API error response:', errorText);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
 
     if (data.exc) {
-      console.error("Frappe exception:", data.exc);
+      console.error('Frappe exception:', data.exc);
       throw new Error(data.exc);
     }
 
     return data.message;
   } catch (error) {
-    console.error("Frappe API call error:", error);
+    console.error('Frappe API call error:', error);
     throw error;
   }
 }
 
 // Exportar frappe.call con su firma completa
 export function frappeCall(options) {
-  if (window.frappe && typeof window.frappe.call === "function") {
+  if (window.frappe && typeof window.frappe.call === 'function') {
     return window.frappe.call(options);
   }
 
-  console.error("frappe.call no está disponible en window.frappe");
-  throw new Error("frappe.call is not available");
+  console.error('frappe.call no está disponible en window.frappe');
+  throw new Error('frappe.call is not available');
 }

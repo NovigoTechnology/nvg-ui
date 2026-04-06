@@ -1,0 +1,67 @@
+name: Release & Publish
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  release:
+    name: Create GitHub Release & Publish to GitHub Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@novigotechnology'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Build library
+        run: npm run build
+
+      - name: Publish to GitHub Packages
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ github.ref_name }}
+          body: |
+            ## Changes in ${{ github.ref_name }}
+            
+            See [CHANGELOG.md](CHANGELOG.md) for details.
+            
+            ### Installation
+            
+            Make sure you have configured GitHub Packages authentication (see [README.md](README.md#installation)):
+            
+            ```bash
+            npm install @novigotechnology/nvg-ui@${{ github.ref_name }}
+            ```
+          files: |
+            dist/nvg-ui.es.js
+            dist/nvg-ui.umd.js
+            dist/nvg-ui.css
+          draft: false
+          prerelease: false
+          make_latest: true
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
