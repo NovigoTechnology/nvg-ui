@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.0.54...v1.1.0) (2026-04-06)
+
+
+### Features
+
+* update prepare script to include build step ([b5317cb](https://github.com/NovigoTechnology/nvg-ui/commit/b5317cb5304984985df300dd4a1669361b264ba5))
+
 ## [1.0.54](https://github.com/NovigoTechnology/nvg-ui/compare/v1.0.53...v1.0.54) (2026-04-06)
 
 
