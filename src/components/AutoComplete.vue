@@ -1,68 +1,7 @@
 <template>
   <div>
     <div :class="{ flex: props.field.quick_entry }" class="relative">
-      <FloatLabel variant="on" v-if="isTable">
-        <AutoComplete
-          :v-model="inputValue[props.field.fieldname]"
-          :data-web="props.dataweb"
-          :key="refresh + props.field.fieldname"
-          ref="autoCompleteRef"
-          :inputId="props.field.fieldname"
-          :suggestions="translatedSuggestions"
-          @complete="e => getLinkOptions(props.field.options, {}, e.query)"
-          :placeholder="__(props.field.placeholder) || __(props.field.label)"
-          :completeOnFocus="true"
-          fluid
-          :disabled="disabled || props.field.read_only ? true : false"
-          :class="{ 'p-inputtext:disabled': disabled }"
-          @clear="() => clear_input"
-          :size="props.size"
-          @update:modelValue="e => e === '' && clear_input()"
-          @option-select="
-            e => selectOption(suggestions[translatedSuggestions.indexOf(e.value)], field)
-          "
-          :optionLabel="option => option.label || option.value"
-          :dropdown="
-            props.field.fieldtype !== 'Table' &&
-            !inputValue[props.field.fieldname] === '' &&
-            inputValue[props.field.fieldname]
-          "
-          :invalid="
-            (invalid_fields?.includes(props.field.fieldname) ||
-              invalid_fields?.includes(props.field.label)) &&
-            !inputValue[props.field.fieldname]
-          "
-          @click="
-            () => {
-              if (props.field.fieldtype === 'Table') {
-                handleClick();
-              }
-            }
-          "
-          forceSelection
-        >
-          <template v-if="props.field.fieldtype !== 'Table' && !disabled" #dropdown>
-            <button type="button" class="p-autocomplete-dropdown" @click.stop="clear_input">
-              <svg class="icon icon-sm" style="stroke: var(--p-inputtext-color)" aria-hidden="true">
-                <use href="#icon-close"></use>
-              </svg>
-            </button>
-          </template>
-          <template #option="slotProps">
-            <div v-if="!slotProps.option.label && !slotProps.option.description">
-              <strong>{{ slotProps.option.value }}</strong>
-            </div>
-            <div v-else>
-              <strong>{{ slotProps.option.label ? __(slotProps.option.label) : '' }}</strong>
-              <div>
-                {{ slotProps.option.description ? __(slotProps.option.description) : '' }}
-              </div>
-            </div>
-          </template>
-        </AutoComplete>
-      </FloatLabel>
-
-      <FloatLabel variant="on" v-else>
+      <FloatLabel variant="on">
         <AutoComplete
           v-model="inputValue[props.field.fieldname]"
           :data-web="props.dataweb"
@@ -81,25 +20,16 @@
           @option-select="e => selectOption(e.value, props.field)"
           :optionLabel="option => option.label || option.description || option.value"
           :dropdown="
-            props.field.fieldtype !== 'Table' &&
-            !inputValue[props.field.fieldname] === '' &&
-            inputValue[props.field.fieldname]
+            !inputValue[props.field.fieldname] === '' && inputValue[props.field.fieldname]
           "
           :invalid="
             (invalid_fields?.includes(props.field.fieldname) ||
               invalid_fields?.includes(props.field.label)) &&
             !inputValue[props.field.fieldname]
           "
-          @click="
-            () => {
-              if (props.field.fieldtype === 'Table') {
-                handleClick();
-              }
-            }
-          "
           forceSelection
         >
-          <template v-if="props.field.fieldtype !== 'Table' && !disabled" #dropdown>
+          <template v-if="!disabled" #dropdown>
             <button type="button" class="p-autocomplete-dropdown" @click.stop="clear_input">
               <svg class="icon icon-sm" style="stroke: var(--p-inputtext-color)" aria-hidden="true">
                 <use href="#icon-close"></use>
@@ -187,7 +117,6 @@ const props = defineProps({
   needFilter: Boolean,
   editing: Boolean,
   delInputValue: String,
-  isTable: Boolean,
   query: String,
   labelstyles: String,
   dataweb: {
@@ -195,14 +124,12 @@ const props = defineProps({
     default: '',
   },
   filter_list: String,
-  fullitem: Boolean,
 });
 
 const emit = defineEmits([
   'update-autocomplete-value',
   'update-filter',
   'update-data',
-  'itemSelected',
   'clearRow',
 ]);
 
@@ -225,9 +152,7 @@ const suggestions = ref([]);
 const translatedSuggestions = ref([]);
 
 onMounted(() => {
-  if (!props.fullitem) {
-    clear_input();
-  }
+  clear_input();
   if (!props.quickEntry) {
     if (currentStore.value?.filters && currentStore.value.filters[props.field.fieldname]) {
       inputValue.value[props.field.fieldname] = currentStore.value.filters[props.field.fieldname];
@@ -463,29 +388,26 @@ const clear_input = () => {
   refresh.value = !refresh.value;
 };
 
-const selectOption = async (selectedOption, field) => {
+const selectOption = (selectedOption, field) => {
   if (props.quickEntry && props.useQuickEntryStore) {
     currentStore.value.fieldValues[field.fieldname] = selectedOption.value;
   } else {
-    if (field.fieldtype !== 'Table') {
-      // Solo actualiza store si existe
-      if (currentStore.value?.dataForm) {
-        currentStore.value.dataForm[field.fieldname] = selectedOption.value;
-      }
+    if (currentStore.value?.dataForm) {
+      currentStore.value.dataForm[field.fieldname] = selectedOption.value;
+    }
 
-      if (field.fieldname === 'referring_physician' && !props.quickEntry) {
-        if (store.physician !== undefined) {
-          store.physician = selectedOption;
-        }
+    if (field.fieldname === 'referring_physician' && !props.quickEntry) {
+      if (store.physician !== undefined) {
+        store.physician = selectedOption;
       }
+    }
 
-      if (currentStore.value?.fullDataForm) {
-        currentStore.value.fullDataForm[field.fieldname] = {
-          value: selectedOption.value,
-          label: __(selectedOption.label),
-          description: __(selectedOption.description),
-        };
-      }
+    if (currentStore.value?.fullDataForm) {
+      currentStore.value.fullDataForm[field.fieldname] = {
+        value: selectedOption.value,
+        label: __(selectedOption.label),
+        description: __(selectedOption.description),
+      };
     }
   }
 
@@ -497,35 +419,6 @@ const selectOption = async (selectedOption, field) => {
 
   inputValue.value[field.fieldname] =
     translatedOption.label || translatedOption.description || translatedOption.value;
-
-  // GridTable
-  if (props.fullitem) {
-    try {
-      const fullDoc = await call('frappe.client.get', {
-        doctype: field.options,
-        name: selectedOption.value,
-      });
-
-      emit(
-        'itemSelected',
-        {
-          value: selectedOption.value,
-          label: selectedOption.label,
-          description: selectedOption.description,
-          fullDoc: fullDoc,
-        },
-        field
-      );
-    } catch (error) {
-      console.error('Error fetching full document:', error);
-      emit('itemSelected', {
-        value: selectedOption.value,
-        label: selectedOption.label,
-        description: selectedOption.description,
-        fullDoc: null,
-      });
-    }
-  }
 
   if (!props.quickEntry) {
     if (field.provideFilter) {
@@ -608,11 +501,6 @@ const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
   }
 };
 
-const handleClick = () => {
-  if (autoCompleteRef.value && typeof autoCompleteRef.value.show === 'function') {
-    autoCompleteRef.value.show();
-  }
-};
 
 onUnmounted(() => {
   if (props.field.dependingField) {
