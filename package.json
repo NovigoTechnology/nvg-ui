@@ -1,6 +1,6 @@
 {
   "name": "@novigotechnology/nvg-ui",
-  "version": "1.0.51",
+  "version": "1.0.52",
   "description": "NVG components",
   "private": false,
   "main": "dist/nvg-ui.umd.js",
