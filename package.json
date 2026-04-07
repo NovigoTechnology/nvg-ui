@@ -60,12 +60,12 @@
     "lint:fix": "eslint src demo --fix",
     "format": "prettier --write \"src/**/*.{js,vue}\" \"demo/**/*.{js,vue}\"",
     "format:check": "prettier --check \"src/**/*.{js,vue}\" \"demo/**/*.{js,vue}\"",
-    "prepare": "husky && npm run build",
+    "prepare": "husky && yarn build",
     "commit": "git-cz",
-    "version:patch": "npm version patch -m 'chore(release): v%s'",
-    "version:minor": "npm version minor -m 'chore(release): v%s'",
-    "version:major": "npm version major -m 'chore(release): v%s'",
-    "release": "npm run build && npx semantic-release"
+    "version:patch": "yarn version --patch --message 'chore(release): v%s'",
+    "version:minor": "yarn version --minor --message 'chore(release): v%s'",
+    "version:major": "yarn version --major --message 'chore(release): v%s'",
+    "release": "yarn build && yarn semantic-release"
   },
   "lint-staged": {
     "*.{js,vue}": [
