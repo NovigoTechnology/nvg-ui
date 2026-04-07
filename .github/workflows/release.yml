@@ -37,7 +37,7 @@ jobs:
       - name: Publish to GitHub Packages
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NOVIGO_BOT_20250619 }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -45,13 +45,13 @@ jobs:
           name: Release ${{ github.ref_name }}
           body: |
             ## Changes in ${{ github.ref_name }}
-            
+
             See [CHANGELOG.md](CHANGELOG.md) for details.
-            
+
             ### Installation
-            
+
             Make sure you have configured GitHub Packages authentication (see [README.md](README.md#installation)):
-            
+
             ```bash
             npm install @novigotechnology/nvg-ui@${{ github.ref_name }}
             ```
@@ -64,4 +64,4 @@ jobs:
           make_latest: true
           generate_release_notes: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.NOVIGO_BOT_20250619 }}
