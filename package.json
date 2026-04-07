@@ -21,7 +21,7 @@
   "repository": {
     "url": "git+https://github.com/NovigoTechnology/nvg-ui.git"
   },
-  "license": "CSCL",
+  "license": "SEE LICENSE IN LICENSE",
   "peerDependencies": {
     "@primeuix/themes": "^2.0.0",
     "primevue": "^4.0.0",
