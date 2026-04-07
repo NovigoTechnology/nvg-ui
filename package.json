@@ -22,6 +22,11 @@
     "url": "git+https://github.com/NovigoTechnology/nvg-ui.git"
   },
   "license": "SEE LICENSE IN LICENSE",
+  "packageManager": "yarn@1.22.22",
+  "engines": {
+    "node": ">=24",
+    "yarn": ">=1.22.0"
+  },
   "peerDependencies": {
     "@primeuix/themes": "^2.0.0",
     "primevue": "^4.5.4",
@@ -53,6 +58,7 @@
     "mitt": "^3.0.1"
   },
   "scripts": {
+    "preinstall": "sh scripts/preinstall.sh",
     "dev": "vite --config vite.config.js",
     "build": "vite build --config vite.config.js",
     "lint": "eslint src demo",
