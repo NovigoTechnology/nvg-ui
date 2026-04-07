@@ -24,8 +24,8 @@
   "license": "SEE LICENSE IN LICENSE",
   "peerDependencies": {
     "@primeuix/themes": "^2.0.0",
-    "primevue": "^4.0.0",
-    "vue": ">=3.0.0"
+    "primevue": "^4.5.4",
+    "vue": ">=3.5.32"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
@@ -34,23 +34,22 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/npm": "^13.1.5",
-    "@vitejs/plugin-vue": "^5.2.4",
-    "commitizen": "^4.3.1",
-    "cz-conventional-changelog": "^3.3.0",
+    "@vitejs/plugin-vue": "^6.0.4",
     "eslint": "^10.2.0",
     "eslint-plugin-vue": "^10.8.0",
-    "husky": "^9.0.11",
+    "husky": "^9.1.0",
     "lint-staged": "^16.4.0",
-    "prettier": "^3.2.5",
+    "prettier": "^3.8.0",
     "primeflex": "^4.0.0",
     "primevue": "^4.5.4",
     "semantic-release": "^25.0.3",
-    "vite": "^6.4.2",
+    "vite": "^7.0.0",
     "vite-plugin-css-injected-by-js": "^3.5.2",
-    "vue": "^3.5.32"
+    "vue": "^3.5.32",
+    "vue-eslint-parser": "^10.4.0"
   },
   "dependencies": {
-    "lodash-es": "^4.17.21",
+    "lodash-es": "^4.18.0",
     "mitt": "^3.0.1"
   },
   "scripts": {
@@ -61,7 +60,6 @@
     "format": "prettier --write \"src/**/*.{js,vue}\" \"demo/**/*.{js,vue}\"",
     "format:check": "prettier --check \"src/**/*.{js,vue}\" \"demo/**/*.{js,vue}\"",
     "prepare": "husky && yarn build",
-    "commit": "git-cz",
     "version:patch": "yarn version --patch --message 'chore(release): v%s'",
     "version:minor": "yarn version --minor --message 'chore(release): v%s'",
     "version:major": "yarn version --major --message 'chore(release): v%s'",
@@ -72,10 +70,5 @@
       "eslint --fix",
       "prettier --write"
     ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
   }
 }
