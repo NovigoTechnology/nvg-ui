@@ -1,3 +1,16 @@
+# [1.2.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.1.0...v1.2.0) (2026-04-07)
+
+
+### Bug Fixes
+
+* Change GITHUB_TOKEN to NOVIGO_BOT_20250619 ([916d1f4](https://github.com/NovigoTechnology/nvg-ui/commit/916d1f4fd335a7a3bff9ffb4cc2da302a9b48b3e))
+
+
+### Features
+
+* enhance LinkField component with dropdown clear button and improved item selection emission ([9aa914e](https://github.com/NovigoTechnology/nvg-ui/commit/9aa914ec9c1c12a3c45d25f4cf675dfefc9b8b5d))
+* enhance LinkField component with dropdown clear button and improved item selection emission ([#12](https://github.com/NovigoTechnology/nvg-ui/issues/12)) ([01c6c81](https://github.com/NovigoTechnology/nvg-ui/commit/01c6c81f223987f85ba134befc03cce394c34698))
+
 # [1.1.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.0.54...v1.1.0) (2026-04-06)
 
 
