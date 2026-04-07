@@ -40,5 +40,5 @@ jobs:
 
       - name: Semantic Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.NOVIGO_BOT_20250619 }}
         run: npx semantic-release
