@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.2.0...v1.2.1) (2026-04-07)
+
+
+### Bug Fixes
+
+* update GitHub token references to use NOVIGO_BOT_20250619 in workflows ([47fb218](https://github.com/NovigoTechnology/nvg-ui/commit/47fb2186dff8b9dcdfe20c91f35750c1fb312727))
+
 # [1.2.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.1.0...v1.2.0) (2026-04-07)
 
 
