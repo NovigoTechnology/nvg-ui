@@ -42,12 +42,11 @@
             </div>
             <div v-else>
               <strong>{{ slotProps.option.label ? __(slotProps.option.label) : '' }}</strong>
-              <div>
-                {{
-                  slotProps.option.description
-                    ? normalizeDescription(slotProps.option.description)
-                    : ''
-                }}
+              <div
+                v-if="slotProps.option.description && slotProps.option.description !== slotProps.option.label"
+                class="text-sm text-color-secondary"
+              >
+                {{ normalizeDescription(slotProps.option.description) }}
               </div>
             </div>
           </template>
@@ -180,14 +179,12 @@ onMounted(() => {
 });
 
 const normalizeDescription = str => {
-  if (str.includes(',')) {
-    return str
-      .split(',')
-      .map(s => __(s.trim()))
-      .join('/');
-  }
-
-  return str.trim();
+  if (!str) return '';
+  return str
+    .split(',')
+    .map(s => __(s.trim()))
+    .filter(Boolean)
+    .join(', ');
 };
 
 watch(
