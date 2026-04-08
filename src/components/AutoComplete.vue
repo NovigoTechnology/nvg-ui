@@ -486,9 +486,23 @@ const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
       const translatedLabel = item.label ? __(item.label) : '';
       const translatedDescription = item.description ? __(item.description) : '';
 
+      // Replicar el unique() de Frappe: filtrar partes de la descripción que
+      // ya están representadas por el value o el label (evita duplicados visuales)
+      const seen = new Set(
+        [item.value, translatedLabel].filter(Boolean).map(s => s.trim().toLowerCase())
+      );
+      const filteredDescription = [
+        ...new Set(
+          translatedDescription
+            .split(',')
+            .map(s => __(s.trim()))
+            .filter(s => s && !seen.has(s.toLowerCase()))
+        ),
+      ].join(', ');
+
       return {
         label: translatedLabel || translatedDescription || item.value,
-        description: translatedDescription,
+        description: filteredDescription,
         value: item.value,
       };
     });
