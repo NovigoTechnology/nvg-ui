@@ -30,7 +30,12 @@
         </div>
         <div v-else>
           <strong>{{ slotProps.option.label ? __(slotProps.option.label) : '' }}</strong>
-          <div>{{ slotProps.option.description ? __(slotProps.option.description) : '' }}</div>
+          <div
+            v-if="slotProps.option.description && slotProps.option.description !== slotProps.option.label"
+            class="text-sm text-color-secondary"
+          >
+            {{ __(slotProps.option.description) }}
+          </div>
         </div>
       </template>
     </AutoComplete>
@@ -85,11 +90,15 @@ const getLinkOptions = async (doctype, searchText = '') => {
 
   if (r) {
     suggestions.value = r;
-    translatedSuggestions.value = r.map(item => ({
-      label: item.label ? __(item.label) : '',
-      description: item.description ? __(item.description) : '',
-      value: item.value,
-    }));
+    translatedSuggestions.value = r.map(item => {
+      const translatedLabel = item.label ? __(item.label) : '';
+      const translatedDescription = item.description ? __(item.description) : '';
+      return {
+        label: translatedLabel || translatedDescription || item.value,
+        description: translatedDescription,
+        value: item.value,
+      };
+    });
   } else {
     suggestions.value = [];
     translatedSuggestions.value = [];
