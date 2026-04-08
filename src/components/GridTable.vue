@@ -33,6 +33,7 @@
             @clear-row="() => clearRowItems(data)"
             :fullitem="true"
             :filters="column.filters"
+            :query="column.query"
           />
           <component
             v-else
