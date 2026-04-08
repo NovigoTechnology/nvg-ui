@@ -29,12 +29,12 @@
           <strong>{{ slotProps.option.value }}</strong>
         </div>
         <div v-else>
-          <strong>{{ slotProps.option.label ? __(slotProps.option.label) : '' }}</strong>
+          <strong>{{ slotProps.option.label }}</strong>
           <div
-            v-if="slotProps.option.description && slotProps.option.description !== slotProps.option.label"
+            v-if="slotProps.option.description && (slotProps.option.isTitleLink || slotProps.option.value !== slotProps.option.description)"
             class="text-sm text-color-secondary"
           >
-            {{ __(slotProps.option.description) }}
+            {{ slotProps.option.description }}
           </div>
         </div>
       </template>
@@ -90,20 +90,39 @@ const getLinkOptions = async (doctype, searchText = '') => {
 
   if (r) {
     suggestions.value = r;
-    translatedSuggestions.value = r.map(item => {
-      const translatedLabel = item.label ? __(item.label) : '';
-      const translatedDescription = item.description ? __(item.description) : '';
-      return {
-        label: translatedLabel || translatedDescription || item.value,
-        description: translatedDescription,
-        value: item.value,
-      };
-    });
+    translatedSuggestions.value = mergeDuplicates(
+      r.map(item => {
+        const translatedLabel = item.label ? __(item.label) : '';
+        const translatedDescription = item.description ? __(item.description) : '';
+        const isTitleLink = !!(item.label && item.label !== item.value);
+
+        return {
+          label: translatedLabel || item.value,
+          description: translatedDescription,
+          value: item.value,
+          isTitleLink,
+        };
+      })
+    );
   } else {
     suggestions.value = [];
     translatedSuggestions.value = [];
   }
 };
+
+const mergeDuplicates = results =>
+  results.reduce((acc, curr) => {
+    const existing = acc.find(r => r.value === curr.value);
+    if (existing) {
+      if (curr.description) {
+        existing.description = existing.description
+          ? `${existing.description}, ${curr.description}`
+          : curr.description;
+      }
+      return acc;
+    }
+    return [...acc, curr];
+  }, []);
 
 const selectOption = async selectedOption => {
   inputValue.value = selectedOption.label || selectedOption.value;
