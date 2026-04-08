@@ -1,3 +1,17 @@
+# [1.3.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.2.1...v1.3.0) (2026-04-08)
+
+
+### Features
+
+* add query prop to LinkField component in GridTable ([11336be](https://github.com/NovigoTechnology/nvg-ui/commit/11336bed7a530741984885691bf4be1d090e5ca1))
+* enhance description handling and deduplicate entries in AutoComplete and LinkField components ([3f9ec66](https://github.com/NovigoTechnology/nvg-ui/commit/3f9ec666e4d6eaba2ed536b3a03a23e0684b1cca))
+* enhance description rendering in LinkField component ([a387c20](https://github.com/NovigoTechnology/nvg-ui/commit/a387c20ff47e376d37100f8b76a704e421a534be))
+* enhance getLinkOptions to filter duplicate descriptions ([6e013b2](https://github.com/NovigoTechnology/nvg-ui/commit/6e013b2948c914a6798aedf3a82b2d1f9f2f1d5d))
+* improve description handling and merge duplicates in AutoComplete and LinkField components ([d173c97](https://github.com/NovigoTechnology/nvg-ui/commit/d173c97f5bd8090b126fe6fca240088f791aa1e0))
+* improve description rendering in AutoComplete component ([443dffc](https://github.com/NovigoTechnology/nvg-ui/commit/443dffc3d789bf72735dada76f446987019dd08b))
+* reestructure ([#15](https://github.com/NovigoTechnology/nvg-ui/issues/15)) ([91973ef](https://github.com/NovigoTechnology/nvg-ui/commit/91973ef2a5d8cb8104a743994b1a4508121e6d56))
+* replace normalizeDescription with direct translation in AutoComplete component ([607675f](https://github.com/NovigoTechnology/nvg-ui/commit/607675fea05652812151c9732e01f66cf8c76f94))
+
 ## [1.2.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.2.0...v1.2.1) (2026-04-07)
 
 
