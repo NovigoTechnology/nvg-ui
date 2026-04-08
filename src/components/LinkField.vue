@@ -90,15 +90,24 @@ const getLinkOptions = async (doctype, searchText = '') => {
 
   if (r) {
     suggestions.value = r;
+    const isTitleLink = (window.frappe?.boot?.link_title_doctypes || []).includes(doctype);
+
     translatedSuggestions.value = mergeDuplicates(
       r.map(item => {
-        const translatedLabel = item.label ? __(item.label) : '';
-        const translatedDescription = item.description ? __(item.description) : '';
-        const isTitleLink = !!(item.label && item.label !== item.value);
+        const translatedLabel = item.label ? __(item.label) : __(item.value);
+
+        const descriptionParts = (item.description || '')
+          .split(',')
+          .map(s => __(s.trim()))
+          .filter(Boolean);
+        const uniqueParts = [...new Set(descriptionParts)].filter(
+          s => s.toLowerCase() !== translatedLabel.toLowerCase()
+        );
+        const filteredDescription = uniqueParts.join(', ');
 
         return {
-          label: translatedLabel || item.value,
-          description: translatedDescription,
+          label: translatedLabel,
+          description: filteredDescription,
           value: item.value,
           isTitleLink,
         };

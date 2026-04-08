@@ -474,16 +474,26 @@ const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
 
   if (r) {
     suggestions.value = r;
+    // Replicar is_title_link() de Frappe: usa frappe.boot.link_title_doctypes
+    const isTitleLink = (window.frappe?.boot?.link_title_doctypes || []).includes(doctype);
+
     translatedSuggestions.value = mergeDuplicates(
       r.map(item => {
-        const translatedLabel = item.label ? __(item.label) : '';
-        const translatedDescription = item.description ? __(item.description) : '';
-        // is_title_link: label exists and differs from value (show_title_field_in_link=True)
-        const isTitleLink = !!(item.label && item.label !== item.value);
+        const translatedLabel = item.label ? __(item.label) : __(item.value);
+
+        // Traducir, deduplicar y filtrar partes del label (redundancia del backend de Frappe)
+        const descriptionParts = (item.description || '')
+          .split(',')
+          .map(s => __(s.trim()))
+          .filter(Boolean);
+        const uniqueParts = [...new Set(descriptionParts)].filter(
+          s => s.toLowerCase() !== translatedLabel.toLowerCase()
+        );
+        const filteredDescription = uniqueParts.join(', ');
 
         return {
-          label: translatedLabel || item.value,
-          description: translatedDescription,
+          label: translatedLabel,
+          description: filteredDescription,
           value: item.value,
           isTitleLink,
         };
