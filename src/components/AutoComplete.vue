@@ -41,13 +41,12 @@
               <strong>{{ slotProps.option.value }}</strong>
             </div>
             <div v-else>
-              <strong>{{ slotProps.option.label ? __(slotProps.option.label) : '' }}</strong>
-              <div>
-                {{
-                  slotProps.option.description
-                    ? normalizeDescription(slotProps.option.description)
-                    : ''
-                }}
+              <strong>{{ slotProps.option.label }}</strong>
+              <div
+                v-if="slotProps.option.description && (slotProps.option.isTitleLink || slotProps.option.value !== slotProps.option.description)"
+                class="text-sm text-color-secondary"
+              >
+                {{ slotProps.option.description }}
               </div>
             </div>
           </template>
@@ -179,16 +178,6 @@ onMounted(() => {
   }
 });
 
-const normalizeDescription = str => {
-  if (str.includes(',')) {
-    return str
-      .split(',')
-      .map(s => __(s.trim()))
-      .join('/');
-  }
-
-  return str.trim();
-};
 
 watch(
   () => props.field.value,
@@ -485,21 +474,50 @@ const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
 
   if (r) {
     suggestions.value = r;
-    translatedSuggestions.value = r.map(item => {
-      const translatedLabel = item.label ? __(item.label) : '';
-      const translatedDescription = item.description ? __(item.description) : '';
+    // Replicar is_title_link() de Frappe: usa frappe.boot.link_title_doctypes
+    const isTitleLink = (window.frappe?.boot?.link_title_doctypes || []).includes(doctype);
 
-      return {
-        label: translatedLabel || translatedDescription || item.value,
-        description: translatedDescription,
-        value: item.value,
-      };
-    });
+    translatedSuggestions.value = mergeDuplicates(
+      r.map(item => {
+        const translatedLabel = item.label ? __(item.label) : __(item.value);
+
+        // Traducir, deduplicar y filtrar partes del label (redundancia del backend de Frappe)
+        const descriptionParts = (item.description || '')
+          .split(',')
+          .map(s => __(s.trim()))
+          .filter(Boolean);
+        const uniqueParts = [...new Set(descriptionParts)].filter(
+          s => s.toLowerCase() !== translatedLabel.toLowerCase()
+        );
+        const filteredDescription = uniqueParts.join(', ');
+
+        return {
+          label: translatedLabel,
+          description: filteredDescription,
+          value: item.value,
+          isTitleLink,
+        };
+      })
+    );
   } else {
     suggestions.value = [];
     translatedSuggestions.value = [];
   }
 };
+
+const mergeDuplicates = results =>
+  results.reduce((acc, curr) => {
+    const existing = acc.find(r => r.value === curr.value);
+    if (existing) {
+      if (curr.description) {
+        existing.description = existing.description
+          ? `${existing.description}, ${curr.description}`
+          : curr.description;
+      }
+      return acc;
+    }
+    return [...acc, curr];
+  }, []);
 
 
 onUnmounted(() => {
