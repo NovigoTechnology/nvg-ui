@@ -16,12 +16,10 @@
           :class="{ 'p-inputtext:disabled': disabled }"
           @clear="() => clear_input"
           :size="props.size"
-          @update:modelValue="e => e === '' && clear_input()"
+          @update:modelValue="e => e === '' && clear_and_focus()"
           @option-select="e => selectOption(e.value, props.field)"
           :optionLabel="option => option.label || option.description || option.value"
-          :dropdown="
-            !inputValue[props.field.fieldname] === '' && inputValue[props.field.fieldname]
-          "
+          :dropdown="!inputValue[props.field.fieldname] === '' && inputValue[props.field.fieldname]"
           :invalid="
             (invalid_fields?.includes(props.field.fieldname) ||
               invalid_fields?.includes(props.field.label)) &&
@@ -43,7 +41,11 @@
             <div v-else>
               <strong>{{ slotProps.option.label }}</strong>
               <div
-                v-if="slotProps.option.description && (slotProps.option.isTitleLink || slotProps.option.value !== slotProps.option.description)"
+                v-if="
+                  slotProps.option.description &&
+                  (slotProps.option.isTitleLink ||
+                    slotProps.option.value !== slotProps.option.description)
+                "
                 class="text-sm text-color-secondary"
               >
                 {{ slotProps.option.description }}
@@ -125,12 +127,7 @@ const props = defineProps({
   filter_list: String,
 });
 
-const emit = defineEmits([
-  'update-autocomplete-value',
-  'update-filter',
-  'update-data',
-  'clearRow',
-]);
+const emit = defineEmits(['update-autocomplete-value', 'update-filter', 'update-data', 'clearRow']);
 
 const store = props.store;
 
@@ -177,7 +174,6 @@ onMounted(() => {
     getLinkOptions(props.field.options);
   }
 });
-
 
 watch(
   () => props.field.value,
@@ -441,6 +437,11 @@ const selectOption = (selectedOption, field) => {
   }
 };
 
+const clear_and_focus = () => {
+  clear_input();
+  autoCompleteRef.value.focus();
+};
+
 const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
   let finalFilters = { ...filters };
 
@@ -518,7 +519,6 @@ const mergeDuplicates = results =>
     }
     return [...acc, curr];
   }, []);
-
 
 onUnmounted(() => {
   if (props.field.dependingField) {
