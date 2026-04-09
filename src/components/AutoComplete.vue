@@ -16,7 +16,7 @@
           :class="{ 'p-inputtext:disabled': disabled }"
           @clear="() => clear_input"
           :size="props.size"
-          @update:modelValue="e => e === '' && clear_and_focus()"
+          @update:modelValue="e => e === '' && clear_input(true)"
           @option-select="e => selectOption(e.value, props.field)"
           :optionLabel="option => option.label || option.description || option.value"
           :dropdown="!inputValue[props.field.fieldname] === '' && inputValue[props.field.fieldname]"
@@ -279,7 +279,7 @@ watch(
   () => inputValue.value[props.field.fieldname],
   newValue => {
     if (newValue === '') {
-      clear_input();
+      clear_input(true);
       return;
     }
 
@@ -333,7 +333,7 @@ const closeQuickEntry = () => {
   }
 };
 
-const clear_input = () => {
+const clear_input = (keepFocus = false) => {
   if (props.quickEntry && props.useQuickEntryStore) {
     if (currentStore.value.fieldValues) {
       currentStore.value.fieldValues[props.field.fieldname] = null;
@@ -370,7 +370,9 @@ const clear_input = () => {
     props.field.value = null;
   }
 
-  refresh.value = !refresh.value;
+  if (!keepFocus) {
+    refresh.value = !refresh.value;
+  }
 };
 
 const selectOption = (selectedOption, field) => {
@@ -435,11 +437,6 @@ const selectOption = (selectedOption, field) => {
     inputValue.value[field.fieldname] = null;
     refresh.value = !refresh.value;
   }
-};
-
-const clear_and_focus = () => {
-  clear_input();
-  autoCompleteRef.value.$refs.focusInput.focus();
 };
 
 const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
