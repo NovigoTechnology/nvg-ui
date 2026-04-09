@@ -16,12 +16,10 @@
           :class="{ 'p-inputtext:disabled': disabled }"
           @clear="() => clear_input"
           :size="props.size"
-          @update:modelValue="e => e === '' && clear_input()"
+          @update:modelValue="e => e === '' && clear_input(true)"
           @option-select="e => selectOption(e.value, props.field)"
           :optionLabel="option => option.label || option.description || option.value"
-          :dropdown="
-            !inputValue[props.field.fieldname] === '' && inputValue[props.field.fieldname]
-          "
+          :dropdown="!inputValue[props.field.fieldname] === '' && inputValue[props.field.fieldname]"
           :invalid="
             (invalid_fields?.includes(props.field.fieldname) ||
               invalid_fields?.includes(props.field.label)) &&
@@ -43,7 +41,11 @@
             <div v-else>
               <strong>{{ slotProps.option.label }}</strong>
               <div
-                v-if="slotProps.option.description && (slotProps.option.isTitleLink || slotProps.option.value !== slotProps.option.description)"
+                v-if="
+                  slotProps.option.description &&
+                  (slotProps.option.isTitleLink ||
+                    slotProps.option.value !== slotProps.option.description)
+                "
                 class="text-sm text-color-secondary"
               >
                 {{ slotProps.option.description }}
@@ -125,12 +127,7 @@ const props = defineProps({
   filter_list: String,
 });
 
-const emit = defineEmits([
-  'update-autocomplete-value',
-  'update-filter',
-  'update-data',
-  'clearRow',
-]);
+const emit = defineEmits(['update-autocomplete-value', 'update-filter', 'update-data', 'clearRow']);
 
 const store = props.store;
 
@@ -177,7 +174,6 @@ onMounted(() => {
     getLinkOptions(props.field.options);
   }
 });
-
 
 watch(
   () => props.field.value,
@@ -283,7 +279,7 @@ watch(
   () => inputValue.value[props.field.fieldname],
   newValue => {
     if (newValue === '') {
-      clear_input();
+      clear_input(true);
       return;
     }
 
@@ -337,7 +333,7 @@ const closeQuickEntry = () => {
   }
 };
 
-const clear_input = () => {
+const clear_input = (keepFocus = false) => {
   if (props.quickEntry && props.useQuickEntryStore) {
     if (currentStore.value.fieldValues) {
       currentStore.value.fieldValues[props.field.fieldname] = null;
@@ -374,7 +370,9 @@ const clear_input = () => {
     props.field.value = null;
   }
 
-  refresh.value = !refresh.value;
+  if (!keepFocus) {
+    refresh.value = !refresh.value;
+  }
 };
 
 const selectOption = (selectedOption, field) => {
@@ -518,7 +516,6 @@ const mergeDuplicates = results =>
     }
     return [...acc, curr];
   }, []);
-
 
 onUnmounted(() => {
   if (props.field.dependingField) {

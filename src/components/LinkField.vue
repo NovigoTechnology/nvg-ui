@@ -12,7 +12,7 @@
       fluid
       :disabled="props.disabled"
       :dropdown="!!inputValue"
-      @update:modelValue="e => e === '' && clear_input()"
+      @update:modelValue="e => e === '' && clear_input(true)"
       @option-select="e => selectOption(e.value)"
       :optionLabel="option => option.label || option.value"
       forceSelection
@@ -151,13 +151,15 @@ const selectOption = async selectedOption => {
   }
 };
 
-const clear_input = () => {
+const clear_input = (keepFocus = false) => {
   inputValue.value = '';
   suggestions.value = [];
   translatedSuggestions.value = [];
   emit('update:modelValue', '');
   emit('clearRow');
-  refresh.value = !refresh.value;
+  if (!keepFocus) {
+    refresh.value = !refresh.value;
+  }
 };
 
 defineExpose({ clear_input });
