@@ -1,3 +1,19 @@
+# [1.4.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.3.0...v1.4.0) (2026-04-09)
+
+
+### Bug Fixes
+
+* correct reference to autoCompleteRef in clear_and_focus function ([01b4196](https://github.com/NovigoTechnology/nvg-ui/commit/01b4196e336cb3c3821de1a66ffa27d2ca6c1dac))
+* focus autocomplete ([#16](https://github.com/NovigoTechnology/nvg-ui/issues/16)) ([d62e376](https://github.com/NovigoTechnology/nvg-ui/commit/d62e3767175928f4e00420dec96c139e12eeea8e))
+
+
+### Features
+
+* refactor AutoComplete component for improved input handling and focus management ([bf1d06e](https://github.com/NovigoTechnology/nvg-ui/commit/bf1d06e9680aa1368274b1148b1a2bec2568801c))
+* update clear_input function to optionally maintain focus and remove clear_and_focus function ([6ee9f12](https://github.com/NovigoTechnology/nvg-ui/commit/6ee9f12480e1a73dccdeae0da9b70dc3f8a5bbbd))
+* update clear_input function to optionally maintain focus during input clearing ([783bb58](https://github.com/NovigoTechnology/nvg-ui/commit/783bb580130bd302ce6417faa3435b2ae063664f))
+* update focus handling in clear_and_focus function for AutoComplete component ([391c429](https://github.com/NovigoTechnology/nvg-ui/commit/391c429d6301b07ef7006e28daa90b67ef67e756))
+
 # [1.3.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.2.1...v1.3.0) (2026-04-08)
 
 
