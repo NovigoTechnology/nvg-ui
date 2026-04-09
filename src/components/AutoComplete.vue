@@ -439,7 +439,7 @@ const selectOption = (selectedOption, field) => {
 
 const clear_and_focus = () => {
   clear_input();
-  autocompleteRef.value.$refs.focusInput.focus();
+  autoCompleteRef.value.$refs.focusInput.focus();
 };
 
 const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
