@@ -9,7 +9,8 @@
   "type": "module",
   "files": [
     "dist",
-    "src/index.d.ts"
+    "src/index.d.ts",
+    "scripts"
   ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
