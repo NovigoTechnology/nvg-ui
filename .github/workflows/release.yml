@@ -40,7 +40,9 @@ jobs:
         run: yarn build
 
       - name: Publish to GitHub Packages
-        run: yarn publish --non-interactive --new-version ${{ github.ref_name }}
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          yarn publish --non-interactive --new-version "$VERSION"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NOVIGO_BOT_20250619 }}
 

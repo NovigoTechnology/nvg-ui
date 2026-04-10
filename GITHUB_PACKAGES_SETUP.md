@@ -34,53 +34,42 @@
 
 ### 2. Configure yarn authentication
 
-**Option A: Project-specific with .npmrc (recommended for teams) ⭐**
+**Option A: Project `.npmrc` + User `~/.npmrc` (recommended for teams) ⭐**
 
 Create `.npmrc` in your project root and commit it to git:
 ```ini
 @novigotechnology:registry=https://npm.pkg.github.com
 ```
 
-Create `.npmrc.local` (DON'T commit this file - add to `.gitignore`):
+Then add your personal token to your user-level `~/.npmrc` file (do **not** commit this):
 ```ini
 //npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN_HERE
 ```
 
-Add to `.gitignore`:
-```
-.npmrc.local
+Yarn v1 reads the project `.npmrc` and your user-level `~/.npmrc`, so this setup keeps the shared registry configuration in git while each developer keeps their own token locally.
+
+**Option B: Project `.npmrc` with environment variable**
+
+Create `.npmrc` in your project and commit it to git:
+```ini
+@novigotechnology:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 ```
 
-Then configure yarn to use both files:
+Then set `GITHUB_TOKEN` in your shell or environment manager:
 ```bash
-# This merges both .npmrc files when installing
-yarn config set --home enableGlobalCache false
+export GITHUB_TOKEN=your_token_here
 ```
 
-Each developer creates their own `.npmrc.local` with their personal token. The registry configuration is shared via git.
+This is safe to commit (no secrets). Do **not** commit the token itself.
 
-**Option B: Global configuration (for personal development)**
+**Option C: Global configuration (for personal development)**
 
 ```bash
 # Add to ~/.npmrc
 echo "@novigotechnology:registry=https://npm.pkg.github.com" >> ~/.npmrc
 echo "//npm.pkg.github.com/:_authToken=YOUR_TOKEN_HERE" >> ~/.npmrc
 ```
-
-**Option C: Project .npmrc with environment variable**
-
-Create `.npmrc` in your project:
-```ini
-@novigotechnology:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-```
-
-Then export the token:
-```bash
-export GITHUB_TOKEN=your_token_here
-```
-
-You can commit this `.npmrc` to git safely (no secrets).
 
 **Option D: Using GitHub CLI (easiest for quick setup)**
 
