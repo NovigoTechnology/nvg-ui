@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.4.0...v1.4.1) (2026-04-10)
+
+
+### Bug Fixes
+
+* update license field in package.json ([96536f4](https://github.com/NovigoTechnology/nvg-ui/commit/96536f45c43319129eedfbf819776adc2330d916))
+
 # [1.4.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.3.0...v1.4.0) (2026-04-09)
 
 
