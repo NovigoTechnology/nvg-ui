@@ -29,7 +29,7 @@ They should:
 2. Configure npm authentication
 3. Install the package:
    ```bash
-   npm install @novigotechnology/nvg-ui
+   yarn add @novigotechnology/nvg-ui
    ```
 
 ---
@@ -141,12 +141,12 @@ https://github.com/organizations/NovigoTechnology/settings/billing
 
 If your team was using:
 ```bash
-npm install git+ssh://git@github.com/NovigoTechnology/nvg-ui.git
+yarn add git+ssh://git@github.com/NovigoTechnology/nvg-ui.git
 ```
 
 **Update to:**
 ```bash
-npm install @novigotechnology/nvg-ui
+yarn add @novigotechnology/nvg-ui
 ```
 
 **After configuring `.npmrc` authentication.**
@@ -155,14 +155,14 @@ npm install @novigotechnology/nvg-ui
 
 1. Remove old dependency:
    ```bash
-   npm uninstall nvg-ui
+   yarn remove nvg-ui
    ```
 
 2. Configure GitHub Packages authentication
 
 3. Install with new name:
    ```bash
-   npm install @novigotechnology/nvg-ui
+   yarn add @novigotechnology/nvg-ui
    ```
 
 4. Update imports:

@@ -69,7 +69,7 @@ gh auth token | xargs -I {} echo "//npm.pkg.github.com/:_authToken={}" >> ~/.npm
 ### 3. Install the package
 
 ```bash
-npm install @novigotechnology/nvg-ui
+yarn add @novigotechnology/nvg-ui
 ```
 
 ---
@@ -82,19 +82,19 @@ The workflow publishes automatically to GitHub Packages when you push a tag:
 
 ```bash
 # Build, version, and push
-npm run release
+yarn release
 
 # Or manually
-npm run build
-npm version patch  # or minor, or major
+yarn build
+yarn version:patch  # or minor, or major
 git push && git push --tags
 ```
 
 ### Manual publish (if needed)
 
 ```bash
-npm run build
-npm publish
+yarn build
+yarn publish
 ```
 
 **Note:** 
@@ -127,7 +127,7 @@ Then in your CI:
 ```bash
 echo "@novigotechnology:registry=https://npm.pkg.github.com" >> .npmrc
 echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> .npmrc
-npm install @novigotechnology/nvg-ui
+yarn add @novigotechnology/nvg-ui
 ```
 
 ---
@@ -149,8 +149,8 @@ npm install @novigotechnology/nvg-ui
 
 ### "Unable to authenticate"
 ```bash
-# Clear npm cache
-npm cache clean --force
+# Clear yarn cache
+yarn cache clean
 
 # Remove old config
 rm ~/.npmrc
@@ -177,8 +177,8 @@ npm view @novigotechnology/nvg-ui
 If you don't want to use GitHub Packages:
 
 ```bash
-npm install git+ssh://git@github.com/NovigoTechnology/nvg-ui.git
-npm install git+ssh://git@github.com/NovigoTechnology/nvg-ui.git#v1.0.51
+yarn add git+ssh://git@github.com/NovigoTechnology/nvg-ui.git
+yarn add git+ssh://git@github.com/NovigoTechnology/nvg-ui.git#v1.0.51
 ```
 
 This requires:

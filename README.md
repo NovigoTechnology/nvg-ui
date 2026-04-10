@@ -45,10 +45,10 @@ export GITHUB_TOKEN=your_personal_access_token
 
 ```bash
 # Latest version
-npm install @novigotechnology/nvg-ui
+yarn add @novigotechnology/nvg-ui
 
 # Specific version
-npm install @novigotechnology/nvg-ui@1.0.51
+yarn add @novigotechnology/nvg-ui@1.0.51
 ```
 
 ### Alternative: Install from Git (without registry)
@@ -56,8 +56,8 @@ npm install @novigotechnology/nvg-ui@1.0.51
 If you prefer to install directly from GitHub:
 
 ```bash
-npm install git+ssh://git@github.com/NovigoTechnology/nvg-ui.git
-npm install git+ssh://git@github.com/NovigoTechnology/nvg-ui.git#v1.0.51
+yarn add git+ssh://git@github.com/NovigoTechnology/nvg-ui.git
+yarn add git+ssh://git@github.com/NovigoTechnology/nvg-ui.git#v1.0.51
 ```
 
 ## 🚀 Usage
@@ -79,34 +79,34 @@ export default {
 
 ### Prerequisites
 - Node.js 24+
-- npm
+- yarn
 
 ### Install dependencies
 
 ```bash
-npm install
+yarn install
 ```
 
 ### Available scripts
 
 ```bash
 # Development
-npm run dev              # Start development server
+yarn dev              # Start development server
 
 # Build
-npm run build            # Build library for production
+yarn build            # Build library for production
 
 # Linting and formatting
-npm run lint             # Run ESLint
-npm run lint:fix         # Fix ESLint errors automatically
-npm run format           # Format code with Prettier
-npm run format:check     # Check format without modifying
+yarn lint             # Run ESLint
+yarn lint:fix         # Fix ESLint errors automatically
+yarn format           # Format code with Prettier
+yarn format:check     # Check format without modifying
 
 # Versioning and release
-npm run version:patch    # Increment patch version (1.0.0 -> 1.0.1)
-npm run version:minor    # Increment minor version (1.0.0 -> 1.1.0)
-npm run version:major    # Increment major version (1.0.0 -> 2.0.0)
-npm run release          # Build + version patch + push + tags
+yarn version:patch    # Increment patch version (1.0.0 -> 1.0.1)
+yarn version:minor    # Increment minor version (1.0.0 -> 1.1.0)
+yarn version:major    # Increment major version (1.0.0 -> 2.0.0)
+yarn release          # Build + version patch + push + tags
 ```
 
 **Note:** The `dist/` folder is not versioned. CI/CD builds it automatically during the release process.
@@ -141,7 +141,7 @@ Automatically publishes to GitHub Packages when a tag is pushed:
 
 ```bash
 # To publish a new version:
-npm run release
+yarn release
 ```
 
 **Note:** The workflow uses `GITHUB_TOKEN` automatically (no manual secret configuration needed).
