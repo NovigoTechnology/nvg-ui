@@ -6,7 +6,7 @@
 
 - ✅ **100% Free** - No cost for private repositories
 - 🔒 **Secure** - Only repository collaborators have access
-- 🔑 **Single Authentication** - Use GitHub credentials (no separate npm account)
+- 🔑 **Single Authentication** - Use GitHub credentials (no separate registry account)
 - 🚀 **Fast** - Integrated with GitHub infrastructure
 - 🤖 **CI/CD Ready** - Automatic authentication in GitHub Actions
 
@@ -24,7 +24,7 @@
 
 1. Go to https://github.com/settings/tokens
 2. Click "Generate new token (classic)"
-3. Give it a descriptive name (e.g., "npm packages - nvg-ui")
+3. Give it a descriptive name (e.g., "GitHub Packages - nvg-ui")
 4. Select scopes:
    - ✅ `read:packages` (required to install)
    - ✅ `write:packages` (only if you need to publish)
@@ -32,9 +32,34 @@
 5. Click "Generate token"
 6. **Copy the token immediately** (you won't see it again)
 
-### 2. Configure npm authentication
+### 2. Configure yarn authentication
 
-**Option A: Global configuration (recommended for development)**
+**Option A: Project-specific with .npmrc (recommended for teams) ⭐**
+
+Create `.npmrc` in your project root and commit it to git:
+```ini
+@novigotechnology:registry=https://npm.pkg.github.com
+```
+
+Create `.npmrc.local` (DON'T commit this file - add to `.gitignore`):
+```ini
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN_HERE
+```
+
+Add to `.gitignore`:
+```
+.npmrc.local
+```
+
+Then configure yarn to use both files:
+```bash
+# This merges both .npmrc files when installing
+yarn config set --home enableGlobalCache false
+```
+
+Each developer creates their own `.npmrc.local` with their personal token. The registry configuration is shared via git.
+
+**Option B: Global configuration (for personal development)**
 
 ```bash
 # Add to ~/.npmrc
@@ -42,7 +67,7 @@ echo "@novigotechnology:registry=https://npm.pkg.github.com" >> ~/.npmrc
 echo "//npm.pkg.github.com/:_authToken=YOUR_TOKEN_HERE" >> ~/.npmrc
 ```
 
-**Option B: Project-specific configuration**
+**Option C: Project .npmrc with environment variable**
 
 Create `.npmrc` in your project:
 ```ini
@@ -55,13 +80,15 @@ Then export the token:
 export GITHUB_TOKEN=your_token_here
 ```
 
-**Option C: Using GitHub CLI (easiest)**
+You can commit this `.npmrc` to git safely (no secrets).
+
+**Option D: Using GitHub CLI (easiest for quick setup)**
 
 ```bash
 # Login with GitHub CLI
 gh auth login
 
-# Configure npm
+# Configure yarn
 echo "@novigotechnology:registry=https://npm.pkg.github.com" >> ~/.npmrc
 gh auth token | xargs -I {} echo "//npm.pkg.github.com/:_authToken={}" >> ~/.npmrc
 ```
@@ -163,11 +190,11 @@ echo "//npm.pkg.github.com/:_authToken=YOUR_TOKEN" >> ~/.npmrc
 ### Testing your configuration
 
 ```bash
-# Test authentication
-npm ping --registry=https://npm.pkg.github.com
-
 # Test package access
-npm view @novigotechnology/nvg-ui
+yarn info @novigotechnology/nvg-ui
+
+# Or check if you can resolve it
+yarn why @novigotechnology/nvg-ui
 ```
 
 ---

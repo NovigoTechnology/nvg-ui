@@ -25,6 +25,11 @@ jobs:
           scope: '@novigotechnology'
           cache: 'yarn'
 
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@1.22.22 --activate
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -35,7 +40,7 @@ jobs:
         run: yarn build
 
       - name: Publish to GitHub Packages
-        run: yarn publish
+        run: yarn publish --non-interactive --new-version ${{ github.ref_name }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NOVIGO_BOT_20250619 }}
 
@@ -53,7 +58,7 @@ jobs:
             Make sure you have configured GitHub Packages authentication (see [README.md](README.md#installation)):
 
             ```bash
-            npm install @novigotechnology/nvg-ui@${{ github.ref_name }}
+            yarn add @novigotechnology/nvg-ui@${{ github.ref_name }}
             ```
           files: |
             dist/nvg-ui.es.js

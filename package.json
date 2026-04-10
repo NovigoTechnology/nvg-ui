@@ -10,7 +10,7 @@
   "files": [
     "dist",
     "src/index.d.ts",
-    "scripts"
+    "scripts/preinstall.sh"
   ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
