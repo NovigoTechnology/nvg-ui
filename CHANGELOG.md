@@ -1,3 +1,11 @@
+## [1.4.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.4.1...v1.4.2) (2026-04-10)
+
+
+### Bug Fixes
+
+* update package.json and preinstall script to include scripts dir… ([#19](https://github.com/NovigoTechnology/nvg-ui/issues/19)) ([0d1a52a](https://github.com/NovigoTechnology/nvg-ui/commit/0d1a52a69fba35b2cf216d569bb407f4a8dba0b9))
+* update package.json and preinstall script to include scripts directory ([5d1e9cd](https://github.com/NovigoTechnology/nvg-ui/commit/5d1e9cdea77a534b14a901d24404ffa71678d908))
+
 ## [1.4.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.4.0...v1.4.1) (2026-04-10)
 
 
