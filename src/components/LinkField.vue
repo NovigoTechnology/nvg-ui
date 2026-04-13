@@ -52,7 +52,6 @@ const props = defineProps({
   doctype: { type: String, required: true },
   placeholder: { type: String, default: '' },
   disabled: { type: Boolean, default: false },
-  fullitem: { type: Boolean, default: false },
   filters: { type: Object, default: () => ({}) },
   query: { type: String, default: '' },
 });
@@ -137,18 +136,7 @@ const selectOption = async selectedOption => {
   inputValue.value = selectedOption.label || selectedOption.value;
   emit('update:modelValue', selectedOption.value);
 
-  if (props.fullitem) {
-    try {
-      const fullDoc = await call('frappe.client.get', {
-        doctype: props.doctype,
-        name: selectedOption.value,
-      });
-      emit('itemSelected', fullDoc);
-    } catch (error) {
-      console.error('Error fetching full document:', error);
-      emit('itemSelected', null);
-    }
-  }
+  emit('itemSelected', selectedOption.value);
 };
 
 const clear_input = (keepFocus = false) => {

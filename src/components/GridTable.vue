@@ -31,7 +31,6 @@
             @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
             @itemSelected="doc => onItemSelected(index, doc, column)"
             @clear-row="() => clearRowItems(data)"
-            :fullitem="true"
             :filters="column.filters"
             :query="column.query"
           />
@@ -143,7 +142,7 @@ const onFieldValueUpdate = (editingRow, index, field, value) => {
 };
 
 const onItemSelected = (index, doc, column) => {
-  const row = dataArray.value[index];
+const row = dataArray.value[index];
   if (!row) return;
 
   emit('itemSelected', { row, itemData: doc, column, index });
