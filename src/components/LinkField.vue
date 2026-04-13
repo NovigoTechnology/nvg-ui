@@ -52,7 +52,6 @@ const props = defineProps({
   doctype: { type: String, required: true },
   placeholder: { type: String, default: '' },
   disabled: { type: Boolean, default: false },
-  fullitem: { type: Boolean, default: false },
   filters: { type: Object, default: () => ({}) },
   query: { type: String, default: '' },
 });
@@ -137,9 +136,7 @@ const selectOption = async selectedOption => {
   inputValue.value = selectedOption.label || selectedOption.value;
   emit('update:modelValue', selectedOption.value);
 
-  if (props.fullitem) {
-    emit('itemSelected', selectedOption.value);
-  }
+  emit('itemSelected', selectedOption.value);
 };
 
 const clear_input = (keepFocus = false) => {

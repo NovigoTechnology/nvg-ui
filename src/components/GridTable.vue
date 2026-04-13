@@ -31,7 +31,6 @@
             @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
             @itemSelected="doc => onItemSelected(index, doc, column)"
             @clear-row="() => clearRowItems(data)"
-            :fullitem="true"
             :filters="column.filters"
             :query="column.query"
           />
