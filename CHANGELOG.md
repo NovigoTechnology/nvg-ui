@@ -1,3 +1,18 @@
+# [1.5.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.4.2...v1.5.0) (2026-04-13)
+
+
+### Bug Fixes
+
+* emit item ([#25](https://github.com/NovigoTechnology/nvg-ui/issues/25)) ([72f14af](https://github.com/NovigoTechnology/nvg-ui/commit/72f14af9508dbf46b6c7e093fd69a56c20dd0392))
+
+
+### Features
+
+* add logging to onItemSelected function in GridTable component ([00933cd](https://github.com/NovigoTechnology/nvg-ui/commit/00933cd7e1092b8302715723869ac5dd017d3ccf))
+* remove fullitem prop and simplify itemSelected emission in LinkField component ([a90b605](https://github.com/NovigoTechnology/nvg-ui/commit/a90b60522cd9f7dad520e7c96153cacde0c25a32))
+* simplify item selection handling in selectOption function ([394d0ae](https://github.com/NovigoTechnology/nvg-ui/commit/394d0aeaea26bcefb5cec68b230c4142838975d7))
+* streamline onItemSelected function by removing debug logging ([5ff290d](https://github.com/NovigoTechnology/nvg-ui/commit/5ff290de3f5b082b3fe769e35a65736a41e3f2b7))
+
 ## [1.4.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.4.1...v1.4.2) (2026-04-10)
 
 
