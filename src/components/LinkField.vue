@@ -138,16 +138,7 @@ const selectOption = async selectedOption => {
   emit('update:modelValue', selectedOption.value);
 
   if (props.fullitem) {
-    try {
-      const fullDoc = await call('frappe.client.get', {
-        doctype: props.doctype,
-        name: selectedOption.value,
-      });
-      emit('itemSelected', fullDoc);
-    } catch (error) {
-      console.error('Error fetching full document:', error);
-      emit('itemSelected', null);
-    }
+    emit('itemSelected', selectedOption.value);
   }
 };
 
