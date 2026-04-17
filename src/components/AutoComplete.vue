@@ -148,7 +148,6 @@ const suggestions = ref([]);
 const translatedSuggestions = ref([]);
 
 onMounted(() => {
-  clear_input();
   if (!props.quickEntry) {
     if (currentStore.value?.filters && currentStore.value.filters[props.field.fieldname]) {
       inputValue.value[props.field.fieldname] = currentStore.value.filters[props.field.fieldname];
@@ -277,7 +276,7 @@ watch(
 
 watch(
   () => inputValue.value[props.field.fieldname],
-  newValue => {
+  async newValue => {
     if (newValue === '') {
       clear_input(true);
       return;
@@ -333,7 +332,7 @@ const closeQuickEntry = () => {
   }
 };
 
-const clear_input = (keepFocus = false) => {
+const clear_input = async (keepFocus = false) => {
   if (props.quickEntry && props.useQuickEntryStore) {
     if (currentStore.value.fieldValues) {
       currentStore.value.fieldValues[props.field.fieldname] = null;
@@ -373,6 +372,9 @@ const clear_input = (keepFocus = false) => {
   if (!keepFocus) {
     refresh.value = !refresh.value;
   }
+
+  await getLinkOptions(props.field.options);
+  autoCompleteRef.value?.show();
 };
 
 const selectOption = (selectedOption, field) => {
