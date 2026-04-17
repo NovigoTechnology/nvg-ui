@@ -1,3 +1,17 @@
+# [1.6.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.5.0...v1.6.0) (2026-04-17)
+
+
+### Features
+
+* enhance clear_input and inputValue watch to refresh options on input clear ([a552991](https://github.com/NovigoTechnology/nvg-ui/commit/a55299155b8e674a36ff41ce6e7517459a8e0a9f))
+* enhance rowChange emission to include field and improve itemSelected handling in GridTable component ([e047aae](https://github.com/NovigoTechnology/nvg-ui/commit/e047aaef832963c85bad192bd943773f50a9746b))
+* enhance rowChange emission to include field and improve itemSelected handling in GridTable component ([#26](https://github.com/NovigoTechnology/nvg-ui/issues/26)) ([7f63c06](https://github.com/NovigoTechnology/nvg-ui/commit/7f63c06c603c5290065aec1f79547134ce907ec6))
+* invoke getLinkOptions in clear_input to refresh options on input clear ([5acb182](https://github.com/NovigoTechnology/nvg-ui/commit/5acb182347733bfe9bfa23867b6ac6d97c505aae))
+* make clear_input asynchronous and invoke getLinkOptions to refresh options ([b32cc34](https://github.com/NovigoTechnology/nvg-ui/commit/b32cc34ce5303faafe176f6864dd99d4faf7b43b))
+* refactor clear_input to invoke getLinkOptions and show autocomplete options ([efab2ee](https://github.com/NovigoTechnology/nvg-ui/commit/efab2ee76faf9c62b9b6c5de73a0f4dd7e7ae451))
+* update clear_input to be asynchronous and refresh options on input clear ([6d4a2ed](https://github.com/NovigoTechnology/nvg-ui/commit/6d4a2ed7cb9ddfef01b6adb6d5a509ca70610d50))
+* update clear_input to show autocomplete options instead of fetching link options ([f3479bd](https://github.com/NovigoTechnology/nvg-ui/commit/f3479bd4ca95b1872aa18bdbe03dfeae5e516491))
+
 # [1.5.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.4.2...v1.5.0) (2026-04-13)
 
 
