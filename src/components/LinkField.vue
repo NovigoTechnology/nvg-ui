@@ -77,6 +77,13 @@ watch(
   { immediate: true }
 );
 
+watch(inputValue, async newValue => {
+  if (newValue === '' && document.activeElement?.id === fieldname) {
+    await getLinkOptions(props.doctype);
+    autoCompleteRef.value?.show();
+  }
+});
+
 const getLinkOptions = async (doctype, searchText = '') => {
   const args = {
     doctype,
@@ -152,8 +159,6 @@ const clear_input = async (keepFocus = false) => {
   if (!keepFocus) {
     refresh.value = !refresh.value;
   }
-  await getLinkOptions(props.doctype);
-  autoCompleteRef.value?.show();
 };
 
 defineExpose({ clear_input });

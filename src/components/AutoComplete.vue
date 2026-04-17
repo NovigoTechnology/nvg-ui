@@ -277,9 +277,13 @@ watch(
 
 watch(
   () => inputValue.value[props.field.fieldname],
-  newValue => {
+  async newValue => {
     if (newValue === '') {
       clear_input(true);
+      if (document.activeElement?.id === props.field.fieldname) {
+        await getLinkOptions(props.field.options);
+        autoCompleteRef.value?.show();
+      }
       return;
     }
 
@@ -373,9 +377,6 @@ const clear_input = async (keepFocus = false) => {
   if (!keepFocus) {
     refresh.value = !refresh.value;
   }
-
-  await getLinkOptions(props.field.options);
-  autoCompleteRef.value?.show();
 };
 
 const selectOption = (selectedOption, field) => {
