@@ -31,7 +31,11 @@
         <div v-else>
           <strong>{{ slotProps.option.label }}</strong>
           <div
-            v-if="slotProps.option.description && (slotProps.option.isTitleLink || slotProps.option.value !== slotProps.option.description)"
+            v-if="
+              slotProps.option.description &&
+              (slotProps.option.isTitleLink ||
+                slotProps.option.value !== slotProps.option.description)
+            "
             class="text-sm text-color-secondary"
           >
             {{ slotProps.option.description }}
@@ -139,7 +143,7 @@ const selectOption = async selectedOption => {
   emit('itemSelected', selectedOption.value);
 };
 
-const clear_input = (keepFocus = false) => {
+const clear_input = async (keepFocus = false) => {
   inputValue.value = '';
   suggestions.value = [];
   translatedSuggestions.value = [];
@@ -148,6 +152,8 @@ const clear_input = (keepFocus = false) => {
   if (!keepFocus) {
     refresh.value = !refresh.value;
   }
+  await getLinkOptions(props.doctype);
+  autoCompleteRef.value?.show();
 };
 
 defineExpose({ clear_input });
