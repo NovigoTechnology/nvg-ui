@@ -137,12 +137,12 @@ const onFieldValueUpdate = (editingRow, index, field, value) => {
   if (row) {
     row[field] = value;
     emit('update:data', dataArray.value);
-    emit('rowChange', row);
+    emit('rowChange', row, field);
   }
 };
 
 const onItemSelected = (index, doc, column) => {
-const row = dataArray.value[index];
+  const row = dataArray.value[index];
   if (!row) return;
 
   emit('itemSelected', { row, itemData: doc, column, index });
