@@ -333,7 +333,7 @@ const closeQuickEntry = () => {
   }
 };
 
-const clear_input = (keepFocus = false) => {
+const clear_input = async (keepFocus = false) => {
   if (props.quickEntry && props.useQuickEntryStore) {
     if (currentStore.value.fieldValues) {
       currentStore.value.fieldValues[props.field.fieldname] = null;
@@ -374,9 +374,8 @@ const clear_input = (keepFocus = false) => {
     refresh.value = !refresh.value;
   }
 
+  await getLinkOptions(props.field.options);
   autoCompleteRef.value?.show();
-
-  // getLinkOptions(props.field.options);
 };
 
 const selectOption = (selectedOption, field) => {
