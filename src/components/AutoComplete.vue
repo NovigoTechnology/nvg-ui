@@ -373,6 +373,8 @@ const clear_input = (keepFocus = false) => {
   if (!keepFocus) {
     refresh.value = !refresh.value;
   }
+
+  getLinkOptions(props.field.options);
 };
 
 const selectOption = (selectedOption, field) => {
