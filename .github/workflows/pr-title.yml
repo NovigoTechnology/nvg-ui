@@ -6,7 +6,8 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
+  pull-requests: read
+  issues: write
 
 jobs:
   validate-pr-title:
@@ -21,11 +22,14 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Install commitlint
-        run: npm install --save-dev @commitlint/cli @commitlint/config-conventional
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
       - name: Validate PR title
-        run: echo "${{ github.event.pull_request.title }}" | npx commitlint
+        run: echo "${{ github.event.pull_request.title }}" | yarn commitlint
 
       - name: Comment on PR (if failed)
         if: failure()
