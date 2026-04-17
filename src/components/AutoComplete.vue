@@ -374,7 +374,9 @@ const clear_input = (keepFocus = false) => {
     refresh.value = !refresh.value;
   }
 
-  getLinkOptions(props.field.options);
+  autoCompleteRef.value?.show();
+
+  // getLinkOptions(props.field.options);
 };
 
 const selectOption = (selectedOption, field) => {
