@@ -148,7 +148,6 @@ const suggestions = ref([]);
 const translatedSuggestions = ref([]);
 
 onMounted(() => {
-  clear_input();
   if (!props.quickEntry) {
     if (currentStore.value?.filters && currentStore.value.filters[props.field.fieldname]) {
       inputValue.value[props.field.fieldname] = currentStore.value.filters[props.field.fieldname];
@@ -280,10 +279,6 @@ watch(
   async newValue => {
     if (newValue === '') {
       clear_input(true);
-      if (document.activeElement?.id === props.field.fieldname) {
-        await getLinkOptions(props.field.options);
-        autoCompleteRef.value?.show();
-      }
       return;
     }
 
@@ -377,6 +372,9 @@ const clear_input = async (keepFocus = false) => {
   if (!keepFocus) {
     refresh.value = !refresh.value;
   }
+
+  await getLinkOptions(props.field.options);
+  autoCompleteRef.value?.show();
 };
 
 const selectOption = (selectedOption, field) => {
