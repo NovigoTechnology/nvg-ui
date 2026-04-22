@@ -84,6 +84,7 @@ const props = defineProps({
   label: { type: String, default: '' },
   emptyMessage: { type: String, default: 'No Data' },
   filters: { type: Object, default: () => ({}) },
+  locale: { type: String, default: 'es-AR' },
 });
 
 const emit = defineEmits(['update:data', 'rowChange', 'rowAdd', 'rowRemove', 'itemSelected']);
@@ -165,17 +166,18 @@ const getProps = column => {
   if (column.type === 'Float' || column.type === 'Currency') {
     return {
       ...base,
-      locale: 'es-AR',
+      locale: props.locale,
       useGrouping: true,
       minFractionDigits: 2,
       maxFractionDigits: 2,
+      ...(column.prefix ? { prefix: column.prefix } : {}),
     };
   }
 
   if (column.type === 'Percent') {
     return {
       ...base,
-      locale: 'es-AR',
+      locale: props.locale,
       useGrouping: false,
       minFractionDigits: 2,
       maxFractionDigits: 2,
@@ -186,7 +188,7 @@ const getProps = column => {
   if (column.type === 'Int') {
     return {
       ...base,
-      locale: 'es-AR',
+      locale: props.locale,
       useGrouping: true,
       minFractionDigits: 0,
       maxFractionDigits: 0,
