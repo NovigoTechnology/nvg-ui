@@ -1,3 +1,11 @@
+# [1.7.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.6.0...v1.7.0) (2026-04-24)
+
+
+### Features
+
+* update locale handling in getProps to use dynamic prop value ([bfc0c16](https://github.com/NovigoTechnology/nvg-ui/commit/bfc0c160c5c931ddb5bb3ef0ca6ed5c82bcb5ff8))
+* update locale handling in getProps to use dynamic prop value ([#28](https://github.com/NovigoTechnology/nvg-ui/issues/28)) ([d5d4510](https://github.com/NovigoTechnology/nvg-ui/commit/d5d4510dee314534f9b2c495cb2fa36513169dfd))
+
 # [1.6.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.5.0...v1.6.0) (2026-04-17)
 
 
