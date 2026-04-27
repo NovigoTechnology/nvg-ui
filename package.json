@@ -51,7 +51,8 @@
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
-    "mitt": "^3.0.1"
+    "mitt": "^3.0.1",
+    "pinia": "^3.0.4"
   },
   "scripts": {
     "dev": "vite --config vite.config.js",
