@@ -41,7 +41,7 @@ import translatableLocale from './utils/primeLocale';
 import { groupFields } from './functions/groupFields';
 import { call, frappeCall } from './libs/frappe-ui';
 
-import { quickEntryStore } from './stores/exportStores';
+import { useQuickEntryStore } from './stores/quickEntryStore';
 
 const components = {
   GridTable,
@@ -79,7 +79,7 @@ const components = {
   call,
   frappeCall,
   translatableLocale,
-  quickEntryStore,
+  useQuickEntryStore,
 };
 
 export default {
@@ -139,5 +139,5 @@ export {
   call,
   frappeCall,
   translatableLocale,
-  quickEntryStore,
+  useQuickEntryStore,
 };
