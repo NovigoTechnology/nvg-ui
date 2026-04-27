@@ -1,6 +1,6 @@
 <template>
   <div class="form-field">
-    <div :class="{ 'field-with-buttons': showActions }">
+    <div :class="{ 'field-with-buttons': showAddButton || showEditButton }">
       <FloatLabel variant="on">
         <AutoComplete
           :field="fieldConfig"
@@ -8,6 +8,7 @@
           @clear-row="onClear"
           :query="props.query"
           :filters="fieldConfig.filters"
+          :invalid_fields="props.invalid"
         />
         <label :for="fieldConfig.fieldname">
           {{ label }}
@@ -16,7 +17,7 @@
       </FloatLabel>
 
       <!-- Action buttons (add/edit) -->
-      <template v-if="showActions">
+      <template v-if="showAddButton || showEditButton">
         <Button
           v-if="showAddButton"
           icon="pi pi-plus"
@@ -37,13 +38,10 @@
 </template>
 
 <script setup>
-import { computed, getCurrentInstance } from 'vue';
+import { computed } from 'vue';
 import AutoComplete from './AutoComplete.vue';
 import Button from 'primevue/button';
 import FloatLabel from 'primevue/floatlabel';
-
-const { appContext } = getCurrentInstance();
-const __ = appContext.config.globalProperties.__;
 
 const props = defineProps({
   /**
@@ -89,13 +87,6 @@ const props = defineProps({
     default: false,
   },
   /**
-   * Show action buttons (add/edit)
-   */
-  showActions: {
-    type: Boolean,
-    default: true,
-  },
-  /**
    * Show add button
    */
   showAddButton: {
@@ -134,6 +125,10 @@ const props = defineProps({
    * Custom query function for autocomplete
    */ query: {
     type: String,
+    default: null,
+  },
+  invalid: {
+    type: Boolean,
     default: false,
   },
 });

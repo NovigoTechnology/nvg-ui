@@ -69,6 +69,7 @@
               :show-add-button="false"
               :show-edit-button="false"
               @update:model-value="v => store.updateLinkValue(v, field)"
+              :invalid="store.missingFields.includes(field.label)"
             />
 
             <!-- Check -->
