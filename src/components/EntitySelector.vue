@@ -8,7 +8,7 @@
           @clear-row="onClear"
           :query="props.query"
           :filters="fieldConfig.filters"
-          :invalid_fields="props.invalid"
+          :invalid_fields="props.invalid ? [props.fieldname] : []"
         />
         <label :for="fieldConfig.fieldname">
           {{ label }}
