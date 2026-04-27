@@ -41,8 +41,6 @@ import translatableLocale from './utils/primeLocale';
 import { groupFields } from './functions/groupFields';
 import { call, frappeCall } from './libs/frappe-ui';
 
-import { useQuickEntryStore } from './stores/quickEntryStore';
-
 const components = {
   GridTable,
   AutoComplete,
@@ -138,5 +136,4 @@ export {
   call,
   frappeCall,
   translatableLocale,
-  useQuickEntryStore,
 };
