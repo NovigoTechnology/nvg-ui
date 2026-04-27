@@ -124,7 +124,7 @@ import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
 import Checkbox from 'primevue/checkbox';
 import Textarea from 'primevue/textarea';
-import EntitySelector from '../../shared/components/EntitySelector.vue';
+import EntitySelector from './EntitySelector.vue';
 import { useToast } from 'primevue/usetoast';
 
 const { appContext } = getCurrentInstance();
