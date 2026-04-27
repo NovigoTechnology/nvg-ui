@@ -79,7 +79,6 @@ const components = {
   call,
   frappeCall,
   translatableLocale,
-  useQuickEntryStore,
 };
 
 export default {
