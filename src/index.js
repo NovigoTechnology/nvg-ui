@@ -42,6 +42,7 @@ import { groupFields } from './functions/groupFields';
 import { call, frappeCall } from './libs/frappe-ui';
 
 import QuickEntry from './components/QuickEntry.vue';
+import EntitySelector from './components/EntitySelector.vue';
 
 const components = {
   GridTable,
@@ -80,6 +81,7 @@ const components = {
   frappeCall,
   translatableLocale,
   QuickEntry,
+  EntitySelector,
 };
 
 export default {
@@ -140,4 +142,5 @@ export {
   frappeCall,
   translatableLocale,
   QuickEntry,
+  EntitySelector,
 };
