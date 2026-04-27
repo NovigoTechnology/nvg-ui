@@ -53,6 +53,7 @@ export default defineConfig(({ command }) => {
           // Externalize dependencies to reduce bundle size
           external: [
             'vue',
+            'pinia',
             'primevue',
             /^primevue\/.*/, // All PrimeVue sub-imports
             '@primeuix/themes',
