@@ -41,6 +41,8 @@ import translatableLocale from './utils/primeLocale';
 import { groupFields } from './functions/groupFields';
 import { call, frappeCall } from './libs/frappe-ui';
 
+import QuickEntry from './components/QuickEntry.vue';
+
 const components = {
   GridTable,
   AutoComplete,
@@ -77,6 +79,7 @@ const components = {
   call,
   frappeCall,
   translatableLocale,
+  QuickEntry,
 };
 
 export default {
@@ -136,4 +139,5 @@ export {
   call,
   frappeCall,
   translatableLocale,
+  QuickEntry,
 };
