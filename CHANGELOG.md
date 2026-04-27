@@ -1,3 +1,17 @@
+# [1.8.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.7.0...v1.8.0) (2026-04-27)
+
+
+### Features
+
+* add EntitySelector component with autocomplete and action buttons ([a42533a](https://github.com/NovigoTechnology/nvg-ui/commit/a42533aed2bfc8b144a0d6f20442e090ce1f66f3))
+* add QuickEntry and EntitySelector components to the main index ([f02d5f5](https://github.com/NovigoTechnology/nvg-ui/commit/f02d5f5b0f37bca430a25431e11671168c7aef25))
+* enhance EntitySelector and QuickEntry components with invalid field handling ([1ce0f4c](https://github.com/NovigoTechnology/nvg-ui/commit/1ce0f4ced9ab57b907584df7468de0efa5f2515c))
+* enhance GridTable component with dynamic locale handling and improved row change event ([2557465](https://github.com/NovigoTechnology/nvg-ui/commit/2557465579b4210b3c4f12dd9a4fd2ea36051854))
+* enhance LinkField component with improved input clearing and description handling ([17f6b65](https://github.com/NovigoTechnology/nvg-ui/commit/17f6b6514f1452ca6a9fb7ca9e0c16896d777b0c))
+* implement QuickEntry component with dynamic fields and validation ([6c5c356](https://github.com/NovigoTechnology/nvg-ui/commit/6c5c356811ff8db238116228f9ecf5dde3bd9cac))
+* quickentry ([#32](https://github.com/NovigoTechnology/nvg-ui/issues/32)) ([8ac2b67](https://github.com/NovigoTechnology/nvg-ui/commit/8ac2b67eb63c775c99486a67fcbb8f1ea28c5008))
+* update invalid field handling in EntitySelector component ([ebdd4e2](https://github.com/NovigoTechnology/nvg-ui/commit/ebdd4e28e331e930d4b7ab6f62f4518d930bc171))
+
 # [1.7.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.6.0...v1.7.0) (2026-04-24)
 
 
