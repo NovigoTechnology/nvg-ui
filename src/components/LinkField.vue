@@ -12,7 +12,7 @@
       fluid
       :disabled="props.disabled"
       :dropdown="!!inputValue"
-      @update:modelValue="e => e === '' && clear_input()"
+      @update:modelValue="e => e === '' && clear_input(true)"
       @option-select="e => selectOption(e.value)"
       :optionLabel="option => option.label || option.value"
       forceSelection
@@ -29,8 +29,17 @@
           <strong>{{ slotProps.option.value }}</strong>
         </div>
         <div v-else>
-          <strong>{{ slotProps.option.label ? __(slotProps.option.label) : '' }}</strong>
-          <div>{{ slotProps.option.description ? __(slotProps.option.description) : '' }}</div>
+          <strong>{{ slotProps.option.label }}</strong>
+          <div
+            v-if="
+              slotProps.option.description &&
+              (slotProps.option.isTitleLink ||
+                slotProps.option.value !== slotProps.option.description)
+            "
+            class="text-sm text-color-secondary"
+          >
+            {{ slotProps.option.description }}
+          </div>
         </div>
       </template>
     </AutoComplete>
@@ -47,7 +56,6 @@ const props = defineProps({
   doctype: { type: String, required: true },
   placeholder: { type: String, default: '' },
   disabled: { type: Boolean, default: false },
-  fullitem: { type: Boolean, default: false },
   filters: { type: Object, default: () => ({}) },
   query: { type: String, default: '' },
 });
@@ -85,42 +93,68 @@ const getLinkOptions = async (doctype, searchText = '') => {
 
   if (r) {
     suggestions.value = r;
-    translatedSuggestions.value = r.map(item => ({
-      label: item.label ? __(item.label) : '',
-      description: item.description ? __(item.description) : '',
-      value: item.value,
-    }));
+    const isTitleLink = (window.frappe?.boot?.link_title_doctypes || []).includes(doctype);
+
+    translatedSuggestions.value = mergeDuplicates(
+      r.map(item => {
+        const translatedLabel = item.label ? __(item.label) : __(item.value);
+
+        const descriptionParts = (item.description || '')
+          .split(',')
+          .map(s => __(s.trim()))
+          .filter(Boolean);
+        const uniqueParts = [...new Set(descriptionParts)].filter(
+          s => s.toLowerCase() !== translatedLabel.toLowerCase()
+        );
+        const filteredDescription = uniqueParts.join(', ');
+
+        return {
+          label: translatedLabel,
+          description: filteredDescription,
+          value: item.value,
+          isTitleLink,
+        };
+      })
+    );
   } else {
     suggestions.value = [];
     translatedSuggestions.value = [];
   }
 };
 
+const mergeDuplicates = results =>
+  results.reduce((acc, curr) => {
+    const existing = acc.find(r => r.value === curr.value);
+    if (existing) {
+      if (curr.description) {
+        existing.description = existing.description
+          ? `${existing.description}, ${curr.description}`
+          : curr.description;
+      }
+      return acc;
+    }
+    return [...acc, curr];
+  }, []);
+
 const selectOption = async selectedOption => {
   inputValue.value = selectedOption.label || selectedOption.value;
   emit('update:modelValue', selectedOption.value);
 
-  if (props.fullitem) {
-    try {
-      const fullDoc = await call('frappe.client.get', {
-        doctype: props.doctype,
-        name: selectedOption.value,
-      });
-      emit('itemSelected', fullDoc);
-    } catch (error) {
-      console.error('Error fetching full document:', error);
-      emit('itemSelected', null);
-    }
-  }
+  emit('itemSelected', selectedOption.value);
 };
 
-const clear_input = () => {
+const clear_input = async (keepFocus = false) => {
   inputValue.value = '';
   suggestions.value = [];
   translatedSuggestions.value = [];
   emit('update:modelValue', '');
   emit('clearRow');
-  refresh.value = !refresh.value;
+  if (!keepFocus) {
+    refresh.value = !refresh.value;
+  }
+
+  await getLinkOptions(props.doctype);
+  autoCompleteRef.value?.show();
 };
 
 defineExpose({ clear_input });
