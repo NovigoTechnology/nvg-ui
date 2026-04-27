@@ -31,8 +31,8 @@
             @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
             @itemSelected="doc => onItemSelected(index, doc, column)"
             @clear-row="() => clearRowItems(data)"
-            :fullitem="true"
             :filters="column.filters"
+            :query="column.query"
           />
           <component
             v-else
@@ -84,6 +84,7 @@ const props = defineProps({
   label: { type: String, default: '' },
   emptyMessage: { type: String, default: 'No Data' },
   filters: { type: Object, default: () => ({}) },
+  locale: { type: String, default: 'es-AR' },
 });
 
 const emit = defineEmits(['update:data', 'rowChange', 'rowAdd', 'rowRemove', 'itemSelected']);
@@ -137,7 +138,7 @@ const onFieldValueUpdate = (editingRow, index, field, value) => {
   if (row) {
     row[field] = value;
     emit('update:data', dataArray.value);
-    emit('rowChange', row);
+    emit('rowChange', row, field);
   }
 };
 
@@ -165,17 +166,18 @@ const getProps = column => {
   if (column.type === 'Float' || column.type === 'Currency') {
     return {
       ...base,
-      locale: 'es-AR',
+      locale: props.locale,
       useGrouping: true,
       minFractionDigits: 2,
       maxFractionDigits: 2,
+      ...(column.prefix ? { prefix: column.prefix } : {}),
     };
   }
 
   if (column.type === 'Percent') {
     return {
       ...base,
-      locale: 'es-AR',
+      locale: props.locale,
       useGrouping: false,
       minFractionDigits: 2,
       maxFractionDigits: 2,
@@ -186,7 +188,7 @@ const getProps = column => {
   if (column.type === 'Int') {
     return {
       ...base,
-      locale: 'es-AR',
+      locale: props.locale,
       useGrouping: true,
       minFractionDigits: 0,
       maxFractionDigits: 0,
