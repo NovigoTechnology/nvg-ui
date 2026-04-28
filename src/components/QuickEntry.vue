@@ -106,10 +106,6 @@
                 {{ __(field.label) }}<span v-if="field.reqd" class="required">*</span>
               </label>
             </FloatLabel>
-
-            <small v-if="store.fieldErrors[field.fieldname]" class="field-error">
-              {{ store.fieldErrors[field.fieldname] }}
-            </small>
           </div>
         </div>
       </div>
