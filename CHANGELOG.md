@@ -1,3 +1,12 @@
+# [1.9.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.8.0...v1.9.0) (2026-04-28)
+
+
+### Features
+
+* enhance QuickEntry component with improved validation error handling ([541cecb](https://github.com/NovigoTechnology/nvg-ui/commit/541cecbd064e74806c05743077909bcc85cbe269))
+* remove redundant error message display in QuickEntry component ([86a2759](https://github.com/NovigoTechnology/nvg-ui/commit/86a27594bc108e82c7f344d3760f5e945202500e))
+* validations ([#34](https://github.com/NovigoTechnology/nvg-ui/issues/34)) ([2be1c7a](https://github.com/NovigoTechnology/nvg-ui/commit/2be1c7aad04f4ad92ca04a3612ac971e9bd179f8))
+
 # [1.8.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.7.0...v1.8.0) (2026-04-27)
 
 
