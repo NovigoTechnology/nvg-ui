@@ -32,7 +32,9 @@
                 :id="field.fieldname"
                 :model-value="store.fieldValues[field.fieldname]"
                 @input="store.updateValue($event, field)"
-                :invalid="store.missingFields.includes(field.label)"
+                :invalid="
+                  store.missingFields.includes(field.label) || !!store.fieldErrors[field.fieldname]
+                "
                 fluid
                 size="small"
               />
@@ -49,7 +51,9 @@
                 :options="store.getSelectOptions(field)"
                 option-label="label"
                 option-value="value"
-                :invalid="store.missingFields.includes(field.label)"
+                :invalid="
+                  store.missingFields.includes(field.label) || !!store.fieldErrors[field.fieldname]
+                "
                 fluid
                 size="small"
               />
@@ -69,7 +73,9 @@
               :show-add-button="false"
               :show-edit-button="false"
               @update:model-value="v => store.updateLinkValue(v, field)"
-              :invalid="store.missingFields.includes(field.label)"
+              :invalid="
+                store.missingFields.includes(field.label) || !!store.fieldErrors[field.fieldname]
+              "
             />
 
             <!-- Check -->
@@ -146,6 +152,13 @@ const onSave = async () => {
         severity: 'warn',
         summary: __('Required fields'),
         detail: __('Please fill: {0}', [result.missingFields.join(', ')]),
+        life: 4000,
+      });
+    } else if (result.fieldErrors && Object.keys(result.fieldErrors).length) {
+      toast.add({
+        severity: 'warn',
+        summary: __('Validation error'),
+        detail: Object.values(result.fieldErrors).join(' · '),
         life: 4000,
       });
     } else {
@@ -247,5 +260,11 @@ const onSave = async () => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.field-error {
+  color: var(--p-red-500);
+  font-size: 0.75rem;
+  margin-top: 0.15rem;
 }
 </style>
