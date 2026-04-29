@@ -1,63 +1,66 @@
 <template>
-  <div class="flex items-center mb-2">
-    <label>{{ __(props.field.label) }}</label>
-    <span
-      v-if="props.field.required || props.field.reqd"
-      style="color: #eb9091; margin-left: 0.5rem"
-      >*</span
-    >
-  </div>
-  <div class="phone-inputs">
-    <Select
-      v-model="selectedCountry"
-      :options="countries"
-      filter
-      optionLabel="name"
-      size="small"
-      :disabled="props.disabled"
-      :invalid="invalidPhone"
-    >
-      <template #dropdownicon>
-        <div></div>
-      </template>
+  <FloatLabel variant="on">
+    <div class="phone-inputs">
+      <Select
+        v-model="selectedCountry"
+        :options="countries"
+        filter
+        optionLabel="name"
+        size="small"
+        :disabled="props.disabled"
+        :invalid="invalidPhone"
+      >
+        <template #dropdownicon>
+          <div></div>
+        </template>
 
-      <template #value="slotProps">
-        <div v-if="slotProps.value" class="flex items-center">
-          <div>
-            <svg class="icon icon-sm flag-icon">
-              <use :href="`#icon-${slotProps.value.code}`"></use>
-            </svg>
-          </div>
-          <div>{{ slotProps.value.isd }}</div>
-        </div>
-      </template>
-
-      <template #option="slotProps">
-        <div class="flex items-center gap-2">
-          <div class="flex items-center w-24">
+        <template #value="slotProps">
+          <div v-if="slotProps.value" class="flex items-center">
             <div>
               <svg class="icon icon-sm flag-icon">
-                <use :href="`#icon-${slotProps.option.code}`"></use>
+                <use :href="`#icon-${slotProps.value.code}`"></use>
               </svg>
             </div>
-            <div class="isd-code">{{ slotProps.option.isd }}</div>
+            <div>{{ slotProps.value.isd }}</div>
           </div>
-          <span class="country-name">{{ __(slotProps.option.country) }}</span>
-        </div>
-      </template>
-    </Select>
+        </template>
 
-    <InputText
-      :value="phoneNumber"
-      :disabled="!selectedCountry || props.disabled"
-      size="small"
-      fluid
-      @input="phoneNumberFormatter($event, props.field)"
-      :placeholder="field.placeholder || field.label"
-      :invalid="invalidPhone"
-      @blur="handleBlur(props.field)"
-    />
-  </div>
+        <template #option="slotProps">
+          <div class="flex items-center gap-2">
+            <div class="flex items-center w-24">
+              <div>
+                <svg class="icon icon-sm flag-icon">
+                  <use :href="`#icon-${slotProps.option.code}`"></use>
+                </svg>
+              </div>
+              <div class="isd-code">{{ slotProps.option.isd }}</div>
+            </div>
+            <span class="country-name">{{ __(slotProps.option.country) }}</span>
+          </div>
+        </template>
+      </Select>
+
+      <InputText
+        :value="phoneNumber"
+        :disabled="!selectedCountry || props.disabled"
+        size="small"
+        fluid
+        @input="phoneNumberFormatter($event, props.field)"
+        :placeholder="field.placeholder || field.label"
+        :invalid="invalidPhone"
+        @blur="handleBlur(props.field)"
+      />
+    </div>
+
+    <div class="flex items-center mb-2">
+      <label>{{ __(props.field.label) }}</label>
+      <span
+        v-if="props.field.required || props.field.reqd"
+        style="color: #eb9091; margin-left: 0.5rem"
+        >*</span
+      >
+    </div>
+  </FloatLabel>
 </template>
 
 <script setup>
