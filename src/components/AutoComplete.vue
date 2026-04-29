@@ -176,22 +176,19 @@ onMounted(() => {
 
 watch(
   () => props.field.value,
-  newValue => {
+  async newValue => {
     if (newValue) {
-      inputValue.value[props.field.fieldname] = newValue;
-
+      const current = inputValue.value[props.field.fieldname];
+      if (current && current !== newValue) {
+        emit('update-data', newValue, props.field);
+        return;
+      }
+      const results = await fetchLinkResults(props.field.options, {}, newValue);
+      const match = results?.find(r => r.value === newValue);
+      inputValue.value[props.field.fieldname] = match?.label ? __(match.label) : newValue;
       emit('update-data', newValue, props.field);
     } else {
       inputValue.value[props.field.fieldname] = newValue;
-      getLinkOptions(props.field.options, {}, '').then(() => {
-        const matchedOption = suggestions.value;
-        // if (matchedOption) {
-        //   inputValue.value[props.field.fieldname] = matchedOption.label || matchedOption.value;
-        // } else {
-        //   inputValue.value[props.field.fieldname] = newValue;
-        // }
-        console.log(matchedOption);
-      });
     }
   },
   { immediate: true }
@@ -451,7 +448,7 @@ const selectOption = (selectedOption, field) => {
   }
 };
 
-const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
+const fetchLinkResults = async (doctype, filters = {}, searchText = '') => {
   let finalFilters = { ...filters };
 
   if (props.filters && Object.keys(props.filters).length > 0) {
@@ -480,7 +477,11 @@ const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
     args.query = props.query;
   }
 
-  const r = await call('frappe.desk.search.search_link', args);
+  return await call('frappe.desk.search.search_link', args);
+};
+
+const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
+  const r = await fetchLinkResults(doctype, filters, searchText);
 
   if (r) {
     suggestions.value = r;
