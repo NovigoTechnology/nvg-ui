@@ -46,7 +46,6 @@
         size="small"
         fluid
         @input="phoneNumberFormatter($event, props.field)"
-        :placeholder="field.placeholder || field.label"
         :invalid="invalidPhone"
         @blur="handleBlur(props.field)"
       />
