@@ -1,3 +1,34 @@
+# [1.10.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.9.0...v1.10.0) (2026-04-29)
+
+
+### Bug Fixes
+
+* issues ([#35](https://github.com/NovigoTechnology/nvg-ui/issues/35)) ([b45a0a9](https://github.com/NovigoTechnology/nvg-ui/commit/b45a0a9d6a49f478516969425540286717e9246d))
+* remove lock ([c5c767a](https://github.com/NovigoTechnology/nvg-ui/commit/c5c767adcd262cb77ae29f25ceec7b82268cc59e))
+* yarn ([1e076d1](https://github.com/NovigoTechnology/nvg-ui/commit/1e076d11311cde4c3b89d42caaed1e48d744a10a))
+
+
+### Features
+
+* add console log for debugging AutoComplete component mounting ([d690136](https://github.com/NovigoTechnology/nvg-ui/commit/d6901366fdb0f47416a42171ac3143a735062ab4))
+* add console log for debugging AutoComplete rendering ([7c24577](https://github.com/NovigoTechnology/nvg-ui/commit/7c245777eb533fb2392565e758eb73409d4dac8c))
+* add logging for matched option in AutoComplete data update ([c57ec87](https://github.com/NovigoTechnology/nvg-ui/commit/c57ec87f83be2d37f87a7921b83807c44e04b6be))
+* add Phone component to QuickEntry for enhanced phone number input handling ([b360b3a](https://github.com/NovigoTechnology/nvg-ui/commit/b360b3a0df53fd9e9ffa0ad2bf63abc658d7ade1))
+* bind phoneNumber to FloatLabel component for two-way data binding ([700b1f7](https://github.com/NovigoTechnology/nvg-ui/commit/700b1f7a53f84c49088b2625a72b6809633fc135))
+* enhance AutoComplete component by improving input clearing logic ([c3208be](https://github.com/NovigoTechnology/nvg-ui/commit/c3208beafbb885c8c621c5c7bfcaf36a5921093b))
+* enhance field value watch logic in AutoComplete component ([31c9929](https://github.com/NovigoTechnology/nvg-ui/commit/31c9929761d3faa56ed1948ef21d2724991b1f00))
+* enhance phone number validation logic for improved accuracy ([048c22e](https://github.com/NovigoTechnology/nvg-ui/commit/048c22e1de42b7a6418838603f4368e36798bd22))
+* import FloatLabel component in Phone.vue for consistent styling ([89fc4fd](https://github.com/NovigoTechnology/nvg-ui/commit/89fc4fd6f4de6d6c27334d6cff1f162285b7c501))
+* refactor data fetching logic in AutoComplete component ([0ba4ce5](https://github.com/NovigoTechnology/nvg-ui/commit/0ba4ce55ad06780cf95ff490e9b2d7317aeb15c7))
+* refactor Phone component layout for improved structure and readability ([3d22241](https://github.com/NovigoTechnology/nvg-ui/commit/3d222418b11f0328a7885ee01898a39bed88e43a))
+* refactor watch logic for field value updates in AutoComplete component ([11cf64a](https://github.com/NovigoTechnology/nvg-ui/commit/11cf64a1cb33e8a26b6a8d59d2f705690fefcb80))
+* remove console log from AutoComplete component on mount ([0bda268](https://github.com/NovigoTechnology/nvg-ui/commit/0bda2682e1115471418c0a21d9ba91ec0ee30a3f))
+* remove placeholder from Phone component input for cleaner UI ([7e26689](https://github.com/NovigoTechnology/nvg-ui/commit/7e26689eb8309e5b0bb518b79aec43c5c2897fda))
+* restructure Phone component template for improved layout and readability ([2bab270](https://github.com/NovigoTechnology/nvg-ui/commit/2bab27040c66fb4f96dbf47c52ee76e376b1d05a))
+* simplify label rendering in Phone component for improved accessibility ([6e5e5b5](https://github.com/NovigoTechnology/nvg-ui/commit/6e5e5b5ff71a9aa22f63dfdaa96179128001be7b))
+* streamline AutoComplete component by simplifying dropdown logic and emit definitions ([a28cee4](https://github.com/NovigoTechnology/nvg-ui/commit/a28cee4d78edfe1ba0ad71ecea9418b72ea125ad))
+* update matched option logic in AutoComplete component ([a5e7313](https://github.com/NovigoTechnology/nvg-ui/commit/a5e731309ed157d873b5fe81c087f08e3d0ff9aa))
+
 # [1.9.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.8.0...v1.9.0) (2026-04-28)
 
 
