@@ -175,6 +175,26 @@ onMounted(() => {
 });
 
 watch(
+  () => props.field.value,
+  async newValue => {
+    if (newValue) {
+      const current = inputValue.value[props.field.fieldname];
+      if (current && current !== newValue) {
+        emit('update-data', newValue, props.field);
+        return;
+      }
+      const results = await fetchLinkResults(props.field.options, {}, newValue);
+      const match = results?.find(r => r.value === newValue);
+      inputValue.value[props.field.fieldname] = match?.label ? __(match.label) : newValue;
+      emit('update-data', newValue, props.field);
+    } else {
+      inputValue.value[props.field.fieldname] = newValue;
+    }
+  },
+  { immediate: true }
+);
+
+watch(
   () => props.clearFilters,
   newValue => {
     if (!newValue) return;
@@ -428,7 +448,7 @@ const selectOption = (selectedOption, field) => {
   }
 };
 
-const fetchLinkResults = async (doctype, filters = {}, searchText = '') => {
+async function fetchLinkResults(doctype, filters = {}, searchText = '') {
   let finalFilters = { ...filters };
 
   if (props.filters && Object.keys(props.filters).length > 0) {
@@ -458,9 +478,9 @@ const fetchLinkResults = async (doctype, filters = {}, searchText = '') => {
   }
 
   return await call('frappe.desk.search.search_link', args);
-};
+}
 
-const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
+async function getLinkOptions(doctype, filters = {}, searchText = '') {
   const r = await fetchLinkResults(doctype, filters, searchText);
 
   if (r) {
@@ -492,7 +512,7 @@ const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
     suggestions.value = [];
     translatedSuggestions.value = [];
   }
-};
+}
 
 const mergeDuplicates = results =>
   results.reduce((acc, curr) => {
@@ -521,26 +541,6 @@ onUnmounted(() => {
     clear_input();
   }
 });
-
-watch(
-  () => props.field.value,
-  async newValue => {
-    if (newValue) {
-      const current = inputValue.value[props.field.fieldname];
-      if (current && current !== newValue) {
-        emit('update-data', newValue, props.field);
-        return;
-      }
-      const results = await fetchLinkResults(props.field.options, {}, newValue);
-      const match = results?.find(r => r.value === newValue);
-      inputValue.value[props.field.fieldname] = match?.label ? __(match.label) : newValue;
-      emit('update-data', newValue, props.field);
-    } else {
-      inputValue.value[props.field.fieldname] = newValue;
-    }
-  },
-  { immediate: true }
-);
 
 watch(
   () =>
