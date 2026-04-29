@@ -43,6 +43,7 @@ import { call, frappeCall } from './libs/frappe-ui';
 
 import QuickEntry from './components/QuickEntry.vue';
 import EntitySelector from './components/EntitySelector.vue';
+import Phone from './components/Phone.vue';
 
 const components = {
   GridTable,
@@ -82,6 +83,7 @@ const components = {
   translatableLocale,
   QuickEntry,
   EntitySelector,
+  Phone,
 };
 
 export default {
@@ -143,4 +145,5 @@ export {
   translatableLocale,
   QuickEntry,
   EntitySelector,
+  Phone,
 };

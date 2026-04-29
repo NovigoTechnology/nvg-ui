@@ -89,6 +89,25 @@
               <label :for="field.fieldname">{{ __(field.label) }}</label>
             </div>
 
+            <!-- Phone -->
+            <Phone
+              v-else-if="field.fieldtype === 'Phone'"
+              :field="{ ...field, value: store.fieldValues[field.fieldname] }"
+              :store="store"
+              @update-phone="
+                val => {
+                  store.fieldValues[field.fieldname] = val;
+                  delete store.fieldErrors[field.fieldname];
+                }
+              "
+              @invalid-phone="
+                (invalid, f, _, msg) => {
+                  if (invalid) store.fieldErrors[f.fieldname] = msg;
+                  else delete store.fieldErrors[f.fieldname];
+                }
+              "
+            />
+
             <!-- Small Text / Text -->
             <FloatLabel
               v-else-if="field.fieldtype === 'Small Text' || field.fieldtype === 'Text'"
@@ -132,6 +151,7 @@ import Select from 'primevue/select';
 import Checkbox from 'primevue/checkbox';
 import Textarea from 'primevue/textarea';
 import EntitySelector from './EntitySelector.vue';
+import Phone from './Phone.vue';
 import { useToast } from 'primevue/usetoast';
 
 const { appContext } = getCurrentInstance();
