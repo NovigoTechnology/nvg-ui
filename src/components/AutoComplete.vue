@@ -175,26 +175,6 @@ onMounted(() => {
 });
 
 watch(
-  () => props.field.value,
-  async newValue => {
-    if (newValue) {
-      const current = inputValue.value[props.field.fieldname];
-      if (current && current !== newValue) {
-        emit('update-data', newValue, props.field);
-        return;
-      }
-      const results = await fetchLinkResults(props.field.options, {}, newValue);
-      const match = results?.find(r => r.value === newValue);
-      inputValue.value[props.field.fieldname] = match?.label ? __(match.label) : newValue;
-      emit('update-data', newValue, props.field);
-    } else {
-      inputValue.value[props.field.fieldname] = newValue;
-    }
-  },
-  { immediate: true }
-);
-
-watch(
   () => props.clearFilters,
   newValue => {
     if (!newValue) return;
@@ -541,6 +521,26 @@ onUnmounted(() => {
     clear_input();
   }
 });
+
+watch(
+  () => props.field.value,
+  async newValue => {
+    if (newValue) {
+      const current = inputValue.value[props.field.fieldname];
+      if (current && current !== newValue) {
+        emit('update-data', newValue, props.field);
+        return;
+      }
+      const results = await fetchLinkResults(props.field.options, {}, newValue);
+      const match = results?.find(r => r.value === newValue);
+      inputValue.value[props.field.fieldname] = match?.label ? __(match.label) : newValue;
+      emit('update-data', newValue, props.field);
+    } else {
+      inputValue.value[props.field.fieldname] = newValue;
+    }
+  },
+  { immediate: true }
+);
 
 watch(
   () =>
