@@ -48,6 +48,7 @@
         @input="phoneNumberFormatter($event, props.field)"
         :invalid="invalidPhone"
         @blur="handleBlur(props.field)"
+        :model-value="phoneNumber"
       />
       <label :for="props.field.fieldname">{{ __(props.field.label) }}</label>
     </FloatLabel>
