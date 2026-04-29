@@ -1,45 +1,45 @@
 <template>
-  <FloatLabel variant="on">
-    <div class="phone-inputs">
-      <Select
-        v-model="selectedCountry"
-        :options="countries"
-        filter
-        optionLabel="name"
-        size="small"
-        :disabled="props.disabled"
-        :invalid="invalidPhone"
-      >
-        <template #dropdownicon>
-          <div></div>
-        </template>
+  <div class="phone-inputs">
+    <Select
+      v-model="selectedCountry"
+      :options="countries"
+      filter
+      optionLabel="name"
+      size="small"
+      :disabled="props.disabled"
+      :invalid="invalidPhone"
+    >
+      <template #dropdownicon>
+        <div></div>
+      </template>
 
-        <template #value="slotProps">
-          <div v-if="slotProps.value" class="flex items-center">
+      <template #value="slotProps">
+        <div v-if="slotProps.value" class="flex items-center">
+          <div>
+            <svg class="icon icon-sm flag-icon">
+              <use :href="`#icon-${slotProps.value.code}`"></use>
+            </svg>
+          </div>
+          <div>{{ slotProps.value.isd }}</div>
+        </div>
+      </template>
+
+      <template #option="slotProps">
+        <div class="flex items-center gap-2">
+          <div class="flex items-center w-24">
             <div>
               <svg class="icon icon-sm flag-icon">
-                <use :href="`#icon-${slotProps.value.code}`"></use>
+                <use :href="`#icon-${slotProps.option.code}`"></use>
               </svg>
             </div>
-            <div>{{ slotProps.value.isd }}</div>
+            <div class="isd-code">{{ slotProps.option.isd }}</div>
           </div>
-        </template>
+          <span class="country-name">{{ __(slotProps.option.country) }}</span>
+        </div>
+      </template>
+    </Select>
 
-        <template #option="slotProps">
-          <div class="flex items-center gap-2">
-            <div class="flex items-center w-24">
-              <div>
-                <svg class="icon icon-sm flag-icon">
-                  <use :href="`#icon-${slotProps.option.code}`"></use>
-                </svg>
-              </div>
-              <div class="isd-code">{{ slotProps.option.isd }}</div>
-            </div>
-            <span class="country-name">{{ __(slotProps.option.country) }}</span>
-          </div>
-        </template>
-      </Select>
-
+    <FloatLabel variant="on">
       <InputText
         :value="phoneNumber"
         :disabled="!selectedCountry || props.disabled"
@@ -50,10 +50,9 @@
         :invalid="invalidPhone"
         @blur="handleBlur(props.field)"
       />
-    </div>
-
-    <label :for="props.field.fieldname">{{ __(props.field.label) }}</label>
-  </FloatLabel>
+      <label :for="props.field.fieldname">{{ __(props.field.label) }}</label>
+    </FloatLabel>
+  </div>
 </template>
 
 <script setup>
