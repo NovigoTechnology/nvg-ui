@@ -19,9 +19,7 @@
           @update:modelValue="e => e === '' && clear_input()"
           @option-select="e => selectOption(e.value, props.field)"
           :optionLabel="option => option.label || option.description || option.value"
-          :dropdown="
-            !inputValue[props.field.fieldname] === '' && inputValue[props.field.fieldname]
-          "
+          :dropdown="!inputValue[props.field.fieldname] === '' && inputValue[props.field.fieldname]"
           :invalid="
             (invalid_fields?.includes(props.field.fieldname) ||
               invalid_fields?.includes(props.field.label)) &&
@@ -126,12 +124,7 @@ const props = defineProps({
   filter_list: String,
 });
 
-const emit = defineEmits([
-  'update-autocomplete-value',
-  'update-filter',
-  'update-data',
-  'clearRow',
-]);
+const emit = defineEmits(['update-autocomplete-value', 'update-filter', 'update-data', 'clearRow']);
 
 const store = props.store;
 
@@ -152,7 +145,6 @@ const suggestions = ref([]);
 const translatedSuggestions = ref([]);
 
 onMounted(() => {
-  clear_input();
   if (!props.quickEntry) {
     if (currentStore.value?.filters && currentStore.value.filters[props.field.fieldname]) {
       inputValue.value[props.field.fieldname] = currentStore.value.filters[props.field.fieldname];
@@ -500,7 +492,6 @@ const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
     translatedSuggestions.value = [];
   }
 };
-
 
 onUnmounted(() => {
   if (props.field.dependingField) {
