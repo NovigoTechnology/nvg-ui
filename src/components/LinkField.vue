@@ -77,6 +77,7 @@ watch(
   { immediate: true }
 );
 
+
 const getLinkOptions = async (doctype, searchText = '') => {
   const args = {
     doctype,
