@@ -148,7 +148,6 @@ const suggestions = ref([]);
 const translatedSuggestions = ref([]);
 
 onMounted(() => {
-  console.log('mounted AutoComplete', props);
   if (!props.quickEntry) {
     if (currentStore.value?.filters && currentStore.value.filters[props.field.fieldname]) {
       inputValue.value[props.field.fieldname] = currentStore.value.filters[props.field.fieldname];
