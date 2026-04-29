@@ -69,6 +69,7 @@ import Select from 'primevue/select';
 import InputText from 'primevue/inputtext';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import { debounce } from 'lodash-es';
+import { FloatLabel } from 'primevue';
 
 const props = defineProps({
   disabled: Boolean,
