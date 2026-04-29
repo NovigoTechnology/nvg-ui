@@ -1,6 +1,9 @@
 <template>
   <div>
     <div :class="{ flex: props.field.quick_entry }" class="relative">
+      {{
+        console.log('render AutoComplete', props.field.fieldname, inputValue[props.field.fieldname])
+      }}
       <FloatLabel variant="on">
         <AutoComplete
           v-model="inputValue[props.field.fieldname]"
