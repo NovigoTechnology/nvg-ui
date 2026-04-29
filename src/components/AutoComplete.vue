@@ -179,9 +179,19 @@ watch(
   newValue => {
     if (newValue) {
       inputValue.value[props.field.fieldname] = newValue;
+
       emit('update-data', newValue, props.field);
     } else {
       inputValue.value[props.field.fieldname] = newValue;
+      getLinkOptions(props.field.options, {}, '').then(() => {
+        const matchedOption = suggestions.value.find(option => option.value === newValue);
+        // if (matchedOption) {
+        //   inputValue.value[props.field.fieldname] = matchedOption.label || matchedOption.value;
+        // } else {
+        //   inputValue.value[props.field.fieldname] = newValue;
+        // }
+        console.log(matchedOption);
+      });
     }
   },
   { immediate: true }
