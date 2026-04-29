@@ -154,8 +154,11 @@ const phoneNumberFormatter = (event, field) => {
 };
 
 const validatePhoneNumber = field => {
-  if (phoneNumber.value) {
-    const parsed = parsePhoneNumberFromString(phoneNumberFormat.value, selectedCountry.value.code);
+  if (phoneNumber.value && phoneNumberFormat.value && selectedCountry.value) {
+    const parsed = parsePhoneNumberFromString(
+      String(phoneNumberFormat.value),
+      selectedCountry.value.code
+    );
     if (!parsed?.isValid()) {
       invalidPhone.value = true;
       emit(
