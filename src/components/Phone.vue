@@ -52,14 +52,7 @@
       />
     </div>
 
-    <div class="flex items-center mb-2">
-      <label>{{ __(props.field.label) }}</label>
-      <span
-        v-if="props.field.required || props.field.reqd"
-        style="color: #eb9091; margin-left: 0.5rem"
-        >*</span
-      >
-    </div>
+    <label :for="props.field.fieldname">{{ __(props.field.label) }}</label>
   </FloatLabel>
 </template>
 
