@@ -1,9 +1,6 @@
 <template>
   <div>
     <div :class="{ flex: props.field.quick_entry }" class="relative">
-      {{
-        console.log('render AutoComplete', props.field.fieldname, inputValue[props.field.fieldname])
-      }}
       <FloatLabel variant="on">
         <AutoComplete
           v-model="inputValue[props.field.fieldname]"
@@ -151,6 +148,7 @@ const suggestions = ref([]);
 const translatedSuggestions = ref([]);
 
 onMounted(() => {
+  console.log('mounted AutoComplete', props);
   if (!props.quickEntry) {
     if (currentStore.value?.filters && currentStore.value.filters[props.field.fieldname]) {
       inputValue.value[props.field.fieldname] = currentStore.value.filters[props.field.fieldname];
