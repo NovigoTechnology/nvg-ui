@@ -176,9 +176,16 @@ onMounted(() => {
 
 watch(
   () => props.field.value,
-  newValue => {
+  async newValue => {
     if (newValue) {
-      inputValue.value[props.field.fieldname] = newValue;
+      const current = inputValue.value[props.field.fieldname];
+      if (current && current !== newValue) {
+        emit('update-data', newValue, props.field);
+        return;
+      }
+      const results = await fetchLinkResults(props.field.options, {}, newValue);
+      const match = results?.find(r => r.value === newValue);
+      inputValue.value[props.field.fieldname] = match?.label ? __(match.label) : newValue;
       emit('update-data', newValue, props.field);
     } else {
       inputValue.value[props.field.fieldname] = newValue;
@@ -441,7 +448,7 @@ const selectOption = (selectedOption, field) => {
   }
 };
 
-const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
+async function fetchLinkResults(doctype, filters = {}, searchText = '') {
   let finalFilters = { ...filters };
 
   if (props.filters && Object.keys(props.filters).length > 0) {
@@ -470,18 +477,20 @@ const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
     args.query = props.query;
   }
 
-  const r = await call('frappe.desk.search.search_link', args);
+  return await call('frappe.desk.search.search_link', args);
+}
+
+async function getLinkOptions(doctype, filters = {}, searchText = '') {
+  const r = await fetchLinkResults(doctype, filters, searchText);
 
   if (r) {
     suggestions.value = r;
-    // Replicar is_title_link() de Frappe: usa frappe.boot.link_title_doctypes
     const isTitleLink = (window.frappe?.boot?.link_title_doctypes || []).includes(doctype);
 
     translatedSuggestions.value = mergeDuplicates(
       r.map(item => {
         const translatedLabel = item.label ? __(item.label) : __(item.value);
 
-        // Traducir, deduplicar y filtrar partes del label (redundancia del backend de Frappe)
         const descriptionParts = (item.description || '')
           .split(',')
           .map(s => __(s.trim()))
@@ -503,7 +512,7 @@ const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
     suggestions.value = [];
     translatedSuggestions.value = [];
   }
-};
+}
 
 const mergeDuplicates = results =>
   results.reduce((acc, curr) => {

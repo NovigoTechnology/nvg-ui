@@ -55,6 +55,7 @@
     "vue-eslint-parser": "^10.4.0"
   },
   "dependencies": {
+    "libphonenumber-js": "^1.12.42",
     "lodash-es": "^4.18.0",
     "mitt": "^3.0.1"
   },
