@@ -184,7 +184,7 @@ watch(
     } else {
       inputValue.value[props.field.fieldname] = newValue;
       getLinkOptions(props.field.options, {}, '').then(() => {
-        const matchedOption = suggestions.value.find(option => option.value === newValue);
+        const matchedOption = suggestions.value;
         // if (matchedOption) {
         //   inputValue.value[props.field.fieldname] = matchedOption.label || matchedOption.value;
         // } else {
