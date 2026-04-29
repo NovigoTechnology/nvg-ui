@@ -16,7 +16,7 @@
           :class="{ 'p-inputtext:disabled': disabled }"
           @clear="() => clear_input"
           :size="props.size"
-          @update:modelValue="e => e === '' && clear_input()"
+          @update:modelValue="e => e === '' && clear_input(true)"
           @option-select="e => selectOption(e.value, props.field)"
           :optionLabel="option => option.label || option.description || option.value"
           :dropdown="!inputValue[props.field.fieldname] === '' && inputValue[props.field.fieldname]"
@@ -39,13 +39,16 @@
               <strong>{{ slotProps.option.value }}</strong>
             </div>
             <div v-else>
-              <strong>{{ slotProps.option.label ? __(slotProps.option.label) : '' }}</strong>
-              <div>
-                {{
-                  slotProps.option.description
-                    ? normalizeDescription(slotProps.option.description)
-                    : ''
-                }}
+              <strong>{{ slotProps.option.label }}</strong>
+              <div
+                v-if="
+                  slotProps.option.description &&
+                  (slotProps.option.isTitleLink ||
+                    slotProps.option.value !== slotProps.option.description)
+                "
+                class="text-sm text-color-secondary"
+              >
+                {{ slotProps.option.description }}
               </div>
             </div>
           </template>
@@ -171,17 +174,6 @@ onMounted(() => {
   }
 });
 
-const normalizeDescription = str => {
-  if (str.includes(',')) {
-    return str
-      .split(',')
-      .map(s => __(s.trim()))
-      .join('/');
-  }
-
-  return str.trim();
-};
-
 watch(
   () => props.field.value,
   newValue => {
@@ -284,9 +276,9 @@ watch(
 
 watch(
   () => inputValue.value[props.field.fieldname],
-  newValue => {
+  async newValue => {
     if (newValue === '') {
-      clear_input();
+      clear_input(true);
       return;
     }
 
@@ -340,7 +332,7 @@ const closeQuickEntry = () => {
   }
 };
 
-const clear_input = () => {
+const clear_input = async (keepFocus = false) => {
   if (props.quickEntry && props.useQuickEntryStore) {
     if (currentStore.value.fieldValues) {
       currentStore.value.fieldValues[props.field.fieldname] = null;
@@ -377,7 +369,12 @@ const clear_input = () => {
     props.field.value = null;
   }
 
-  refresh.value = !refresh.value;
+  if (!keepFocus) {
+    refresh.value = !refresh.value;
+  }
+
+  await getLinkOptions(props.field.options);
+  autoCompleteRef.value?.show();
 };
 
 const selectOption = (selectedOption, field) => {
@@ -477,21 +474,48 @@ const getLinkOptions = async (doctype, filters = {}, searchText = '') => {
 
   if (r) {
     suggestions.value = r;
-    translatedSuggestions.value = r.map(item => {
-      const translatedLabel = item.label ? __(item.label) : '';
-      const translatedDescription = item.description ? __(item.description) : '';
+    const isTitleLink = (window.frappe?.boot?.link_title_doctypes || []).includes(doctype);
 
-      return {
-        label: translatedLabel || translatedDescription || item.value,
-        description: translatedDescription,
-        value: item.value,
-      };
-    });
+    translatedSuggestions.value = mergeDuplicates(
+      r.map(item => {
+        const translatedLabel = item.label ? __(item.label) : __(item.value);
+
+        const descriptionParts = (item.description || '')
+          .split(',')
+          .map(s => __(s.trim()))
+          .filter(Boolean);
+        const uniqueParts = [...new Set(descriptionParts)].filter(
+          s => s.toLowerCase() !== translatedLabel.toLowerCase()
+        );
+        const filteredDescription = uniqueParts.join(', ');
+
+        return {
+          label: translatedLabel,
+          description: filteredDescription,
+          value: item.value,
+          isTitleLink,
+        };
+      })
+    );
   } else {
     suggestions.value = [];
     translatedSuggestions.value = [];
   }
 };
+
+const mergeDuplicates = results =>
+  results.reduce((acc, curr) => {
+    const existing = acc.find(r => r.value === curr.value);
+    if (existing) {
+      if (curr.description) {
+        existing.description = existing.description
+          ? `${existing.description}, ${curr.description}`
+          : curr.description;
+      }
+      return acc;
+    }
+    return [...acc, curr];
+  }, []);
 
 onUnmounted(() => {
   if (props.field.dependingField) {
