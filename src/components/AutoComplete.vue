@@ -48,7 +48,7 @@
                 "
                 class="text-sm text-color-secondary"
               >
-                <span v-html="slotProps.option.description"> </span>
+                <span v-html="slotProps.option.description"></span>
               </div>
             </div>
           </template>
