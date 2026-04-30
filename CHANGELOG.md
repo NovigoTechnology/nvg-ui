@@ -1,3 +1,24 @@
+# [1.11.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.10.0...v1.11.0) (2026-04-30)
+
+
+### Bug Fixes
+
+* add z-index to description slot in AutoComplete component ([9500314](https://github.com/NovigoTechnology/nvg-ui/commit/950031496726a6d96146a50f4ec03e3e00fe5b27))
+* autocomplete description ([#36](https://github.com/NovigoTechnology/nvg-ui/issues/36)) ([9277fed](https://github.com/NovigoTechnology/nvg-ui/commit/9277fedd1af452e8b6d12ed3197480bcecf29d9a))
+* correct v-html binding in AutoComplete component ([e7ac71e](https://github.com/NovigoTechnology/nvg-ui/commit/e7ac71e63e07f71a9c21ab3b8f244bd0fdc85edb))
+* remove unnecessary whitespace in description slot of AutoComplete component ([ed397f0](https://github.com/NovigoTechnology/nvg-ui/commit/ed397f0df303fc702282d9e22f50eea482d9e0b5))
+* remove z index ([eb2a186](https://github.com/NovigoTechnology/nvg-ui/commit/eb2a186e30099de49b2854a0859e61368e4b3c2c))
+* remove z-index styling from AutoComplete component ([2cdc6e0](https://github.com/NovigoTechnology/nvg-ui/commit/2cdc6e0757b5b0ed91acf135194c8c229285155a))
+* update AutoComplete component styling for description slot ([36787a6](https://github.com/NovigoTechnology/nvg-ui/commit/36787a699476520b50ea1d59cf0ce225afe5f4a5))
+* update AutoComplete component to use v-html for description and remove raw suggestions log ([dfd3367](https://github.com/NovigoTechnology/nvg-ui/commit/dfd336751fc8f129b21b81fda94e3e3499f3b188))
+* wrap description in span for AutoComplete component ([b162bbc](https://github.com/NovigoTechnology/nvg-ui/commit/b162bbc28f4fd6cd79562e7f79f3f7917976d661))
+
+
+### Features
+
+* log raw suggestions in getLinkOptions function ([0ac1f2d](https://github.com/NovigoTechnology/nvg-ui/commit/0ac1f2d5e5a4c24e926efa8d85a22f29f1c7ad4f))
+* log translated suggestions in getLinkOptions function ([00f478d](https://github.com/NovigoTechnology/nvg-ui/commit/00f478db1dd923ae42cfd71f30ae277a37fe54f7))
+
 # [1.10.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.9.0...v1.10.0) (2026-04-29)
 
 
