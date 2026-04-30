@@ -48,7 +48,7 @@
                 "
                 class="text-sm text-color-secondary"
               >
-                {{ slotProps.option.description }}
+                <span v-html="slotProps.option.description"></span>
               </div>
             </div>
           </template>
@@ -602,12 +602,6 @@ defineExpose({
   clear_input,
 });
 </script>
-
-<style>
-.p-autocomplete-overlay {
-  z-index: 2000 !important;
-}
-</style>
 
 <style scoped>
 .p-disabled {
