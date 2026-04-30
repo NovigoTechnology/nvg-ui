@@ -47,7 +47,7 @@
                     slotProps.option.value !== slotProps.option.description)
                 "
                 v-html="slotProps.option.description"
-                class="text-sm text-color-secondary"
+                class="text-sm text-color-secondary block"
               ></div>
             </div>
           </template>
