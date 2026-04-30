@@ -603,12 +603,6 @@ defineExpose({
 });
 </script>
 
-<style>
-.p-autocomplete-overlay {
-  z-index: 2000 !important;
-}
-</style>
-
 <style scoped>
 .p-disabled {
   opacity: 1 !important;
