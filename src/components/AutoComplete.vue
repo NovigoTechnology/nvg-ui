@@ -482,6 +482,7 @@ async function fetchLinkResults(doctype, filters = {}, searchText = '') {
 
 async function getLinkOptions(doctype, filters = {}, searchText = '') {
   const r = await fetchLinkResults(doctype, filters, searchText);
+  console.log('Raw Suggestions:', r);
 
   if (r) {
     suggestions.value = r;
@@ -508,7 +509,6 @@ async function getLinkOptions(doctype, filters = {}, searchText = '') {
         };
       })
     );
-    console.log('Translated Suggestions:', translatedSuggestions.value);
   } else {
     suggestions.value = [];
     translatedSuggestions.value = [];
