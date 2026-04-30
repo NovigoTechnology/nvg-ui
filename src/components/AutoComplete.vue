@@ -508,6 +508,7 @@ async function getLinkOptions(doctype, filters = {}, searchText = '') {
         };
       })
     );
+    console.log('Translated Suggestions:', translatedSuggestions.value);
   } else {
     suggestions.value = [];
     translatedSuggestions.value = [];
