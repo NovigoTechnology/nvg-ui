@@ -157,6 +157,7 @@ import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
 import Dialog from 'primevue/dialog';
 import LinkField from './LinkField.vue';
+import NumericField from './NumericField.vue';
 import { call } from '../libs/frappe-ui';
 
 const props = defineProps({
@@ -235,7 +236,7 @@ const onItemSelected = (index, doc, column) => {
 
 // ── Helpers de columna ─────────────────────────────────
 const getComponent = column => {
-  return ['Int', 'Float', 'Currency', 'Percent'].includes(column.type) ? InputNumber : InputText;
+  return ['Int', 'Float', 'Currency', 'Percent'].includes(column.type) ? NumericField : InputText;
 };
 
 const getProps = column => {
