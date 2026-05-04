@@ -1,3 +1,25 @@
+# [1.12.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.11.0...v1.12.0) (2026-05-04)
+
+
+### Bug Fixes
+
+* add multi items ([#38](https://github.com/NovigoTechnology/nvg-ui/issues/38)) ([1057fbd](https://github.com/NovigoTechnology/nvg-ui/commit/1057fbd902ebdc1b9d2b8d0780c7b02ee8e1b5c9))
+* add NumericField component and update GridTable to use it ([2467b7e](https://github.com/NovigoTechnology/nvg-ui/commit/2467b7ed8ee1c0b40d32ad9e3df25ffd17f0eed4))
+* class in span ([bf1de31](https://github.com/NovigoTechnology/nvg-ui/commit/bf1de3161c14403b3e844faf71f26dc86cb9d7a4))
+* improve layout and styling for add multiple items dialog and results ([9ff4d6f](https://github.com/NovigoTechnology/nvg-ui/commit/9ff4d6f0f0090fddaa22a00f2432f294642403fc))
+* initialize numeric fields to zero and remove unused props in NumericField ([e488562](https://github.com/NovigoTechnology/nvg-ui/commit/e488562602fbd7a3e37a2fa315904cb34b34f8b8))
+* load more ([549f8f4](https://github.com/NovigoTechnology/nvg-ui/commit/549f8f434210190888e9a2c14d76412f82f475c3))
+* multi logic item ([3c1c496](https://github.com/NovigoTechnology/nvg-ui/commit/3c1c496a0f80170331e4e14e35149b50b3d8fbd4))
+* nth ([f4b5825](https://github.com/NovigoTechnology/nvg-ui/commit/f4b582547f01561ea2be8cc062fe56dedc64958f))
+* style ([fba63e9](https://github.com/NovigoTechnology/nvg-ui/commit/fba63e92641d0845400f82b844661026d2800e25))
+* update item description display in add multiple items dialog ([17c9ba4](https://github.com/NovigoTechnology/nvg-ui/commit/17c9ba48b3e2402c3429ed022cf73c3ea2b7d752))
+
+
+### Features
+
+* add multiple items functionality with search and quantity selection dialogs ([0ddd609](https://github.com/NovigoTechnology/nvg-ui/commit/0ddd609395aa6aed4fcfac203ab07fb891672d57))
+* enhance add multiple items functionality to include quantity field and row addition ([7d734af](https://github.com/NovigoTechnology/nvg-ui/commit/7d734af0fb6349496dba5060b61e58ec477b720f))
+
 # [1.11.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.10.0...v1.11.0) (2026-04-30)
 
 
