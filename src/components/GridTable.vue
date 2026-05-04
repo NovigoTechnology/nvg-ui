@@ -84,7 +84,7 @@
     v-model:visible="dialogVisible"
     :header="__('Add Multiple')"
     modal
-    :style="{ width: '560px' }"
+    class="nagus-dialog nagus-dialog--md"
     @show="doSearch(true)"
   >
     <div class="add-multiple__search-row">
@@ -110,15 +110,11 @@
       <div v-if="hasSearched && !searchResults.length" class="add-multiple__empty">
         {{ __('No Results') }}
       </div>
-      <Button
-        v-if="hasMore"
-        :label="__('More')"
-        severity="secondary"
-        size="small"
-        class="add-multiple__more-btn"
-        @click="loadMore"
-      />
     </div>
+
+    <template v-if="hasMore" #footer>
+      <Button :label="__('Load more')" severity="secondary" size="small" text @click="loadMore" />
+    </template>
   </Dialog>
 
   <!-- Qty dialog -->
@@ -126,7 +122,7 @@
     v-model:visible="qtyDialogVisible"
     :header="__('Set Quantity')"
     modal
-    :style="{ width: '280px' }"
+    class="nagus-dialog nagus-dialog--sm"
   >
     <div class="add-multiple__qty-body">
       <span class="add-multiple__qty-item-name">{{
@@ -286,7 +282,7 @@ const getProps = column => {
 };
 
 // ── Add Multiple ───────────────────────────────────────
-const PAGE_LENGTH = 10;
+const PAGE_LENGTH = 8;
 
 const dialogVisible = ref(false);
 const qtyDialogVisible = ref(false);
@@ -383,25 +379,27 @@ const confirmQty = () => {
 .add-multiple__search-row {
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .add-multiple__results {
   display: flex;
   flex-direction: column;
-  gap: 0.125rem;
-  max-height: 360px;
-  overflow-y: auto;
 }
 
 .add-multiple__item {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  padding: 0.4rem 0.6rem;
-  border-radius: 4px;
+  padding: 0.5rem 0.5rem;
+  border-bottom: 1px solid var(--p-content-border-color);
   cursor: pointer;
-  gap: 1rem;
+  gap: 0.75rem;
+  transition: background 0.15s;
+}
+
+.add-multiple__item:last-child {
+  border-bottom: none;
 }
 
 .add-multiple__item:hover {
@@ -409,12 +407,12 @@ const confirmQty = () => {
 }
 
 .add-multiple__item-name {
+  font-size: 0.8125rem;
   font-weight: 500;
-  white-space: nowrap;
 }
 
 .add-multiple__item-desc {
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: var(--p-text-muted-color);
   text-align: right;
   overflow: hidden;
@@ -423,15 +421,10 @@ const confirmQty = () => {
 }
 
 .add-multiple__empty {
-  padding: 1rem;
+  padding: 1.5rem 0;
   text-align: center;
   color: var(--p-text-muted-color);
-  font-size: 0.875rem;
-}
-
-.add-multiple__more-btn {
-  align-self: flex-start;
-  margin-top: 0.25rem;
+  font-size: 0.8125rem;
 }
 
 .add-multiple__qty-body {
@@ -441,7 +434,8 @@ const confirmQty = () => {
 }
 
 .add-multiple__qty-item-name {
+  font-size: 0.8125rem;
   font-weight: 500;
-  font-size: 0.875rem;
+  color: var(--p-text-muted-color);
 }
 </style>
