@@ -105,7 +105,9 @@
         @click="selectItem(item)"
       >
         <span class="add-multiple__item-name">{{ item.label || item.value }}</span>
-        <span v-if="item.description" class="add-multiple__item-desc">{{ item.description }}</span>
+        <div class="text-sm text-color-secondary">
+          <span v-html="item.description"></span>
+        </div>
       </div>
       <div v-if="hasSearched && !searchResults.length" class="add-multiple__empty">
         {{ __('No Results') }}
