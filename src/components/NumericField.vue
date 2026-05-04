@@ -4,7 +4,6 @@
       :id="id"
       :model-value="modelValue"
       v-bind="$attrs"
-      :pt="pt"
       @update:model-value="$emit('update:modelValue', $event)"
     />
     <label :for="id">{{ label }}</label>
@@ -13,7 +12,6 @@
     v-else
     :model-value="modelValue"
     v-bind="$attrs"
-    :pt="pt"
     @update:model-value="$emit('update:modelValue', $event)"
   />
 </template>
@@ -31,6 +29,4 @@ const props = defineProps({
 });
 
 defineEmits(['update:modelValue']);
-
-const pt = { input: { style: 'text-align: right' } };
 </script>

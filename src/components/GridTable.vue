@@ -186,14 +186,14 @@ watch(
 const createEmptyRow = () => {
   const row = { idx: dataArray.value.length + 1 };
   props.columns.forEach(col => {
-    row[col.field] = ['Float', 'Currency', 'Int', 'Percent'].includes(col.type) ? null : '';
+    row[col.field] = ['Float', 'Currency', 'Int', 'Percent'].includes(col.type) ? 0 : '';
   });
   return row;
 };
 
 const clearRowItems = row => {
   props.columns.forEach(col => {
-    row[col.field] = ['Float', 'Currency', 'Int', 'Percent'].includes(col.type) ? null : '';
+    row[col.field] = ['Float', 'Currency', 'Int', 'Percent'].includes(col.type) ? 0 : '';
   });
   emit('update:data', dataArray.value);
   emit('rowChange', row);
@@ -240,9 +240,10 @@ const getComponent = column => {
 };
 
 const getProps = column => {
+  const isNumeric = ['Int', 'Float', 'Currency', 'Percent'].includes(column.type);
   const base = {
     size: 'small',
-    placeholder: column.label,
+    placeholder: isNumeric ? '' : column.label,
     disabled: column.readOnly,
   };
 
