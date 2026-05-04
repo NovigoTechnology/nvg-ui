@@ -292,7 +292,7 @@ const searchText = ref('');
 const searchResults = ref([]);
 const hasMore = ref(false);
 const hasSearched = ref(false);
-const searchStart = ref(0);
+const currentPageLength = ref(PAGE_LENGTH);
 const pendingItem = ref(null);
 const pendingQty = ref(1);
 
@@ -301,7 +301,7 @@ const openDialog = () => {
   searchResults.value = [];
   hasSearched.value = false;
   hasMore.value = false;
-  searchStart.value = 0;
+  currentPageLength.value = PAGE_LENGTH;
   dialogVisible.value = true;
 };
 
@@ -309,15 +309,13 @@ const doSearch = async (reset = false) => {
   if (!props.addMultipleDoctype) return;
 
   if (reset) {
-    searchStart.value = 0;
-    searchResults.value = [];
+    currentPageLength.value = PAGE_LENGTH;
   }
 
   const args = {
     doctype: props.addMultipleDoctype,
     txt: searchText.value,
-    page_length: PAGE_LENGTH,
-    start: searchStart.value,
+    page_length: currentPageLength.value,
   };
 
   if (props.addMultipleQuery) {
@@ -326,23 +324,17 @@ const doSearch = async (reset = false) => {
 
   const results = await call('frappe.desk.search.search_link', args);
   hasSearched.value = true;
-
-  if (results?.length) {
-    const mapped = results.map(r => ({
+  searchResults.value =
+    results?.map(r => ({
       value: r.value,
       label: r.label || r.value,
       description: r.description || '',
-    }));
-    searchResults.value = reset ? mapped : [...searchResults.value, ...mapped];
-    hasMore.value = results.length >= PAGE_LENGTH;
-  } else {
-    if (reset) searchResults.value = [];
-    hasMore.value = false;
-  }
+    })) || [];
+  hasMore.value = results?.length >= currentPageLength.value;
 };
 
 const loadMore = async () => {
-  searchStart.value += PAGE_LENGTH;
+  currentPageLength.value += PAGE_LENGTH;
   await doSearch(false);
 };
 
