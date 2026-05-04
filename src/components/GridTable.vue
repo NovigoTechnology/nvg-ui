@@ -149,7 +149,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Button from 'primevue/button';
@@ -167,9 +167,6 @@ const props = defineProps({
   filters: { type: Object, default: () => ({}) },
   locale: { type: String, default: 'es-AR' },
   showAddMultiple: { type: Boolean, default: false },
-  addMultipleDoctype: { type: String, default: '' },
-  addMultipleQuery: { type: String, default: '' },
-  addMultipleQtyField: { type: String, default: '' },
 });
 
 const emit = defineEmits(['update:data', 'rowChange', 'rowAdd', 'rowRemove', 'itemSelected']);
@@ -284,6 +281,10 @@ const getProps = column => {
 };
 
 // ── Add Multiple ───────────────────────────────────────
+const addMultipleLinkColumn = computed(() => props.columns.find(c => c.type === 'Link'));
+const addMultipleQtyColumn = computed(() =>
+  props.columns.find(c => c.type === 'Int' || c.type === 'Float')
+);
 const PAGE_LENGTH = 8;
 
 const dialogVisible = ref(false);
@@ -306,20 +307,21 @@ const openDialog = () => {
 };
 
 const doSearch = async (reset = false) => {
-  if (!props.addMultipleDoctype) return;
+  const linkCol = addMultipleLinkColumn.value;
+  if (!linkCol) return;
 
   if (reset) {
     currentPageLength.value = PAGE_LENGTH;
   }
 
   const args = {
-    doctype: props.addMultipleDoctype,
+    doctype: linkCol.options,
     txt: searchText.value,
     page_length: currentPageLength.value,
   };
 
-  if (props.addMultipleQuery) {
-    args.query = props.addMultipleQuery;
+  if (linkCol.query) {
+    args.query = linkCol.query;
   }
 
   const results = await call('frappe.desk.search.search_link', args);
@@ -347,17 +349,15 @@ const selectItem = item => {
 const confirmQty = () => {
   if (!pendingItem.value || !pendingQty.value) return;
 
-  const linkColumn = props.columns.find(
-    c => c.type === 'Link' && c.options === props.addMultipleDoctype
-  );
-  if (!linkColumn) return;
+  const linkCol = addMultipleLinkColumn.value;
+  if (!linkCol) return;
 
   const row = createEmptyRow();
-  row[linkColumn.field] = pendingItem.value.value;
-  if (props.addMultipleQtyField) row[props.addMultipleQtyField] = pendingQty.value;
+  row[linkCol.field] = pendingItem.value.value;
+  if (addMultipleQtyColumn.value) row[addMultipleQtyColumn.value.field] = pendingQty.value;
 
   dataArray.value.push(row);
-  onItemSelected(dataArray.value.length - 1, pendingItem.value.value, linkColumn);
+  onItemSelected(dataArray.value.length - 1, pendingItem.value.value, linkCol);
 
   qtyDialogVisible.value = false;
 };
