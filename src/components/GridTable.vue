@@ -365,6 +365,16 @@ const confirmQty = () => {
 };
 </script>
 
+<style>
+.p-datatable-column-header-content {
+  justify-content: end;
+}
+
+.p-datatable-column-header-content:nth-child(1) {
+  justify-content: start;
+}
+</style>
+
 <style scoped>
 .grid-table__actions {
   display: flex;
