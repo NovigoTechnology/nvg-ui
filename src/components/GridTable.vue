@@ -366,11 +366,11 @@ const confirmQty = () => {
 </script>
 
 <style>
-.p-datatable-column-header-content {
+tr th .p-datatable-column-header-content {
   justify-content: end;
 }
 
-.p-datatable-column-header-content:nth-child(1) {
+tr th:nth-child(1) .p-datatable-column-header-content {
   justify-content: start;
 }
 </style>
