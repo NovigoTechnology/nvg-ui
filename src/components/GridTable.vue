@@ -171,16 +171,10 @@ const props = defineProps({
   showAddMultiple: { type: Boolean, default: false },
   addMultipleDoctype: { type: String, default: '' },
   addMultipleQuery: { type: String, default: '' },
+  addMultipleQtyField: { type: String, default: '' },
 });
 
-const emit = defineEmits([
-  'update:data',
-  'rowChange',
-  'rowAdd',
-  'rowRemove',
-  'itemSelected',
-  'rowsAdded',
-]);
+const emit = defineEmits(['update:data', 'rowChange', 'rowAdd', 'rowRemove', 'itemSelected']);
 
 const dataArray = ref([...props.data]);
 
@@ -362,7 +356,19 @@ const selectItem = item => {
 
 const confirmQty = () => {
   if (!pendingItem.value || !pendingQty.value) return;
-  emit('rowsAdded', [{ value: pendingItem.value.value, qty: pendingQty.value }]);
+
+  const linkColumn = props.columns.find(
+    c => c.type === 'Link' && c.options === props.addMultipleDoctype
+  );
+  if (!linkColumn) return;
+
+  const row = createEmptyRow();
+  row[linkColumn.field] = pendingItem.value.value;
+  if (props.addMultipleQtyField) row[props.addMultipleQtyField] = pendingQty.value;
+
+  dataArray.value.push(row);
+  onItemSelected(dataArray.value.length - 1, pendingItem.value.value, linkColumn);
+
   qtyDialogVisible.value = false;
 };
 </script>
