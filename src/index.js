@@ -32,6 +32,7 @@ import Select from 'primevue/select';
 import Calendar from 'primevue/calendar';
 import { MultiSelect } from 'primevue';
 import GridTable from './components/GridTable.vue';
+import NumericField from './components/NumericField.vue';
 
 import { useToast } from 'primevue/usetoast';
 import { useConfirm, usePrimeVue } from 'primevue';
@@ -84,6 +85,7 @@ const components = {
   QuickEntry,
   EntitySelector,
   Phone,
+  NumericField,
 };
 
 export default {
@@ -146,4 +148,5 @@ export {
   QuickEntry,
   EntitySelector,
   Phone,
+  NumericField,
 };
