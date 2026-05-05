@@ -453,7 +453,7 @@ const confirmQty = () => {
   color: var(--p-text-muted-color);
 }
 
-.p-datatable.p-datatable-sm .p-datatable-tbody > tr > td {
-  padding: 0.5rem !important;
+td {
+  padding: 0rem !important;
 }
 </style>
