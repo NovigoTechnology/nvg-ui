@@ -452,4 +452,8 @@ const confirmQty = () => {
   font-weight: 500;
   color: var(--p-text-muted-color);
 }
+
+.p-datatable.p-datatable-sm .p-datatable-tbody > tr > td {
+  padding: 0.5rem;
+}
 </style>
