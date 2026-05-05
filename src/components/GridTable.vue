@@ -378,7 +378,7 @@ const confirmQty = () => {
   qtyDialogVisible.value = false;
 };
 </script>
-<style scoped>
+<style>
 .grid-table__actions {
   display: flex;
   gap: 0.5rem;
