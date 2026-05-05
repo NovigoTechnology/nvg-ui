@@ -8,6 +8,7 @@
       :scrollable="true"
       scrollHeight="300px"
       class="grid-table__datatable"
+      :pt="{ bodyCell: { style: 'padding: 0' } }"
     >
       <template #empty>
         <div class="grid-table__empty">{{ emptyMessage }}</div>
@@ -451,9 +452,5 @@ const confirmQty = () => {
   font-size: 0.8125rem;
   font-weight: 500;
   color: var(--p-text-muted-color);
-}
-
-td {
-  padding: 0rem !important;
 }
 </style>
