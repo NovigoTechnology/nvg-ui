@@ -380,12 +380,8 @@ const confirmQty = () => {
 </script>
 
 <style>
-tr th .p-datatable-column-header-content {
-  justify-content: end;
-}
-
-tr th:nth-child(1) .p-datatable-column-header-content {
-  justify-content: start;
+td input {
+  border: gray 1px solid;
 }
 </style>
 
