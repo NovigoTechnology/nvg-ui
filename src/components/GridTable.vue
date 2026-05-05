@@ -46,7 +46,7 @@
         </template>
       </Column>
 
-      <Column :style="{ width: '60px' }">
+      <Column>
         <template #body="{ index }">
           <Button
             icon="pi pi-trash"
