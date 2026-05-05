@@ -379,9 +379,6 @@ const confirmQty = () => {
 };
 </script>
 <style scoped>
-input {
-  border: #cbd5e1 1px solid;
-}
 .grid-table__actions {
   display: flex;
   gap: 0.5rem;
