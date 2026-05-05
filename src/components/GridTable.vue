@@ -378,14 +378,10 @@ const confirmQty = () => {
   qtyDialogVisible.value = false;
 };
 </script>
-
-<style>
-td input {
-  border: gray 1px solid;
-}
-</style>
-
 <style scoped>
+input {
+  border: #cbd5e1 1px solid;
+}
 .grid-table__actions {
   display: flex;
   gap: 0.5rem;
