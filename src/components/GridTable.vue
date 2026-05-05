@@ -18,7 +18,7 @@
         :key="column.field"
         :field="column.field"
         :header="column.label"
-        :style="{ width: column.width || 'auto' }"
+        :style="{ width: getColumnWidth(column) }"
       >
         <template #body="{ data, index }">
           <LinkField
@@ -239,6 +239,11 @@ const onItemSelected = (index, doc, column) => {
 };
 
 // ── Helpers de columna ─────────────────────────────────
+const getColumnWidth = column => {
+  if (column.cols) return `${(column.cols / 12) * 100}%`;
+  return column.width || 'auto';
+};
+
 const getComponent = column => {
   return ['Int', 'Float', 'Currency', 'Percent'].includes(column.type) ? NumericField : InputText;
 };
