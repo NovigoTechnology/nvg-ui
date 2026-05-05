@@ -58,6 +58,7 @@ const props = defineProps({
   disabled: { type: Boolean, default: false },
   filters: { type: Object, default: () => ({}) },
   query: { type: String, default: '' },
+  pageLength: { type: Number, default: 10 },
 });
 
 const emit = defineEmits(['update:modelValue', 'itemSelected', 'clearRow']);
@@ -77,12 +78,11 @@ watch(
   { immediate: true }
 );
 
-
 const getLinkOptions = async (doctype, searchText = '') => {
   const args = {
     doctype,
     txt: searchText,
-    page_length: 10,
+    page_length: props.pageLength,
     filters: props.filters || {},
   };
 

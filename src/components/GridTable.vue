@@ -27,6 +27,7 @@
             :doctype="column.options"
             :placeholder="column.label"
             :disabled="column.readOnly"
+            :pageLength="props.pageLength"
             class="grid-input"
             @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
             @itemSelected="doc => onItemSelected(index, doc, column)"
@@ -167,6 +168,9 @@ const props = defineProps({
   emptyMessage: { type: String, default: 'No Data' },
   filters: { type: Object, default: () => ({}) },
   locale: { type: String, default: 'es-AR' },
+  floatPrecision: { type: Number, default: 3 },
+  currencyPrecision: { type: Number, default: 2 },
+  pageLength: { type: Number, default: 10 },
   showAddMultiple: { type: Boolean, default: false },
 });
 
@@ -247,13 +251,24 @@ const getProps = column => {
     disabled: column.readOnly,
   };
 
-  if (column.type === 'Float' || column.type === 'Currency') {
+  if (column.type === 'Currency') {
     return {
       ...base,
       locale: props.locale,
       useGrouping: true,
-      minFractionDigits: 2,
-      maxFractionDigits: 2,
+      minFractionDigits: props.currencyPrecision,
+      maxFractionDigits: props.currencyPrecision,
+      ...(column.prefix ? { prefix: column.prefix } : {}),
+    };
+  }
+
+  if (column.type === 'Float') {
+    return {
+      ...base,
+      locale: props.locale,
+      useGrouping: true,
+      minFractionDigits: props.floatPrecision,
+      maxFractionDigits: props.floatPrecision,
       ...(column.prefix ? { prefix: column.prefix } : {}),
     };
   }
@@ -263,8 +278,8 @@ const getProps = column => {
       ...base,
       locale: props.locale,
       useGrouping: false,
-      minFractionDigits: 2,
-      maxFractionDigits: 2,
+      minFractionDigits: props.floatPrecision,
+      maxFractionDigits: props.floatPrecision,
       suffix: '%',
     };
   }
@@ -287,7 +302,6 @@ const addMultipleLinkColumn = computed(() => props.columns.find(c => c.type === 
 const addMultipleQtyColumn = computed(() =>
   props.columns.find(c => c.type === 'Int' || c.type === 'Float')
 );
-const PAGE_LENGTH = 8;
 
 const dialogVisible = ref(false);
 const qtyDialogVisible = ref(false);
@@ -295,7 +309,7 @@ const searchText = ref('');
 const searchResults = ref([]);
 const hasMore = ref(false);
 const hasSearched = ref(false);
-const currentPageLength = ref(PAGE_LENGTH);
+const currentPageLength = ref(props.pageLength);
 const pendingItem = ref(null);
 const pendingQty = ref(1);
 
@@ -304,7 +318,7 @@ const openDialog = () => {
   searchResults.value = [];
   hasSearched.value = false;
   hasMore.value = false;
-  currentPageLength.value = PAGE_LENGTH;
+  currentPageLength.value = props.pageLength;
   dialogVisible.value = true;
 };
 
@@ -313,7 +327,7 @@ const doSearch = async (reset = false) => {
   if (!linkCol) return;
 
   if (reset) {
-    currentPageLength.value = PAGE_LENGTH;
+    currentPageLength.value = props.pageLength;
   }
 
   const args = {
@@ -338,7 +352,7 @@ const doSearch = async (reset = false) => {
 };
 
 const loadMore = async () => {
-  currentPageLength.value += PAGE_LENGTH;
+  currentPageLength.value += props.pageLength;
   await doSearch(false);
 };
 

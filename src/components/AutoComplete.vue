@@ -125,6 +125,7 @@ const props = defineProps({
     default: '',
   },
   filter_list: String,
+  pageLength: { type: Number, default: 10 },
 });
 
 const emit = defineEmits(['update-autocomplete-value', 'update-filter', 'update-data', 'clearRow']);
@@ -469,7 +470,7 @@ async function fetchLinkResults(doctype, filters = {}, searchText = '') {
   const args = {
     doctype: doctype,
     txt: searchText,
-    page_length: 10,
+    page_length: props.pageLength,
     filters: finalFilters,
   };
 
