@@ -8,7 +8,6 @@
       :scrollable="true"
       scrollHeight="300px"
       class="grid-table__datatable"
-      :pt="{ bodyCell: { style: 'padding: 0' } }"
     >
       <template #empty>
         <div class="grid-table__empty">{{ emptyMessage }}</div>
@@ -385,6 +384,121 @@ const confirmQty = () => {
 };
 </script>
 <style>
+.grid-table {
+  width: 100%;
+}
+
+.grid-table__label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.grid-table__datatable {
+  margin-bottom: 0.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+}
+
+.grid-table__datatable .p-datatable-thead > tr > th {
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: #374151;
+  text-transform: none;
+}
+
+.grid-table__datatable .p-datatable-tbody > tr > td {
+  padding: 0.25rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.grid-table__datatable .p-datatable-tbody > tr:hover {
+  background: #f9fafb;
+}
+
+.grid-table__datatable .p-datatable-tbody > tr:last-child > td {
+  border-bottom: none;
+}
+
+.grid-table__datatable .grid-input.p-inputtext,
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input {
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.8125rem;
+  background: transparent;
+  transition: all 0.2s;
+}
+
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input {
+  text-align: right;
+  border: #cbd5e1 1px solid;
+}
+
+.grid-table__datatable .grid-input.p-inputtext:hover,
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:hover {
+  border-color: #e5e7eb;
+  background: #ffffff;
+}
+
+.grid-table__datatable .grid-input.p-inputtext:focus,
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:focus {
+  border-color: #3b82f6;
+  background: #ffffff;
+  box-shadow: 0 0 0 0.1rem rgba(59, 130, 246, 0.2);
+}
+
+.grid-table__datatable .grid-input.p-inputtext:disabled,
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:disabled {
+  background: transparent;
+  color: #374151;
+  opacity: 0.7;
+}
+
+.grid-table__datatable .grid-input.p-inputnumber {
+  width: 100%;
+}
+
+.grid-table__datatable .p-button.p-button-danger.p-button-text {
+  color: #6b7280;
+  padding: 0.25rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.grid-table__datatable .p-button.p-button-danger.p-button-text:hover {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.grid-table__empty {
+  text-align: center;
+  padding: 1rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.grid-table__add-btn {
+  width: auto;
+  font-size: 0.8125rem;
+  padding: 0.5rem 1rem;
+}
+
+.grid-table__add-btn .p-button-label {
+  font-weight: 500;
+}
+
+.grid-readonly-value {
+  display: block;
+  padding: 0.5rem;
+  color: #374151;
+  text-align: right;
+}
+
 .grid-table__actions {
   display: flex;
   gap: 0.5rem;

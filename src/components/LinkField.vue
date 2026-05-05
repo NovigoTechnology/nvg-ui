@@ -160,3 +160,62 @@ const clear_input = async (keepFocus = false) => {
 
 defineExpose({ clear_input });
 </script>
+
+<style>
+.link-field .p-autocomplete {
+  width: 100%;
+}
+
+.link-field .p-autocomplete .p-autocomplete-input {
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.8125rem;
+  background: transparent;
+  transition: all 0.2s;
+}
+
+.link-field .p-autocomplete .p-autocomplete-input:hover {
+  border-color: #e5e7eb;
+  background: #ffffff;
+}
+
+.link-field .p-autocomplete .p-autocomplete-input:focus {
+  border-color: #3b82f6;
+  background: #ffffff;
+  box-shadow: 0 0 0 0.1rem rgba(59, 130, 246, 0.2);
+}
+
+.link-field .p-autocomplete-dropdown {
+  width: 2rem;
+  border-left: 1px solid #e5e7eb;
+  background: transparent;
+  color: #6b7280;
+}
+
+.link-field .p-autocomplete-dropdown:hover {
+  background: #f3f4f6;
+}
+
+.link-field .p-autocomplete-panel {
+  font-size: 0.8125rem;
+}
+
+.link-field .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item {
+  padding: 0.5rem 0.75rem;
+}
+
+.link-field .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item strong {
+  font-weight: 500;
+  color: #374151;
+}
+
+.link-field .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item div {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.125rem;
+}
+
+.link-field .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item:hover {
+  background: #f3f4f6;
+}
+</style>
