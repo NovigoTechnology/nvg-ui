@@ -454,6 +454,6 @@ const confirmQty = () => {
 }
 
 .p-datatable.p-datatable-sm .p-datatable-tbody > tr > td {
-  padding: 0.5rem;
+  padding: 0.5rem !important;
 }
 </style>
