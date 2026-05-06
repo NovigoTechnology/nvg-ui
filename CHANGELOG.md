@@ -1,3 +1,14 @@
+## [1.12.3](https://github.com/NovigoTechnology/nvg-ui/compare/v1.12.2...v1.12.3) (2026-05-06)
+
+
+### Bug Fixes
+
+* margin-bottom ([bb784eb](https://github.com/NovigoTechnology/nvg-ui/commit/bb784eb2731cb6cc4915c5f63874e4676257fc6e))
+* number format ([d5071cc](https://github.com/NovigoTechnology/nvg-ui/commit/d5071cc221dd7193fe9f53a90004966305476f65))
+* number format ([753b196](https://github.com/NovigoTechnology/nvg-ui/commit/753b1969260b2df289119a185eb48faa60830d78))
+* number format ([516bc4e](https://github.com/NovigoTechnology/nvg-ui/commit/516bc4ee0b27330fc585ff34fa9289772cf03099))
+* number format ([#42](https://github.com/NovigoTechnology/nvg-ui/issues/42)) ([8d4ab80](https://github.com/NovigoTechnology/nvg-ui/commit/8d4ab8094677b417f21cac51868965cb32deb0b8))
+
 ## [1.12.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.12.1...v1.12.2) (2026-05-06)
 
 
