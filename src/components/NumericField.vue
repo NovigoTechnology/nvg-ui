@@ -29,7 +29,7 @@ const props = defineProps({
   modelValue: { type: Number, default: null },
   label: { type: String, default: '' },
   id: { type: String, default: () => `nf-${Math.random().toString(36).slice(2, 8)}` },
-  numberFormat: { type: String, default: '' },
+  numberFormat: { type: String, default: '#.###,##' },
 });
 
 defineEmits(['update:modelValue']);
