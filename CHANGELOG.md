@@ -1,3 +1,11 @@
+## [1.12.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.12.1...v1.12.2) (2026-05-06)
+
+
+### Bug Fixes
+
+* inject ([a2a4865](https://github.com/NovigoTechnology/nvg-ui/commit/a2a4865736b2640144d659e043b356e49de1c232))
+* inject ([#41](https://github.com/NovigoTechnology/nvg-ui/issues/41)) ([031d9cc](https://github.com/NovigoTechnology/nvg-ui/commit/031d9ccf6d8081339479652f27e867803b8f56cf))
+
 ## [1.12.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.12.0...v1.12.1) (2026-05-06)
 
 
