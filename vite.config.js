@@ -1,6 +1,7 @@
 // vite.config.js
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 import { resolve } from 'path';
 
 /**
@@ -32,7 +33,7 @@ function getGlobalName(id) {
 
 export default defineConfig(({ command }) => {
   const commonConfig = {
-    plugins: [vue()],
+    plugins: [vue(), cssInjectedByJsPlugin()],
     resolve: {
       alias: { '@': resolve(__dirname, 'src') },
     },
