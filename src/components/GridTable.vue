@@ -167,7 +167,7 @@ const props = defineProps({
   label: { type: String, default: '' },
   emptyMessage: { type: String, default: 'No Data' },
   filters: { type: Object, default: () => ({}) },
-  locale: { type: String, default: 'es-AR' },
+  numberFormat: { type: String, default: '' },
   floatPrecision: { type: Number, default: 3 },
   currencyPrecision: { type: Number, default: 2 },
   pageLength: { type: Number, default: 10 },
@@ -259,7 +259,7 @@ const getProps = column => {
   if (column.type === 'Currency') {
     return {
       ...base,
-      locale: props.locale,
+      numberFormat: props.numberFormat,
       useGrouping: true,
       minFractionDigits: props.currencyPrecision,
       maxFractionDigits: props.currencyPrecision,
@@ -270,7 +270,7 @@ const getProps = column => {
   if (column.type === 'Float') {
     return {
       ...base,
-      locale: props.locale,
+      numberFormat: props.numberFormat,
       useGrouping: true,
       minFractionDigits: props.floatPrecision,
       maxFractionDigits: props.floatPrecision,
@@ -281,7 +281,7 @@ const getProps = column => {
   if (column.type === 'Percent') {
     return {
       ...base,
-      locale: props.locale,
+      numberFormat: props.numberFormat,
       useGrouping: false,
       minFractionDigits: props.floatPrecision,
       maxFractionDigits: props.floatPrecision,
@@ -292,7 +292,7 @@ const getProps = column => {
   if (column.type === 'Int') {
     return {
       ...base,
-      locale: props.locale,
+      numberFormat: props.numberFormat,
       useGrouping: true,
       minFractionDigits: 0,
       maxFractionDigits: 0,
@@ -397,7 +397,7 @@ const confirmQty = () => {
 }
 
 .grid-table__datatable {
-  margin-bottom: 5rem;
+  margin-bottom: 0.5rem;
   border: 1px solid #e5e7eb;
   border-radius: 4px;
 }
