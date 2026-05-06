@@ -410,7 +410,6 @@ const confirmQty = () => {
   font-size: 0.8125rem;
   color: #374151;
   text-transform: none;
-  background-color: #dc2626 !important;
 }
 
 .grid-table__datatable .p-datatable-tbody > tr > td {
