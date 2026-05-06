@@ -400,6 +400,7 @@ const confirmQty = () => {
   margin-bottom: 5rem;
   border: 1px solid #e5e7eb;
   border-radius: 4px;
+  background-color: #dc2626 !important;
 }
 
 .grid-table__datatable .p-datatable-thead > tr > th {
@@ -566,9 +567,5 @@ const confirmQty = () => {
   font-size: 0.8125rem;
   font-weight: 500;
   color: var(--p-text-muted-color);
-}
-
-th {
-  background-color: red !important;
 }
 </style>
