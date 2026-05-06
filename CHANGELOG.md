@@ -1,3 +1,29 @@
+## [1.12.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.12.0...v1.12.1) (2026-05-06)
+
+
+### Bug Fixes
+
+* add columns ([45a9b74](https://github.com/NovigoTechnology/nvg-ui/commit/45a9b7411d8573fc0e54855660150e0c161feb71))
+* add prop length in entity selector ([b961c04](https://github.com/NovigoTechnology/nvg-ui/commit/b961c0493ee8b7118835b59310baa663ce84970d))
+* build styles in app ([82c8c5e](https://github.com/NovigoTechnology/nvg-ui/commit/82c8c5e4abb21d19d45bca2a8e8b0cbf5f32ce34))
+* other test ([fc0ceac](https://github.com/NovigoTechnology/nvg-ui/commit/fc0ceacbfd81083228e3e370e4dd0f95bad40071))
+* padding ([77f06e3](https://github.com/NovigoTechnology/nvg-ui/commit/77f06e31f459d697cd4a0dcc5439941f225f9c17))
+* padding ([49eae0f](https://github.com/NovigoTechnology/nvg-ui/commit/49eae0fa036c50b2b1aaa0d1ffa755ae52fd7b84))
+* padding ([8766907](https://github.com/NovigoTechnology/nvg-ui/commit/876690736d747b6e93fdd0ee46b9b56ced0ce622))
+* padding table ([a54000d](https://github.com/NovigoTechnology/nvg-ui/commit/a54000d76b71efbecfb83c38c2b111a26004f8c5))
+* remove style ([5886848](https://github.com/NovigoTechnology/nvg-ui/commit/588684835bd8279870de7b8f4f5fa8946d93b61a))
+* second test ([836e9da](https://github.com/NovigoTechnology/nvg-ui/commit/836e9dae7f41f28efcb6437f1eaa05ea92fd23f0))
+* style in input ([5242c76](https://github.com/NovigoTechnology/nvg-ui/commit/5242c76927c68ef80cddaf7c2998a5b45b92c64e))
+* style remove ([14add36](https://github.com/NovigoTechnology/nvg-ui/commit/14add3611832928b07963f6ccae12358beba8689))
+* styles ([ef7d1af](https://github.com/NovigoTechnology/nvg-ui/commit/ef7d1af7a8f3a56553cb6bf581a125f7ac126cf3))
+* styles ([88a51c3](https://github.com/NovigoTechnology/nvg-ui/commit/88a51c3b308e91f902f22d10dcfb2c787abc377a))
+* styles test ([3edc957](https://github.com/NovigoTechnology/nvg-ui/commit/3edc957d40f64c421b6c0a9d76ee9ddf80f996c1))
+* test ([e25a5c6](https://github.com/NovigoTechnology/nvg-ui/commit/e25a5c656b4d537984f7b60cd1d4bd8b7b6fdd8d))
+* update components to use dynamic pageLength prop for pagination ([971ce8f](https://github.com/NovigoTechnology/nvg-ui/commit/971ce8ff6c0f9cc6a9b29cccfb4303d5ead12523))
+* update components to use dynamic pageLength prop for pagination ([#39](https://github.com/NovigoTechnology/nvg-ui/issues/39)) ([4a03cd9](https://github.com/NovigoTechnology/nvg-ui/commit/4a03cd9cca4afd6cd18bcf89b7aff8a8a775d07d))
+* update styles for confirmation dialog background ([ffdba2c](https://github.com/NovigoTechnology/nvg-ui/commit/ffdba2c672b593f0abcbfd680a16354df5aa86b0))
+* update table header styles and add border to input fields ([d16f5c7](https://github.com/NovigoTechnology/nvg-ui/commit/d16f5c76f4452c5a29565386c92879eedddfdc14))
+
 # [1.12.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.11.0...v1.12.0) (2026-05-04)
 
 
