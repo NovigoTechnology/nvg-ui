@@ -399,8 +399,7 @@ const confirmQty = () => {
 .grid-table__datatable {
   margin-bottom: 5rem;
   border: 1px solid #e5e7eb;
-  border-radius: 99px;
-  background-color: #dc2626 !important;
+  border-radius: 4px;
 }
 
 .grid-table__datatable .p-datatable-thead > tr > th {
@@ -411,6 +410,7 @@ const confirmQty = () => {
   font-size: 0.8125rem;
   color: #374151;
   text-transform: none;
+  background-color: #dc2626 !important;
 }
 
 .grid-table__datatable .p-datatable-tbody > tr > td {
