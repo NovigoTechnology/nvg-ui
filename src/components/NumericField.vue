@@ -29,13 +29,13 @@ const props = defineProps({
   modelValue: { type: Number, default: null },
   label: { type: String, default: '' },
   id: { type: String, default: () => `nf-${Math.random().toString(36).slice(2, 8)}` },
-  numberFormat: { type: String, default: '#.###,##' },
+  numberFormat: { type: String, default: '' },
 });
 
 defineEmits(['update:modelValue']);
 
 const numberLocale = computed(() => {
-  const m = props.numberFormat.match(/[#0]([^#0\s])[#0]+$/);
+  const m = (props.numberFormat || '').match(/[#0]([^#0\s])[#0]+$/);
   if (!m) return undefined;
   const decimalSep = m[1];
   for (const locale of ['en-US', 'de-DE', 'fr-FR']) {
