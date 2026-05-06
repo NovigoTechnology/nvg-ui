@@ -22,11 +22,31 @@ export interface AutoCompleteProps {
   isTable?: boolean
 }
 
+export interface GridTableColumn {
+  field: string
+  label: string
+  type?: string
+  options?: string
+  width?: string
+  /** Number of columns to occupy out of 12 (e.g. 3 = 25%, 6 = 50%, 12 = 100%) */
+  cols?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+  readOnly?: boolean
+  filters?: Record<string, any>
+  query?: string
+  prefix?: string
+}
+
 export interface GridTableProps {
-  field: FieldDefinition
-  modelValue?: Record<string, any>
-  disabled?: boolean
-  [key: string]: any
+  data?: Record<string, any>[]
+  columns: GridTableColumn[]
+  label?: string
+  emptyMessage?: string
+  filters?: Record<string, any>
+  locale?: string
+  floatPrecision?: number
+  currencyPrecision?: number
+  pageLength?: number
+  showAddMultiple?: boolean
 }
 
 export interface LinkFieldProps {

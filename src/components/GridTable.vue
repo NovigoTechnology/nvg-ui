@@ -18,7 +18,7 @@
         :key="column.field"
         :field="column.field"
         :header="column.label"
-        :style="{ width: column.width || 'auto' }"
+        :style="{ width: getColumnWidth(column) }"
       >
         <template #body="{ data, index }">
           <LinkField
@@ -27,6 +27,7 @@
             :doctype="column.options"
             :placeholder="column.label"
             :disabled="column.readOnly"
+            :pageLength="props.pageLength"
             class="grid-input"
             @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
             @itemSelected="doc => onItemSelected(index, doc, column)"
@@ -45,7 +46,7 @@
         </template>
       </Column>
 
-      <Column :style="{ width: '60px' }">
+      <Column>
         <template #body="{ index }">
           <Button
             icon="pi pi-trash"
@@ -167,6 +168,9 @@ const props = defineProps({
   emptyMessage: { type: String, default: 'No Data' },
   filters: { type: Object, default: () => ({}) },
   locale: { type: String, default: 'es-AR' },
+  floatPrecision: { type: Number, default: 3 },
+  currencyPrecision: { type: Number, default: 2 },
+  pageLength: { type: Number, default: 10 },
   showAddMultiple: { type: Boolean, default: false },
 });
 
@@ -235,6 +239,11 @@ const onItemSelected = (index, doc, column) => {
 };
 
 // ── Helpers de columna ─────────────────────────────────
+const getColumnWidth = column => {
+  if (column.cols) return `${(column.cols / 12) * 100}%`;
+  return column.width || 'auto';
+};
+
 const getComponent = column => {
   return ['Int', 'Float', 'Currency', 'Percent'].includes(column.type) ? NumericField : InputText;
 };
@@ -247,13 +256,24 @@ const getProps = column => {
     disabled: column.readOnly,
   };
 
-  if (column.type === 'Float' || column.type === 'Currency') {
+  if (column.type === 'Currency') {
     return {
       ...base,
       locale: props.locale,
       useGrouping: true,
-      minFractionDigits: 2,
-      maxFractionDigits: 2,
+      minFractionDigits: props.currencyPrecision,
+      maxFractionDigits: props.currencyPrecision,
+      ...(column.prefix ? { prefix: column.prefix } : {}),
+    };
+  }
+
+  if (column.type === 'Float') {
+    return {
+      ...base,
+      locale: props.locale,
+      useGrouping: true,
+      minFractionDigits: props.floatPrecision,
+      maxFractionDigits: props.floatPrecision,
       ...(column.prefix ? { prefix: column.prefix } : {}),
     };
   }
@@ -263,8 +283,8 @@ const getProps = column => {
       ...base,
       locale: props.locale,
       useGrouping: false,
-      minFractionDigits: 2,
-      maxFractionDigits: 2,
+      minFractionDigits: props.floatPrecision,
+      maxFractionDigits: props.floatPrecision,
       suffix: '%',
     };
   }
@@ -287,7 +307,6 @@ const addMultipleLinkColumn = computed(() => props.columns.find(c => c.type === 
 const addMultipleQtyColumn = computed(() =>
   props.columns.find(c => c.type === 'Int' || c.type === 'Float')
 );
-const PAGE_LENGTH = 8;
 
 const dialogVisible = ref(false);
 const qtyDialogVisible = ref(false);
@@ -295,7 +314,7 @@ const searchText = ref('');
 const searchResults = ref([]);
 const hasMore = ref(false);
 const hasSearched = ref(false);
-const currentPageLength = ref(PAGE_LENGTH);
+const currentPageLength = ref(props.pageLength);
 const pendingItem = ref(null);
 const pendingQty = ref(1);
 
@@ -304,7 +323,7 @@ const openDialog = () => {
   searchResults.value = [];
   hasSearched.value = false;
   hasMore.value = false;
-  currentPageLength.value = PAGE_LENGTH;
+  currentPageLength.value = props.pageLength;
   dialogVisible.value = true;
 };
 
@@ -313,7 +332,7 @@ const doSearch = async (reset = false) => {
   if (!linkCol) return;
 
   if (reset) {
-    currentPageLength.value = PAGE_LENGTH;
+    currentPageLength.value = props.pageLength;
   }
 
   const args = {
@@ -338,7 +357,7 @@ const doSearch = async (reset = false) => {
 };
 
 const loadMore = async () => {
-  currentPageLength.value += PAGE_LENGTH;
+  currentPageLength.value += props.pageLength;
   await doSearch(false);
 };
 
@@ -364,18 +383,122 @@ const confirmQty = () => {
   qtyDialogVisible.value = false;
 };
 </script>
-
 <style>
-tr th .p-datatable-column-header-content {
-  justify-content: end;
+.grid-table {
+  width: 100%;
 }
 
-tr th:nth-child(1) .p-datatable-column-header-content {
-  justify-content: start;
+.grid-table__label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #6b7280;
 }
-</style>
 
-<style scoped>
+.grid-table__datatable {
+  margin-bottom: 5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+}
+
+.grid-table__datatable .p-datatable-thead > tr > th {
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: #374151;
+  text-transform: none;
+}
+
+.grid-table__datatable .p-datatable-tbody > tr > td {
+  padding: 0.25rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.grid-table__datatable .p-datatable-tbody > tr:hover {
+  background: #f9fafb;
+}
+
+.grid-table__datatable .p-datatable-tbody > tr:last-child > td {
+  border-bottom: none;
+}
+
+.grid-table__datatable .grid-input.p-inputtext,
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input {
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.8125rem;
+  background: transparent;
+  transition: all 0.2s;
+}
+
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input {
+  text-align: right;
+  border: #cbd5e1 1px solid;
+}
+
+.grid-table__datatable .grid-input.p-inputtext:hover,
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:hover {
+  border-color: #e5e7eb;
+  background: #ffffff;
+}
+
+.grid-table__datatable .grid-input.p-inputtext:focus,
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:focus {
+  border-color: #3b82f6;
+  background: #ffffff;
+  box-shadow: 0 0 0 0.1rem rgba(59, 130, 246, 0.2);
+}
+
+.grid-table__datatable .grid-input.p-inputtext:disabled,
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:disabled {
+  background: transparent;
+  color: #374151;
+  opacity: 0.7;
+}
+
+.grid-table__datatable .grid-input.p-inputnumber {
+  width: 100%;
+}
+
+.grid-table__datatable .p-button.p-button-danger.p-button-text {
+  color: #6b7280;
+  padding: 0.25rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.grid-table__datatable .p-button.p-button-danger.p-button-text:hover {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.grid-table__empty {
+  text-align: center;
+  padding: 1rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.grid-table__add-btn {
+  width: auto;
+  font-size: 0.8125rem;
+  padding: 0.5rem 1rem;
+}
+
+.grid-table__add-btn .p-button-label {
+  font-weight: 500;
+}
+
+.grid-readonly-value {
+  display: block;
+  padding: 0.5rem;
+  color: #374151;
+  text-align: right;
+}
+
 .grid-table__actions {
   display: flex;
   gap: 0.5rem;

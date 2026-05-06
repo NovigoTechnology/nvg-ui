@@ -9,6 +9,7 @@
           :query="props.query"
           :filters="fieldConfig.filters"
           :invalid_fields="props.invalid ? [props.fieldname] : []"
+          :pageLength="props.pageLength"
         />
         <label :for="fieldConfig.fieldname">
           {{ label }}
@@ -130,6 +131,10 @@ const props = defineProps({
   invalid: {
     type: Boolean,
     default: false,
+  },
+  pageLength: {
+    type: Number,
+    default: 10,
   },
 });
 
