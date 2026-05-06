@@ -567,4 +567,8 @@ const confirmQty = () => {
   font-weight: 500;
   color: var(--p-text-muted-color);
 }
+
+th {
+  background-color: red !important;
+}
 </style>
