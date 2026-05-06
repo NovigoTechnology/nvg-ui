@@ -397,7 +397,7 @@ const confirmQty = () => {
 }
 
 .grid-table__datatable {
-  margin-bottom: 5rem;
+  margin-bottom: 0.5rem;
   border: 1px solid #e5e7eb;
   border-radius: 4px;
 }
