@@ -156,6 +156,7 @@ import Column from 'primevue/column';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
+import Textarea from 'primevue/textarea';
 import Dialog from 'primevue/dialog';
 import LinkField from './LinkField.vue';
 import NumericField from './NumericField.vue';
@@ -246,7 +247,9 @@ const getColumnWidth = column => {
 };
 
 const getComponent = column => {
-  return ['Int', 'Float', 'Currency', 'Percent'].includes(column.type) ? NumericField : InputText;
+  if (['Int', 'Float', 'Currency', 'Percent'].includes(column.type)) return NumericField;
+  if (column.type === 'Textarea') return Textarea;
+  return InputText;
 };
 
 const getProps = column => {
@@ -256,6 +259,10 @@ const getProps = column => {
     placeholder: isNumeric ? '' : column.label,
     disabled: column.readOnly,
   };
+
+  if (column.type === 'Textarea') {
+    return { ...base, autoResize: true, rows: 1 };
+  }
 
   if (column.type === 'Currency') {
     return {
