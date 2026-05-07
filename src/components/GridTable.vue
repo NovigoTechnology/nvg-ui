@@ -86,6 +86,7 @@
     v-model:visible="dialogVisible"
     :header="__('Add Multiple')"
     modal
+    dismissableMask
     class="nagus-dialog nagus-dialog--md"
     @show="doSearch(true)"
   >
@@ -126,6 +127,7 @@
     v-model:visible="qtyDialogVisible"
     :header="__('Set Quantity')"
     modal
+    dismissableMask
     class="nagus-dialog nagus-dialog--sm"
   >
     <div class="add-multiple__qty-body">
