@@ -351,10 +351,11 @@ const doSearch = async (reset = false) => {
     doctype: linkCol.options,
     txt: searchText.value,
     page_length: currentPageLength.value,
+    filters: props.filtersFields[linkCol.field]?.filters,
   };
 
-  if (linkCol.query) {
-    args.query = linkCol.query;
+  if (props.filtersFields[linkCol.field]?.query) {
+    args.query = props.filtersFields[linkCol.field]?.query;
   }
 
   const results = await call('frappe.desk.search.search_link', args);
