@@ -414,7 +414,7 @@ const confirmQty = () => {
 }
 
 .grid-table__datatable .p-datatable-tbody > tr > td {
-  padding: 0.25rem;
+  padding: 0.25rem !important;
   border-bottom: 1px solid #e5e7eb;
 }
 
