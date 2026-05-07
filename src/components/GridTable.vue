@@ -406,7 +406,7 @@ const confirmQty = () => {
 .grid-table__datatable .p-datatable-thead > tr > th {
   background: #f9fafb;
   border-bottom: 1px solid #e5e7eb;
-  padding: 0.5rem 0.75rem;
+  padding: 0.25rem !important;
   font-weight: 600;
   font-size: 0.8125rem;
   color: #374151;
