@@ -46,7 +46,7 @@
         </template>
       </Column>
 
-      <Column>
+      <Column v-if="!readOnly">
         <template #body="{ index }">
           <Button
             icon="pi pi-trash"
@@ -59,7 +59,7 @@
       </Column>
     </DataTable>
 
-    <div class="grid-table__actions">
+    <div v-if="!readOnly" class="grid-table__actions">
       <Button
         :label="__('Add Row')"
         icon="pi pi-plus"
@@ -172,6 +172,7 @@ const props = defineProps({
   currencyPrecision: { type: Number, default: 2 },
   pageLength: { type: Number, default: 10 },
   showAddMultiple: { type: Boolean, default: false },
+  readOnly: { type: Boolean, default: false },
 });
 
 const emit = defineEmits(['update:data', 'rowChange', 'rowAdd', 'rowRemove', 'itemSelected']);
