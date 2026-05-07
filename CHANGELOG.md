@@ -1,3 +1,26 @@
+# [1.13.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.12.3...v1.13.0) (2026-05-07)
+
+
+### Bug Fixes
+
+* add readonly in buttons ([dfd16b9](https://github.com/NovigoTechnology/nvg-ui/commit/dfd16b9c7c3df1824d6067bc652698f17de55876))
+* add vhtml ([afff176](https://github.com/NovigoTechnology/nvg-ui/commit/afff176a392f4bc717756197f325ea4a3afd8556))
+* click modal ([2b5b8c2](https://github.com/NovigoTechnology/nvg-ui/commit/2b5b8c21cf318dffd1678c38318457d1bff502c8))
+* description ([e0e7663](https://github.com/NovigoTechnology/nvg-ui/commit/e0e7663d88f1e3acb0629578631a2a646a0b2f2f))
+* padding fields ([f77d688](https://github.com/NovigoTechnology/nvg-ui/commit/f77d688de77100a3f90d63105cabc5c76fccc07c))
+* padding in th ([bdd8a07](https://github.com/NovigoTechnology/nvg-ui/commit/bdd8a07e52e5d6b7f8412021a3fba2f3530cf141))
+* remove dropdown ([0c7aacd](https://github.com/NovigoTechnology/nvg-ui/commit/0c7aacd5d6d62ad2d365a1dc38cedcdb2969d93d))
+* second test ([dfb21a8](https://github.com/NovigoTechnology/nvg-ui/commit/dfb21a893b2bbf9b4aa8a19d8e53bd963ac31c8b))
+* test filters items ([b1c3bec](https://github.com/NovigoTechnology/nvg-ui/commit/b1c3bec11842a93f24ec150a1eaa887d1c7fde4f))
+* test filters items ([5f44e06](https://github.com/NovigoTechnology/nvg-ui/commit/5f44e06936b7934a80cf7913d4cfd89ee30e6910))
+
+
+### Features
+
+* add read only ([#43](https://github.com/NovigoTechnology/nvg-ui/issues/43)) ([f30c738](https://github.com/NovigoTechnology/nvg-ui/commit/f30c73820490de63e8551695531935eb4f61c3a8))
+* add text area ([fc74484](https://github.com/NovigoTechnology/nvg-ui/commit/fc744842204c525f469be963bd86c610de393154))
+* implements dynamic props for linkfield and add multiple ([4feacee](https://github.com/NovigoTechnology/nvg-ui/commit/4feaceeb331095abae256928b2cf3b502b2a0f54))
+
 ## [1.12.3](https://github.com/NovigoTechnology/nvg-ui/compare/v1.12.2...v1.12.3) (2026-05-06)
 
 
