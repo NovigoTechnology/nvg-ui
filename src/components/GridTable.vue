@@ -340,6 +340,7 @@ const openDialog = () => {
 const doSearch = async (reset = false) => {
   const linkCol = addMultipleLinkColumn.value;
   console.log('linkCol', linkCol);
+  console.log('filtersFields', props.filtersFields);
   if (!linkCol) return;
 
   if (reset) {
