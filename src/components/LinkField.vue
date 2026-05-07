@@ -11,19 +11,11 @@
       :completeOnFocus="true"
       fluid
       :disabled="props.disabled"
-      :dropdown="!!inputValue"
       @update:modelValue="e => e === '' && clear_input(true)"
       @option-select="e => selectOption(e.value)"
       :optionLabel="option => option.label || option.value"
       forceSelection
     >
-      <template v-if="!props.disabled" #dropdown>
-        <button type="button" class="p-autocomplete-dropdown" @click.stop="clear_input">
-          <svg class="icon icon-sm" style="stroke: var(--p-inputtext-color)" aria-hidden="true">
-            <use href="#icon-close"></use>
-          </svg>
-        </button>
-      </template>
       <template #option="slotProps">
         <div v-if="!slotProps.option.label && !slotProps.option.description">
           <strong>{{ slotProps.option.value }}</strong>
@@ -36,10 +28,9 @@
               (slotProps.option.isTitleLink ||
                 slotProps.option.value !== slotProps.option.description)
             "
+            v-html="slotProps.option.description"
             class="text-sm text-color-secondary"
-          >
-            {{ slotProps.option.description }}
-          </div>
+          ></div>
         </div>
       </template>
     </AutoComplete>
@@ -53,6 +44,7 @@ import { call } from '../libs/frappe-ui';
 
 const props = defineProps({
   modelValue: { type: String, default: '' },
+  subtitle: { type: String, default: '' },
   doctype: { type: String, required: true },
   placeholder: { type: String, default: '' },
   disabled: { type: Boolean, default: false },
@@ -70,10 +62,15 @@ const refresh = ref(false);
 const suggestions = ref([]);
 const translatedSuggestions = ref([]);
 
+const formatInputValue = (code, name) => {
+  if (code && name && name !== code) return `${code}: ${name}`;
+  return code || '';
+};
+
 watch(
-  () => props.modelValue,
-  newValue => {
-    inputValue.value = newValue || '';
+  [() => props.modelValue, () => props.subtitle],
+  ([newValue, newSubtitle]) => {
+    inputValue.value = formatInputValue(newValue, newSubtitle);
   },
   { immediate: true }
 );
@@ -138,9 +135,8 @@ const mergeDuplicates = results =>
   }, []);
 
 const selectOption = async selectedOption => {
-  inputValue.value = selectedOption.label || selectedOption.value;
+  inputValue.value = formatInputValue(selectedOption.value, selectedOption.label);
   emit('update:modelValue', selectedOption.value);
-
   emit('itemSelected', selectedOption.value);
 };
 

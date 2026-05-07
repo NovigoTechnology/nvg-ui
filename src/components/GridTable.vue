@@ -24,6 +24,7 @@
           <LinkField
             v-if="column.type === 'Link'"
             :modelValue="data[column.field]"
+            :subtitle="column.subtitleField ? data[column.subtitleField] : ''"
             :doctype="column.options"
             :placeholder="column.label"
             :disabled="column.readOnly"
@@ -32,8 +33,8 @@
             @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
             @itemSelected="doc => onItemSelected(index, doc, column)"
             @clear-row="() => clearRowItems(data)"
-            :filters="column.filters"
-            :query="column.query"
+            :filters="filtersFields[column.field].filters"
+            :query="filtersFields[column.field]?.query"
           />
           <component
             v-else
@@ -46,7 +47,7 @@
         </template>
       </Column>
 
-      <Column>
+      <Column v-if="!readOnly">
         <template #body="{ index }">
           <Button
             icon="pi pi-trash"
@@ -59,7 +60,7 @@
       </Column>
     </DataTable>
 
-    <div class="grid-table__actions">
+    <div v-if="!readOnly" class="grid-table__actions">
       <Button
         :label="__('Add Row')"
         icon="pi pi-plus"
@@ -85,6 +86,7 @@
     v-model:visible="dialogVisible"
     :header="__('Add Multiple')"
     modal
+    dismissableMask
     class="nagus-dialog nagus-dialog--md"
     @show="doSearch(true)"
   >
@@ -125,6 +127,7 @@
     v-model:visible="qtyDialogVisible"
     :header="__('Set Quantity')"
     modal
+    dismissableMask
     class="nagus-dialog nagus-dialog--sm"
   >
     <div class="add-multiple__qty-body">
@@ -156,6 +159,7 @@ import Column from 'primevue/column';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
+import Textarea from 'primevue/textarea';
 import Dialog from 'primevue/dialog';
 import LinkField from './LinkField.vue';
 import NumericField from './NumericField.vue';
@@ -172,6 +176,8 @@ const props = defineProps({
   currencyPrecision: { type: Number, default: 2 },
   pageLength: { type: Number, default: 10 },
   showAddMultiple: { type: Boolean, default: false },
+  readOnly: { type: Boolean, default: false },
+  filtersFields: { type: Object, default: () => ({}) },
 });
 
 const emit = defineEmits(['update:data', 'rowChange', 'rowAdd', 'rowRemove', 'itemSelected']);
@@ -245,7 +251,9 @@ const getColumnWidth = column => {
 };
 
 const getComponent = column => {
-  return ['Int', 'Float', 'Currency', 'Percent'].includes(column.type) ? NumericField : InputText;
+  if (['Int', 'Float', 'Currency', 'Percent'].includes(column.type)) return NumericField;
+  if (column.type === 'Textarea') return Textarea;
+  return InputText;
 };
 
 const getProps = column => {
@@ -255,6 +263,10 @@ const getProps = column => {
     placeholder: isNumeric ? '' : column.label,
     disabled: column.readOnly,
   };
+
+  if (column.type === 'Textarea') {
+    return { ...base, autoResize: true, rows: 1 };
+  }
 
   if (column.type === 'Currency') {
     return {
@@ -339,10 +351,11 @@ const doSearch = async (reset = false) => {
     doctype: linkCol.options,
     txt: searchText.value,
     page_length: currentPageLength.value,
+    filters: props.filtersFields[linkCol.field]?.filters,
   };
 
-  if (linkCol.query) {
-    args.query = linkCol.query;
+  if (props.filtersFields[linkCol.field]?.query) {
+    args.query = props.filtersFields[linkCol.field]?.query;
   }
 
   const results = await call('frappe.desk.search.search_link', args);
@@ -405,7 +418,7 @@ const confirmQty = () => {
 .grid-table__datatable .p-datatable-thead > tr > th {
   background: #f9fafb;
   border-bottom: 1px solid #e5e7eb;
-  padding: 0.5rem 0.75rem;
+  padding: 0.25rem !important;
   font-weight: 600;
   font-size: 0.8125rem;
   color: #374151;
@@ -413,7 +426,7 @@ const confirmQty = () => {
 }
 
 .grid-table__datatable .p-datatable-tbody > tr > td {
-  padding: 0.25rem;
+  padding: 0.25rem !important;
   border-bottom: 1px solid #e5e7eb;
 }
 
