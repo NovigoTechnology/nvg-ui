@@ -33,8 +33,8 @@
             @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
             @itemSelected="doc => onItemSelected(index, doc, column)"
             @clear-row="() => clearRowItems(data)"
-            :filters="column.filters"
-            :query="column.query"
+            :filters="filtersFields[column.field].filters"
+            :query="filtersFields[column.field]?.query"
           />
           <component
             v-else
@@ -175,6 +175,7 @@ const props = defineProps({
   pageLength: { type: Number, default: 10 },
   showAddMultiple: { type: Boolean, default: false },
   readOnly: { type: Boolean, default: false },
+  filtersFields: { type: Object, default: () => ({}) },
 });
 
 const emit = defineEmits(['update:data', 'rowChange', 'rowAdd', 'rowRemove', 'itemSelected']);
@@ -338,6 +339,7 @@ const openDialog = () => {
 
 const doSearch = async (reset = false) => {
   const linkCol = addMultipleLinkColumn.value;
+  console.log('linkCol', linkCol);
   if (!linkCol) return;
 
   if (reset) {
