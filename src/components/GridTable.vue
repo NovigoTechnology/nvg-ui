@@ -24,6 +24,7 @@
           <LinkField
             v-if="column.type === 'Link'"
             :modelValue="data[column.field]"
+            :subtitle="column.subtitleField ? data[column.subtitleField] : ''"
             :doctype="column.options"
             :placeholder="column.label"
             :disabled="column.readOnly"
