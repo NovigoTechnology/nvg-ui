@@ -36,10 +36,9 @@
               (slotProps.option.isTitleLink ||
                 slotProps.option.value !== slotProps.option.description)
             "
+            v-html="slotProps.option.description"
             class="text-sm text-color-secondary"
-          >
-            {{ slotProps.option.description }}
-          </div>
+          ></div>
         </div>
       </template>
     </AutoComplete>
