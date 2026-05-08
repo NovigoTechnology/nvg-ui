@@ -19,6 +19,8 @@
         :field="column.field"
         :header="column.label"
         :style="{ width: getColumnWidth(column) }"
+        :bodyStyle="column.align ? { textAlign: column.align } : {}"
+        :headerStyle="column.align ? { textAlign: column.align } : {}"
       >
         <template #body="{ data, index }">
           <LinkField
