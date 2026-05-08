@@ -44,7 +44,7 @@
               :class="`grid-input ${data[column.field]?.class || ''}`"
               @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
             />
-            {{ console.log('rendering cell', column.field, data[column.field]) }}
+            {{ console.log('rendering cell', column, data) }}
           </div>
         </template>
       </Column>
