@@ -41,7 +41,7 @@
             :is="getComponent(column)"
             :modelValue="data[column.field]"
             v-bind="getProps(column)"
-            class="grid-input"
+            :class="`grid-input ${column.class || ''}`"
             @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
           />
         </template>
