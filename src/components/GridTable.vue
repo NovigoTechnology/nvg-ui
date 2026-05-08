@@ -19,8 +19,6 @@
         :field="column.field"
         :header="column.label"
         :style="{ width: getColumnWidth(column) }"
-        :bodyStyle="column.align ? { textAlign: column.align } : {}"
-        :headerStyle="column.align ? { textAlign: column.align } : {}"
       >
         <template #body="{ data, index }">
           <LinkField
@@ -43,7 +41,7 @@
             :is="getComponent(column)"
             :modelValue="data[column.field]"
             v-bind="getProps(column)"
-            class="grid-input"
+            :class="`grid-input ${data[column.field]?.class || ''}`"
             @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
           />
         </template>
