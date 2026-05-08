@@ -1,3 +1,17 @@
+## [1.13.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.13.0...v1.13.1) (2026-05-08)
+
+
+### Bug Fixes
+
+* global align text rigth in numeric field ([#44](https://github.com/NovigoTechnology/nvg-ui/issues/44)) ([3f1ae2e](https://github.com/NovigoTechnology/nvg-ui/commit/3f1ae2e4cbbc9653a5b8746d2b38d2bdda426cdf))
+* style in numericfield ([739d84e](https://github.com/NovigoTechnology/nvg-ui/commit/739d84e932ae39367d19d890959bee51fc0e2ad5))
+* styles in props ([0ec665a](https://github.com/NovigoTechnology/nvg-ui/commit/0ec665a53a82f773ceac4cdf5710bb5bb4016044))
+* test ([2878e42](https://github.com/NovigoTechnology/nvg-ui/commit/2878e422b2153ed9602201af15e70791262f6329))
+* test 3 ([506806a](https://github.com/NovigoTechnology/nvg-ui/commit/506806ac8b145ae9b36c25e73bb7ccc8fed6d2db))
+* test2 ([239b87f](https://github.com/NovigoTechnology/nvg-ui/commit/239b87f1b29fc6647b98135393d7a1a356ed225f))
+* text align ([69355b3](https://github.com/NovigoTechnology/nvg-ui/commit/69355b3d818ef49e266dedb95e0f25a6446a9467))
+* text align ([f42e251](https://github.com/NovigoTechnology/nvg-ui/commit/f42e2517aa4cadfab7ab751dd8c01cb6e33f3865))
+
 # [1.13.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.12.3...v1.13.0) (2026-05-07)
 
 
