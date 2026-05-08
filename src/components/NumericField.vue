@@ -45,3 +45,10 @@ const numberLocale = computed(() => {
   return undefined;
 });
 </script>
+
+<style>
+.numeric-field-wrapper .p-inputnumber-input,
+.p-inputnumber .p-inputnumber-input {
+  text-align: right;
+}
+</style>
