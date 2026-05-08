@@ -36,16 +36,14 @@
             :filters="filtersFields[column.field].filters"
             :query="filtersFields[column.field]?.query"
           />
-          <div v-else>
-            <component
-              :is="getComponent(column)"
-              :modelValue="data[column.field]"
-              v-bind="getProps(column)"
-              :class="`grid-input ${column.class || ''}`"
-              @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
-            />
-            {{ console.log('rendering cell', column, data) }}
-          </div>
+          <component
+            v-else
+            :is="getComponent(column)"
+            :modelValue="data[column.field]"
+            v-bind="getProps(column)"
+            :class="`grid-input ${column.class || ''}`"
+            @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
+          />
         </template>
       </Column>
 
