@@ -1,3 +1,11 @@
+## [1.13.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.13.1...v1.13.2) (2026-05-09)
+
+
+### Bug Fixes
+
+* pin postcss ≥8.5.10 to resolve GHSA-qx2v-qp2m-jg93 XSS vulnerability ([#46](https://github.com/NovigoTechnology/nvg-ui/issues/46)) ([1f4d7c7](https://github.com/NovigoTechnology/nvg-ui/commit/1f4d7c734d7560fb129cbd3cb38f0dbc9e9861a4))
+* update postcss to >=8.5.10 to resolve GHSA-qx2v-qp2m-jg93 XSS vulnerability ([b918850](https://github.com/NovigoTechnology/nvg-ui/commit/b9188500d05787675285d15a93fea142992900bc))
+
 ## [1.13.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.13.0...v1.13.1) (2026-05-08)
 
 
