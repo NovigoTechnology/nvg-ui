@@ -22,7 +22,6 @@
       >
         <template #body="{ data, index }">
           <div v-if="column.type === 'Popover'" class="grid-popover-cell">
-            <span class="grid-popover-summary">{{ getPopoverSummary(column, data) }}</span>
             <Button
               icon="pi pi-pencil"
               text
@@ -109,6 +108,13 @@
           @update:modelValue="value => onPopoverFieldUpdate(subCol, value)"
         />
       </div>
+      <Button
+        :label="__('Accept')"
+        size="small"
+        fluid
+        class="grid-popover-accept"
+        @click="sharedPopover.hide()"
+      />
     </div>
   </Popover>
 
@@ -370,21 +376,6 @@ const openPopover = (event, column, data, index) => {
 const onPopoverFieldUpdate = (subCol, value) => {
   if (!activePopoverData.value || activePopoverIndex.value === null) return;
   onFieldValueUpdate(activePopoverData.value, activePopoverIndex.value, subCol.field, value);
-};
-
-const getPopoverSummary = (column, data) => {
-  const parts = column.fields
-    .map(subCol => {
-      const val = data[subCol.field];
-      if (!val) return null;
-      if (subCol.type === 'Percent') return `${val}%`;
-      if (subCol.type === 'Currency' || subCol.type === 'Float') {
-        return `${subCol.prefix || ''}${Number(val).toFixed(2)}`;
-      }
-      return String(val);
-    })
-    .filter(Boolean);
-  return parts.length ? parts.join(' / ') : '—';
 };
 
 // ── Add Multiple ───────────────────────────────────────
@@ -657,15 +648,7 @@ const confirmQty = () => {
 .grid-popover-cell {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  justify-content: flex-end;
-}
-
-.grid-popover-summary {
-  font-size: 0.8125rem;
-  color: #374151;
-  flex: 1;
-  text-align: right;
+  justify-content: center;
 }
 
 .grid-popover-btn.p-button {
@@ -694,5 +677,9 @@ const confirmQty = () => {
 .grid-popover-field .p-inputnumber,
 .grid-popover-field .p-inputtext {
   width: 100%;
+}
+
+.grid-popover-accept {
+  margin-top: 0.25rem;
 }
 </style>
