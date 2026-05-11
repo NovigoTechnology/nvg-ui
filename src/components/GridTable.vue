@@ -15,20 +15,21 @@
 
       <Column
         v-for="column in columns"
-        :key="column.type === 'Popover' ? `popover-${column.label}` : column.field"
-        :field="column.type === 'Popover' ? undefined : column.field"
+        :key="column.type === 'Compound' ? `compound-${column.label}` : column.field"
+        :field="column.type === 'Compound' ? undefined : column.field"
         :header="column.label"
         :style="{ width: getColumnWidth(column) }"
       >
         <template #body="{ data, index }">
-          <div v-if="column.type === 'Popover'" class="grid-popover-cell">
-            <Button
-              icon="pi pi-pencil"
-              text
-              rounded
-              size="small"
-              class="grid-popover-btn"
-              @click="e => openPopover(e, column, data, index)"
+          <div v-if="column.type === 'Compound'" class="grid-compound">
+            <component
+              v-for="subCol in column.fields"
+              :key="subCol.field"
+              :is="getComponent(subCol)"
+              :modelValue="data[subCol.field]"
+              v-bind="getProps(subCol)"
+              :class="`grid-input ${subCol.class || ''}`"
+              @update:modelValue="value => onFieldValueUpdate(data, index, subCol.field, value)"
             />
           </div>
           <LinkField
@@ -90,33 +91,6 @@
       />
     </div>
   </div>
-
-  <!-- Popover for Popover-type columns -->
-  <Popover ref="sharedPopover" class="grid-popover">
-    <div v-if="activePopoverColumn" class="grid-popover-content">
-      <div
-        v-for="subCol in activePopoverColumn.fields"
-        :key="subCol.field"
-        class="grid-popover-field"
-      >
-        <label class="grid-popover-label">{{ subCol.label }}</label>
-        <component
-          :is="getComponent(subCol)"
-          :modelValue="activePopoverData?.[subCol.field]"
-          v-bind="getProps(subCol)"
-          class="grid-input"
-          @update:modelValue="value => onPopoverFieldUpdate(subCol, value)"
-        />
-      </div>
-      <Button
-        :label="__('Accept')"
-        size="small"
-        fluid
-        class="grid-popover-accept"
-        @click="sharedPopover.hide()"
-      />
-    </div>
-  </Popover>
 
   <!-- Search dialog -->
   <Dialog
@@ -198,7 +172,6 @@ import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
 import Textarea from 'primevue/textarea';
 import Dialog from 'primevue/dialog';
-import Popover from 'primevue/popover';
 import LinkField from './LinkField.vue';
 import NumericField from './NumericField.vue';
 import { call } from '../libs/frappe-ui';
@@ -234,7 +207,7 @@ watch(
 const NUMERIC_TYPES = ['Float', 'Currency', 'Int', 'Percent'];
 
 const initRowFields = (row, col) => {
-  if (col.type === 'Popover') {
+  if (col.type === 'Compound') {
     col.fields.forEach(subCol => {
       row[subCol.field] = NUMERIC_TYPES.includes(subCol.type) ? 0 : '';
     });
@@ -358,24 +331,6 @@ const getProps = column => {
   }
 
   return base;
-};
-
-// ── Popover ────────────────────────────────────────────
-const sharedPopover = ref(null);
-const activePopoverColumn = ref(null);
-const activePopoverData = ref(null);
-const activePopoverIndex = ref(null);
-
-const openPopover = (event, column, data, index) => {
-  activePopoverColumn.value = column;
-  activePopoverData.value = data;
-  activePopoverIndex.value = index;
-  sharedPopover.value.toggle(event);
-};
-
-const onPopoverFieldUpdate = (subCol, value) => {
-  if (!activePopoverData.value || activePopoverIndex.value === null) return;
-  onFieldValueUpdate(activePopoverData.value, activePopoverIndex.value, subCol.field, value);
 };
 
 // ── Add Multiple ───────────────────────────────────────
@@ -645,41 +600,9 @@ const confirmQty = () => {
   color: var(--p-text-muted-color);
 }
 
-.grid-popover-cell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.grid-popover-btn.p-button {
-  width: 1.5rem !important;
-  height: 1.5rem !important;
-  padding: 0 !important;
-  flex-shrink: 0;
-}
-
-.grid-popover-content {
+.grid-compound {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  min-width: 180px;
-  padding: 0.25rem;
-}
-
-.grid-popover-label {
-  display: block;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #6b7280;
-  margin-bottom: 0.25rem;
-}
-
-.grid-popover-field .p-inputnumber,
-.grid-popover-field .p-inputtext {
-  width: 100%;
-}
-
-.grid-popover-accept {
-  margin-top: 0.25rem;
+  gap: 2px;
 }
 </style>
