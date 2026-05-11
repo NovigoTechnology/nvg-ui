@@ -468,7 +468,7 @@ const confirmQty = () => {
 .grid-table__label {
   display: block;
   margin-bottom: 0.75rem;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 0.85rem;
   color: #6b7280;
 }
@@ -483,7 +483,7 @@ const confirmQty = () => {
   background: #f9fafb;
   border-bottom: 1px solid #e5e7eb;
   padding: 0.25rem !important;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 0.8125rem;
   color: #374151;
   text-transform: none;
@@ -566,7 +566,7 @@ const confirmQty = () => {
 }
 
 .grid-table__add-btn .p-button-label {
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .grid-readonly-value {
@@ -614,7 +614,7 @@ const confirmQty = () => {
 
 .add-multiple__item-name {
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .add-multiple__item-desc {
@@ -641,7 +641,7 @@ const confirmQty = () => {
 
 .add-multiple__qty-item-name {
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--p-text-muted-color);
 }
 
@@ -669,7 +669,7 @@ const confirmQty = () => {
 .grid-popover-label {
   display: block;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 400;
   color: #6b7280;
   margin-bottom: 0.25rem;
 }
