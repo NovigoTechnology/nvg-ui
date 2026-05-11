@@ -256,7 +256,7 @@ const onSave = async () => {
   margin: 0;
   color: var(--p-primary-color);
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .section-fields {

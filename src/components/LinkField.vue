@@ -201,7 +201,7 @@ defineExpose({ clear_input });
 }
 
 .link-field .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item strong {
-  font-weight: 500;
+  font-weight: 400;
   color: #374151;
 }
 

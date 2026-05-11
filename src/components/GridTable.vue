@@ -15,14 +15,25 @@
 
       <Column
         v-for="column in columns"
-        :key="column.field"
-        :field="column.field"
+        :key="column.type === 'Popover' ? `popover-${column.label}` : column.field"
+        :field="column.type === 'Popover' ? undefined : column.field"
         :header="column.label"
         :style="{ width: getColumnWidth(column) }"
       >
         <template #body="{ data, index }">
+          <div v-if="column.type === 'Popover'" class="grid-popover-cell">
+            <span class="grid-popover-preview">{{ getPopoverPreview(column, data) }}</span>
+            <Button
+              icon="pi pi-pencil"
+              text
+              rounded
+              size="small"
+              class="grid-popover-btn"
+              @click="openPopover($event, column, data, index)"
+            />
+          </div>
           <LinkField
-            v-if="column.type === 'Link'"
+            v-else-if="column.type === 'Link'"
             :modelValue="data[column.field]"
             :subtitle="column.subtitleField ? data[column.subtitleField] : ''"
             :doctype="column.options"
@@ -80,6 +91,33 @@
       />
     </div>
   </div>
+
+  <!-- Popover for Popover-type columns -->
+  <Popover ref="sharedPopover" class="grid-popover">
+    <div v-if="activePopoverColumn" class="grid-popover-content">
+      <div
+        v-for="subCol in activePopoverColumn.fields"
+        :key="subCol.field"
+        class="grid-popover-field"
+      >
+        <label class="grid-popover-label">{{ subCol.label }}</label>
+        <component
+          :is="getComponent(subCol)"
+          :modelValue="activePopoverData?.[subCol.field]"
+          v-bind="getProps(subCol)"
+          class="grid-input"
+          @update:modelValue="value => onPopoverFieldUpdate(subCol, value)"
+        />
+      </div>
+      <Button
+        :label="__('Accept')"
+        size="small"
+        fluid
+        class="grid-popover-accept"
+        @click="sharedPopover.hide()"
+      />
+    </div>
+  </Popover>
 
   <!-- Search dialog -->
   <Dialog
@@ -161,6 +199,7 @@ import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
 import Textarea from 'primevue/textarea';
 import Dialog from 'primevue/dialog';
+import Popover from 'primevue/popover';
 import LinkField from './LinkField.vue';
 import NumericField from './NumericField.vue';
 import { call } from '../libs/frappe-ui';
@@ -192,23 +231,50 @@ watch(
   { deep: true }
 );
 
-// ── Filas ──────────────────────────────────────────────
+const NUMERIC_TYPES = ['Float', 'Currency', 'Int', 'Percent'];
+
+/**
+ * Initializes default values for a row's fields based on column type.
+ * Numeric types (Float, Currency, Int, Percent) default to 0; all others to ''.
+ * For Popover columns every sub-field is initialized individually.
+ * @param {Object} row - The row object being built
+ * @param {Object} col - Column definition from the columns prop
+ */
+const initRowFields = (row, col) => {
+  if (col.type === 'Popover') {
+    col.fields.forEach(subCol => {
+      row[subCol.field] = NUMERIC_TYPES.includes(subCol.type) ? 0 : '';
+    });
+  } else {
+    row[col.field] = NUMERIC_TYPES.includes(col.type) ? 0 : '';
+  }
+};
+
+/**
+ * Builds a blank row object with all column fields set to their default values
+ * and an auto-incremented idx based on the current data length.
+ * @returns {Object} A new row ready to be pushed into dataArray
+ */
 const createEmptyRow = () => {
   const row = { idx: dataArray.value.length + 1 };
-  props.columns.forEach(col => {
-    row[col.field] = ['Float', 'Currency', 'Int', 'Percent'].includes(col.type) ? 0 : '';
-  });
+  props.columns.forEach(col => initRowFields(row, col));
   return row;
 };
 
+/**
+ * Resets all editable fields in a row back to their default values without removing the row.
+ * Called when the user clears the link field of a row (e.g. deletes the item code).
+ * @param {Object} row - The row object to clear
+ */
 const clearRowItems = row => {
-  props.columns.forEach(col => {
-    row[col.field] = ['Float', 'Currency', 'Int', 'Percent'].includes(col.type) ? 0 : '';
-  });
+  props.columns.forEach(col => initRowFields(row, col));
   emit('update:data', dataArray.value);
   emit('rowChange', row);
 };
 
+/**
+ * Appends a new empty row to the table and emits update:data and rowAdd.
+ */
 const addRow = () => {
   const row = createEmptyRow();
   dataArray.value.push(row);
@@ -216,6 +282,10 @@ const addRow = () => {
   emit('rowAdd', row);
 };
 
+/**
+ * Removes a row at the given index and emits update:data and rowRemove.
+ * @param {number} index - Zero-based index of the row to remove
+ */
 const removeRow = index => {
   const row = dataArray.value[index];
   dataArray.value.splice(index, 1);
@@ -223,7 +293,14 @@ const removeRow = index => {
   emit('rowRemove', row, index);
 };
 
-// ── Cambios ────────────────────────────────────────────
+/**
+ * Writes a new field value onto both the in-template editing copy and the backing dataArray,
+ * then emits update:data and rowChange so the parent can react (e.g. recalculate totals).
+ * @param {Object} editingRow - The row reference used inside the template slot
+ * @param {number} index - Zero-based index of the row in dataArray
+ * @param {string} field - The field name being updated
+ * @param {*} value - The new value emitted by the input component
+ */
 const onFieldValueUpdate = (editingRow, index, field, value) => {
   editingRow[field] = value;
 
@@ -235,6 +312,13 @@ const onFieldValueUpdate = (editingRow, index, field, value) => {
   }
 };
 
+/**
+ * Called when the user picks a value from a Link column's autocomplete.
+ * Emits itemSelected so the parent can fetch additional data (e.g. pricing) for the chosen document.
+ * @param {number} index - Zero-based index of the row where the selection happened
+ * @param {string|Object} doc - The selected document value returned by the link field
+ * @param {Object} column - The column definition that triggered the selection
+ */
 const onItemSelected = (index, doc, column) => {
   const row = dataArray.value[index];
   if (!row) return;
@@ -244,18 +328,38 @@ const onItemSelected = (index, doc, column) => {
   emit('rowChange', row);
 };
 
-// ── Helpers de columna ─────────────────────────────────
+/**
+ * Resolves the CSS width for a column.
+ * If cols is set it is treated as a fraction of a 12-column grid (e.g. cols=4 → 33.33%).
+ * Falls back to column.width if provided, otherwise 'auto'.
+ * @param {Object} column - Column definition
+ * @returns {string} CSS width value
+ */
 const getColumnWidth = column => {
   if (column.cols) return `${(column.cols / 12) * 100}%`;
   return column.width || 'auto';
 };
 
+/**
+ * Returns the Vue input component that should render a given column type.
+ * Numeric types (Int, Float, Currency, Percent) use NumericField;
+ * Textarea uses PrimeVue Textarea; everything else uses InputText.
+ * @param {Object} column - Column definition
+ * @returns {Component} Vue component reference
+ */
 const getComponent = column => {
   if (['Int', 'Float', 'Currency', 'Percent'].includes(column.type)) return NumericField;
   if (column.type === 'Textarea') return Textarea;
   return InputText;
 };
 
+/**
+ * Builds the props object passed to each column's input component.
+ * Applies number formatting, fraction digit precision, prefix and grouping settings
+ * according to the column type (Currency, Float, Percent, Int, Textarea).
+ * @param {Object} column - Column definition including type, prefix, readOnly
+ * @returns {Object} Props object ready to be spread onto the component via v-bind
+ */
 const getProps = column => {
   const isNumeric = ['Int', 'Float', 'Currency', 'Percent'].includes(column.type);
   const base = {
@@ -314,8 +418,76 @@ const getProps = column => {
   return base;
 };
 
-// ── Add Multiple ───────────────────────────────────────
+const sharedPopover = ref(null);
+const activePopoverColumn = ref(null);
+const activePopoverData = ref(null);
+const activePopoverIndex = ref(null);
+
+/**
+ * Opens the single shared Popover panel anchored to the pencil button that was clicked.
+ * Stores the active column, row data and index so the popover fields can read and write
+ * from the correct row without needing a popover instance per row.
+ * @param {Event} event - The click event used by PrimeVue Popover as its anchor
+ * @param {Object} column - The Popover column definition containing the sub-fields array
+ * @param {Object} data - The row data object for the clicked row
+ * @param {number} index - Zero-based index of the clicked row in dataArray
+ */
+const openPopover = (event, column, data, index) => {
+  activePopoverColumn.value = column;
+  activePopoverData.value = data;
+  activePopoverIndex.value = index;
+  sharedPopover.value.toggle(event);
+};
+
+/**
+ * Handles a value change emitted by any input inside the popover.
+ * Delegates to onFieldValueUpdate using the currently active row index and data,
+ * which in turn emits rowChange so the parent can recalculate (e.g. discount → amount).
+ * @param {Object} subCol - Sub-column definition from the Popover column's fields array
+ * @param {*} value - New value emitted by the input inside the popover
+ */
+const onPopoverFieldUpdate = (subCol, value) => {
+  if (!activePopoverData.value || activePopoverIndex.value === null) return;
+  onFieldValueUpdate(activePopoverData.value, activePopoverIndex.value, subCol.field, value);
+};
+
+/**
+ * Truncates a number to the given decimal places without rounding.
+ * e.g. truncate(10.9999, 2) → '10.99', not '11.00'
+ * @param {number} num - Value to format
+ * @param {number} decimals - Number of decimal places to keep
+ * @returns {string}
+ */
+const truncate = (num, decimals) => {
+  const factor = Math.pow(10, decimals);
+  return (Math.trunc(num * factor) / factor).toFixed(decimals);
+};
+
+/**
+ * Returns a formatted preview string of the first sub-field's current value,
+ * always shown next to the pencil button — including when the value is 0 — so the cell
+ * mirrors the same default-zero appearance as the inputs inside the popover.
+ * Numbers are formatted with the same decimal precision used by the corresponding input type:
+ * Percent uses floatPrecision, Currency uses currencyPrecision, Float uses floatPrecision.
+ * @param {Object} column - Popover column definition; reads column.fields[0]
+ * @param {Object} data - Current row data object
+ * @returns {string} Formatted value string (e.g. '0.000%', '$ 0.00', '10.500%')
+ */
+const getPopoverPreview = (column, data) => {
+  const first = column.fields?.[0];
+  if (!first) return '';
+  const val = parseFloat(data[first.field] ?? 0) || 0;
+  if (first.type === 'Percent') return `${truncate(val, props.floatPrecision)}%`;
+  if (first.type === 'Currency')
+    return `${first.prefix || ''}${truncate(val, props.currencyPrecision)}`;
+  if (first.type === 'Float') return `${first.prefix || ''}${truncate(val, props.floatPrecision)}`;
+  const raw = data[first.field];
+  return raw !== null && raw !== undefined ? String(raw) : '';
+};
+
+/** The first Link-type column; used as the search target in the Add Multiple dialog */
 const addMultipleLinkColumn = computed(() => props.columns.find(c => c.type === 'Link'));
+/** The first Int or Float column; receives the quantity entered in the Add Multiple qty dialog */
 const addMultipleQtyColumn = computed(() =>
   props.columns.find(c => c.type === 'Int' || c.type === 'Float')
 );
@@ -330,6 +502,10 @@ const currentPageLength = ref(props.pageLength);
 const pendingItem = ref(null);
 const pendingQty = ref(1);
 
+/**
+ * Resets the Add Multiple search state and opens the search dialog.
+ * The dialog triggers doSearch(true) on @show to load an initial result set.
+ */
 const openDialog = () => {
   searchText.value = '';
   searchResults.value = [];
@@ -339,6 +515,12 @@ const openDialog = () => {
   dialogVisible.value = true;
 };
 
+/**
+ * Queries the Frappe link-search API for items matching the current searchText.
+ * When reset is true the page cursor is reset so the first page is returned.
+ * Sets hasMore to true when the result count equals the page length, enabling the Load More button.
+ * @param {boolean} reset - Whether to restart from the first page (default false)
+ */
 const doSearch = async (reset = false) => {
   const linkCol = addMultipleLinkColumn.value;
   if (!linkCol) return;
@@ -369,17 +551,30 @@ const doSearch = async (reset = false) => {
   hasMore.value = results?.length >= currentPageLength.value;
 };
 
+/**
+ * Increases the page length by one page and re-runs the search to append more results.
+ */
 const loadMore = async () => {
   currentPageLength.value += props.pageLength;
   await doSearch(false);
 };
 
+/**
+ * Stores the chosen search result as the pending item and opens the qty dialog
+ * so the user can set how many units to add before the row is created.
+ * @param {Object} item - Search result object with value, label and description
+ */
 const selectItem = item => {
   pendingItem.value = item;
   pendingQty.value = 1;
   qtyDialogVisible.value = true;
 };
 
+/**
+ * Confirms the quantity entered in the qty dialog, creates a new row with the pending item
+ * and qty pre-filled, pushes it into dataArray and fires itemSelected so the parent can
+ * fetch pricing for the newly added row. Closes the qty dialog on completion.
+ */
 const confirmQty = () => {
   if (!pendingItem.value || !pendingQty.value) return;
 
@@ -404,7 +599,7 @@ const confirmQty = () => {
 .grid-table__label {
   display: block;
   margin-bottom: 0.75rem;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 0.85rem;
   color: #6b7280;
 }
@@ -419,7 +614,7 @@ const confirmQty = () => {
   background: #f9fafb;
   border-bottom: 1px solid #e5e7eb;
   padding: 0.25rem !important;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 0.8125rem;
   color: #374151;
   text-transform: none;
@@ -502,7 +697,7 @@ const confirmQty = () => {
 }
 
 .grid-table__add-btn .p-button-label {
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .grid-readonly-value {
@@ -550,7 +745,7 @@ const confirmQty = () => {
 
 .add-multiple__item-name {
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .add-multiple__item-desc {
@@ -577,7 +772,51 @@ const confirmQty = () => {
 
 .add-multiple__qty-item-name {
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--p-text-muted-color);
+}
+
+.grid-popover-cell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}
+
+.grid-popover-preview {
+  font-size: 0.8125rem;
+  color: #374151;
+}
+
+.grid-popover-btn.p-button {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  padding: 0 !important;
+  flex-shrink: 0;
+}
+
+.grid-popover-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 180px;
+  padding: 0.25rem;
+}
+
+.grid-popover-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.grid-popover-field .p-inputnumber,
+.grid-popover-field .p-inputtext {
+  width: 100%;
+}
+
+.grid-popover-accept {
+  margin-top: 0.25rem;
 }
 </style>
