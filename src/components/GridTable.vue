@@ -29,7 +29,7 @@
               rounded
               size="small"
               class="grid-popover-btn"
-              @click="e => openPopover(e, column, data, index)"
+              @click="openPopover($event, column, data, index)"
             />
           </div>
           <LinkField
