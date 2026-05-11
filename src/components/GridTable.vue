@@ -15,14 +15,25 @@
 
       <Column
         v-for="column in columns"
-        :key="column.field"
-        :field="column.field"
+        :key="column.type === 'Popover' ? `popover-${column.label}` : column.field"
+        :field="column.type === 'Popover' ? undefined : column.field"
         :header="column.label"
         :style="{ width: getColumnWidth(column) }"
       >
         <template #body="{ data, index }">
+          <div v-if="column.type === 'Popover'" class="grid-popover-cell">
+            <span class="grid-popover-summary">{{ getPopoverSummary(column, data) }}</span>
+            <Button
+              icon="pi pi-pencil"
+              text
+              rounded
+              size="small"
+              class="grid-popover-btn"
+              @click="e => openPopover(e, column, data, index)"
+            />
+          </div>
           <LinkField
-            v-if="column.type === 'Link'"
+            v-else-if="column.type === 'Link'"
             :modelValue="data[column.field]"
             :subtitle="column.subtitleField ? data[column.subtitleField] : ''"
             :doctype="column.options"
@@ -80,6 +91,26 @@
       />
     </div>
   </div>
+
+  <!-- Popover for Popover-type columns -->
+  <Popover ref="sharedPopover" class="grid-popover">
+    <div v-if="activePopoverColumn" class="grid-popover-content">
+      <div
+        v-for="subCol in activePopoverColumn.fields"
+        :key="subCol.field"
+        class="grid-popover-field"
+      >
+        <label class="grid-popover-label">{{ subCol.label }}</label>
+        <component
+          :is="getComponent(subCol)"
+          :modelValue="activePopoverData?.[subCol.field]"
+          v-bind="getProps(subCol)"
+          class="grid-input"
+          @update:modelValue="value => onPopoverFieldUpdate(subCol, value)"
+        />
+      </div>
+    </div>
+  </Popover>
 
   <!-- Search dialog -->
   <Dialog
@@ -161,6 +192,7 @@ import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
 import Textarea from 'primevue/textarea';
 import Dialog from 'primevue/dialog';
+import Popover from 'primevue/popover';
 import LinkField from './LinkField.vue';
 import NumericField from './NumericField.vue';
 import { call } from '../libs/frappe-ui';
@@ -193,18 +225,26 @@ watch(
 );
 
 // ── Filas ──────────────────────────────────────────────
+const NUMERIC_TYPES = ['Float', 'Currency', 'Int', 'Percent'];
+
+const initRowFields = (row, col) => {
+  if (col.type === 'Popover') {
+    col.fields.forEach(subCol => {
+      row[subCol.field] = NUMERIC_TYPES.includes(subCol.type) ? 0 : '';
+    });
+  } else {
+    row[col.field] = NUMERIC_TYPES.includes(col.type) ? 0 : '';
+  }
+};
+
 const createEmptyRow = () => {
   const row = { idx: dataArray.value.length + 1 };
-  props.columns.forEach(col => {
-    row[col.field] = ['Float', 'Currency', 'Int', 'Percent'].includes(col.type) ? 0 : '';
-  });
+  props.columns.forEach(col => initRowFields(row, col));
   return row;
 };
 
 const clearRowItems = row => {
-  props.columns.forEach(col => {
-    row[col.field] = ['Float', 'Currency', 'Int', 'Percent'].includes(col.type) ? 0 : '';
-  });
+  props.columns.forEach(col => initRowFields(row, col));
   emit('update:data', dataArray.value);
   emit('rowChange', row);
 };
@@ -312,6 +352,39 @@ const getProps = column => {
   }
 
   return base;
+};
+
+// ── Popover ────────────────────────────────────────────
+const sharedPopover = ref(null);
+const activePopoverColumn = ref(null);
+const activePopoverData = ref(null);
+const activePopoverIndex = ref(null);
+
+const openPopover = (event, column, data, index) => {
+  activePopoverColumn.value = column;
+  activePopoverData.value = data;
+  activePopoverIndex.value = index;
+  sharedPopover.value.toggle(event);
+};
+
+const onPopoverFieldUpdate = (subCol, value) => {
+  if (!activePopoverData.value || activePopoverIndex.value === null) return;
+  onFieldValueUpdate(activePopoverData.value, activePopoverIndex.value, subCol.field, value);
+};
+
+const getPopoverSummary = (column, data) => {
+  const parts = column.fields
+    .map(subCol => {
+      const val = data[subCol.field];
+      if (!val) return null;
+      if (subCol.type === 'Percent') return `${val}%`;
+      if (subCol.type === 'Currency' || subCol.type === 'Float') {
+        return `${subCol.prefix || ''}${Number(val).toFixed(2)}`;
+      }
+      return String(val);
+    })
+    .filter(Boolean);
+  return parts.length ? parts.join(' / ') : '—';
 };
 
 // ── Add Multiple ───────────────────────────────────────
@@ -579,5 +652,47 @@ const confirmQty = () => {
   font-size: 0.8125rem;
   font-weight: 500;
   color: var(--p-text-muted-color);
+}
+
+.grid-popover-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  justify-content: flex-end;
+}
+
+.grid-popover-summary {
+  font-size: 0.8125rem;
+  color: #374151;
+  flex: 1;
+  text-align: right;
+}
+
+.grid-popover-btn.p-button {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  padding: 0 !important;
+  flex-shrink: 0;
+}
+
+.grid-popover-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 180px;
+  padding: 0.25rem;
+}
+
+.grid-popover-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.grid-popover-field .p-inputnumber,
+.grid-popover-field .p-inputtext {
+  width: 100%;
 }
 </style>
