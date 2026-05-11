@@ -603,6 +603,14 @@ const confirmQty = () => {
 .grid-compound {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
+}
+
+.grid-compound .grid-input.p-inputnumber .p-inputnumber-input,
+.grid-compound .grid-input.p-inputtext {
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  font-size: 0.75rem;
+  line-height: 1;
 }
 </style>
