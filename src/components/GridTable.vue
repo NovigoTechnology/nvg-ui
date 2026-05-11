@@ -452,21 +452,37 @@ const onPopoverFieldUpdate = (subCol, value) => {
 };
 
 /**
- * Returns a short formatted string of the first sub-field's current value,
- * shown inline next to the pencil button so the user can see the active value without opening the popover.
- * Returns an empty string when the value is zero, null or empty to keep the cell clean.
+ * Truncates a number to the given decimal places without rounding.
+ * e.g. truncate(10.9999, 2) → '10.99', not '11.00'
+ * @param {number} num - Value to format
+ * @param {number} decimals - Number of decimal places to keep
+ * @returns {string}
+ */
+const truncate = (num, decimals) => {
+  const factor = Math.pow(10, decimals);
+  return (Math.trunc(num * factor) / factor).toFixed(decimals);
+};
+
+/**
+ * Returns a formatted preview string of the first sub-field's current value,
+ * always shown next to the pencil button — including when the value is 0 — so the cell
+ * mirrors the same default-zero appearance as the inputs inside the popover.
+ * Numbers are formatted with the same decimal precision used by the corresponding input type:
+ * Percent uses floatPrecision, Currency uses currencyPrecision, Float uses floatPrecision.
  * @param {Object} column - Popover column definition; reads column.fields[0]
  * @param {Object} data - Current row data object
- * @returns {string} Formatted value string (e.g. '10%', '$ 5.00') or ''
+ * @returns {string} Formatted value string (e.g. '0.000%', '$ 0.00', '10.500%')
  */
 const getPopoverPreview = (column, data) => {
   const first = column.fields?.[0];
   if (!first) return '';
-  const val = data[first.field];
-  if (val === null || val === undefined || val === 0 || val === '') return '';
-  if (first.type === 'Percent') return `${val}%`;
-  if (first.type === 'Currency' || first.type === 'Float') return `${first.prefix || ''}${val}`;
-  return val;
+  const val = parseFloat(data[first.field] ?? 0) || 0;
+  if (first.type === 'Percent') return `${truncate(val, props.floatPrecision)}%`;
+  if (first.type === 'Currency')
+    return `${first.prefix || ''}${truncate(val, props.currencyPrecision)}`;
+  if (first.type === 'Float') return `${first.prefix || ''}${truncate(val, props.floatPrecision)}`;
+  const raw = data[first.field];
+  return raw !== null && raw !== undefined ? String(raw) : '';
 };
 
 /** The first Link-type column; used as the search target in the Add Multiple dialog */
