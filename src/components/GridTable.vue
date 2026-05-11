@@ -244,15 +244,12 @@ const removeRow = index => {
 
 // ── Cambios ────────────────────────────────────────────
 const onFieldValueUpdate = (editingRow, index, field, value) => {
-  const row = dataArray.value[index];
-  if (!row) return;
-
-  const hasChanged = row[field] !== value;
   editingRow[field] = value;
-  row[field] = value;
-  emit('update:data', dataArray.value);
 
-  if (hasChanged) {
+  const row = dataArray.value[index];
+  if (row) {
+    row[field] = value;
+    emit('update:data', dataArray.value);
     emit('rowChange', row, field);
   }
 };
