@@ -1,3 +1,25 @@
+# [1.14.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.13.2...v1.14.0) (2026-05-11)
+
+
+### Bug Fixes
+
+* add doc ([1ee74b1](https://github.com/NovigoTechnology/nvg-ui/commit/1ee74b146c824c5fe7c9bb46892dfc314347bac2))
+* compound ([8dea19e](https://github.com/NovigoTechnology/nvg-ui/commit/8dea19e10e6bf06c5f4d501d67cc6ae8275ee526))
+* compound ([dd374b7](https://github.com/NovigoTechnology/nvg-ui/commit/dd374b71a9e3c981003b48cc75eb30c99668728e))
+* font ([bf49b58](https://github.com/NovigoTechnology/nvg-ui/commit/bf49b580298fc15908186e90ee7341c5ce5ac918))
+* popover ([3d5dd16](https://github.com/NovigoTechnology/nvg-ui/commit/3d5dd16dae3241b718a715b0a8ede63058d67eff))
+* popover ([939748d](https://github.com/NovigoTechnology/nvg-ui/commit/939748d04cc4b4c87f0a63c4a5e8fa159627fd38))
+* row change ([a702395](https://github.com/NovigoTechnology/nvg-ui/commit/a7023955b1c78c2377fde564cd1646b60386d204))
+* send event ([d2041da](https://github.com/NovigoTechnology/nvg-ui/commit/d2041da13bc621f49555e6ee5228811242d5dd00))
+* test ([30d188b](https://github.com/NovigoTechnology/nvg-ui/commit/30d188b70261acb4138e409035068dd4b26e4963))
+* truncate ([a0cb6c4](https://github.com/NovigoTechnology/nvg-ui/commit/a0cb6c459b7dac3860ce0a3e5e80caf399a8e8b1))
+
+
+### Features
+
+* popover ([4851232](https://github.com/NovigoTechnology/nvg-ui/commit/4851232756e4f8608cb5d96ebe1da65bb8a939ed))
+* popover and add doc ([#47](https://github.com/NovigoTechnology/nvg-ui/issues/47)) ([6deb844](https://github.com/NovigoTechnology/nvg-ui/commit/6deb844ff64b2730a65bb04b7db99fe0f47bec99))
+
 ## [1.13.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.13.1...v1.13.2) (2026-05-09)
 
 
