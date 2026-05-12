@@ -848,7 +848,7 @@ const confirmQty = () => {
 
 .grid-popover-field .p-inputtext,
 .grid-popover-field .p-inputnumber-input {
-  font-size: 14px;
+  font-size: 14px !important;
 }
 
 .grid-popover-accept {
