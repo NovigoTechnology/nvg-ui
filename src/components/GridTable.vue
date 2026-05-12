@@ -846,6 +846,11 @@ const confirmQty = () => {
   width: 100%;
 }
 
+.grid-popover-field .p-inputtext,
+.grid-popover-field .p-inputnumber-input {
+  font-size: 14px;
+}
+
 .grid-popover-accept {
   margin-top: 0.25rem;
 }
