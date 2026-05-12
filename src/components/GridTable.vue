@@ -50,7 +50,7 @@
           <component
             v-else
             :is="getComponent(column)"
-            :modelValue="data[column.field]"
+            :modelValue="truncatedVal(column, data[column.field])"
             v-bind="getProps(column)"
             :class="`grid-input ${column.class || ''}`"
             @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
@@ -103,7 +103,7 @@
         <label class="grid-popover-label">{{ subCol.label }}</label>
         <component
           :is="getComponent(subCol)"
-          :modelValue="activePopoverData?.[subCol.field]"
+          :modelValue="truncatedVal(subCol, activePopoverData?.[subCol.field])"
           v-bind="getProps(subCol)"
           class="grid-input"
           @update:modelValue="value => onPopoverFieldUpdate(subCol, value)"
@@ -461,6 +461,26 @@ const onPopoverFieldUpdate = (subCol, value) => {
 const truncate = (num, decimals) => {
   const factor = Math.pow(10, decimals);
   return (Math.trunc(num * factor) / factor).toFixed(decimals);
+};
+
+/**
+ * Returns a numerically truncated value (without rounding) for use as modelValue in numeric inputs.
+ * Prevents PrimeVue InputNumber from rounding the displayed value when maxFractionDigits is set.
+ * @param {Object} col - Column definition with type property
+ * @param {*} val - Raw field value from the row data
+ * @returns {number|*} Truncated number for Currency/Float/Percent types, raw value otherwise
+ */
+const truncatedVal = (col, val) => {
+  const num = parseFloat(val ?? 0) || 0;
+  if (col.type === 'Currency') {
+    const factor = Math.pow(10, props.currencyPrecision);
+    return Math.trunc(num * factor) / factor;
+  }
+  if (col.type === 'Float' || col.type === 'Percent') {
+    const factor = Math.pow(10, props.floatPrecision);
+    return Math.trunc(num * factor) / factor;
+  }
+  return val;
 };
 
 /**
