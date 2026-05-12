@@ -816,7 +816,6 @@ const confirmQty = () => {
 }
 
 .grid-popover-preview {
-  font-size: 0.8125rem;
   color: #374151;
 }
 
