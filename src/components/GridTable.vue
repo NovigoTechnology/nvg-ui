@@ -452,15 +452,27 @@ const onPopoverFieldUpdate = (subCol, value) => {
 };
 
 /**
- * Truncates a number to the given decimal places without rounding.
- * e.g. truncate(10.9999, 2) → '10.99', not '11.00'
+ * Extracts the decimal separator character from the active numberFormat string
+ * (e.g. '#,##0.000' → '.', '#.##0,000' → ',').
+ * Falls back to '.' when no format is set or the pattern is not recognised.
+ */
+const decimalSeparator = computed(() => {
+  const m = (props.numberFormat || '').match(/[#0]([^#0\s])[#0]+$/);
+  return m ? m[1] : '.';
+});
+
+/**
+ * Truncates a number to the given decimal places without rounding and formats
+ * the result using the active locale's decimal separator.
+ * e.g. truncate(10.9999, 2) with separator ',' → '10,99'
  * @param {number} num - Value to format
  * @param {number} decimals - Number of decimal places to keep
  * @returns {string}
  */
 const truncate = (num, decimals) => {
   const factor = Math.pow(10, decimals);
-  return (Math.trunc(num * factor) / factor).toFixed(decimals);
+  const fixed = (Math.trunc(num * factor) / factor).toFixed(decimals);
+  return decimalSeparator.value !== '.' ? fixed.replace('.', decimalSeparator.value) : fixed;
 };
 
 /**
@@ -491,7 +503,7 @@ const truncatedVal = (col, val) => {
  * Percent uses floatPrecision, Currency uses currencyPrecision, Float uses floatPrecision.
  * @param {Object} column - Popover column definition; reads column.fields[0]
  * @param {Object} data - Current row data object
- * @returns {string} Formatted value string (e.g. '0.000%', '$ 0.00', '10.500%')
+ * @returns {string} Formatted value string using the active decimal separator (e.g. '0,000%', '$ 0,00')
  */
 const getPopoverPreview = (column, data) => {
   const first = column.fields?.[0];
