@@ -50,7 +50,7 @@
           <component
             v-else
             :is="getComponent(column)"
-            :modelValue="data[column.field]"
+            :modelValue="truncatedVal(column, data[column.field])"
             v-bind="getProps(column)"
             :class="`grid-input ${column.class || ''}`"
             @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
@@ -103,7 +103,7 @@
         <label class="grid-popover-label">{{ subCol.label }}</label>
         <component
           :is="getComponent(subCol)"
-          :modelValue="activePopoverData?.[subCol.field]"
+          :modelValue="truncatedVal(subCol, activePopoverData?.[subCol.field])"
           v-bind="getProps(subCol)"
           class="grid-input"
           @update:modelValue="value => onPopoverFieldUpdate(subCol, value)"
@@ -452,15 +452,47 @@ const onPopoverFieldUpdate = (subCol, value) => {
 };
 
 /**
- * Truncates a number to the given decimal places without rounding.
- * e.g. truncate(10.9999, 2) → '10.99', not '11.00'
+ * Extracts the decimal separator character from the active numberFormat string
+ * (e.g. '#,##0.000' → '.', '#.##0,000' → ',').
+ * Falls back to '.' when no format is set or the pattern is not recognised.
+ */
+const decimalSeparator = computed(() => {
+  const m = (props.numberFormat || '').match(/[#0]([^#0\s])[#0]+$/);
+  return m ? m[1] : '.';
+});
+
+/**
+ * Truncates a number to the given decimal places without rounding and formats
+ * the result using the active locale's decimal separator.
+ * e.g. truncate(10.9999, 2) with separator ',' → '10,99'
  * @param {number} num - Value to format
  * @param {number} decimals - Number of decimal places to keep
  * @returns {string}
  */
 const truncate = (num, decimals) => {
   const factor = Math.pow(10, decimals);
-  return (Math.trunc(num * factor) / factor).toFixed(decimals);
+  const fixed = (Math.trunc(num * factor) / factor).toFixed(decimals);
+  return decimalSeparator.value !== '.' ? fixed.replace('.', decimalSeparator.value) : fixed;
+};
+
+/**
+ * Returns a numerically truncated value (without rounding) for use as modelValue in numeric inputs.
+ * Prevents PrimeVue InputNumber from rounding the displayed value when maxFractionDigits is set.
+ * @param {Object} col - Column definition with type property
+ * @param {*} val - Raw field value from the row data
+ * @returns {number|*} Truncated number for Currency/Float/Percent types, raw value otherwise
+ */
+const truncatedVal = (col, val) => {
+  const num = parseFloat(val ?? 0) || 0;
+  if (col.type === 'Currency') {
+    const factor = Math.pow(10, props.currencyPrecision);
+    return Math.trunc(num * factor) / factor;
+  }
+  if (col.type === 'Float' || col.type === 'Percent') {
+    const factor = Math.pow(10, props.floatPrecision);
+    return Math.trunc(num * factor) / factor;
+  }
+  return val;
 };
 
 /**
@@ -471,7 +503,7 @@ const truncate = (num, decimals) => {
  * Percent uses floatPrecision, Currency uses currencyPrecision, Float uses floatPrecision.
  * @param {Object} column - Popover column definition; reads column.fields[0]
  * @param {Object} data - Current row data object
- * @returns {string} Formatted value string (e.g. '0.000%', '$ 0.00', '10.500%')
+ * @returns {string} Formatted value string using the active decimal separator (e.g. '0,000%', '$ 0,00')
  */
 const getPopoverPreview = (column, data) => {
   const first = column.fields?.[0];
@@ -784,7 +816,6 @@ const confirmQty = () => {
 }
 
 .grid-popover-preview {
-  font-size: 0.8125rem;
   color: #374151;
 }
 
@@ -805,7 +836,6 @@ const confirmQty = () => {
 
 .grid-popover-label {
   display: block;
-  font-size: 0.75rem;
   font-weight: 400;
   color: #6b7280;
   margin-bottom: 0.25rem;
@@ -814,6 +844,11 @@ const confirmQty = () => {
 .grid-popover-field .p-inputnumber,
 .grid-popover-field .p-inputtext {
   width: 100%;
+}
+
+.grid-popover-field .p-inputtext,
+.grid-popover-field .p-inputnumber-input {
+  font-size: 14px !important;
 }
 
 .grid-popover-accept {
