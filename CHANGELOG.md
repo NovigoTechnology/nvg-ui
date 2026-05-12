@@ -1,3 +1,16 @@
+## [1.14.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.14.0...v1.14.1) (2026-05-12)
+
+
+### Bug Fixes
+
+* enhance truncate function to support locale-specific decimal separators ([9b0802d](https://github.com/NovigoTechnology/nvg-ui/commit/9b0802dbb11bd6334c80150ced613bda9a281fc5))
+* font input popover ([3de844a](https://github.com/NovigoTechnology/nvg-ui/commit/3de844a23657a5d4be55b4c5837ab6017c892574))
+* font input popover ([a3a67dd](https://github.com/NovigoTechnology/nvg-ui/commit/a3a67dd7830dd7e42f981632c94653ec820bc883))
+* font popover ([cc8361c](https://github.com/NovigoTechnology/nvg-ui/commit/cc8361cf8d9055187fca50931cfc7f08957cf06a))
+* font preview ([f61e6dc](https://github.com/NovigoTechnology/nvg-ui/commit/f61e6dca2d40c20e6483a38453f2984366180e4c))
+* truncate ([bb097d8](https://github.com/NovigoTechnology/nvg-ui/commit/bb097d8d21516273221ca8fc0993470ad614fb1f))
+* truncate and popover ([#50](https://github.com/NovigoTechnology/nvg-ui/issues/50)) ([4fad15d](https://github.com/NovigoTechnology/nvg-ui/commit/4fad15d33e07de27f055c626a663a663b37bf7fb))
+
 # [1.14.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.13.2...v1.14.0) (2026-05-11)
 
 
