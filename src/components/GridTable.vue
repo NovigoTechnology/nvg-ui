@@ -836,7 +836,6 @@ const confirmQty = () => {
 
 .grid-popover-label {
   display: block;
-  font-size: 0.75rem;
   font-weight: 400;
   color: #6b7280;
   margin-bottom: 0.25rem;
