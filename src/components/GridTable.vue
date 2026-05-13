@@ -645,6 +645,7 @@ const confirmQty = () => {
 .grid-table__datatable .p-datatable-thead > tr > th {
   background: transparent;
   border-bottom: 1px solid #e5e7eb;
+  border-right: 1px solid #e5e7eb;
   padding: 0.25rem !important;
   font-weight: 400;
   font-size: 0.8125rem;
@@ -652,9 +653,18 @@ const confirmQty = () => {
   text-transform: none;
 }
 
+.grid-table__datatable .p-datatable-thead > tr > th:last-child {
+  border-right: none;
+}
+
 .grid-table__datatable .p-datatable-tbody > tr > td {
   padding: 0.25rem !important;
   border-bottom: 1px solid #e5e7eb;
+  border-right: 1px solid #e5e7eb;
+}
+
+.grid-table__datatable .p-datatable-tbody > tr > td:last-child {
+  border-right: none;
 }
 
 .grid-table__datatable .p-datatable-tbody > tr:last-child > td {
@@ -865,11 +875,13 @@ const confirmQty = () => {
 [data-theme='dark'] .grid-table__datatable .p-datatable-thead > tr > th {
   background: transparent;
   border-bottom-color: #374151;
+  border-right-color: #374151;
   color: #e5e7eb;
 }
 
 [data-theme='dark'] .grid-table__datatable .p-datatable-tbody > tr > td {
   border-bottom-color: #374151;
+  border-right-color: #374151;
 }
 
 [data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input {
