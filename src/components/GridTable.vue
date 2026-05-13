@@ -91,7 +91,6 @@
       />
       <Button
         v-if="showBarcodeScanner"
-        :label="__('Scan')"
         icon="pi pi-qrcode"
         severity="secondary"
         size="small"
@@ -205,22 +204,11 @@
     modal
     dismissableMask
     class="nagus-dialog nagus-dialog--sm"
-    @show="scanInput = ''"
+    @show="startCameraScan"
+    @hide="stopCameraScan"
   >
-    <div class="add-multiple__search-row">
-      <InputText
-        v-model="scanInput"
-        :placeholder="__('Scan or type a barcode...')"
-        fluid
-        autofocus
-        @keydown.enter="processScan"
-      />
-      <Button icon="pi pi-search" size="small" @click="processScan" />
-    </div>
+    <div id="grid-barcode-scanner-area" class="barcode-scanner-area"></div>
     <div v-if="scanError" class="scan-error">{{ scanError }}</div>
-    <template #footer>
-      <Button :label="__('Close')" severity="secondary" @click="scanDialogVisible = false" />
-    </template>
   </Dialog>
 </template>
 
@@ -659,37 +647,59 @@ const confirmQty = () => {
 };
 
 const scanDialogVisible = ref(false);
-const scanInput = ref('');
 const scanError = ref('');
+let qrHandler = null;
 
 const openScanDialog = () => {
-  scanInput.value = '';
   scanError.value = '';
   scanDialogVisible.value = true;
 };
 
-const processScan = async () => {
-  const code = scanInput.value.trim();
-  if (!code) return;
-
+const startCameraScan = async () => {
   scanError.value = '';
+  await frappe.require('/assets/frappe/node_modules/html5-qrcode/html5-qrcode.min.js');
 
-  try {
-    const result = await call('erpnext.stock.utils.scan_barcode', { search_value: code });
-    const itemCode = result?.item_code;
+  // eslint-disable-next-line no-undef
+  qrHandler = new Html5Qrcode('grid-barcode-scanner-area');
+  qrHandler
+    .start(
+      { facingMode: 'environment' },
+      { fps: 10, qrbox: 250 },
+      async decodedText => {
+        await stopCameraScan();
+        try {
+          const result = await call('erpnext.stock.utils.scan_barcode', {
+            search_value: decodedText,
+          });
+          const itemCode = result?.item_code;
+          if (!itemCode) {
+            scanError.value = __('No item found for this barcode');
+            startCameraScan();
+            return;
+          }
+          scanDialogVisible.value = false;
+          selectItem({ value: itemCode, label: itemCode, description: '' });
+        } catch {
+          scanError.value = __('Error processing barcode');
+          startCameraScan();
+        }
+      },
+      () => {}
+    )
+    .catch(() => {
+      scanError.value = __('Could not access camera');
+    });
+};
 
-    if (!itemCode) {
-      scanError.value = __('No item found for this barcode');
-      return;
+const stopCameraScan = async () => {
+  if (qrHandler) {
+    try {
+      await qrHandler.stop();
+    } catch {
+      // already stopped
     }
-
-    scanDialogVisible.value = false;
-    selectItem({ value: itemCode, label: itemCode, description: '' });
-  } catch {
-    scanError.value = __('Error scanning barcode');
+    qrHandler = null;
   }
-
-  scanInput.value = '';
 };
 </script>
 <style>
@@ -804,6 +814,11 @@ const processScan = async () => {
 
 .grid-table__add-btn .p-button-label {
   font-weight: 400;
+}
+
+.barcode-scanner-area {
+  width: 100%;
+  min-height: 300px;
 }
 
 .scan-error {
