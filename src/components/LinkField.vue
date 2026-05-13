@@ -176,9 +176,7 @@ defineExpose({ clear_input });
 }
 
 .link-field .p-autocomplete .p-autocomplete-input:focus {
-  border-color: #3b82f6;
   background: #ffffff;
-  box-shadow: 0 0 0 0.1rem rgba(59, 130, 246, 0.2);
 }
 
 .link-field .p-autocomplete-dropdown {
@@ -223,7 +221,6 @@ defineExpose({ clear_input });
 }
 
 [data-theme='dark'] .link-field .p-autocomplete .p-autocomplete-input:focus {
-  border-color: #3b82f6;
   background: #111827;
 }
 

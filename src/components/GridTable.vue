@@ -683,9 +683,7 @@ const confirmQty = () => {
 
 .grid-table__datatable .grid-input.p-inputtext:focus,
 .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:focus {
-  border-color: #3b82f6;
   background: #ffffff;
-  box-shadow: 0 0 0 0.1rem rgba(59, 130, 246, 0.2);
 }
 
 .grid-table__datatable .grid-input.p-inputtext:disabled,
@@ -886,7 +884,6 @@ const confirmQty = () => {
 
 [data-theme='dark'] .grid-table__datatable .grid-input.p-inputtext:focus,
 [data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:focus {
-  border-color: #3b82f6;
   background: #111827;
 }
 
