@@ -214,4 +214,51 @@ defineExpose({ clear_input });
 .link-field .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item:hover {
   background: #f3f4f6;
 }
+
+/* Dark Mode */
+
+[data-theme='dark'] .link-field .p-autocomplete .p-autocomplete-input:hover {
+  border-color: #6b7280;
+  background: #111827;
+}
+
+[data-theme='dark'] .link-field .p-autocomplete .p-autocomplete-input:focus {
+  border-color: #3b82f6;
+  background: #111827;
+}
+
+[data-theme='dark'] .link-field .p-autocomplete-dropdown {
+  border-left-color: #374151;
+  color: #9ca3af;
+}
+
+[data-theme='dark'] .link-field .p-autocomplete-dropdown:hover {
+  background: #1f2937;
+}
+
+[data-theme='dark']
+  .link-field
+  .p-autocomplete-panel
+  .p-autocomplete-items
+  .p-autocomplete-item
+  strong {
+  color: #e5e7eb;
+}
+
+[data-theme='dark']
+  .link-field
+  .p-autocomplete-panel
+  .p-autocomplete-items
+  .p-autocomplete-item
+  div {
+  color: #9ca3af;
+}
+
+[data-theme='dark']
+  .link-field
+  .p-autocomplete-panel
+  .p-autocomplete-items
+  .p-autocomplete-item:hover {
+  background: #1f2937;
+}
 </style>

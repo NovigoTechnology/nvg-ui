@@ -657,10 +657,6 @@ const confirmQty = () => {
   border-bottom: 1px solid #e5e7eb;
 }
 
-.grid-table__datatable .p-datatable-tbody > tr:hover {
-  background: #f9fafb;
-}
-
 .grid-table__datatable .p-datatable-tbody > tr:last-child > td {
   border-bottom: none;
 }
@@ -875,10 +871,6 @@ const confirmQty = () => {
 
 [data-theme='dark'] .grid-table__datatable .p-datatable-tbody > tr > td {
   border-bottom-color: #374151;
-}
-
-[data-theme='dark'] .grid-table__datatable .p-datatable-tbody > tr:hover {
-  background: #1f2937;
 }
 
 [data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input {
