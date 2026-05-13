@@ -679,14 +679,12 @@ const startCameraScan = async () => {
           const itemCode = result?.item_code;
           if (!itemCode) {
             scanError.value = __('No item found for this barcode');
-            startCameraScan();
             return;
           }
           scanDialogVisible.value = false;
           selectItem({ value: itemCode, label: itemCode, description: '' });
         } catch {
           scanError.value = __('Error processing barcode');
-          startCameraScan();
         }
       },
       () => {}
