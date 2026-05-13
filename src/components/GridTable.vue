@@ -854,4 +854,71 @@ const confirmQty = () => {
 .grid-popover-accept {
   margin-top: 0.25rem;
 }
+
+/* ========================================
+   Dark Mode
+   ======================================== */
+
+[data-theme='dark'] .grid-table__label {
+  color: #9ca3af;
+}
+
+[data-theme='dark'] .grid-table__datatable {
+  border-color: #374151;
+}
+
+[data-theme='dark'] .grid-table__datatable .p-datatable-thead > tr > th {
+  background: #1f2937;
+  border-bottom-color: #374151;
+  color: #e5e7eb;
+}
+
+[data-theme='dark'] .grid-table__datatable .p-datatable-tbody > tr > td {
+  border-bottom-color: #374151;
+}
+
+[data-theme='dark'] .grid-table__datatable .p-datatable-tbody > tr:hover {
+  background: #1f2937;
+}
+
+[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input {
+  border-color: #4b5563;
+}
+
+[data-theme='dark'] .grid-table__datatable .grid-input.p-inputtext:hover,
+[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:hover {
+  border-color: #6b7280;
+  background: #111827;
+}
+
+[data-theme='dark'] .grid-table__datatable .grid-input.p-inputtext:focus,
+[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:focus {
+  border-color: #3b82f6;
+  background: #111827;
+}
+
+[data-theme='dark'] .grid-table__datatable .grid-input.p-inputtext:disabled,
+[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:disabled {
+  color: #9ca3af;
+}
+
+[data-theme='dark'] .grid-table__datatable .p-button.p-button-danger.p-button-text:hover {
+  background: #450a0a;
+}
+
+[data-theme='dark'] .grid-table__empty {
+  color: #9ca3af;
+}
+
+[data-theme='dark'] .grid-readonly-value {
+  color: #e5e7eb;
+}
+
+[data-theme='dark'] .grid-popover-preview {
+  color: #e5e7eb;
+}
+
+[data-theme='dark'] .grid-popover-label {
+  color: #9ca3af;
+}
 </style>
