@@ -207,7 +207,12 @@
     @show="startCameraScan"
     @hide="stopCameraScan"
   >
-    <div id="grid-barcode-scanner-area" class="barcode-scanner-area"></div>
+    <div class="barcode-scanner-wrapper">
+      <div id="grid-barcode-scanner-area"></div>
+      <div class="scan-mask">
+        <div class="scan-box"></div>
+      </div>
+    </div>
     <div v-if="scanError" class="scan-error">{{ scanError }}</div>
   </Dialog>
 </template>
@@ -816,28 +821,44 @@ const stopCameraScan = async () => {
   font-weight: 400;
 }
 
-.barcode-scanner-area {
+.barcode-scanner-wrapper {
+  position: relative;
   width: 100%;
   overflow: hidden;
   border-radius: 6px;
+  background: #000;
 }
 
-.barcode-scanner-area video {
+#grid-barcode-scanner-area video {
   width: 100% !important;
   height: auto !important;
-  border-radius: 6px;
   display: block;
 }
 
-/* hide verbose status text, select and extra buttons from html5-qrcode */
-.barcode-scanner-area img,
-.barcode-scanner-area select,
-.barcode-scanner-area button {
+/* hide html5-qrcode's own shaded regions, buttons and status text */
+#grid-barcode-scanner-area > div,
+#grid-barcode-scanner-area span,
+#grid-barcode-scanner-area select,
+#grid-barcode-scanner-area button,
+#grid-barcode-scanner-area img {
   display: none !important;
 }
 
-.barcode-scanner-area span {
-  display: none !important;
+.scan-mask {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.scan-box {
+  width: 220px;
+  height: 220px;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  border-radius: 4px;
 }
 
 .scan-error {
