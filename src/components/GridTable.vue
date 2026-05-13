@@ -213,12 +213,12 @@
         <div class="scan-box"></div>
       </div>
     </div>
-    <div v-if="scanError" class="scan-error">{{ scanError }}</div>
   </Dialog>
 </template>
 
 <script setup>
 import { ref, watch, computed } from 'vue';
+import { useToast } from 'primevue/usetoast';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Button from 'primevue/button';
@@ -249,6 +249,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:data', 'rowChange', 'rowAdd', 'rowRemove', 'itemSelected']);
 
+const toast = useToast();
 const dataArray = ref([...props.data]);
 
 watch(
@@ -652,16 +653,13 @@ const confirmQty = () => {
 };
 
 const scanDialogVisible = ref(false);
-const scanError = ref('');
 let qrHandler = null;
 
 const openScanDialog = () => {
-  scanError.value = '';
   scanDialogVisible.value = true;
 };
 
 const startCameraScan = async () => {
-  scanError.value = '';
   await frappe.require('/assets/frappe/node_modules/html5-qrcode/html5-qrcode.min.js');
 
   // eslint-disable-next-line no-undef
@@ -678,19 +676,36 @@ const startCameraScan = async () => {
           });
           const itemCode = result?.item_code;
           if (!itemCode) {
-            scanError.value = __('No item found for this barcode');
+            scanDialogVisible.value = false;
+            toast.add({
+              severity: 'error',
+              summary: __('Barcode'),
+              detail: __('No item found for this barcode'),
+              life: 3000,
+            });
             return;
           }
           scanDialogVisible.value = false;
           selectItem({ value: itemCode, label: itemCode, description: '' });
         } catch {
-          scanError.value = __('Error processing barcode');
+          scanDialogVisible.value = false;
+          toast.add({
+            severity: 'error',
+            summary: __('Barcode'),
+            detail: __('Error processing barcode'),
+            life: 3000,
+          });
         }
       },
       () => {}
     )
     .catch(() => {
-      scanError.value = __('Could not access camera');
+      toast.add({
+        severity: 'error',
+        summary: __('Camera'),
+        detail: __('Could not access camera'),
+        life: 3000,
+      });
     });
 };
 
@@ -857,12 +872,6 @@ const stopCameraScan = async () => {
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
   border: 2px solid rgba(255, 255, 255, 0.75);
   border-radius: 4px;
-}
-
-.scan-error {
-  margin-top: 0.5rem;
-  font-size: 0.8125rem;
-  color: #dc2626;
 }
 
 .grid-readonly-value {
