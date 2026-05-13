@@ -643,7 +643,7 @@ const confirmQty = () => {
 }
 
 .grid-table__datatable .p-datatable-thead > tr > th {
-  background: #f9fafb;
+  background: transparent;
   border-bottom: 1px solid #e5e7eb;
   padding: 0.25rem !important;
   font-weight: 400;
@@ -864,7 +864,7 @@ const confirmQty = () => {
 }
 
 [data-theme='dark'] .grid-table__datatable .p-datatable-thead > tr > th {
-  background: #1f2937;
+  background: transparent;
   border-bottom-color: #374151;
   color: #e5e7eb;
 }
