@@ -818,7 +818,26 @@ const stopCameraScan = async () => {
 
 .barcode-scanner-area {
   width: 100%;
-  min-height: 300px;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.barcode-scanner-area video {
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 6px;
+  display: block;
+}
+
+/* hide verbose status text, select and extra buttons from html5-qrcode */
+.barcode-scanner-area img,
+.barcode-scanner-area select,
+.barcode-scanner-area button {
+  display: none !important;
+}
+
+.barcode-scanner-area span {
+  display: none !important;
 }
 
 .scan-error {
