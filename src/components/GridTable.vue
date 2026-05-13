@@ -671,7 +671,11 @@ const startCameraScan = async () => {
       async decodedText => {
         await stopCameraScan();
         try {
-          const result = await call('erpnext.stock.utils.scan_barcode', {
+          const barcodeLookupMethod =
+            (typeof window !== 'undefined' && window.nvgUiBarcodeLookupMethod) ||
+            frappe?.boot?.nvg_ui_barcode_lookup_method ||
+            'erpnext.stock.utils.scan_barcode';
+          const result = await call(barcodeLookupMethod, {
             search_value: decodedText,
           });
           const itemCode = result?.item_code;
