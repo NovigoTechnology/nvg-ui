@@ -667,23 +667,17 @@ const confirmQty = () => {
   padding: 0.4rem 0.5rem;
   font-size: 0.8125rem;
   background: transparent;
+  border: none;
   transition: all 0.2s;
 }
 
 .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input {
   text-align: right;
-  border: #cbd5e1 1px solid;
-}
-
-.grid-table__datatable .grid-input.p-inputtext:hover,
-.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:hover {
-  border-color: #e5e7eb;
-  background: #ffffff;
 }
 
 .grid-table__datatable .grid-input.p-inputtext:focus,
 .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:focus {
-  border-color: #3b82f6;
+  border: 1px solid #3b82f6;
   background: #ffffff;
   box-shadow: 0 0 0 0.1rem rgba(59, 130, 246, 0.2);
 }
@@ -691,6 +685,7 @@ const confirmQty = () => {
 .grid-table__datatable .grid-input.p-inputtext:disabled,
 .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:disabled {
   background: transparent;
+  border: none;
   color: #374151;
   opacity: 0.7;
 }
@@ -873,19 +868,8 @@ const confirmQty = () => {
   border-bottom-color: #374151;
 }
 
-[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input {
-  border-color: #4b5563;
-}
-
-[data-theme='dark'] .grid-table__datatable .grid-input.p-inputtext:hover,
-[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:hover {
-  border-color: #6b7280;
-  background: #111827;
-}
-
 [data-theme='dark'] .grid-table__datatable .grid-input.p-inputtext:focus,
 [data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:focus {
-  border-color: #3b82f6;
   background: #111827;
 }
 
