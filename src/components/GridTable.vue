@@ -89,6 +89,15 @@
         @click="openDialog"
         class="grid-table__add-btn"
       />
+      <Button
+        v-if="showBarcodeScanner"
+        :label="__('Scan')"
+        icon="pi pi-qrcode"
+        severity="secondary"
+        size="small"
+        @click="openScanDialog"
+        class="grid-table__add-btn"
+      />
     </div>
   </div>
 
@@ -188,6 +197,31 @@
       <Button :label="__('Add')" @click="confirmQty" />
     </template>
   </Dialog>
+
+  <!-- Barcode scan dialog -->
+  <Dialog
+    v-model:visible="scanDialogVisible"
+    :header="__('Scan Barcode')"
+    modal
+    dismissableMask
+    class="nagus-dialog nagus-dialog--sm"
+    @show="scanInput = ''"
+  >
+    <div class="add-multiple__search-row">
+      <InputText
+        v-model="scanInput"
+        :placeholder="__('Scan or type a barcode...')"
+        fluid
+        autofocus
+        @keydown.enter="processScan"
+      />
+      <Button icon="pi pi-search" size="small" @click="processScan" />
+    </div>
+    <div v-if="scanError" class="scan-error">{{ scanError }}</div>
+    <template #footer>
+      <Button :label="__('Close')" severity="secondary" @click="scanDialogVisible = false" />
+    </template>
+  </Dialog>
 </template>
 
 <script setup>
@@ -215,6 +249,7 @@ const props = defineProps({
   currencyPrecision: { type: Number, default: 2 },
   pageLength: { type: Number, default: 10 },
   showAddMultiple: { type: Boolean, default: false },
+  showBarcodeScanner: { type: Boolean, default: false },
   readOnly: { type: Boolean, default: false },
   filtersFields: { type: Object, default: () => ({}) },
 });
@@ -622,6 +657,40 @@ const confirmQty = () => {
 
   qtyDialogVisible.value = false;
 };
+
+const scanDialogVisible = ref(false);
+const scanInput = ref('');
+const scanError = ref('');
+
+const openScanDialog = () => {
+  scanInput.value = '';
+  scanError.value = '';
+  scanDialogVisible.value = true;
+};
+
+const processScan = async () => {
+  const code = scanInput.value.trim();
+  if (!code) return;
+
+  scanError.value = '';
+
+  try {
+    const result = await call('erpnext.stock.utils.scan_barcode', { search_value: code });
+    const itemCode = result?.item_code;
+
+    if (!itemCode) {
+      scanError.value = __('No item found for this barcode');
+      return;
+    }
+
+    scanDialogVisible.value = false;
+    selectItem({ value: itemCode, label: itemCode, description: '' });
+  } catch {
+    scanError.value = __('Error scanning barcode');
+  }
+
+  scanInput.value = '';
+};
 </script>
 <style>
 .grid-table {
@@ -735,6 +804,12 @@ const confirmQty = () => {
 
 .grid-table__add-btn .p-button-label {
   font-weight: 400;
+}
+
+.scan-error {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  color: #dc2626;
 }
 
 .grid-readonly-value {
