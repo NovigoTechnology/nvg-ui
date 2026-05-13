@@ -686,7 +686,9 @@ const startCameraScan = async () => {
             return;
           }
           scanDialogVisible.value = false;
-          selectItem({ value: itemCode, label: itemCode, description: '' });
+          pendingItem.value = { value: itemCode, label: itemCode, description: '' };
+          pendingQty.value = 1;
+          confirmQty();
         } catch {
           scanDialogVisible.value = false;
           toast.add({
