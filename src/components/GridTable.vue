@@ -89,14 +89,6 @@
         @click="openDialog"
         class="grid-table__add-btn"
       />
-      <Button
-        v-if="showBarcodeScanner"
-        icon="pi pi-qrcode"
-        severity="secondary"
-        size="small"
-        @click="openScanDialog"
-        class="grid-table__add-btn"
-      />
     </div>
   </div>
 
@@ -196,29 +188,10 @@
       <Button :label="__('Add')" @click="confirmQty" />
     </template>
   </Dialog>
-
-  <!-- Barcode scan dialog -->
-  <Dialog
-    v-model:visible="scanDialogVisible"
-    :header="__('Scan Barcode')"
-    modal
-    dismissableMask
-    class="nagus-dialog nagus-dialog--sm"
-    @show="startCameraScan"
-    @hide="stopCameraScan"
-  >
-    <div class="barcode-scanner-wrapper">
-      <div id="grid-barcode-scanner-area"></div>
-      <div class="scan-mask">
-        <div class="scan-box"></div>
-      </div>
-    </div>
-  </Dialog>
 </template>
 
 <script setup>
 import { ref, watch, computed } from 'vue';
-import { useToast } from 'primevue/usetoast';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Button from 'primevue/button';
@@ -242,14 +215,12 @@ const props = defineProps({
   currencyPrecision: { type: Number, default: 2 },
   pageLength: { type: Number, default: 10 },
   showAddMultiple: { type: Boolean, default: false },
-  showBarcodeScanner: { type: Boolean, default: false },
   readOnly: { type: Boolean, default: false },
   filtersFields: { type: Object, default: () => ({}) },
 });
 
 const emit = defineEmits(['update:data', 'rowChange', 'rowAdd', 'rowRemove', 'itemSelected']);
 
-const toast = useToast();
 const dataArray = ref([...props.data]);
 
 watch(
@@ -651,80 +622,6 @@ const confirmQty = () => {
 
   qtyDialogVisible.value = false;
 };
-
-const scanDialogVisible = ref(false);
-let qrHandler = null;
-
-const openScanDialog = () => {
-  scanDialogVisible.value = true;
-};
-
-const startCameraScan = async () => {
-  await frappe.require('/assets/frappe/node_modules/html5-qrcode/html5-qrcode.min.js');
-
-  // eslint-disable-next-line no-undef
-  qrHandler = new Html5Qrcode('grid-barcode-scanner-area');
-  qrHandler
-    .start(
-      { facingMode: 'environment' },
-      { fps: 10, qrbox: 250 },
-      async decodedText => {
-        await stopCameraScan();
-        try {
-          const barcodeLookupMethod =
-            (typeof window !== 'undefined' && window.nvgUiBarcodeLookupMethod) ||
-            frappe?.boot?.nvg_ui_barcode_lookup_method ||
-            'erpnext.stock.utils.scan_barcode';
-          const result = await call(barcodeLookupMethod, {
-            search_value: decodedText,
-          });
-          const itemCode = result?.item_code;
-          if (!itemCode) {
-            scanDialogVisible.value = false;
-            toast.add({
-              severity: 'error',
-              summary: __('Barcode'),
-              detail: __('No item found for this barcode'),
-              life: 3000,
-            });
-            return;
-          }
-          scanDialogVisible.value = false;
-          pendingItem.value = { value: itemCode, label: itemCode, description: '' };
-          pendingQty.value = 1;
-          confirmQty();
-        } catch {
-          scanDialogVisible.value = false;
-          toast.add({
-            severity: 'error',
-            summary: __('Barcode'),
-            detail: __('Error processing barcode'),
-            life: 3000,
-          });
-        }
-      },
-      () => {}
-    )
-    .catch(() => {
-      toast.add({
-        severity: 'error',
-        summary: __('Camera'),
-        detail: __('Could not access camera'),
-        life: 3000,
-      });
-    });
-};
-
-const stopCameraScan = async () => {
-  if (qrHandler) {
-    try {
-      await qrHandler.stop();
-    } catch {
-      // already stopped
-    }
-    qrHandler = null;
-  }
-};
 </script>
 <style>
 .grid-table {
@@ -803,6 +700,8 @@ const stopCameraScan = async () => {
 .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:disabled {
   background: transparent;
   border: none;
+  box-shadow: none;
+  outline: none;
   color: #374151;
   opacity: 0.7;
 }
@@ -838,46 +737,6 @@ const stopCameraScan = async () => {
 
 .grid-table__add-btn .p-button-label {
   font-weight: 400;
-}
-
-.barcode-scanner-wrapper {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 6px;
-  background: #000;
-}
-
-#grid-barcode-scanner-area video {
-  width: 100% !important;
-  height: auto !important;
-  display: block;
-}
-
-/* hide html5-qrcode's own shaded regions, buttons and status text */
-#grid-barcode-scanner-area > div,
-#grid-barcode-scanner-area span,
-#grid-barcode-scanner-area select,
-#grid-barcode-scanner-area button,
-#grid-barcode-scanner-area img {
-  display: none !important;
-}
-
-.scan-mask {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.scan-box {
-  width: 220px;
-  height: 220px;
-  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
-  border: 2px solid rgba(255, 255, 255, 0.75);
-  border-radius: 4px;
 }
 
 .grid-readonly-value {
@@ -1042,9 +901,11 @@ const stopCameraScan = async () => {
   background: #111827;
 }
 
-[data-theme='dark'] .grid-table__datatable .grid-input.p-inputtext:disabled,
-[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:disabled {
+[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:disabled,
+[data-theme='dark'] .grid-table__datatable .grid-input.p-inputtext:disabled {
   color: #9ca3af;
+  box-shadow: none;
+  outline: none;
 }
 
 [data-theme='dark'] .grid-table__datatable .p-button.p-button-danger.p-button-text:hover {
