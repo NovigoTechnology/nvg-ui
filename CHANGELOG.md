@@ -1,3 +1,30 @@
+# [1.15.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.14.1...v1.15.0) (2026-05-14)
+
+
+### Bug Fixes
+
+* add border in column ([64fbbb6](https://github.com/NovigoTechnology/nvg-ui/commit/64fbbb679de8d96a17c70471b0e937ad0fff571a))
+* add dark mode ([eaa39d3](https://github.com/NovigoTechnology/nvg-ui/commit/eaa39d3f093555643a612cea65029a172562f77f))
+* bg header table ([1ba9083](https://github.com/NovigoTechnology/nvg-ui/commit/1ba90834660c7c62dab3fc7fe315fa0475aa7904))
+* border color ([011ff0e](https://github.com/NovigoTechnology/nvg-ui/commit/011ff0e373ddf378d9cadc1b1bfc87b0dd92553b))
+* border inputs ([bda6762](https://github.com/NovigoTechnology/nvg-ui/commit/bda67627604ec485463f02132b85007e8b2e77e4))
+* border inputs ([1bb4ebd](https://github.com/NovigoTechnology/nvg-ui/commit/1bb4ebdf9b1ff4ef2159eb0441b2f0ec3aa04d60))
+* camera ([dd4f8e8](https://github.com/NovigoTechnology/nvg-ui/commit/dd4f8e867cbf237094aecd90e3306747e58c9d75))
+* dark mode ([9839ca7](https://github.com/NovigoTechnology/nvg-ui/commit/9839ca7061affd0291f0dfee3b9ecfa3d4041683))
+* error ([ecdefda](https://github.com/NovigoTechnology/nvg-ui/commit/ecdefdae99e15195f36c5742f3630bf327ac3183))
+* hardcode ([3ad8e6e](https://github.com/NovigoTechnology/nvg-ui/commit/3ad8e6e848aee092c67ac21b715dc2f7ffdb603a))
+* mask ([8e31e74](https://github.com/NovigoTechnology/nvg-ui/commit/8e31e748086aded2f4ff02f44329af252c098fa8))
+* remove scan barcode ([fbd4b7b](https://github.com/NovigoTechnology/nvg-ui/commit/fbd4b7bced28a348765703033922d07cdd404114))
+* scanner ([c1117a7](https://github.com/NovigoTechnology/nvg-ui/commit/c1117a7853c307f5acae1b8520698258bd8be19b))
+* styles ([96e4b91](https://github.com/NovigoTechnology/nvg-ui/commit/96e4b91f6403562ee3ffcc7228175b01eb2d621a))
+* updates ([68a1ca9](https://github.com/NovigoTechnology/nvg-ui/commit/68a1ca9e237a6d0407beb24fca91280ce0870b87))
+* updates ([f56c23c](https://github.com/NovigoTechnology/nvg-ui/commit/f56c23cf57ce9030d252ae931286c3b2aa91c619))
+
+
+### Features
+
+* scanbarcode ([#51](https://github.com/NovigoTechnology/nvg-ui/issues/51)) ([2295316](https://github.com/NovigoTechnology/nvg-ui/commit/229531640653eb9b913a733ab6a8186a5f26c887))
+
 ## [1.14.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.14.0...v1.14.1) (2026-05-12)
 
 
