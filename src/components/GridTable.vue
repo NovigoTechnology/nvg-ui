@@ -8,6 +8,7 @@
       :scrollable="true"
       scrollHeight="300px"
       class="grid-table__datatable"
+      @row-click="() => console.log('HOlaaaa')"
     >
       <template #empty>
         <div class="grid-table__empty">{{ emptyMessage }}</div>
@@ -217,6 +218,7 @@ const props = defineProps({
   showAddMultiple: { type: Boolean, default: false },
   readOnly: { type: Boolean, default: false },
   filtersFields: { type: Object, default: () => ({}) },
+  rowClick: { type: Boolean, default: false },
 });
 
 const emit = defineEmits(['update:data', 'rowChange', 'rowAdd', 'rowRemove', 'itemSelected']);
