@@ -8,7 +8,7 @@
       :scrollable="true"
       scrollHeight="300px"
       class="grid-table__datatable"
-      @row-click="() => console.log('HOlaaaa')"
+      @row-click="rowClick ? emit('rowClick', $event.data, $event.index) : null"
     >
       <template #empty>
         <div class="grid-table__empty">{{ emptyMessage }}</div>
@@ -221,7 +221,14 @@ const props = defineProps({
   rowClick: { type: Boolean, default: false },
 });
 
-const emit = defineEmits(['update:data', 'rowChange', 'rowAdd', 'rowRemove', 'itemSelected']);
+const emit = defineEmits([
+  'update:data',
+  'rowChange',
+  'rowAdd',
+  'rowRemove',
+  'itemSelected',
+  'rowClick',
+]);
 
 const dataArray = ref([...props.data]);
 
