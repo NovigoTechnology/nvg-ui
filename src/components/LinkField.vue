@@ -50,7 +50,7 @@ const props = defineProps({
   placeholder: { type: String, default: '' },
   disabled: { type: Boolean, default: false },
   filters: { type: Object, default: () => ({}) },
-  query: { type: String, default: '' },
+  query: { type: String, default: 'frappe.desk.search.search_link' },
   pageLength: { type: Number, default: 10 },
 });
 
@@ -84,11 +84,7 @@ const getLinkOptions = async (doctype, searchText = '') => {
     filters: props.filters || {},
   };
 
-  if (props.query) {
-    args.query = props.query;
-  }
-
-  const r = await call('frappe.desk.search.search_link', args);
+  const r = await call(props.query, args);
 
   if (r) {
     suggestions.value = r;
