@@ -714,6 +714,7 @@ const confirmQty = () => {
   color: #374151;
   opacity: 0.7;
   pointer-events: none;
+  padding: 0;
 }
 
 .grid-table__datatable .grid-input.p-inputnumber {
