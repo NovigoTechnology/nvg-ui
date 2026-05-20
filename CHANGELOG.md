@@ -1,3 +1,19 @@
+## [1.15.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.15.0...v1.15.1) (2026-05-20)
+
+
+### Bug Fixes
+
+* add emit row click ([67a7bc8](https://github.com/NovigoTechnology/nvg-ui/commit/67a7bc8925c45fa7d7f16c6df9eb3d9bb646379a))
+* autocomplete aun padding inputs disabled ([#54](https://github.com/NovigoTechnology/nvg-ui/issues/54)) ([0451a3a](https://github.com/NovigoTechnology/nvg-ui/commit/0451a3ab29d2d850c491e3d01580b316c01b56f3))
+* linkfield ([0e265d4](https://github.com/NovigoTechnology/nvg-ui/commit/0e265d4fc5302853e0df1200064dfde131c26580))
+* padding ([a06d652](https://github.com/NovigoTechnology/nvg-ui/commit/a06d652cebd9dc56e11de765357c7483a641b90a))
+* padding on disabled input ([cf19f95](https://github.com/NovigoTechnology/nvg-ui/commit/cf19f952cd0b21820f73d80ae5b70374dee54ba6))
+* pointer events ([59573cf](https://github.com/NovigoTechnology/nvg-ui/commit/59573cf2b9523cb94d99d84ae44014f4140859b2))
+* search link ([2e5dfad](https://github.com/NovigoTechnology/nvg-ui/commit/2e5dfadb1cb163a74dea4925b33eb7832a42b673))
+* split code ([9ead72b](https://github.com/NovigoTechnology/nvg-ui/commit/9ead72b01d5e15dc62150b7ae725b41fdd4c6e58))
+* split code ([a196a66](https://github.com/NovigoTechnology/nvg-ui/commit/a196a66731a72d5b7d1b75b2a9b2abe3a811ba87))
+* test ([934c112](https://github.com/NovigoTechnology/nvg-ui/commit/934c1129d1850b38d7d4da92a268807294facb91))
+
 # [1.15.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.14.1...v1.15.0) (2026-05-14)
 
 
