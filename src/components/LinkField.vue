@@ -15,6 +15,7 @@
       @option-select="e => selectOption(e.value)"
       :optionLabel="option => option.label || option.value"
       forceSelection
+      :emptyMessage="__('No results found')"
     >
       <template #option="slotProps">
         <div v-if="!slotProps.option.label && !slotProps.option.description">
@@ -78,7 +79,7 @@ watch(
 const getLinkOptions = async (doctype, searchText = '') => {
   const args = {
     doctype,
-    txt: searchText.includes(':') ? searchText.split(':')[1].trim() : searchText,
+    txt: searchText.includes(':') ? searchText.split(':')[0].trim() : searchText,
     page_length: props.pageLength,
     filters: props.filters || {},
   };
