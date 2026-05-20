@@ -78,7 +78,7 @@ watch(
 const getLinkOptions = async (doctype, searchText = '') => {
   const args = {
     doctype,
-    txt: searchText,
+    txt: searchText.includes(':') ? searchText.split(':')[1].trim() : searchText,
     page_length: props.pageLength,
     filters: props.filters || {},
   };
