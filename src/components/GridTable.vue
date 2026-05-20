@@ -8,6 +8,7 @@
       :scrollable="true"
       scrollHeight="300px"
       class="grid-table__datatable"
+      @row-click="rowClick ? emit('rowClick', $event.data, $event.index) : null"
     >
       <template #empty>
         <div class="grid-table__empty">{{ emptyMessage }}</div>
@@ -217,9 +218,17 @@ const props = defineProps({
   showAddMultiple: { type: Boolean, default: false },
   readOnly: { type: Boolean, default: false },
   filtersFields: { type: Object, default: () => ({}) },
+  rowClick: { type: Boolean, default: false },
 });
 
-const emit = defineEmits(['update:data', 'rowChange', 'rowAdd', 'rowRemove', 'itemSelected']);
+const emit = defineEmits([
+  'update:data',
+  'rowChange',
+  'rowAdd',
+  'rowRemove',
+  'itemSelected',
+  'rowClick',
+]);
 
 const dataArray = ref([...props.data]);
 
@@ -704,6 +713,8 @@ const confirmQty = () => {
   outline: none;
   color: #374151;
   opacity: 0.7;
+  pointer-events: none;
+  padding: 0px !important;
 }
 
 .grid-table__datatable .grid-input.p-inputnumber {
