@@ -7,7 +7,7 @@
       size="small"
       :scrollable="true"
       scrollHeight="300px"
-      class="grid-table__datatable"
+      :class="['grid-table__datatable', { 'grid-table__datatable--clickable': rowClick }]"
       @row-click="rowClick ? emit('rowClick', $event.data, $event.index) : null"
     >
       <template #empty>
@@ -937,5 +937,13 @@ const confirmQty = () => {
 
 [data-theme='dark'] .grid-popover-label {
   color: #9ca3af;
+}
+
+.grid-table__datatable--clickable .p-datatable-tbody > tr {
+  cursor: pointer;
+}
+
+.grid-table__datatable--clickable .p-datatable-tbody > tr:hover > td {
+  background: color-mix(in srgb, var(--p-primary-color) 12%, transparent) !important;
 }
 </style>
