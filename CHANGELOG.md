@@ -1,3 +1,11 @@
+# [1.16.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.15.1...v1.16.0) (2026-05-23)
+
+
+### Features
+
+* hover row ([fbcbf9a](https://github.com/NovigoTechnology/nvg-ui/commit/fbcbf9aa463777e5c2932b18fa4e146b1a24f93a))
+* hover row ([#55](https://github.com/NovigoTechnology/nvg-ui/issues/55)) ([bf84ef7](https://github.com/NovigoTechnology/nvg-ui/commit/bf84ef728bc81febb7f3621fbf6f1951cc6a8b08))
+
 ## [1.15.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.15.0...v1.15.1) (2026-05-20)
 
 
