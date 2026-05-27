@@ -137,6 +137,10 @@ const props = defineProps({
     type: Number,
     default: 10,
   },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits(['update:modelValue', 'item-selected', 'clear', 'add', 'edit']);
