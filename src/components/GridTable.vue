@@ -739,6 +739,7 @@ const confirmQty = () => {
 }
 
 .grid-table__datatable .grid-input.p-inputtext:disabled,
+.grid-table__datatable .grid-input.p-datepicker-input:disabled,
 .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:disabled {
   background: transparent;
   border: none;
@@ -948,6 +949,7 @@ const confirmQty = () => {
 }
 
 [data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:disabled,
+[data-theme='dark'] .grid-table__datatable .grid-input.p-datepicker-input:disabled,
 [data-theme='dark'] .grid-table__datatable .grid-input.p-inputtext:disabled {
   color: #9ca3af;
   box-shadow: none;
