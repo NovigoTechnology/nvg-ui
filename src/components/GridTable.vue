@@ -199,6 +199,7 @@ import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
 import Textarea from 'primevue/textarea';
+import DatePicker from 'primevue/datepicker';
 import Dialog from 'primevue/dialog';
 import Popover from 'primevue/popover';
 import LinkField from './LinkField.vue';
@@ -215,6 +216,7 @@ const props = defineProps({
   floatPrecision: { type: Number, default: 3 },
   currencyPrecision: { type: Number, default: 2 },
   pageLength: { type: Number, default: 10 },
+  dateFormat: { type: String, default: 'dd/mm/yy' },
   showAddMultiple: { type: Boolean, default: false },
   readOnly: { type: Boolean, default: false },
   filtersFields: { type: Object, default: () => ({}) },
@@ -311,6 +313,13 @@ const removeRow = index => {
  * @param {*} value - The new value emitted by the input component
  */
 const onFieldValueUpdate = (editingRow, index, field, value) => {
+  if (value instanceof Date) {
+    const y = value.getFullYear();
+    const m = String(value.getMonth() + 1).padStart(2, '0');
+    const d = String(value.getDate()).padStart(2, '0');
+    value = `${y}-${m}-${d}`;
+  }
+
   editingRow[field] = value;
 
   const row = dataArray.value[index];
@@ -359,6 +368,7 @@ const getColumnWidth = column => {
 const getComponent = column => {
   if (['Int', 'Float', 'Currency', 'Percent'].includes(column.type)) return NumericField;
   if (column.type === 'Textarea') return Textarea;
+  if (column.type === 'Date') return DatePicker;
   return InputText;
 };
 
@@ -421,6 +431,16 @@ const getProps = column => {
       useGrouping: true,
       minFractionDigits: 0,
       maxFractionDigits: 0,
+    };
+  }
+
+  if (column.type === 'Date') {
+    return {
+      disabled: column.readOnly,
+      fluid: true,
+      dateFormat: props.dateFormat,
+      showIcon: false,
+      manualInput: true,
     };
   }
 
@@ -500,6 +520,12 @@ const truncatedVal = (col, val) => {
   if (col.type === 'Float' || col.type === 'Percent') {
     const factor = Math.pow(10, props.floatPrecision);
     return Math.trunc(num * factor) / factor;
+  }
+  if (col.type === 'Date') {
+    if (!val) return null;
+    if (val instanceof Date) return val;
+    const [year, month, day] = String(val).split('-');
+    return year && month && day ? new Date(Number(year), Number(month) - 1, Number(day)) : null;
   }
   return val;
 };
@@ -681,7 +707,8 @@ const confirmQty = () => {
 }
 
 .grid-table__datatable .grid-input.p-inputtext,
-.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input {
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input,
+.grid-table__datatable .grid-input.p-datepicker .p-datepicker-input {
   width: 100%;
   padding: 0.4rem 0.5rem;
   font-size: 0.8125rem;
@@ -695,14 +722,20 @@ const confirmQty = () => {
 }
 
 .grid-table__datatable .grid-input.p-inputtext:hover,
-.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:hover {
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:hover,
+.grid-table__datatable .grid-input.p-datepicker .p-datepicker-input:hover {
   border-color: #e5e7eb;
   background: #ffffff;
 }
 
 .grid-table__datatable .grid-input.p-inputtext:focus,
-.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:focus {
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:focus,
+.grid-table__datatable .grid-input.p-datepicker .p-datepicker-input:focus {
   background: #ffffff;
+}
+
+.grid-table__datatable .grid-input.p-datepicker {
+  width: 100%;
 }
 
 .grid-table__datatable .grid-input.p-inputtext:disabled,
@@ -902,13 +935,15 @@ const confirmQty = () => {
 }
 
 [data-theme='dark'] .grid-table__datatable .grid-input.p-inputtext:hover,
-[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:hover {
+[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:hover,
+[data-theme='dark'] .grid-table__datatable .grid-input.p-datepicker .p-datepicker-input:hover {
   border-color: #6b7280;
   background: #111827;
 }
 
 [data-theme='dark'] .grid-table__datatable .grid-input.p-inputtext:focus,
-[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:focus {
+[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:focus,
+[data-theme='dark'] .grid-table__datatable .grid-input.p-datepicker .p-datepicker-input:focus {
   background: #111827;
 }
 
