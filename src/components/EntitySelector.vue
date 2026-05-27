@@ -10,6 +10,7 @@
           :filters="fieldConfig.filters"
           :invalid_fields="props.invalid ? [props.fieldname] : []"
           :pageLength="props.pageLength"
+          :disabled="props.disabled"
         />
         <label :for="fieldConfig.fieldname">
           {{ label }}
