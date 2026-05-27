@@ -742,7 +742,7 @@ const confirmQty = () => {
 .grid-table__datatable .grid-input.p-datepicker-input:disabled,
 .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:disabled {
   background: transparent;
-  border: none;
+  border: none !important;
   box-shadow: none;
   outline: none;
   color: #374151;
