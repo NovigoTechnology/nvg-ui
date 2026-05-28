@@ -1,3 +1,17 @@
+## [1.16.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.16.0...v1.16.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* add datepicker ([c35566a](https://github.com/NovigoTechnology/nvg-ui/commit/c35566a644bfd401cbf0e79b83e1a285b39f8671))
+* add disabled in entity selector ([eac2ce3](https://github.com/NovigoTechnology/nvg-ui/commit/eac2ce384702c396830f50f34e2529b041e0b035))
+* add disabled props ([41333d0](https://github.com/NovigoTechnology/nvg-ui/commit/41333d04a0eda070e2ee8b7f7b7cfa6a5c342d41))
+* add disabled style ([2026c8a](https://github.com/NovigoTechnology/nvg-ui/commit/2026c8a995621d232644e1d5045d6654e990785f))
+* border ([33ee245](https://github.com/NovigoTechnology/nvg-ui/commit/33ee24580dc7a71f25822696031433c5b5024c4d))
+* hardcode ([f18d820](https://github.com/NovigoTechnology/nvg-ui/commit/f18d820e63ccbd3e74b42c5ca523e0e630db6c8e))
+* remove duplicated code ([#57](https://github.com/NovigoTechnology/nvg-ui/issues/57)) ([8c1e7f4](https://github.com/NovigoTechnology/nvg-ui/commit/8c1e7f4b9bed2576152650af4346f7784f20680b))
+* style ([963124b](https://github.com/NovigoTechnology/nvg-ui/commit/963124be11a22a8b348383c0edfd2047befa77fd))
+
 # [1.16.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.15.1...v1.16.0) (2026-05-23)
 
 
