@@ -199,6 +199,7 @@ import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
 import Textarea from 'primevue/textarea';
+import DatePicker from 'primevue/datepicker';
 import Dialog from 'primevue/dialog';
 import Popover from 'primevue/popover';
 import LinkField from './LinkField.vue';
@@ -215,6 +216,7 @@ const props = defineProps({
   floatPrecision: { type: Number, default: 3 },
   currencyPrecision: { type: Number, default: 2 },
   pageLength: { type: Number, default: 10 },
+  dateFormat: { type: String, default: 'dd/mm/yy' },
   showAddMultiple: { type: Boolean, default: false },
   readOnly: { type: Boolean, default: false },
   filtersFields: { type: Object, default: () => ({}) },
@@ -311,6 +313,13 @@ const removeRow = index => {
  * @param {*} value - The new value emitted by the input component
  */
 const onFieldValueUpdate = (editingRow, index, field, value) => {
+  if (value instanceof Date) {
+    const y = value.getFullYear();
+    const m = String(value.getMonth() + 1).padStart(2, '0');
+    const d = String(value.getDate()).padStart(2, '0');
+    value = `${y}-${m}-${d}`;
+  }
+
   editingRow[field] = value;
 
   const row = dataArray.value[index];
@@ -359,6 +368,7 @@ const getColumnWidth = column => {
 const getComponent = column => {
   if (['Int', 'Float', 'Currency', 'Percent'].includes(column.type)) return NumericField;
   if (column.type === 'Textarea') return Textarea;
+  if (column.type === 'Date') return DatePicker;
   return InputText;
 };
 
@@ -370,6 +380,17 @@ const getComponent = column => {
  * @returns {Object} Props object ready to be spread onto the component via v-bind
  */
 const getProps = column => {
+  if (column.type === 'Date') {
+    return {
+      disabled: column.readOnly,
+      ...(column.componentProps || {
+        fluid: true,
+        dateFormat: props.dateFormat,
+        manualInput: true,
+      }),
+    };
+  }
+
   const isNumeric = ['Int', 'Float', 'Currency', 'Percent'].includes(column.type);
   const base = {
     size: 'small',
@@ -381,6 +402,11 @@ const getProps = column => {
     return { ...base, autoResize: true, rows: 1 };
   }
 
+  if (column.componentProps) {
+    return { ...base, ...column.componentProps };
+  }
+
+  // Fallback: build from GridTable's own formatting props
   if (column.type === 'Currency') {
     return {
       ...base,
@@ -391,7 +417,6 @@ const getProps = column => {
       ...(column.prefix ? { prefix: column.prefix } : {}),
     };
   }
-
   if (column.type === 'Float') {
     return {
       ...base,
@@ -402,7 +427,6 @@ const getProps = column => {
       ...(column.prefix ? { prefix: column.prefix } : {}),
     };
   }
-
   if (column.type === 'Percent') {
     return {
       ...base,
@@ -413,7 +437,6 @@ const getProps = column => {
       suffix: '%',
     };
   }
-
   if (column.type === 'Int') {
     return {
       ...base,
@@ -423,7 +446,6 @@ const getProps = column => {
       maxFractionDigits: 0,
     };
   }
-
   return base;
 };
 
@@ -461,30 +483,6 @@ const onPopoverFieldUpdate = (subCol, value) => {
 };
 
 /**
- * Extracts the decimal separator character from the active numberFormat string
- * (e.g. '#,##0.000' → '.', '#.##0,000' → ',').
- * Falls back to '.' when no format is set or the pattern is not recognised.
- */
-const decimalSeparator = computed(() => {
-  const m = (props.numberFormat || '').match(/[#0]([^#0\s])[#0]+$/);
-  return m ? m[1] : '.';
-});
-
-/**
- * Truncates a number to the given decimal places without rounding and formats
- * the result using the active locale's decimal separator.
- * e.g. truncate(10.9999, 2) with separator ',' → '10,99'
- * @param {number} num - Value to format
- * @param {number} decimals - Number of decimal places to keep
- * @returns {string}
- */
-const truncate = (num, decimals) => {
-  const factor = Math.pow(10, decimals);
-  const fixed = (Math.trunc(num * factor) / factor).toFixed(decimals);
-  return decimalSeparator.value !== '.' ? fixed.replace('.', decimalSeparator.value) : fixed;
-};
-
-/**
  * Returns a numerically truncated value (without rounding) for use as modelValue in numeric inputs.
  * Prevents PrimeVue InputNumber from rounding the displayed value when maxFractionDigits is set.
  * @param {Object} col - Column definition with type property
@@ -494,12 +492,18 @@ const truncate = (num, decimals) => {
 const truncatedVal = (col, val) => {
   const num = parseFloat(val ?? 0) || 0;
   if (col.type === 'Currency') {
-    const factor = Math.pow(10, props.currencyPrecision);
-    return Math.trunc(num * factor) / factor;
+    const decimals = col.componentProps?.maxFractionDigits ?? props.currencyPrecision;
+    return Math.trunc(num * Math.pow(10, decimals)) / Math.pow(10, decimals);
   }
   if (col.type === 'Float' || col.type === 'Percent') {
-    const factor = Math.pow(10, props.floatPrecision);
-    return Math.trunc(num * factor) / factor;
+    const decimals = col.componentProps?.maxFractionDigits ?? props.floatPrecision;
+    return Math.trunc(num * Math.pow(10, decimals)) / Math.pow(10, decimals);
+  }
+  if (col.type === 'Date') {
+    if (!val) return null;
+    if (val instanceof Date) return val;
+    const [year, month, day] = String(val).split('-');
+    return year && month && day ? new Date(Number(year), Number(month) - 1, Number(day)) : null;
   }
   return val;
 };
@@ -518,10 +522,24 @@ const getPopoverPreview = (column, data) => {
   const first = column.fields?.[0];
   if (!first) return '';
   const val = parseFloat(data[first.field] ?? 0) || 0;
-  if (first.type === 'Percent') return `${truncate(val, props.floatPrecision)}%`;
-  if (first.type === 'Currency')
-    return `${first.prefix || ''}${truncate(val, props.currencyPrecision)}`;
-  if (first.type === 'Float') return `${first.prefix || ''}${truncate(val, props.floatPrecision)}`;
+
+  const fmt = first.componentProps?.numberFormat ?? props.numberFormat;
+  const m = (fmt || '').match(/[#0]([^#0\s])[#0]+$/);
+  const decSep = m ? m[1] : '.';
+  const decimals =
+    first.componentProps?.maxFractionDigits ??
+    (first.type === 'Currency' ? props.currencyPrecision : props.floatPrecision);
+  const prefix = first.componentProps?.prefix ?? first.prefix ?? '';
+
+  const fmtNum = num => {
+    const factor = Math.pow(10, decimals);
+    const fixed = (Math.trunc(num * factor) / factor).toFixed(decimals);
+    return decSep !== '.' ? fixed.replace('.', decSep) : fixed;
+  };
+
+  if (first.type === 'Percent') return `${fmtNum(val)}%`;
+  if (first.type === 'Currency') return `${prefix}${fmtNum(val)}`;
+  if (first.type === 'Float') return `${prefix}${fmtNum(val)}`;
   const raw = data[first.field];
   return raw !== null && raw !== undefined ? String(raw) : '';
 };
@@ -681,7 +699,8 @@ const confirmQty = () => {
 }
 
 .grid-table__datatable .grid-input.p-inputtext,
-.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input {
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input,
+.grid-table__datatable .grid-input.p-datepicker .p-datepicker-input {
   width: 100%;
   padding: 0.4rem 0.5rem;
   font-size: 0.8125rem;
@@ -695,20 +714,27 @@ const confirmQty = () => {
 }
 
 .grid-table__datatable .grid-input.p-inputtext:hover,
-.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:hover {
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:hover,
+.grid-table__datatable .grid-input.p-datepicker .p-datepicker-input:hover {
   border-color: #e5e7eb;
   background: #ffffff;
 }
 
 .grid-table__datatable .grid-input.p-inputtext:focus,
-.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:focus {
+.grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:focus,
+.grid-table__datatable .grid-input.p-datepicker .p-datepicker-input:focus {
   background: #ffffff;
 }
 
+.grid-table__datatable .grid-input.p-datepicker {
+  width: 100%;
+}
+
 .grid-table__datatable .grid-input.p-inputtext:disabled,
+.grid-table__datatable .grid-input.p-datepicker .p-datepicker-input:disabled,
 .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:disabled {
   background: transparent;
-  border: none;
+  border: none !important;
   box-shadow: none;
   outline: none;
   color: #374151;
@@ -902,17 +928,20 @@ const confirmQty = () => {
 }
 
 [data-theme='dark'] .grid-table__datatable .grid-input.p-inputtext:hover,
-[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:hover {
+[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:hover,
+[data-theme='dark'] .grid-table__datatable .grid-input.p-datepicker .p-datepicker-input:hover {
   border-color: #6b7280;
   background: #111827;
 }
 
 [data-theme='dark'] .grid-table__datatable .grid-input.p-inputtext:focus,
-[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:focus {
+[data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:focus,
+[data-theme='dark'] .grid-table__datatable .grid-input.p-datepicker .p-datepicker-input:focus {
   background: #111827;
 }
 
 [data-theme='dark'] .grid-table__datatable .grid-input.p-inputnumber .p-inputnumber-input:disabled,
+[data-theme='dark'] .grid-table__datatable .grid-input.p-datepicker .p-datepicker-input:disabled,
 [data-theme='dark'] .grid-table__datatable .grid-input.p-inputtext:disabled {
   color: #9ca3af;
   box-shadow: none;
