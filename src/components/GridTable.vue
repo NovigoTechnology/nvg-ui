@@ -2,6 +2,16 @@
   <div class="grid-table">
     <label v-if="label" class="grid-table__label">{{ label }}</label>
 
+    <div v-if="showScanbar" class="form-field barcode-field">
+      <IconField class="barcode-icon-field">
+        <FloatLabel variant="on">
+          <InputText id="scan_barcode" v-model="barcodeVal" />
+          <label for="scan_barcode">{{ __('Scan Barcode') }}</label>
+        </FloatLabel>
+        <InputIcon class="pi pi-qrcode barcode-scan-icon" @click="emit('barcodeCameraScan')" />
+      </IconField>
+    </div>
+
     <DataTable
       :value="dataArray"
       size="small"
@@ -202,6 +212,9 @@ import Textarea from 'primevue/textarea';
 import DatePicker from 'primevue/datepicker';
 import Dialog from 'primevue/dialog';
 import Popover from 'primevue/popover';
+import FloatLabel from 'primevue/floatlabel';
+import IconField from 'primevue/iconfield';
+import InputIcon from 'primevue/inputicon';
 import LinkField from './LinkField.vue';
 import NumericField from './NumericField.vue';
 import { call } from '../libs/frappe-ui';
@@ -221,6 +234,7 @@ const props = defineProps({
   readOnly: { type: Boolean, default: false },
   filtersFields: { type: Object, default: () => ({}) },
   rowClick: { type: Boolean, default: false },
+  showScanbar: { type: Boolean, default: false },
 });
 
 const emit = defineEmits([
@@ -230,7 +244,17 @@ const emit = defineEmits([
   'rowRemove',
   'itemSelected',
   'rowClick',
+  'barcodeScanned',
+  'barcodeCameraScan',
 ]);
+
+const barcodeVal = ref(null);
+
+watch(barcodeVal, value => {
+  if (!value) return;
+  emit('barcodeScanned', value);
+  barcodeVal.value = null;
+});
 
 const dataArray = ref([...props.data]);
 
