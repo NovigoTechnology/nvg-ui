@@ -1,3 +1,11 @@
+# [1.17.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.16.1...v1.17.0) (2026-05-29)
+
+
+### Features
+
+* add scan barcode in gridtable ([94e7913](https://github.com/NovigoTechnology/nvg-ui/commit/94e791306fa15d9e381128b6fef2a8b3c8f34dde))
+* add scan barcode in gridtable ([#58](https://github.com/NovigoTechnology/nvg-ui/issues/58)) ([6d74795](https://github.com/NovigoTechnology/nvg-ui/commit/6d747956631d00bdf1e816148150126c149f59ae))
+
 ## [1.16.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.16.0...v1.16.1) (2026-05-28)
 
 
