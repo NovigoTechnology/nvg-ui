@@ -677,10 +677,13 @@ const confirmQty = () => {
 <style>
 .grid-table {
   width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
 }
 
 .barcode-field {
-  width: 33%;
+  grid-column: span 1;
 }
 
 .grid-table__label {
@@ -689,12 +692,14 @@ const confirmQty = () => {
   font-weight: 400;
   font-size: 0.85rem;
   color: #6b7280;
+  grid-column: 1 / -1;
 }
 
 .grid-table__datatable {
   margin-bottom: 0.5rem;
   border: 1px solid #e5e7eb;
   border-radius: 4px;
+  grid-column: 1 / -1;
 }
 
 .grid-table__datatable .p-datatable-thead > tr > th {
