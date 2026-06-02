@@ -819,7 +819,6 @@ const confirmQty = () => {
 .grid-table__actions {
   display: flex;
   gap: 0.5rem;
-  margin-top: 0.5rem;
 }
 
 .add-multiple__search-row {
