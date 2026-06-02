@@ -679,6 +679,10 @@ const confirmQty = () => {
   width: 100%;
 }
 
+.barcode-field {
+  width: 33%;
+}
+
 .grid-table__label {
   display: block;
   margin-bottom: 0.75rem;
