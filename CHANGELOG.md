@@ -1,3 +1,14 @@
+## [1.17.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.17.0...v1.17.1) (2026-06-04)
+
+
+### Bug Fixes
+
+* grid ([2a9f21b](https://github.com/NovigoTechnology/nvg-ui/commit/2a9f21b0dd947eecac421e0a1a1bc59cb569b742))
+* margin un buttons section ([7d6b437](https://github.com/NovigoTechnology/nvg-ui/commit/7d6b437d84a0818b393305ec248bbdc83cce6e27))
+* refetch autocomplete ([#61](https://github.com/NovigoTechnology/nvg-ui/issues/61)) ([cd1c99b](https://github.com/NovigoTechnology/nvg-ui/commit/cd1c99bae8449813acff49c4159641ed03f48b12))
+* style scan barcode ([92a0d0a](https://github.com/NovigoTechnology/nvg-ui/commit/92a0d0accd0c6ade71a2ec55e7c304eaa3082dbd))
+* test ([d6d30a9](https://github.com/NovigoTechnology/nvg-ui/commit/d6d30a997104588e42a90bd9725c973ffd9e70cd))
+
 # [1.17.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.16.1...v1.17.0) (2026-05-29)
 
 
