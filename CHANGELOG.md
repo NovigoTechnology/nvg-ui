@@ -1,3 +1,11 @@
+## [1.17.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.17.1...v1.17.2) (2026-06-11)
+
+
+### Bug Fixes
+
+* update clear-row behavior to conditionally clear items or update field value ([c73c331](https://github.com/NovigoTechnology/nvg-ui/commit/c73c3315219930f7c9053388373a2fd396490a96))
+* update clear-row behavior to conditionally clear items or update… ([#64](https://github.com/NovigoTechnology/nvg-ui/issues/64)) ([04de88c](https://github.com/NovigoTechnology/nvg-ui/commit/04de88c334d62bd58426a16a41b197a07ef9337f))
+
 ## [1.17.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.17.0...v1.17.1) (2026-06-04)
 
 
