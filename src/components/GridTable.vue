@@ -54,7 +54,12 @@
             class="grid-input"
             @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
             @itemSelected="doc => onItemSelected(index, doc, column)"
-            @clear-row="() => clearRowItems(data)"
+            @clear-row="
+              () =>
+                column.clearRow
+                  ? clearRowItems(data)
+                  : onFieldValueUpdate(data, index, column.field, null)
+            "
             :filters="filtersFields[column.field].filters"
             :query="filtersFields[column.field]?.query"
           />
