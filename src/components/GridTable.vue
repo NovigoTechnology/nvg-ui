@@ -74,7 +74,7 @@
         </template>
       </Column>
 
-      <Column v-if="!readOnly || showDelRow">
+      <Column v-if="!readOnly && showDelRow">
         <template #body="{ index }">
           <Button
             icon="pi pi-trash"
