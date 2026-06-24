@@ -74,7 +74,7 @@
         </template>
       </Column>
 
-      <Column v-if="!readOnly">
+      <Column v-if="!readOnly || showDelRow">
         <template #body="{ index }">
           <Button
             icon="pi pi-trash"
@@ -242,6 +242,7 @@ const props = defineProps({
   filtersFields: { type: Object, default: () => ({}) },
   rowClick: { type: Boolean, default: false },
   showScanbar: { type: Boolean, default: false },
+  showDelRow: { type: Boolean, default: true },
 });
 
 const emit = defineEmits([
