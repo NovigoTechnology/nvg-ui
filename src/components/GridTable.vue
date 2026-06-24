@@ -89,6 +89,7 @@
 
     <div v-if="!readOnly" class="grid-table__actions">
       <Button
+        v-if="showAddItem"
         :label="__('Add Row')"
         icon="pi pi-plus"
         severity="secondary"
@@ -235,6 +236,7 @@ const props = defineProps({
   currencyPrecision: { type: Number, default: 2 },
   pageLength: { type: Number, default: 10 },
   dateFormat: { type: String, default: 'dd/mm/yy' },
+  showAddItem: { type: Boolean, default: false },
   showAddMultiple: { type: Boolean, default: false },
   readOnly: { type: Boolean, default: false },
   filtersFields: { type: Object, default: () => ({}) },
