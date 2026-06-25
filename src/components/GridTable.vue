@@ -263,8 +263,8 @@ watch(
   barcodeVal,
   debounce(value => {
     if (!value) return;
-    console.log('hola');
     emit('barcodeScanned', value);
+    barcodeVal.value = null;
   }, 500)
 );
 
