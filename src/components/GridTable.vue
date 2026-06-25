@@ -236,7 +236,7 @@ const props = defineProps({
   currencyPrecision: { type: Number, default: 2 },
   pageLength: { type: Number, default: 10 },
   dateFormat: { type: String, default: 'dd/mm/yy' },
-  showAddItem: { type: Boolean, default: false },
+  showAddItem: { type: Boolean, default: true },
   showAddMultiple: { type: Boolean, default: false },
   readOnly: { type: Boolean, default: false },
   filtersFields: { type: Object, default: () => ({}) },
