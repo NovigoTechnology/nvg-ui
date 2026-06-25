@@ -74,7 +74,7 @@
         </template>
       </Column>
 
-      <Column v-if="!readOnly">
+      <Column v-if="!readOnly && showDelRow">
         <template #body="{ index }">
           <Button
             icon="pi pi-trash"
@@ -89,6 +89,7 @@
 
     <div v-if="!readOnly" class="grid-table__actions">
       <Button
+        v-if="showAddItem"
         :label="__('Add Row')"
         icon="pi pi-plus"
         severity="secondary"
@@ -208,6 +209,7 @@
 
 <script setup>
 import { ref, watch, computed } from 'vue';
+import { debounce } from 'lodash-es';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Button from 'primevue/button';
@@ -235,11 +237,13 @@ const props = defineProps({
   currencyPrecision: { type: Number, default: 2 },
   pageLength: { type: Number, default: 10 },
   dateFormat: { type: String, default: 'dd/mm/yy' },
+  showAddItem: { type: Boolean, default: true },
   showAddMultiple: { type: Boolean, default: false },
   readOnly: { type: Boolean, default: false },
   filtersFields: { type: Object, default: () => ({}) },
   rowClick: { type: Boolean, default: false },
   showScanbar: { type: Boolean, default: false },
+  showDelRow: { type: Boolean, default: true },
 });
 
 const emit = defineEmits([
@@ -255,11 +259,14 @@ const emit = defineEmits([
 
 const barcodeVal = ref(null);
 
-watch(barcodeVal, value => {
-  if (!value) return;
-  emit('barcodeScanned', value);
-  barcodeVal.value = null;
-});
+watch(
+  barcodeVal,
+  debounce(value => {
+    if (!value) return;
+    emit('barcodeScanned', value);
+    barcodeVal.value = null;
+  }, 500)
+);
 
 const dataArray = ref([...props.data]);
 
