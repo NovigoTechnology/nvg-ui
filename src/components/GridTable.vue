@@ -259,12 +259,14 @@ const emit = defineEmits([
 
 const barcodeVal = ref(null);
 
-watch(barcodeVal, value => {
-  if (!value) return;
-  console.log('hola');
-  emit('barcodeScanned', value);
-  barcodeVal.value = null;
-});
+watch(
+  barcodeVal,
+  debounce(value => {
+    if (!value) return;
+    console.log('hola');
+    barcodeVal.value = null;
+  }, 1000)
+);
 
 const dataArray = ref([...props.data]);
 
