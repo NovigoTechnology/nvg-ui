@@ -209,6 +209,7 @@
 
 <script setup>
 import { ref, watch, computed } from 'vue';
+import { debounce } from 'lodash-es';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Button from 'primevue/button';
@@ -260,6 +261,7 @@ const barcodeVal = ref(null);
 
 watch(barcodeVal, value => {
   if (!value) return;
+  console.log('hola');
   emit('barcodeScanned', value);
   barcodeVal.value = null;
 });
