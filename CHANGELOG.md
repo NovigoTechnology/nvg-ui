@@ -1,3 +1,20 @@
+## [1.17.3](https://github.com/NovigoTechnology/nvg-ui/compare/v1.17.2...v1.17.3) (2026-06-25)
+
+
+### Bug Fixes
+
+* add condition && ([942b072](https://github.com/NovigoTechnology/nvg-ui/commit/942b0721dd4b06f9c036256adda52e26a40c7968))
+* add debounce ([dd2af12](https://github.com/NovigoTechnology/nvg-ui/commit/dd2af126108da21c6307c3051382b63aa427a314))
+* add log ([c5345bf](https://github.com/NovigoTechnology/nvg-ui/commit/c5345bf61a4a9eba410165f21cf93b8451a45e96))
+* add show del row ([bca7f4a](https://github.com/NovigoTechnology/nvg-ui/commit/bca7f4a5bf4556dbe0ef4e4118c3280ece1800eb))
+* debounce 500 ([3774d9d](https://github.com/NovigoTechnology/nvg-ui/commit/3774d9d374c49c09a2b7eaea92d94589b63963c8))
+* del data ([e71c551](https://github.com/NovigoTechnology/nvg-ui/commit/e71c551471dae0046dd4dd1b5f1efca61b6b8a1b))
+* restore emit ([bc0b518](https://github.com/NovigoTechnology/nvg-ui/commit/bc0b518c136cb1227459469244ca386976cb734c))
+* show add item ([361a583](https://github.com/NovigoTechnology/nvg-ui/commit/361a583d4a6209ead9ddea734cbbb4857c8c9923))
+* show buttons ([#71](https://github.com/NovigoTechnology/nvg-ui/issues/71)) ([6cf92d3](https://github.com/NovigoTechnology/nvg-ui/commit/6cf92d31ef07d65fb57fafa1da08b656090e521f))
+* showadditem true ([b1bff8a](https://github.com/NovigoTechnology/nvg-ui/commit/b1bff8a5399ebef14249dd8913c318371a327b8f))
+* test ([6f3840d](https://github.com/NovigoTechnology/nvg-ui/commit/6f3840d74254722e68ebed55449154af07c56e34))
+
 ## [1.17.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.17.1...v1.17.2) (2026-06-11)
 
 
