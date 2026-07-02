@@ -44,11 +44,7 @@
             />
           </div>
           <div v-if="column.type == 'Check'">
-            <input
-              type="checkbox"
-              :value="data[column.field]"
-              @click="() => checkRow(!data[column.field])"
-            />
+            <input type="checkbox" :value="data[column.field]" @click="() => checkRow(data)" />
           </div>
           <LinkField
             v-else-if="column.type === 'Link'"
