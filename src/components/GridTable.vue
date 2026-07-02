@@ -43,6 +43,13 @@
               @click="openPopover($event, column, data, index)"
             />
           </div>
+          <div v-if="column.type == 'Check'">
+            <input
+              type="checkbox"
+              :value="data[column.field]"
+              @click="() => checkRow(data[column.field])"
+            />
+          </div>
           <LinkField
             v-else-if="column.type === 'Link'"
             :modelValue="data[column.field]"
@@ -258,6 +265,10 @@ const emit = defineEmits([
 ]);
 
 const barcodeVal = ref(null);
+
+const checkRow = data => {
+  console.log(data);
+};
 
 watch(
   barcodeVal,
