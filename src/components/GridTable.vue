@@ -44,7 +44,11 @@
             />
           </div>
           <div v-if="column.type == 'Check'">
-            <input type="checkbox" :value="data[column.field]" @click="() => checkRow(data)" />
+            <input
+              type="checkbox"
+              :value="data[column.field]"
+              @click="(_, index) => checkRow(data, index)"
+            />
           </div>
           <LinkField
             v-else-if="column.type === 'Link'"
@@ -262,8 +266,16 @@ const emit = defineEmits([
 
 const barcodeVal = ref(null);
 
-const checkRow = data => {
-  console.log(data);
+const dataChecked = ref([]);
+
+const checkRow = (data, index) => {
+  data.__checked = !data.__checked;
+  console.log(data, index);
+
+  // if (data.__checked) {
+  //   dataChecked.push(data);
+  // } else {
+  // }
 };
 
 watch(
