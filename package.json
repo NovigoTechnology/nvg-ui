@@ -80,6 +80,7 @@
     ]
   },
   "resolutions": {
+    "@actions/http-client/**/undici": "6.27.0",
     "postcss": "^8.5.10"
   }
 }
