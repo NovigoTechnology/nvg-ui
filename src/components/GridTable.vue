@@ -47,7 +47,7 @@
             <input
               type="checkbox"
               :value="data[column.field]"
-              @click="() => checkRow(data[column.field])"
+              @click="() => checkRow(!data[column.field])"
             />
           </div>
           <LinkField
