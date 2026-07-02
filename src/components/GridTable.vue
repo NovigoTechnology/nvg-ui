@@ -17,12 +17,31 @@
       size="small"
       :scrollable="true"
       scrollHeight="300px"
-      :class="['grid-table__datatable', { 'grid-table__datatable--clickable': rowClick }]"
-      @row-click="rowClick ? emit('rowClick', $event.data, $event.index) : null"
+      :row-class="row => (showCheck && row.__checked ? 'grid-table__row--checked' : '')"
+      :class="[
+        'grid-table__datatable',
+        { 'grid-table__datatable--clickable': rowClick || showCheck },
+      ]"
+      @row-click="
+        showCheck
+          ? checkRow($event.data)
+          : rowClick
+            ? emit('rowClick', $event.data, $event.index)
+            : null
+      "
     >
       <template #empty>
         <div class="grid-table__empty">{{ emptyMessage }}</div>
       </template>
+
+      <Column v-if="showCheck" style="width: 2.5rem">
+        <template #header>
+          <input type="checkbox" :checked="allChecked" @change="toggleAll" />
+        </template>
+        <template #body="{ data }">
+          <input type="checkbox" :checked="data.__checked" @change.stop="checkRow(data)" />
+        </template>
+      </Column>
 
       <Column
         v-for="column in columns"
@@ -41,13 +60,6 @@
               size="small"
               class="grid-popover-btn"
               @click="openPopover($event, column, data, index)"
-            />
-          </div>
-          <div v-if="column.type == 'Check'">
-            <input
-              type="checkbox"
-              :value="data[column.field]"
-              @click="() => checkRow(data, index)"
             />
           </div>
           <LinkField
@@ -251,6 +263,7 @@ const props = defineProps({
   rowClick: { type: Boolean, default: false },
   showScanbar: { type: Boolean, default: false },
   showDelRow: { type: Boolean, default: true },
+  showCheck: { type: Boolean, default: false },
 });
 
 const emit = defineEmits([
@@ -266,16 +279,19 @@ const emit = defineEmits([
 
 const barcodeVal = ref(null);
 
-const dataChecked = ref([]);
+const allChecked = computed(
+  () => dataArray.value.length > 0 && dataArray.value.every(row => row.__checked)
+);
 
-const checkRow = (data, index) => {
-  data.__checked = !data.__checked;
-  console.log(data, index);
+const checkRow = row => {
+  row.__checked = !row.__checked;
+  emit('update:data', dataArray.value);
+};
 
-  // if (data.__checked) {
-  //   dataChecked.push(data);
-  // } else {
-  // }
+const toggleAll = () => {
+  const next = !allChecked.value;
+  dataArray.value.forEach(row => (row.__checked = next));
+  emit('update:data', dataArray.value);
 };
 
 watch(
@@ -1037,5 +1053,9 @@ const confirmQty = () => {
 
 .grid-table__datatable--clickable .p-datatable-tbody > tr:hover > td {
   background: color-mix(in srgb, var(--p-primary-color) 12%, transparent) !important;
+}
+
+.grid-table__datatable .p-datatable-tbody > tr.grid-table__row--checked > td {
+  background: color-mix(in srgb, var(--p-primary-color) 18%, transparent) !important;
 }
 </style>
