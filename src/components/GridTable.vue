@@ -17,6 +17,7 @@
       size="small"
       :scrollable="true"
       scrollHeight="300px"
+      :loading="loading"
       :row-class="row => (showCheck && row.__checked ? 'grid-table__row--checked' : '')"
       :class="[
         'grid-table__datatable',
@@ -264,6 +265,7 @@ const props = defineProps({
   showScanbar: { type: Boolean, default: false },
   showDelRow: { type: Boolean, default: true },
   showCheck: { type: Boolean, default: false },
+  loading: { type: Boolean, default: false },
 });
 
 const emit = defineEmits([
