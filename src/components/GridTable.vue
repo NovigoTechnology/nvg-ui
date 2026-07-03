@@ -18,31 +18,12 @@
       :scrollable="true"
       scrollHeight="300px"
       :loading="loading"
-      :row-class="row => (showCheck && row.__checked ? 'grid-table__row--checked' : '')"
-      :class="[
-        'grid-table__datatable',
-        { 'grid-table__datatable--clickable': rowClick || showCheck },
-      ]"
-      @row-click="
-        showCheck
-          ? checkRow($event.data)
-          : rowClick
-            ? emit('rowClick', $event.data, $event.index)
-            : null
-      "
+      :class="['grid-table__datatable', { 'grid-table__datatable--clickable': rowClick }]"
+      @row-click="rowClick ? emit('rowClick', $event.data, $event.index) : null"
     >
       <template #empty>
         <div class="grid-table__empty">{{ emptyMessage }}</div>
       </template>
-
-      <Column v-if="showCheck" style="width: 2.5rem">
-        <template #header>
-          <input type="checkbox" :checked="allChecked" @change="toggleAll" />
-        </template>
-        <template #body="{ data }">
-          <input type="checkbox" :checked="data.__checked" @change.stop="checkRow(data)" />
-        </template>
-      </Column>
 
       <Column
         v-for="column in columns"
@@ -277,6 +258,7 @@ const emit = defineEmits([
   'rowClick',
   'barcodeScanned',
   'barcodeCameraScan',
+  'selectionChange',
 ]);
 
 const barcodeVal = ref(null);
@@ -287,13 +269,19 @@ const allChecked = computed(
 
 const checkRow = row => {
   row.__checked = !row.__checked;
-  emit('update:data', dataArray.value);
+  emit(
+    'selectionChange',
+    dataArray.value.filter(r => r.__checked)
+  );
 };
 
 const toggleAll = () => {
   const next = !allChecked.value;
   dataArray.value.forEach(row => (row.__checked = next));
-  emit('update:data', dataArray.value);
+  emit(
+    'selectionChange',
+    dataArray.value.filter(r => r.__checked)
+  );
 };
 
 watch(
