@@ -1,3 +1,22 @@
+# [1.18.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.17.3...v1.18.0) (2026-07-04)
+
+
+### Bug Fixes
+
+* add index ([2e5a237](https://github.com/NovigoTechnology/nvg-ui/commit/2e5a237cc8f5d20eb987439bd06b6d4f39575792))
+* add index ([d79f5f5](https://github.com/NovigoTechnology/nvg-ui/commit/d79f5f5f6ed9099874757c771db813f4e664ac8d))
+* check ([0c6e5f9](https://github.com/NovigoTechnology/nvg-ui/commit/0c6e5f951ab9b8f5ca6fe36cf80d8ebc88122723))
+* check ([80930fd](https://github.com/NovigoTechnology/nvg-ui/commit/80930fd58af3448dce12fb9654a8a6286a44fe7f))
+* checked ([1bab9fe](https://github.com/NovigoTechnology/nvg-ui/commit/1bab9fe53ef1846593e259738c9cd1e416af865a))
+* emit row ([8c3bd4f](https://github.com/NovigoTechnology/nvg-ui/commit/8c3bd4fbddaec4e657b307bd3d1fc8fab86f6630))
+* loading ([b39de01](https://github.com/NovigoTechnology/nvg-ui/commit/b39de01c514e78b244ff4f3e16ee7a2a1ba695aa))
+* row checked ([bf16986](https://github.com/NovigoTechnology/nvg-ui/commit/bf169861b5e82ca9dbba92165aabd99dafeb4124))
+
+
+### Features
+
+* check ([#76](https://github.com/NovigoTechnology/nvg-ui/issues/76)) ([ba1b4cc](https://github.com/NovigoTechnology/nvg-ui/commit/ba1b4ccba4c7cdedb5f4ffb41a49c01a7aa21223))
+
 ## [1.17.3](https://github.com/NovigoTechnology/nvg-ui/compare/v1.17.2...v1.17.3) (2026-06-25)
 
 
