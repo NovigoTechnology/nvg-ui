@@ -17,6 +17,7 @@
       size="small"
       :scrollable="true"
       scrollHeight="300px"
+      :loading="loading"
       :class="['grid-table__datatable', { 'grid-table__datatable--clickable': rowClick }]"
       @row-click="rowClick ? emit('rowClick', $event.data, $event.index) : null"
     >
@@ -244,6 +245,8 @@ const props = defineProps({
   rowClick: { type: Boolean, default: false },
   showScanbar: { type: Boolean, default: false },
   showDelRow: { type: Boolean, default: true },
+  showCheck: { type: Boolean, default: false },
+  loading: { type: Boolean, default: false },
 });
 
 const emit = defineEmits([
@@ -255,9 +258,31 @@ const emit = defineEmits([
   'rowClick',
   'barcodeScanned',
   'barcodeCameraScan',
+  'selectionChange',
 ]);
 
 const barcodeVal = ref(null);
+
+const allChecked = computed(
+  () => dataArray.value.length > 0 && dataArray.value.every(row => row.__checked)
+);
+
+const checkRow = row => {
+  row.__checked = !row.__checked;
+  emit(
+    'selectionChange',
+    dataArray.value.filter(r => r.__checked)
+  );
+};
+
+const toggleAll = () => {
+  const next = !allChecked.value;
+  dataArray.value.forEach(row => (row.__checked = next));
+  emit(
+    'selectionChange',
+    dataArray.value.filter(r => r.__checked)
+  );
+};
 
 watch(
   barcodeVal,
@@ -1018,5 +1043,9 @@ const confirmQty = () => {
 
 .grid-table__datatable--clickable .p-datatable-tbody > tr:hover > td {
   background: color-mix(in srgb, var(--p-primary-color) 12%, transparent) !important;
+}
+
+.grid-table__datatable .p-datatable-tbody > tr.grid-table__row--checked > td {
+  background: color-mix(in srgb, var(--p-primary-color) 18%, transparent) !important;
 }
 </style>
