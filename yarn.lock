@@ -2535,10 +2535,10 @@ libnpmversion@^8.0.3:
     proc-log "^6.0.0"
     semver "^7.3.7"
 
-libphonenumber-js@^1.13.7:
-  version "1.13.7"
-  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.13.7.tgz#ca52f8f5e3e70a66cde0655e7d4dbe0c44cadfd2"
-  integrity sha512-rvr3HIMdOgzhz1RFGjftji+wjoAFlzhqCNqJOU/MKTZQ8d9NZxAR/tI+0weDicyoucqVR0U1GCniqHJ0f8aM2A==
+libphonenumber-js@^1.13.8:
+  version "1.13.8"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.13.8.tgz#4250f92798e64ffc6556aae2894058861e878ea5"
+  integrity sha512-80xal1m93rADejw2pMp2MSzFhHCPLEspjHxnH2UtqI+DgAmElsbmLMiqk9niwH9NWAfjsRtaJI+qBrOEmRx9nQ==
 
 lightningcss-android-arm64@1.32.0:
   version "1.32.0"
