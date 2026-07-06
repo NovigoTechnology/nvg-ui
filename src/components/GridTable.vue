@@ -18,12 +18,31 @@
       :scrollable="true"
       scrollHeight="300px"
       :loading="loading"
-      :class="['grid-table__datatable', { 'grid-table__datatable--clickable': rowClick }]"
-      @row-click="rowClick ? emit('rowClick', $event.data, $event.index) : null"
+      :row-class="row => (showCheck && row.__checked ? 'grid-table__row--checked' : '')"
+      :class="[
+        'grid-table__datatable',
+        { 'grid-table__datatable--clickable': rowClick || showCheck },
+      ]"
+      @row-click="
+        showCheck
+          ? checkRow($event.data)
+          : rowClick
+            ? emit('rowClick', $event.data, $event.index)
+            : null
+      "
     >
       <template #empty>
         <div class="grid-table__empty">{{ emptyMessage }}</div>
       </template>
+
+      <Column v-if="showCheck" style="width: 2.5rem">
+        <template #header>
+          <input type="checkbox" :checked="allChecked" @change="toggleAll" />
+        </template>
+        <template #body="{ data }">
+          <input type="checkbox" :checked="data.__checked" @change.stop="checkRow(data)" />
+        </template>
+      </Column>
 
       <Column
         v-for="column in columns"
