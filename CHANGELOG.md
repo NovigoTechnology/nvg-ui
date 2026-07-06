@@ -1,3 +1,13 @@
+## [1.18.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.18.0...v1.18.1) (2026-07-06)
+
+
+### Bug Fixes
+
+* check ([b33b9e1](https://github.com/NovigoTechnology/nvg-ui/commit/b33b9e1f9241b50d942957f9e9755032d882fd0c))
+* condition check ([f2e18dc](https://github.com/NovigoTechnology/nvg-ui/commit/f2e18dc84769205d116f38f235153eabf2ab1fd5))
+* vite 8 ([3a02051](https://github.com/NovigoTechnology/nvg-ui/commit/3a0205174009c28d1df8879cb0ab75aa516549e0))
+* vite 8 ([#79](https://github.com/NovigoTechnology/nvg-ui/issues/79)) ([af2974d](https://github.com/NovigoTechnology/nvg-ui/commit/af2974da3297cea2d0fb96ab2c202e52a40d1a85))
+
 # [1.18.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.17.3...v1.18.0) (2026-07-04)
 
 
