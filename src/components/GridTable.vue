@@ -21,15 +21,9 @@
       :row-class="row => (showCheck && row.__checked ? 'grid-table__row--checked' : '')"
       :class="[
         'grid-table__datatable',
-        { 'grid-table__datatable--clickable': rowClick || showCheck },
+        { 'grid-table__datatable--clickable': rowClick && !showCheck },
       ]"
-      @row-click="
-        showCheck
-          ? checkRow($event.data)
-          : rowClick
-            ? emit('rowClick', $event.data, $event.index)
-            : null
-      "
+      @row-click="!showCheck && rowClick ? emit('rowClick', $event.data, $event.index) : null"
     >
       <template #empty>
         <div class="grid-table__empty">{{ emptyMessage }}</div>
