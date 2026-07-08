@@ -1,3 +1,11 @@
+# [1.20.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.19.0...v1.20.0) (2026-07-08)
+
+
+### Features
+
+* add customCall prop for direct method calls in AutoComplete and EntitySelector components ([e0496d9](https://github.com/NovigoTechnology/nvg-ui/commit/e0496d99e8e3946c20ba7b0f2c52fe05244109c7))
+* add customCall prop for direct method calls in AutoComplete and… ([#81](https://github.com/NovigoTechnology/nvg-ui/issues/81)) ([c623484](https://github.com/NovigoTechnology/nvg-ui/commit/c62348488ed0a0375b1dd1d7d807efab0e6a2ec5))
+
 # [1.19.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.18.1...v1.19.0) (2026-07-08)
 
 
