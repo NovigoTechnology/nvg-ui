@@ -1,3 +1,11 @@
+# [1.19.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.18.1...v1.19.0) (2026-07-08)
+
+
+### Features
+
+* add useFormatting composable for number/currency/date formatting ([1accb98](https://github.com/NovigoTechnology/nvg-ui/commit/1accb98b6b085f9fbe1859eb8d97609986fd167c))
+* add useFormatting composable for number/currency/date formatting ([#80](https://github.com/NovigoTechnology/nvg-ui/issues/80)) ([aa63054](https://github.com/NovigoTechnology/nvg-ui/commit/aa63054aca01b4d14f9834c7d04e44768ffe65d3))
+
 ## [1.18.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.18.0...v1.18.1) (2026-07-06)
 
 
