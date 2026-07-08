@@ -126,6 +126,16 @@ const props = defineProps({
   },
   filter_list: String,
   pageLength: { type: Number, default: 10 },
+  /**
+   * Calls { method, args } directly (bypassing frappe.desk.search.search_link) for
+   * doctype-less/custom lookups whose whitelisted method doesn't follow the standard
+   * (doctype, txt, searchfield, start, page_len, filters) link-query signature.
+   * Results are mapped by name/label/description like a normal search_link response.
+   */
+  customCall: {
+    type: Object,
+    default: null,
+  },
 });
 
 const emit = defineEmits(['update-autocomplete-value', 'update-filter', 'update-data', 'clearRow']);
@@ -445,6 +455,21 @@ const selectOption = (selectedOption, field) => {
 };
 
 async function fetchLinkResults(doctype, filters = {}, searchText = '') {
+  if (props.customCall?.method) {
+    const raw = await call(props.customCall.method, {
+      ...props.customCall.args,
+      txt: searchText,
+      start: 0,
+      page_length: props.pageLength,
+    });
+
+    return (raw || []).map(item => ({
+      value: item.value ?? item.name,
+      label: item.label ?? item.title ?? item.value ?? item.name,
+      description: item.description ?? '',
+    }));
+  }
+
   let finalFilters = { ...filters };
 
   if (props.filters && Object.keys(props.filters).length > 0) {

@@ -7,6 +7,7 @@
           @update-autocomplete-value="onItemSelected"
           @clear-row="onClear"
           :query="props.query"
+          :customCall="props.customCall"
           :filters="fieldConfig.filters"
           :invalid_fields="props.invalid ? [props.fieldname] : []"
           :pageLength="props.pageLength"
@@ -127,6 +128,15 @@ const props = defineProps({
    * Custom query function for autocomplete
    */ query: {
     type: String,
+    default: null,
+  },
+  /**
+   * Calls { method, args } directly instead of going through query/search_link.
+   * Use for whitelisted methods that don't follow the standard
+   * (doctype, txt, searchfield, start, page_len, filters) link-query signature.
+   */
+  customCall: {
+    type: Object,
     default: null,
   },
   invalid: {
