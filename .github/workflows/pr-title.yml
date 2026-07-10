@@ -38,7 +38,7 @@ jobs:
         with:
           script: |
             const { PR_TITLE, REPOSITORY } = process.env;
-            await github.rest.issues.createComment({
+            try { await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -63,4 +63,4 @@ jobs:
               Please update your PR title to match this format.
 
               See [CONVENTIONAL_COMMITS.md](https://github.com/${REPOSITORY}/blob/main/CONVENTIONAL_COMMITS.md) for detailed guidelines.`
-            })
+            }) } catch (e) { core.warning(`Failed to post PR comment: ${e.message}`) }
