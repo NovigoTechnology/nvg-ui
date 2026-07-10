@@ -1,3 +1,21 @@
+## [1.20.3](https://github.com/NovigoTechnology/nvg-ui/compare/v1.20.2...v1.20.3) (2026-07-10)
+
+
+### Bug Fixes
+
+* add error handling for github-script PR comment creation ([9ddb7cd](https://github.com/NovigoTechnology/nvg-ui/commit/9ddb7cd45ac950deb6a019c85213f74c38ec7178))
+* code scanning alert no. 33 ([#84](https://github.com/NovigoTechnology/nvg-ui/issues/84)) ([ca88625](https://github.com/NovigoTechnology/nvg-ui/commit/ca8862526aa57beef5c9db833f8f60f3ed573066))
+* disable body-max-line-length rule in commitlint to allow long Co-authored-by trailers ([6ba25ee](https://github.com/NovigoTechnology/nvg-ui/commit/6ba25ee6785797aef0916f8aeda9b93416d60b72))
+* format try-catch block in pr-title.yml for readability ([63dd9ad](https://github.com/NovigoTechnology/nvg-ui/commit/63dd9ad41be472266bc111539dabe5771a613fd7))
+* Potential fix for code scanning alert no. 33: Code injection ([93f1ae2](https://github.com/NovigoTechnology/nvg-ui/commit/93f1ae28ed6ae8c6bcdf77a232f930f82f8bf75d))
+* Potential fix for code scanning alert no. 34: Code injection ([1d63cfa](https://github.com/NovigoTechnology/nvg-ui/commit/1d63cfa57b7a6aafb5678e5c133936dbb9a571c0))
+* Potential fix for pull request finding ([126fd87](https://github.com/NovigoTechnology/nvg-ui/commit/126fd871e137fa67d474ab7dda8bff642b29caed))
+* Potential fix for pull request finding ([69dfeca](https://github.com/NovigoTechnology/nvg-ui/commit/69dfeca1ca913ba2cf245621d22eb469d3da45e6))
+* Potential fix for pull request finding 'CodeQL / Syntax error' ([63e4cc0](https://github.com/NovigoTechnology/nvg-ui/commit/63e4cc0ae46e944a9be42f6e5cb69801a4efd329))
+* Replace GitHub Actions expression with JS API in github-script to prevent code injection ([98218a3](https://github.com/NovigoTechnology/nvg-ui/commit/98218a3a3b3749a3206ba5f1f4f7842a80f0e959))
+* resolve CI Validate Commits failure caused by long Co-authored-by trailers ([#83](https://github.com/NovigoTechnology/nvg-ui/issues/83)) ([1f7800b](https://github.com/NovigoTechnology/nvg-ui/commit/1f7800b8ca7e5f1c27c10db2dc81211173a6fb5c))
+* resolve merge conflict - use PR_TITLE env var in github-script step ([84b5129](https://github.com/NovigoTechnology/nvg-ui/commit/84b5129481946d186c7cbeb9b11dd64d36ee5f5c))
+
 ## [1.20.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.20.1...v1.20.2) (2026-07-10)
 
 
