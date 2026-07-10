@@ -42,7 +42,7 @@ jobs:
 
               Your PR title does not follow [Conventional Commits](https://www.conventionalcommits.org/) format.
 
-              **Current title:** \`${{ github.event.pull_request.title }}\`
+              **Current title:** \`${context.payload.pull_request.title}\`
 
               **Expected format:**
               \`\`\`
