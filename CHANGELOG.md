@@ -1,3 +1,10 @@
+## [1.20.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.20.1...v1.20.2) (2026-07-10)
+
+
+### Bug Fixes
+
+* **codeql:** enable javascript-typescript scanning and manual trigger ([46a8bbd](https://github.com/NovigoTechnology/nvg-ui/commit/46a8bbd553d2c302f5f4716ace07038ffd4928a5))
+
 ## [1.20.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.20.0...v1.20.1) (2026-07-10)
 
 
