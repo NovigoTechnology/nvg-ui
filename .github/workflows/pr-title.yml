@@ -25,14 +25,21 @@ jobs:
         run: npm install --save-dev @commitlint/cli @commitlint/config-conventional
 
       - name: Validate PR title
-        run: echo "${{ github.event.pull_request.title }}" | npx commitlint
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: printf '%s\n' "$PR_TITLE" | npx commitlint
 
       - name: Comment on PR (if failed)
         if: failure()
         uses: actions/github-script@v9
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          REPOSITORY: ${{ github.repository }}
         with:
           script: |
-            github.rest.issues.createComment({
+            const { PR_TITLE, REPOSITORY } = process.env;
+            try {
+              await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -40,7 +47,7 @@ jobs:
 
               Your PR title does not follow [Conventional Commits](https://www.conventionalcommits.org/) format.
 
-              **Current title:** \`${{ github.event.pull_request.title }}\`
+              **Current title:** \`${PR_TITLE}\`
 
               **Expected format:**
               \`\`\`
@@ -56,5 +63,8 @@ jobs:
 
               Please update your PR title to match this format.
 
-              See [CONVENTIONAL_COMMITS.md](https://github.com/${{ github.repository }}/blob/main/CONVENTIONAL_COMMITS.md) for detailed guidelines.`
-            })
+              See [CONVENTIONAL_COMMITS.md](https://github.com/${REPOSITORY}/blob/main/CONVENTIONAL_COMMITS.md) for detailed guidelines.`
+              })
+            } catch (e) {
+              core.warning(`Failed to post PR comment: ${e.message}`)
+            }
