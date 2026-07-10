@@ -178,7 +178,7 @@
       >
         <span class="add-multiple__item-name">{{ item.label || item.value }}</span>
         <div>
-          <span class="add-multiple__item-desc" v-html="item.description"></span>
+          <span class="add-multiple__item-desc">{{ item.description }}</span>
         </div>
       </div>
       <div v-if="hasSearched && !searchResults.length" class="add-multiple__empty">
