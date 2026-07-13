@@ -1,3 +1,6 @@
+import pluginVue from 'eslint-plugin-vue';
+import vueParser from 'vue-eslint-parser';
+
 export default [
   // Ignores configuration (replaces .eslintignore)
   {
@@ -22,6 +25,19 @@ export default [
       'no-console': 'off',
       'no-debugger': 'off',
       'no-unused-vars': 'warn',
+    },
+  },
+
+  // Vue-specific configuration
+  ...pluginVue.configs['flat/recommended'],
+  {
+    files: ['**/*.vue'],
+    languageOptions: {
+      parser: vueParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
     },
   },
 ];

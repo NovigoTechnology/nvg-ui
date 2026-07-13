@@ -3,34 +3,34 @@
     <div :class="{ flex: props.field.quick_entry }" class="relative">
       <FloatLabel variant="on">
         <AutoComplete
-          v-model="inputValue[props.field.fieldname]"
-          :data-web="props.dataweb"
           :key="refresh"
           ref="autoCompleteRef"
-          :inputId="props.field.fieldname"
+          v-model="inputValue[props.field.fieldname]"
+          :data-web="props.dataweb"
+          :input-id="props.field.fieldname"
           :suggestions="translatedSuggestions"
-          @complete="e => getLinkOptions(props.field.options, {}, e.query)"
-          :completeOnFocus="true"
+          :complete-on-focus="true"
           fluid
           :disabled="disabled || (props.field.read_only && !props.filter_list) ? true : false"
           :class="{ 'p-inputtext:disabled': disabled }"
-          @clear="() => clear_input"
           :size="props.size"
-          @update:modelValue="e => e === '' && clear_input(true)"
-          @option-select="e => selectOption(e.value, props.field)"
-          :optionLabel="option => option.label || option.description || option.value"
+          :option-label="option => option.label || option.description || option.value"
           :dropdown="!inputValue[props.field.fieldname] === '' && inputValue[props.field.fieldname]"
           :invalid="
             (invalid_fields?.includes(props.field.fieldname) ||
               invalid_fields?.includes(props.field.label)) &&
             !inputValue[props.field.fieldname]
           "
-          forceSelection
+          force-selection
+          @complete="e => getLinkOptions(props.field.options, {}, e.query)"
+          @clear="() => clear_input"
+          @update:model-value="e => e === '' && clear_input(true)"
+          @option-select="e => selectOption(e.value, props.field)"
         >
           <template v-if="!disabled" #dropdown>
             <button type="button" class="p-autocomplete-dropdown" @click.stop="clear_input">
               <svg class="icon icon-sm" style="stroke: var(--p-inputtext-color)" aria-hidden="true">
-                <use href="#icon-close"></use>
+                <use href="#icon-close" />
               </svg>
             </button>
           </template>
@@ -48,7 +48,7 @@
                 "
                 class="text-sm text-color-secondary"
               >
-                <span v-html="slotProps.option.description"></span>
+                <span v-html="sanitizeHtml(slotProps.option.description)" />
               </div>
             </div>
           </template>
@@ -60,13 +60,13 @@
 
       <Button
         v-if="props.field.quick_entry"
+        :id="'new_' + props.field.fieldname"
         :disabled="disabled"
         :raised="true"
         severity="info"
         class="ml-4"
         size="small"
         @click="() => (createNew = !createNew)"
-        :id="'new_' + props.field.fieldname"
       >
         <!-- @click="create_New(props.field.quick_entry, props.field.fieldname)" -->
         <span style="text-wrap: nowrap"> {{ __('New {0}', [__(props.field.placeholder)]) }}</span>
@@ -74,13 +74,13 @@
     </div>
   </div>
   <slot
-    name="quick-entry"
     v-if="createNew"
+    name="quick-entry"
     :field="props.field"
-    :createNew="createNew"
+    :create-new="createNew"
     :on-update="(value, field) => update_input(value, field, field.fieldname)"
     :on-close="closeQuickEntry"
-  ></slot>
+  />
 </template>
 
 <script setup>
@@ -90,6 +90,7 @@ import FloatLabel from 'primevue/floatlabel';
 import Button from 'primevue/button';
 import { call } from '../libs/frappe-ui';
 import emitter from '../libs/mitt';
+import { sanitizeHtml } from '../utils/sanitizeHtml';
 
 const props = defineProps({
   field: Object,
@@ -150,7 +151,7 @@ const currentStore = computed(() => {
   return store;
 });
 
-const filters = ref({});
+const providedFilters = ref({});
 const createNew = ref(false);
 const refresh = ref(false);
 const autoCompleteRef = ref(null);
@@ -375,10 +376,15 @@ const clear_input = async (keepFocus = false) => {
   emit('clearRow', props.field);
 
   if (props.field.provideFilter && !props.quickEntry) {
-    filters.value = {};
+    providedFilters.value = {};
     if (currentStore.value.autocompleteFilter) {
-      currentStore.value.autocompleteFilter = filters.value;
+      currentStore.value.autocompleteFilter = providedFilters.value;
     }
+    /**
+     * field is a shared frappe field descriptor, not local component state;
+     * the host form reads this value back directly.
+     */
+    /* eslint-disable-next-line vue/no-mutating-props */
     props.field.value = null;
   }
 
@@ -424,9 +430,9 @@ const selectOption = (selectedOption, field) => {
 
   if (!props.quickEntry) {
     if (field.provideFilter) {
-      filters.value = { [field.fieldname]: selectedOption.value };
+      providedFilters.value = { [field.fieldname]: selectedOption.value };
       if (currentStore.value.autocompleteFilter) {
-        currentStore.value.autocompleteFilter = filters.value;
+        currentStore.value.autocompleteFilter = providedFilters.value;
       }
     }
     if (currentStore.value?.filters) {
