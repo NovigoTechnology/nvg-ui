@@ -67,9 +67,12 @@ import { FloatLabel } from 'primevue';
 
 const props = defineProps({
   disabled: Boolean,
+  /**
+   * Field descriptor: { fieldname, label, value } where value is the
+   * stored "<isd>-<number>" string (e.g. "+54-91122334455").
+   */
   field: Object,
   cancelEdit: Boolean,
-  store: Object,
   editing: Boolean,
 });
 

@@ -47,6 +47,7 @@ export interface GridTableProps {
   currencyPrecision?: number
   pageLength?: number
   showAddMultiple?: boolean
+  scrollHeight?: string
 }
 
 export interface LinkFieldProps {
@@ -83,7 +84,6 @@ export interface PhoneFieldProps {
   field: FieldDefinition
   disabled?: boolean
   cancelEdit?: boolean
-  store?: Record<string, any>
   editing?: boolean
 }
 

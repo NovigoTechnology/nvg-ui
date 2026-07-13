@@ -16,7 +16,7 @@
       :value="dataArray"
       size="small"
       :scrollable="true"
-      scroll-height="300px"
+      :scroll-height="scrollHeight"
       :loading="loading"
       :row-class="row => (showCheck && row.__checked ? 'grid-table__row--checked' : '')"
       :class="[
@@ -263,6 +263,7 @@ const props = defineProps({
   showDelRow: { type: Boolean, default: true },
   showCheck: { type: Boolean, default: false },
   loading: { type: Boolean, default: false },
+  scrollHeight: { type: String, default: '300px' },
 });
 
 const emit = defineEmits([

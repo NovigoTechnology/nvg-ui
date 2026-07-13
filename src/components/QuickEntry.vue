@@ -95,7 +95,6 @@
             <PhoneField
               v-else-if="field.fieldtype === 'Phone'"
               :field="{ ...field, value: store.fieldValues[field.fieldname] }"
-              :store="store"
               @update-phone="
                 val => {
                   store.fieldValues[field.fieldname] = val;
