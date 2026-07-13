@@ -240,7 +240,7 @@ import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
 import LinkField from './LinkField.vue';
 import NumericField from './NumericField.vue';
-import { call } from '../libs/frappe-ui';
+import { call } from '../libs/frappe-client';
 import { sanitizeHtml } from '../utils/sanitizeHtml';
 
 const props = defineProps({

@@ -40,7 +40,7 @@ import { useConfirm, usePrimeVue } from 'primevue';
 import translatableLocale from './utils/primeLocale';
 
 import { groupFields } from './functions/groupFields';
-import { call, frappeCall } from './libs/frappe-ui';
+import { call, frappeCall } from './libs/frappe-client';
 import { useFormatting } from './composables/useFormatting';
 
 import QuickEntry from './components/QuickEntry.vue';

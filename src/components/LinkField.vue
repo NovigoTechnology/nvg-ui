@@ -41,7 +41,7 @@
 <script setup>
 import { ref, watch } from 'vue';
 import AutoComplete from 'primevue/autocomplete';
-import { call } from '../libs/frappe-ui';
+import { call } from '../libs/frappe-client';
 import { sanitizeHtml } from '../utils/sanitizeHtml';
 
 const props = defineProps({

@@ -42,7 +42,7 @@ export function useFormatting(store) {
     const formattedInt = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, thouSep);
     const number = decPart !== undefined ? `${formattedInt}${decSep}${decPart}` : formattedInt;
     if (!withSymbol) return number;
-    return `${prefix.value} ${number}`;
+    return `${prefix.value}${number}`;
   };
 
   const currencyProps = (extra = {}) => ({
