@@ -47,6 +47,20 @@ import QuickEntry from './components/QuickEntry.vue';
 import EntitySelector from './components/EntitySelector.vue';
 import PhoneField from './components/PhoneField.vue';
 
+/**
+ * Components call the global __() translation helper directly (Frappe convention).
+ * Outside a Frappe page (tests, Storybook, standalone demos) it doesn't exist,
+ * so importing this package installs a passthrough that still resolves {0}, {1}
+ * positional placeholders instead of leaving them unreplaced.
+ */
+if (typeof window !== 'undefined' && typeof window.__ !== 'function') {
+  window.__ = (text, args) => {
+    if (!text || !args) return text;
+    const list = Array.isArray(args) ? args : [args];
+    return text.replace(/\{(\d+)\}/g, (match, index) => list[index] ?? match);
+  };
+}
+
 const components = {
   GridTable,
   AutoComplete,
