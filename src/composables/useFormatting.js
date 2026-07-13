@@ -19,7 +19,13 @@ export function useFormatting(store) {
     return m ? m[1] : ',';
   };
 
-  const prefix = computed(() => get_currency_symbol(store.currency) + ' ');
+  const prefix = computed(() => {
+    const symbol =
+      typeof get_currency_symbol === 'function'
+        ? get_currency_symbol(store.currency)
+        : (store.currency ?? '');
+    return symbol + ' ';
+  });
 
   const truncateCurrency = value => {
     const precision = store.currencyPrecision ?? 2;
