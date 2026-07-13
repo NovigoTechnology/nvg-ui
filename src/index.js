@@ -45,7 +45,7 @@ import { useFormatting } from './composables/useFormatting';
 
 import QuickEntry from './components/QuickEntry.vue';
 import EntitySelector from './components/EntitySelector.vue';
-import Phone from './components/Phone.vue';
+import PhoneField from './components/PhoneField.vue';
 
 const components = {
   GridTable,
@@ -85,7 +85,7 @@ const components = {
   translatableLocale,
   QuickEntry,
   EntitySelector,
-  Phone,
+  PhoneField,
   NumericField,
 };
 
@@ -149,6 +149,6 @@ export {
   translatableLocale,
   QuickEntry,
   EntitySelector,
-  Phone,
+  PhoneField,
   NumericField,
 };

@@ -12,31 +12,33 @@
     <div class="fields-grid">
       <div v-for="section in store.sections" :key="section.title" class="section-container">
         <div
+          v-if="section.title"
           class="section-header"
           :style="{ cursor: section.collapsible ? 'pointer' : 'default' }"
           @click="store.toggleSection(section)"
-          v-if="section.title"
         >
-          <h5 class="section-title">{{ section.title }}</h5>
+          <h5 class="section-title">
+            {{ section.title }}
+          </h5>
           <i
             v-if="section.collapsible"
             :class="store.sectionState[section.title] ? 'pi pi-angle-up' : 'pi pi-angle-down'"
           />
         </div>
 
-        <div class="section-fields" v-if="store.sectionState[section.title] !== false">
+        <div v-if="store.sectionState[section.title] !== false" class="section-fields">
           <div v-for="field in section.fields" :key="field.fieldname" class="field-container">
             <!-- Data -->
             <FloatLabel v-if="field.fieldtype === 'Data'" variant="on">
               <InputText
                 :id="field.fieldname"
                 :model-value="store.fieldValues[field.fieldname]"
-                @input="store.updateValue($event, field)"
                 :invalid="
                   store.missingFields.includes(field.label) || !!store.fieldErrors[field.fieldname]
                 "
                 fluid
                 size="small"
+                @input="store.updateValue($event, field)"
               />
               <label :for="field.fieldname">
                 {{ __(field.label) }}<span v-if="field.reqd" class="required">*</span>
@@ -72,25 +74,25 @@
               :required="!!field.reqd"
               :show-add-button="false"
               :show-edit-button="false"
-              @update:model-value="v => store.updateLinkValue(v, field)"
               :invalid="
                 store.missingFields.includes(field.label) || !!store.fieldErrors[field.fieldname]
               "
+              @update:model-value="v => store.updateLinkValue(v, field)"
             />
 
             <!-- Check -->
             <div v-else-if="field.fieldtype === 'Check'" class="check-field">
               <Checkbox
                 :model-value="store.fieldValues[field.fieldname]"
-                @change="store.updateValue($event, field)"
                 :input-id="field.fieldname"
                 binary
+                @change="store.updateValue($event, field)"
               />
               <label :for="field.fieldname">{{ __(field.label) }}</label>
             </div>
 
             <!-- Phone -->
-            <Phone
+            <PhoneField
               v-else-if="field.fieldtype === 'Phone'"
               :field="{ ...field, value: store.fieldValues[field.fieldname] }"
               :store="store"
@@ -107,7 +109,6 @@
                 }
               "
             />
-
             <!-- Small Text / Text -->
             <FloatLabel
               v-else-if="field.fieldtype === 'Small Text' || field.fieldtype === 'Text'"
@@ -116,10 +117,10 @@
               <Textarea
                 :id="field.fieldname"
                 :model-value="store.fieldValues[field.fieldname]"
-                @input="store.updateValue($event, field)"
                 fluid
                 size="small"
                 rows="2"
+                @input="store.updateValue($event, field)"
               />
               <label :for="field.fieldname">
                 {{ __(field.label) }}<span v-if="field.reqd" class="required">*</span>
@@ -151,7 +152,7 @@ import Select from 'primevue/select';
 import Checkbox from 'primevue/checkbox';
 import Textarea from 'primevue/textarea';
 import EntitySelector from './EntitySelector.vue';
-import Phone from './Phone.vue';
+import PhoneField from './PhoneField.vue';
 import { useToast } from 'primevue/usetoast';
 
 const { appContext } = getCurrentInstance();
