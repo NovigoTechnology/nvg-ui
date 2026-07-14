@@ -4,14 +4,14 @@
       <FloatLabel variant="on">
         <AutoComplete
           :field="fieldConfig"
-          @update-autocomplete-value="onItemSelected"
-          @clear-row="onClear"
           :query="props.query"
-          :customCall="props.customCall"
+          :custom-call="props.customCall"
           :filters="fieldConfig.filters"
           :invalid_fields="props.invalid ? [props.fieldname] : []"
-          :pageLength="props.pageLength"
+          :page-length="props.pageLength"
           :disabled="props.disabled"
+          @update-autocomplete-value="onItemSelected"
+          @clear-row="onClear"
         />
         <label :for="fieldConfig.fieldname">
           {{ label }}
@@ -32,8 +32,8 @@
           v-if="showEditButton"
           icon="pi pi-pencil"
           severity="secondary"
-          @click="onEdit"
           :disabled="!modelValue || disableEdit"
+          @click="onEdit"
         />
       </template>
     </div>
