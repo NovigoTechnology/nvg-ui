@@ -347,6 +347,7 @@ const closeQuickEntry = () => {
 };
 
 const clear_input = async (keepFocus = false) => {
+  console.log('hola');
   if (props.quickEntry && props.useQuickEntryStore) {
     if (currentStore.value.fieldValues) {
       currentStore.value.fieldValues[props.field.fieldname] = null;
