@@ -1,7 +1,6 @@
 import { ref, onMounted, watch, onUnmounted, computed } from 'vue';
 import { call } from '../libs/frappe-client';
 import emitter from '../libs/mitt';
-import { sanitizeHtml } from '../utils/sanitizeHtml';
 
 export function useAutoComplete(props, emit) {
   const store = props.store;
@@ -488,6 +487,15 @@ export function useAutoComplete(props, emit) {
   );
 
   return {
+    refresh,
+    autoCompleteRef,
+    inputValue,
+    translatedSuggestions,
+    createNew,
+    selectOption,
+    getLinkOptions,
+    update_input,
+    closeQuickEntry,
     clear_input,
   };
 }
