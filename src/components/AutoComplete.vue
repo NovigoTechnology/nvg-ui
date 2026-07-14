@@ -87,6 +87,7 @@ import FloatLabel from 'primevue/floatlabel';
 import Button from 'primevue/button';
 
 import { useAutoComplete } from '../composables/useAutoComplete';
+import { sanitizeHtml } from '../utils/sanitizeHtml';
 
 const props = defineProps({
   field: Object,
@@ -137,7 +138,18 @@ const props = defineProps({
 
 const emit = defineEmits(['update-autocomplete-value', 'update-filter', 'update-data', 'clearRow']);
 
-const { clear_input } = useAutoComplete(props, emit);
+const {
+  refresh,
+  autoCompleteRef,
+  inputValue,
+  translatedSuggestions,
+  createNew,
+  selectOption,
+  getLinkOptions,
+  update_input,
+  closeQuickEntry,
+  clear_input,
+} = useAutoComplete(props, emit);
 
 defineExpose({
   clear_input,
