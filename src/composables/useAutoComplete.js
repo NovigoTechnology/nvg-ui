@@ -3,14 +3,7 @@ import { call } from '../libs/frappe-client';
 import emitter from '../libs/mitt';
 import { sanitizeHtml } from '../utils/sanitizeHtml';
 
-export function useAutoComplete(props) {
-  const emit = defineEmits([
-    'update-autocomplete-value',
-    'update-filter',
-    'update-data',
-    'clearRow',
-  ]);
-
+export function useAutoComplete(props, emit) {
   const store = props.store;
 
   const currentStore = computed(() => {
@@ -494,7 +487,7 @@ export function useAutoComplete(props) {
     { deep: true }
   );
 
-  defineExpose({
+  return {
     clear_input,
-  });
+  };
 }

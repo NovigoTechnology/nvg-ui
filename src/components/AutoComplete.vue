@@ -135,7 +135,13 @@ const props = defineProps({
   },
 });
 
-useAutoComplete(props);
+const emit = defineEmits(['update-autocomplete-value', 'update-filter', 'update-data', 'clearRow']);
+
+const { clear_input } = useAutoComplete(props, emit);
+
+defineExpose({
+  clear_input,
+});
 </script>
 
 <style scoped>
