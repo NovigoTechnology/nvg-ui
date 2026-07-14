@@ -1,3 +1,27 @@
+# [1.21.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.20.4...v1.21.0) (2026-07-14)
+
+
+### Bug Fixes
+
+* another test ([7bec5f5](https://github.com/NovigoTechnology/nvg-ui/commit/7bec5f5851a12d790bb69bfc6d51ec92a39de104))
+* enhance currency symbol handling in useFormatting composableCC ([9c61112](https://github.com/NovigoTechnology/nvg-ui/commit/9c6111296774feb9b06aa966e0c2a3f1bf342976))
+* final test ([8897a33](https://github.com/NovigoTechnology/nvg-ui/commit/8897a33ce0d35ac6343da8f9246cf49a87a90084))
+* implement passthrough for global translation helper in index.js ([a323001](https://github.com/NovigoTechnology/nvg-ui/commit/a323001fac97785f9437a1b34b96f3a50cf2a576))
+* issues ([af40171](https://github.com/NovigoTechnology/nvg-ui/commit/af401715a76c6086232034a4c35132bd6737d27a))
+* issues ([#104](https://github.com/NovigoTechnology/nvg-ui/issues/104)) ([0b2f5fc](https://github.com/NovigoTechnology/nvg-ui/commit/0b2f5fc04494a596e8d862fc6e66698b5210ba81))
+* remove dropdown ([3a0f9f2](https://github.com/NovigoTechnology/nvg-ui/commit/3a0f9f2be73d2ce321e02a726f840f328a21cc8f))
+* rename phone vue ([d747b88](https://github.com/NovigoTechnology/nvg-ui/commit/d747b88c9f606fd228cbba3250c1fdbf5eed89a9))
+* test ([fbba2b1](https://github.com/NovigoTechnology/nvg-ui/commit/fbba2b17d06142807fe5508b90932fd9e52801f5))
+* test ([253d749](https://github.com/NovigoTechnology/nvg-ui/commit/253d749490b2c549596ba9036ae290fe06308dd6))
+* test ([cd6f43c](https://github.com/NovigoTechnology/nvg-ui/commit/cd6f43c5b0d00d5e8d739c10f31b8fd74a73de92))
+* types ([3be10f1](https://github.com/NovigoTechnology/nvg-ui/commit/3be10f1416ef9aba91958e8e15035c873e051118))
+* update scroll height handling in GridTable and add field descriptor in PhoneField ([be6de52](https://github.com/NovigoTechnology/nvg-ui/commit/be6de5223c4020851e3a8362a8b38dce4a96e3ba))
+
+
+### Features
+
+* refactor code structure for improved readability and maintainability ([5c2852a](https://github.com/NovigoTechnology/nvg-ui/commit/5c2852a93914853abb58bcfb2f116f854b7e03ac))
+
 ## [1.20.4](https://github.com/NovigoTechnology/nvg-ui/compare/v1.20.3...v1.20.4) (2026-07-10)
 
 
