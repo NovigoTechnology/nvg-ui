@@ -21,9 +21,8 @@
               invalid_fields?.includes(props.field.label)) &&
             !inputValue[props.field.fieldname]
           "
-          force-selection
+          @clear="() => clear_input(true)"
           @complete="e => getLinkOptions(props.field.options, {}, e.query)"
-          @clear="() => clear_input()"
           @option-select="e => selectOption(e.value, props.field)"
         >
           <template v-if="!disabled" #dropdown>
@@ -290,11 +289,6 @@ watch(
 watch(
   () => inputValue.value[props.field.fieldname],
   async newValue => {
-    // if (newValue === '') {
-    //   clear_input(true);
-    //   return;
-    // }
-
     const idx = suggestions.value.findIndex(item => item.value === newValue);
     if (idx !== -1) {
       inputValue.value[props.field.fieldname] =
@@ -346,7 +340,6 @@ const closeQuickEntry = () => {
 };
 
 const clear_input = async (keepFocus = false) => {
-  console.log('hola');
   if (props.quickEntry && props.useQuickEntryStore) {
     if (currentStore.value.fieldValues) {
       currentStore.value.fieldValues[props.field.fieldname] = null;
