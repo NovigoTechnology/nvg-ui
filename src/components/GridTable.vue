@@ -16,7 +16,7 @@
       :value="dataArray"
       size="small"
       :scrollable="true"
-      scrollHeight="300px"
+      :scroll-height="scrollHeight"
       :loading="loading"
       :row-class="row => (showCheck && row.__checked ? 'grid-table__row--checked' : '')"
       :class="[
@@ -26,7 +26,9 @@
       @row-click="!showCheck && rowClick ? emit('rowClick', $event.data, $event.index) : null"
     >
       <template #empty>
-        <div class="grid-table__empty">{{ emptyMessage }}</div>
+        <div class="grid-table__empty">
+          {{ emptyMessage }}
+        </div>
       </template>
 
       <Column v-if="showCheck" style="width: 2.5rem">
@@ -59,31 +61,31 @@
           </div>
           <LinkField
             v-else-if="column.type === 'Link'"
-            :modelValue="data[column.field]"
+            :model-value="data[column.field]"
             :subtitle="column.subtitleField ? data[column.subtitleField] : ''"
             :doctype="column.options"
             :placeholder="column.label"
             :disabled="column.readOnly"
-            :pageLength="props.pageLength"
+            :page-length="props.pageLength"
             class="grid-input"
-            @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
-            @itemSelected="doc => onItemSelected(index, doc, column)"
+            :filters="filtersFields[column.field].filters"
+            :query="filtersFields[column.field]?.query"
+            @update:model-value="value => onFieldValueUpdate(data, index, column.field, value)"
+            @item-selected="doc => onItemSelected(index, doc, column)"
             @clear-row="
               () =>
                 column.clearRow
                   ? clearRowItems(data)
                   : onFieldValueUpdate(data, index, column.field, null)
             "
-            :filters="filtersFields[column.field].filters"
-            :query="filtersFields[column.field]?.query"
           />
           <component
-            v-else
             :is="getComponent(column)"
-            :modelValue="truncatedVal(column, data[column.field])"
+            v-else
+            :model-value="truncatedVal(column, data[column.field])"
             v-bind="getProps(column)"
             :class="`grid-input ${column.class || ''}`"
-            @update:modelValue="value => onFieldValueUpdate(data, index, column.field, value)"
+            @update:model-value="value => onFieldValueUpdate(data, index, column.field, value)"
           />
         </template>
       </Column>
@@ -108,8 +110,8 @@
         icon="pi pi-plus"
         severity="secondary"
         size="small"
-        @click="addRow"
         class="grid-table__add-btn"
+        @click="addRow"
       />
       <Button
         v-if="showAddMultiple"
@@ -117,8 +119,8 @@
         icon="pi pi-list"
         severity="secondary"
         size="small"
-        @click="openDialog"
         class="grid-table__add-btn"
+        @click="openDialog"
       />
     </div>
   </div>
@@ -134,10 +136,10 @@
         <label class="grid-popover-label">{{ subCol.label }}</label>
         <component
           :is="getComponent(subCol)"
-          :modelValue="truncatedVal(subCol, activePopoverData?.[subCol.field])"
+          :model-value="truncatedVal(subCol, activePopoverData?.[subCol.field])"
           v-bind="getProps(subCol)"
           class="grid-input"
-          @update:modelValue="value => onPopoverFieldUpdate(subCol, value)"
+          @update:model-value="value => onPopoverFieldUpdate(subCol, value)"
         />
       </div>
       <Button
@@ -155,7 +157,7 @@
     v-model:visible="dialogVisible"
     :header="__('Add Multiple')"
     modal
-    dismissableMask
+    dismissable-mask
     class="nagus-dialog nagus-dialog--md"
     @show="doSearch(true)"
   >
@@ -178,7 +180,7 @@
       >
         <span class="add-multiple__item-name">{{ item.label || item.value }}</span>
         <div>
-          <span class="add-multiple__item-desc" v-html="item.description"></span>
+          <span class="add-multiple__item-desc" v-html="sanitizeHtml(item.description)" />
         </div>
       </div>
       <div v-if="hasSearched && !searchResults.length" class="add-multiple__empty">
@@ -196,7 +198,7 @@
     v-model:visible="qtyDialogVisible"
     :header="__('Set Quantity')"
     modal
-    dismissableMask
+    dismissable-mask
     class="nagus-dialog nagus-dialog--sm"
   >
     <div class="add-multiple__qty-body">
@@ -238,7 +240,8 @@ import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
 import LinkField from './LinkField.vue';
 import NumericField from './NumericField.vue';
-import { call } from '../libs/frappe-ui';
+import { call } from '../libs/frappe-client';
+import { sanitizeHtml } from '../utils/sanitizeHtml';
 
 const props = defineProps({
   data: { type: Array, default: () => [] },
@@ -260,6 +263,7 @@ const props = defineProps({
   showDelRow: { type: Boolean, default: true },
   showCheck: { type: Boolean, default: false },
   loading: { type: Boolean, default: false },
+  scrollHeight: { type: String, default: '300px' },
 });
 
 const emit = defineEmits([

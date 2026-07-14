@@ -1,21 +1,21 @@
 <template>
   <div class="link-field">
     <AutoComplete
-      v-model="inputValue"
       :key="refresh"
       ref="autoCompleteRef"
-      :inputId="fieldname"
+      v-model="inputValue"
+      :input-id="fieldname"
       :suggestions="translatedSuggestions"
-      @complete="e => getLinkOptions(props.doctype, e.query)"
       :placeholder="__(props.placeholder || props.doctype)"
-      :completeOnFocus="true"
+      :complete-on-focus="true"
       fluid
       :disabled="props.disabled"
-      @update:modelValue="e => e === '' && clear_input(true)"
+      :option-label="option => option.label || option.value"
+      force-selection
+      :empty-message="__('No results found')"
+      @complete="e => getLinkOptions(props.doctype, e.query)"
+      @update:model-value="e => e === '' && clear_input(true)"
       @option-select="e => selectOption(e.value)"
-      :optionLabel="option => option.label || option.value"
-      forceSelection
-      :emptyMessage="__('No results found')"
     >
       <template #option="slotProps">
         <div v-if="!slotProps.option.label && !slotProps.option.description">
@@ -29,9 +29,9 @@
               (slotProps.option.isTitleLink ||
                 slotProps.option.value !== slotProps.option.description)
             "
-            v-html="slotProps.option.description"
             class="text-sm text-color-secondary"
-          ></div>
+            v-html="sanitizeHtml(slotProps.option.description)"
+          />
         </div>
       </template>
     </AutoComplete>
@@ -41,7 +41,8 @@
 <script setup>
 import { ref, watch } from 'vue';
 import AutoComplete from 'primevue/autocomplete';
-import { call } from '../libs/frappe-ui';
+import { call } from '../libs/frappe-client';
+import { sanitizeHtml } from '../utils/sanitizeHtml';
 
 const props = defineProps({
   modelValue: { type: String, default: '' },

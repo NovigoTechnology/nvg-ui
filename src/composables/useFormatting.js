@@ -19,7 +19,13 @@ export function useFormatting(store) {
     return m ? m[1] : ',';
   };
 
-  const prefix = computed(() => get_currency_symbol(store.currency) + ' ');
+  const prefix = computed(() => {
+    const symbol =
+      typeof get_currency_symbol === 'function'
+        ? get_currency_symbol(store.currency)
+        : (store.currency ?? '');
+    return symbol + ' ';
+  });
 
   const truncateCurrency = value => {
     const precision = store.currencyPrecision ?? 2;
@@ -36,7 +42,7 @@ export function useFormatting(store) {
     const formattedInt = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, thouSep);
     const number = decPart !== undefined ? `${formattedInt}${decSep}${decPart}` : formattedInt;
     if (!withSymbol) return number;
-    return `${prefix.value} ${number}`;
+    return `${prefix.value}${number}`;
   };
 
   const currencyProps = (extra = {}) => ({

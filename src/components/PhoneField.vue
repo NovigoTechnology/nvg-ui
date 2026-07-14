@@ -4,20 +4,20 @@
       v-model="selectedCountry"
       :options="countries"
       filter
-      optionLabel="name"
+      option-label="name"
       size="small"
       :disabled="props.disabled"
       :invalid="invalidPhone"
     >
       <template #dropdownicon>
-        <div></div>
+        <div />
       </template>
 
       <template #value="slotProps">
         <div v-if="slotProps.value" class="flex items-center">
           <div>
             <svg class="icon icon-sm flag-icon">
-              <use :href="`#icon-${slotProps.value.code}`"></use>
+              <use :href="`#icon-${slotProps.value.code}`" />
             </svg>
           </div>
           <div>{{ slotProps.value.isd }}</div>
@@ -29,10 +29,12 @@
           <div class="flex items-center w-24">
             <div>
               <svg class="icon icon-sm flag-icon">
-                <use :href="`#icon-${slotProps.option.code}`"></use>
+                <use :href="`#icon-${slotProps.option.code}`" />
               </svg>
             </div>
-            <div class="isd-code">{{ slotProps.option.isd }}</div>
+            <div class="isd-code">
+              {{ slotProps.option.isd }}
+            </div>
           </div>
           <span class="country-name">{{ __(slotProps.option.country) }}</span>
         </div>
@@ -45,10 +47,10 @@
         :disabled="!selectedCountry || props.disabled"
         size="small"
         fluid
-        @input="phoneNumberFormatter($event, props.field)"
         :invalid="invalidPhone"
-        @blur="handleBlur(props.field)"
         :model-value="phoneNumber"
+        @input="phoneNumberFormatter($event, props.field)"
+        @blur="handleBlur(props.field)"
       />
       <label :for="props.field.fieldname">{{ __(props.field.label) }}</label>
     </FloatLabel>
@@ -65,9 +67,12 @@ import { FloatLabel } from 'primevue';
 
 const props = defineProps({
   disabled: Boolean,
+  /**
+   * Field descriptor: { fieldname, label, value } where value is the
+   * stored "<isd>-<number>" string (e.g. "+54-91122334455").
+   */
   field: Object,
   cancelEdit: Boolean,
-  store: Object,
   editing: Boolean,
 });
 

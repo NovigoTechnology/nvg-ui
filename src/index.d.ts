@@ -47,6 +47,7 @@ export interface GridTableProps {
   currencyPrecision?: number
   pageLength?: number
   showAddMultiple?: boolean
+  scrollHeight?: string
 }
 
 export interface LinkFieldProps {
@@ -56,10 +57,51 @@ export interface LinkFieldProps {
   [key: string]: any
 }
 
+export interface QuickEntryProps {
+  store: Record<string, any>
+}
+
+export interface EntitySelectorProps {
+  doctype: string
+  fieldname: string
+  label: string
+  modelValue?: string
+  required?: boolean
+  fullitem?: boolean
+  showAddButton?: boolean
+  showEditButton?: boolean
+  disableAdd?: boolean
+  disableEdit?: boolean
+  filters?: Record<string, any>
+  query?: string
+  customCall?: Record<string, any>
+  invalid?: boolean
+  pageLength?: number
+  disabled?: boolean
+}
+
+export interface PhoneFieldProps {
+  field: FieldDefinition
+  disabled?: boolean
+  cancelEdit?: boolean
+  editing?: boolean
+}
+
+export interface NumericFieldProps {
+  modelValue?: number | null
+  label?: string
+  id?: string
+  numberFormat?: string
+}
+
 // Component Exports
 export const AutoComplete: DefineComponent<AutoCompleteProps>
 export const GridTable: DefineComponent<GridTableProps>
 export const LinkField: DefineComponent<LinkFieldProps>
+export const QuickEntry: DefineComponent<QuickEntryProps>
+export const EntitySelector: DefineComponent<EntitySelectorProps>
+export const PhoneField: DefineComponent<PhoneFieldProps>
+export const NumericField: DefineComponent<NumericFieldProps>
 
 // PrimeVue Components Re-exports
 export { default as DataTable } from 'primevue/datatable'
@@ -125,6 +167,29 @@ export function frappeCall(options: {
  * Translation utility
  */
 export function translatableLocale(locale?: string): any
+
+export interface FormattingStore {
+  currency?: string
+  currencyPrecision?: number
+  floatPrecision?: number
+  formatNumber?: string
+  dateFormat?: string
+}
+
+export interface FormattingHelpers {
+  truncateCurrency(value: number): number
+  formatCurrency(value: number, withSymbol?: boolean): string
+  currencyProps(extra?: Record<string, any>): Record<string, any>
+  floatProps(extra?: Record<string, any>): Record<string, any>
+  intProps(extra?: Record<string, any>): Record<string, any>
+  percentProps(extra?: Record<string, any>): Record<string, any>
+  dateProps(extra?: Record<string, any>): Record<string, any>
+}
+
+/**
+ * Number/currency/date formatting helpers
+ */
+export function useFormatting(store: FormattingStore): FormattingHelpers
 
 // Plugin Installation
 declare const plugin: Plugin

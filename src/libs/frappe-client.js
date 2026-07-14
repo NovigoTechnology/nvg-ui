@@ -24,7 +24,10 @@ export async function call(method, params) {
     if (params) {
       Object.keys(params).forEach(key => {
         const value = params[key];
-        if (typeof value === 'object' && value !== null) {
+        if (value === undefined || value === null) {
+          return;
+        }
+        if (typeof value === 'object') {
           formData.append(key, JSON.stringify(value));
         } else {
           formData.append(key, value);
