@@ -15,7 +15,6 @@
           :class="{ 'p-inputtext:disabled': disabled }"
           :size="props.size"
           :option-label="option => option.label || option.description || option.value"
-          :dropdown="!inputValue[props.field.fieldname] === '' && inputValue[props.field.fieldname]"
           :invalid="
             (invalid_fields?.includes(props.field.fieldname) ||
               invalid_fields?.includes(props.field.label)) &&
