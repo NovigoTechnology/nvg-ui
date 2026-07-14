@@ -1,3 +1,20 @@
+# [1.22.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.21.0...v1.22.0) (2026-07-14)
+
+
+### Bug Fixes
+
+* export return in composable ([0d6e4cf](https://github.com/NovigoTechnology/nvg-ui/commit/0d6e4cf884669c20f5c0b9b49a58971914789306))
+* imports ([aed6d4a](https://github.com/NovigoTechnology/nvg-ui/commit/aed6d4ace34a6f8964dce4d636b31af460f2baa7))
+* imports ([7170fe2](https://github.com/NovigoTechnology/nvg-ui/commit/7170fe20f05a7705d60659797a8926d32c1e77ee))
+* remove unused code ([1d2888f](https://github.com/NovigoTechnology/nvg-ui/commit/1d2888f05d749f6949c9a8ddbd32ef34c9f2530c))
+
+
+### Features
+
+* composables ([#105](https://github.com/NovigoTechnology/nvg-ui/issues/105)) ([cb7b301](https://github.com/NovigoTechnology/nvg-ui/commit/cb7b301207576c49aa4a7751df8230df354b4932))
+* implement useAutoComplete composable for enhanced autocomplete functionality ([8e50d11](https://github.com/NovigoTechnology/nvg-ui/commit/8e50d11512ab6720d2ff06079ca3d64b5d2d480c))
+* run lint ([4a05bbe](https://github.com/NovigoTechnology/nvg-ui/commit/4a05bbea07493798c7b7937e88220964322d2696))
+
 # [1.21.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.20.4...v1.21.0) (2026-07-14)
 
 
