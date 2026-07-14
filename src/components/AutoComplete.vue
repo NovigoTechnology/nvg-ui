@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="{ flex: props.field.quick_entry }" class="relative">
+    <div class="relative">
       <FloatLabel variant="on">
         <AutoComplete
           :key="refresh"
@@ -54,37 +54,13 @@
           {{ __(props.field.label) }}
         </label>
       </FloatLabel>
-
-      <Button
-        v-if="props.field.quick_entry"
-        :id="'new_' + props.field.fieldname"
-        :disabled="disabled"
-        :raised="true"
-        severity="info"
-        class="ml-4"
-        size="small"
-        @click="() => (createNew = !createNew)"
-      >
-        <!-- @click="create_New(props.field.quick_entry, props.field.fieldname)" -->
-        <span style="text-wrap: nowrap"> {{ __('New {0}', [__(props.field.placeholder)]) }}</span>
-      </Button>
     </div>
   </div>
-  <slot
-    v-if="createNew"
-    name="quick-entry"
-    :field="props.field"
-    :create-new="createNew"
-    :on-update="(value, field) => update_input(value, field, field.fieldname)"
-    :on-close="closeQuickEntry"
-  />
 </template>
 
 <script setup>
-import { ref, onMounted, watch, onUnmounted, computed } from 'vue';
 import AutoComplete from 'primevue/autocomplete';
 import FloatLabel from 'primevue/floatlabel';
-import Button from 'primevue/button';
 
 import { useAutoComplete } from '../composables/useAutoComplete';
 import { sanitizeHtml } from '../utils/sanitizeHtml';
@@ -92,7 +68,6 @@ import { sanitizeHtml } from '../utils/sanitizeHtml';
 const props = defineProps({
   field: Object,
   disabled: Boolean,
-  editOrCreateQuick: Function,
   size: String,
   invalid_fields: {
     type: Array,
@@ -104,12 +79,7 @@ const props = defineProps({
   },
   clearFilters: Boolean,
   store: Object,
-  quickEntry: Boolean,
   clearInput: {
-    type: Boolean,
-    default: false,
-  },
-  useQuickEntryStore: {
     type: Boolean,
     default: false,
   },
@@ -143,11 +113,8 @@ const {
   autoCompleteRef,
   inputValue,
   translatedSuggestions,
-  createNew,
   selectOption,
   getLinkOptions,
-  update_input,
-  closeQuickEntry,
   clear_input,
 } = useAutoComplete(props, emit);
 

@@ -6,15 +6,10 @@ export function useAutoComplete(props, emit) {
   const store = props.store;
 
   const currentStore = computed(() => {
-    if (props.quickEntry && props.useQuickEntryStore) {
-      return props.store;
-    }
-
     return store;
   });
 
   const providedFilters = ref({});
-  const createNew = ref(false);
   const refresh = ref(false);
   const autoCompleteRef = ref(null);
   const inputValue = ref({});
@@ -22,23 +17,21 @@ export function useAutoComplete(props, emit) {
   const translatedSuggestions = ref([]);
 
   onMounted(() => {
-    if (!props.quickEntry) {
-      if (currentStore.value?.filters && currentStore.value.filters[props.field.fieldname]) {
-        inputValue.value[props.field.fieldname] = currentStore.value.filters[props.field.fieldname];
-      }
+    if (currentStore.value?.filters && currentStore.value.filters[props.field.fieldname]) {
+      inputValue.value[props.field.fieldname] = currentStore.value.filters[props.field.fieldname];
+    }
 
-      if (
-        currentStore.value?.fullDataForm &&
-        currentStore.value.fullDataForm[props.field.fieldname]
-      ) {
-        const existingValue = currentStore.value.fullDataForm[props.field.fieldname];
-        inputValue.value[props.field.fieldname] =
-          existingValue.label || existingValue.description || existingValue.value;
-      }
+    if (
+      currentStore.value?.fullDataForm &&
+      currentStore.value.fullDataForm[props.field.fieldname]
+    ) {
+      const existingValue = currentStore.value.fullDataForm[props.field.fieldname];
+      inputValue.value[props.field.fieldname] =
+        existingValue.label || existingValue.description || existingValue.value;
+    }
 
-      if (props.field.value) {
-        inputValue.value[props.field.fieldname] = props.field.value;
-      }
+    if (props.field.value) {
+      inputValue.value[props.field.fieldname] = props.field.value;
     }
 
     if (props.field.needFilter && props.filters[props.field.dependingField]) {
@@ -98,22 +91,10 @@ export function useAutoComplete(props, emit) {
   );
 
   watch(
-    () => (props.quickEntry && props.clearInput ? props.clearInput : false),
-    newVal => {
-      if (newVal && props.quickEntry) {
-        clear_input();
-      }
-    }
-  );
-
-  watch(
-    () =>
-      !props.quickEntry && currentStore.value?.clear !== undefined
-        ? currentStore.value.clear
-        : null,
+    () => (currentStore.value?.clear !== undefined ? currentStore.value.clear : null),
     (newVal, oldVal) => {
       // Detectar cualquier cambio en el valor boolean (true->false o false->true)
-      if (newVal !== oldVal && newVal !== null && !props.quickEntry) {
+      if (newVal !== oldVal && newVal !== null) {
         clear_input();
       }
     }
@@ -165,61 +146,30 @@ export function useAutoComplete(props, emit) {
     }
   );
 
-  watch(
-    () => createNew.value,
-    newValue => {
-      if (newValue === true && props.useQuickEntryStore) {
-        store.setQuickEntryActive(true);
-        clear_input();
-      } else if (newValue === false && props.useQuickEntryStore) {
-        store.setQuickEntryActive(false);
-      }
-    }
-  );
-
   const update_input = (valueObj, field, fieldname) => {
     let editingFieldname = '';
     field?.fieldname ? (editingFieldname = field.fieldname) : (editingFieldname = fieldname);
     inputValue.value[editingFieldname] = valueObj.label;
 
-    if (props.useQuickEntryStore) {
-      if (currentStore.value?.fieldValues) {
-        currentStore.value.fieldValues[editingFieldname] = valueObj.value;
-      }
-    } else {
-      if (currentStore.value?.dataForm) {
-        currentStore.value.dataForm[editingFieldname] = valueObj.value;
-      }
-      if (currentStore.value?.fullDataForm) {
-        currentStore.value.fullDataForm[editingFieldname] = valueObj;
-      }
+    if (currentStore.value?.dataForm) {
+      currentStore.value.dataForm[editingFieldname] = valueObj.value;
+    }
+    if (currentStore.value?.fullDataForm) {
+      currentStore.value.fullDataForm[editingFieldname] = valueObj;
     }
 
     refresh.value = !refresh.value;
   };
 
-  const closeQuickEntry = () => {
-    createNew.value = false;
-    if (props.useQuickEntryStore) {
-      store.setQuickEntryActive(false);
-    }
-  };
-
   const clear_input = async (keepFocus = false) => {
-    if (props.quickEntry && props.useQuickEntryStore) {
-      if (currentStore.value.fieldValues) {
-        currentStore.value.fieldValues[props.field.fieldname] = null;
-      }
-    } else {
-      if (currentStore.value?.dataForm) {
-        currentStore.value.dataForm[props.field.fieldname] = null;
-      }
-      if (currentStore.value?.fullDataForm) {
-        currentStore.value.fullDataForm[props.field.fieldname] = null;
-      }
-      if (currentStore.value?.filters) {
-        currentStore.value.filters[props.field.fieldname] = null;
-      }
+    if (currentStore.value?.dataForm) {
+      currentStore.value.dataForm[props.field.fieldname] = null;
+    }
+    if (currentStore.value?.fullDataForm) {
+      currentStore.value.fullDataForm[props.field.fieldname] = null;
+    }
+    if (currentStore.value?.filters) {
+      currentStore.value.filters[props.field.fieldname] = null;
     }
 
     inputValue.value[props.field.fieldname] = null;
@@ -234,7 +184,7 @@ export function useAutoComplete(props, emit) {
     emit('update-autocomplete-value', null, props.field);
     emit('clearRow', props.field);
 
-    if (props.field.provideFilter && !props.quickEntry) {
+    if (props.field.provideFilter) {
       providedFilters.value = {};
       if (currentStore.value.autocompleteFilter) {
         currentStore.value.autocompleteFilter = providedFilters.value;
@@ -256,26 +206,22 @@ export function useAutoComplete(props, emit) {
   };
 
   const selectOption = (selectedOption, field) => {
-    if (props.quickEntry && props.useQuickEntryStore) {
-      currentStore.value.fieldValues[field.fieldname] = selectedOption.value;
-    } else {
-      if (currentStore.value?.dataForm) {
-        currentStore.value.dataForm[field.fieldname] = selectedOption.value;
-      }
+    if (currentStore.value?.dataForm) {
+      currentStore.value.dataForm[field.fieldname] = selectedOption.value;
+    }
 
-      if (field.fieldname === 'referring_physician' && !props.quickEntry) {
-        if (store.physician !== undefined) {
-          store.physician = selectedOption;
-        }
+    if (field.fieldname === 'referring_physician') {
+      if (store.physician !== undefined) {
+        store.physician = selectedOption;
       }
+    }
 
-      if (currentStore.value?.fullDataForm) {
-        currentStore.value.fullDataForm[field.fieldname] = {
-          value: selectedOption.value,
-          label: __(selectedOption.label),
-          description: __(selectedOption.description),
-        };
-      }
+    if (currentStore.value?.fullDataForm) {
+      currentStore.value.fullDataForm[field.fieldname] = {
+        value: selectedOption.value,
+        label: __(selectedOption.label),
+        description: __(selectedOption.description),
+      };
     }
 
     const translatedOption = {
@@ -287,16 +233,8 @@ export function useAutoComplete(props, emit) {
     inputValue.value[field.fieldname] =
       translatedOption.label || translatedOption.description || translatedOption.value;
 
-    if (!props.quickEntry) {
-      if (field.provideFilter) {
-        providedFilters.value = { [field.fieldname]: selectedOption.value };
-        if (currentStore.value.autocompleteFilter) {
-          currentStore.value.autocompleteFilter = providedFilters.value;
-        }
-      }
-      if (currentStore.value?.filters) {
-        currentStore.value.filters[field.fieldname] = selectedOption.value;
-      }
+    if (currentStore.value?.filters) {
+      currentStore.value.filters[field.fieldname] = selectedOption.value;
     }
 
     emit(
@@ -338,10 +276,6 @@ export function useAutoComplete(props, emit) {
     let finalFilters = { ...filters };
 
     if (props.filters && Object.keys(props.filters).length > 0) {
-      finalFilters = { ...finalFilters, ...props.filters };
-    }
-
-    if (props.quickEntry && props.filters) {
       finalFilters = { ...finalFilters, ...props.filters };
     }
 
@@ -423,18 +357,12 @@ export function useAutoComplete(props, emit) {
     if (props.editing && !props.field.value) {
       clear_input();
     }
-    if (props.quickEntry) {
-      clear_input();
-    }
   });
 
   watch(
-    () =>
-      !props.quickEntry && currentStore.value?.fullDataForm
-        ? currentStore.value.fullDataForm
-        : null,
+    () => (currentStore.value?.fullDataForm ? currentStore.value.fullDataForm : null),
     newValue => {
-      if (newValue && newValue[props.field.fieldname] && !props.quickEntry) {
+      if (newValue && newValue[props.field.fieldname]) {
         const value = newValue[props.field.fieldname];
         inputValue.value[props.field.fieldname] = value.label
           ? __(value.label)
@@ -467,12 +395,9 @@ export function useAutoComplete(props, emit) {
   );
 
   watch(
-    () =>
-      props.editing && !props.quickEntry && currentStore.value?.edited
-        ? currentStore.value.edited
-        : null,
+    () => (props.editing && currentStore.value?.edited ? currentStore.value.edited : null),
     newValue => {
-      if (newValue && !props.quickEntry) {
+      if (newValue) {
         update_input(
           {
             label: newValue.first_name + ' ' + newValue.last_name,
@@ -491,11 +416,8 @@ export function useAutoComplete(props, emit) {
     autoCompleteRef,
     inputValue,
     translatedSuggestions,
-    createNew,
     selectOption,
     getLinkOptions,
-    update_input,
-    closeQuickEntry,
     clear_input,
   };
 }
