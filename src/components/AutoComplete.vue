@@ -291,10 +291,10 @@ watch(
 watch(
   () => inputValue.value[props.field.fieldname],
   async newValue => {
-    if (newValue === '') {
-      clear_input(true);
-      return;
-    }
+    // if (newValue === '') {
+    //   clear_input(true);
+    //   return;
+    // }
 
     const idx = suggestions.value.findIndex(item => item.value === newValue);
     if (idx !== -1) {
