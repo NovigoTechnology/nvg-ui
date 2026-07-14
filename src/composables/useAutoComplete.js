@@ -1,3 +1,8 @@
+import { ref, onMounted, watch, onUnmounted, computed } from 'vue';
+import { call } from '../libs/frappe-client';
+import emitter from '../libs/mitt';
+import { sanitizeHtml } from '../utils/sanitizeHtml';
+
 export function useAutoComplete(props) {
   const emit = defineEmits([
     'update-autocomplete-value',

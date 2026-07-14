@@ -85,9 +85,7 @@ import { ref, onMounted, watch, onUnmounted, computed } from 'vue';
 import AutoComplete from 'primevue/autocomplete';
 import FloatLabel from 'primevue/floatlabel';
 import Button from 'primevue/button';
-import { call } from '../libs/frappe-client';
-import emitter from '../libs/mitt';
-import { sanitizeHtml } from '../utils/sanitizeHtml';
+
 import { useAutoComplete } from '../composables/useAutoComplete';
 
 const props = defineProps({
