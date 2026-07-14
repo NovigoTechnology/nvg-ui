@@ -24,7 +24,6 @@
           force-selection
           @complete="e => getLinkOptions(props.field.options, {}, e.query)"
           @clear="() => clear_input"
-          @update:model-value="e => e === '' && clear_input(true)"
           @option-select="e => selectOption(e.value, props.field)"
         >
           <template v-if="!disabled" #dropdown>
