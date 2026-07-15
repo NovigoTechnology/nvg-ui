@@ -1,15 +1,46 @@
 import { computed } from 'vue';
 
-export function useEntitySelector(props, emit) {
-  /**
-   * A search result from AutoComplete's suggestion list, as passed to
-   * @update-autocomplete-value once the user picks (or clears) an option.
-   * @typedef {Object} EntitySelectorOption
-   * @property {string} value
-   * @property {string} [label]
-   * @property {string} [description]
-   */
+/**
+ * A search result from AutoComplete's suggestion list, as passed to
+ * @update-autocomplete-value once the user picks (or clears) an option.
+ * @typedef {Object} EntitySelectorOption
+ * @property {string} value
+ * @property {string} [label]
+ * @property {string} [description]
+ */
 
+/**
+ * @typedef {Object} EntitySelectorProps
+ * @property {string} doctype - DocType to link to (e.g., "Customer", "Supplier", "Item")
+ * @property {string} fieldname - Field name (e.g., "customer", "supplier")
+ * @property {string} label - Label to display
+ * @property {string|null} [modelValue] - Current value
+ * @property {boolean} [required]
+ * @property {boolean} [fullitem] - Show full item data on selection
+ * @property {boolean} [showAddButton]
+ * @property {boolean} [showEditButton]
+ * @property {boolean} [disableAdd]
+ * @property {boolean} [disableEdit]
+ * @property {Object.<string, any>} [filters] - Filters for autocomplete
+ * @property {string} [query] - Custom query method for autocomplete
+ * @property {{ method: string, args?: Object.<string, any> }} [customCall] - Calls
+ *   { method, args } directly instead of going through query/search_link. Use for
+ *   whitelisted methods that don't follow the standard link-query signature.
+ * @property {boolean} [invalid]
+ * @property {number} [pageLength]
+ * @property {boolean} [disabled]
+ */
+
+/**
+ * Thin, standalone-friendly wrapper around AutoComplete for the common
+ * "pick an existing Link record" case: builds the raw field descriptor
+ * AutoComplete expects (always fieldtype: 'Link'), and translates its
+ * events into a plain v-model + item-selected/clear/add/edit contract so
+ * consumers don't need to know about AutoComplete's store/quickEntry internals.
+ * @param {EntitySelectorProps} props
+ * @param {(event: string, ...args: any[]) => void} emit
+ */
+export function useEntitySelector(props, emit) {
   /**
    * Translates this component's simple props (doctype/fieldname/label/modelValue)
    * into the raw field descriptor AutoComplete expects, always as a Link field
