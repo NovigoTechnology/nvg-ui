@@ -365,8 +365,8 @@ export function useAutoComplete(props, emit) {
   };
 
   /**
-   * Raw backend search: calls `customCall.method` if the field defines one
-   * (for lookups that don't follow the standard search_link signature),
+   * Raw backend search: calls `customCall.method` if the `customCall` prop is
+   * set (for lookups that don't follow the standard search_link signature),
    * otherwise hits `frappe.desk.search.search_link` with the merged filters
    * (own filters + dependent-field filter + `field.needFilter`). Returns
    * results normalized to `{ value, label, description }`, unmapped/untranslated.
