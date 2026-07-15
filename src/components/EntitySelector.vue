@@ -45,6 +45,7 @@ import { computed } from 'vue';
 import AutoComplete from './AutoComplete.vue';
 import Button from 'primevue/button';
 import FloatLabel from 'primevue/floatlabel';
+import { useEntitySelector } from '../composables/useEntitySelector.js';
 
 const props = defineProps({
   /**
@@ -155,33 +156,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue', 'item-selected', 'clear', 'add', 'edit']);
 
-const fieldConfig = computed(() => ({
-  fieldname: props.fieldname,
-  fieldtype: 'Link',
-  label: props.label,
-  options: props.doctype,
-  reqd: props.required ? 1 : 0,
-  value: props.modelValue,
-  filters: props.filters,
-}));
-
-const onItemSelected = (option, field) => {
-  emit('update:modelValue', option?.value);
-  emit('item-selected', option);
-};
-
-const onClear = field => {
-  emit('update:modelValue', null);
-  emit('clear');
-};
-
-const onAdd = () => {
-  emit('add');
-};
-
-const onEdit = () => {
-  emit('edit');
-};
+const { fieldConfig, onAdd, onClear, onItemSelected, onEdit } = useEntitySelector(props, emit);
 </script>
 
 <!--
