@@ -1,3 +1,21 @@
+# [1.23.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.22.0...v1.23.0) (2026-07-15)
+
+
+### Bug Fixes
+
+* clean up code formatting and remove unused variables in various components ([d001176](https://github.com/NovigoTechnology/nvg-ui/commit/d00117675293ce5d69bea8b2872939eb73468109))
+* doc ([9805daf](https://github.com/NovigoTechnology/nvg-ui/commit/9805daf417649f979222734f5b4fe479dad36e5d))
+* eslint config prettier ([68483aa](https://github.com/NovigoTechnology/nvg-ui/commit/68483aacf01f416a948498bd257643b4734dfc9e))
+
+
+### Features
+
+* add @vue/eslint-config-prettier for improved linting and formatting ([882b139](https://github.com/NovigoTechnology/nvg-ui/commit/882b139f5ec1639c47bae98757ffd9c48844225e))
+* add composable entity selector ([79f357a](https://github.com/NovigoTechnology/nvg-ui/commit/79f357a5b1abbc9364c333d76e06062257b49504))
+* add compose entity selector and fix doc in formatting ([d226f29](https://github.com/NovigoTechnology/nvg-ui/commit/d226f29a5945d7d8c29693eab7a7e32037c8b149))
+* composable components ([#106](https://github.com/NovigoTechnology/nvg-ui/issues/106)) ([de3d085](https://github.com/NovigoTechnology/nvg-ui/commit/de3d0856edee6a07b9f74f8ecef244b7c0919ca5))
+* composable use grid table ([703665c](https://github.com/NovigoTechnology/nvg-ui/commit/703665c5df22d8bcc9bf0c2a81a5e27087fadbce))
+
 # [1.22.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.21.0...v1.22.0) (2026-07-14)
 
 
