@@ -1,5 +1,6 @@
 import pluginVue from 'eslint-plugin-vue';
 import vueParser from 'vue-eslint-parser';
+import vuePrettierConfig from '@vue/eslint-config-prettier';
 
 export default [
   // Ignores configuration (replaces .eslintignore)
@@ -30,6 +31,7 @@ export default [
 
   // Vue-specific configuration
   ...pluginVue.configs['flat/recommended'],
+  vuePrettierConfig,
   {
     files: ['**/*.vue'],
     languageOptions: {
