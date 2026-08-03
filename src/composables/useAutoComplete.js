@@ -129,8 +129,10 @@ export function useAutoComplete(props, emit) {
         const match = results?.find(r => r.value === newValue);
         inputValue.value[props.field.fieldname] = match?.label ? __(match.label) : newValue;
         emit('update-data', newValue, props.field);
+        selectedName.value = newValue;
       } else {
         inputValue.value[props.field.fieldname] = newValue;
+        selectedName.value = null;
       }
     },
     { immediate: true }
@@ -272,6 +274,7 @@ export function useAutoComplete(props, emit) {
     }
 
     inputValue.value[props.field.fieldname] = null;
+    selectedName.value = null;
 
     suggestions.value = [];
     translatedSuggestions.value = [];
@@ -363,6 +366,7 @@ export function useAutoComplete(props, emit) {
 
     if (field.clear_input_after_selection) {
       inputValue.value[field.fieldname] = null;
+      selectedName.value = null;
       refresh.value = !refresh.value;
     }
   };
@@ -560,6 +564,7 @@ export function useAutoComplete(props, emit) {
     autoCompleteRef,
     inputValue,
     translatedSuggestions,
+    selectedName,
     selectOption,
     getLinkOptions,
     clear_input,

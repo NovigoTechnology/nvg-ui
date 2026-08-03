@@ -59,9 +59,9 @@
           </label>
         </FloatLabel>
         <InputIcon
-          v-if="disabled || inputValue[props.field.fieldname]"
+          v-if="!disabled && selectedName"
           class="pi pi-arrow-right autocomplete-scan-icon"
-          @click="() => goToDoc()"
+          @click="goToDoc"
         />
       </IconField>
     </div>
@@ -125,6 +125,7 @@ const {
   autoCompleteRef,
   inputValue,
   translatedSuggestions,
+  selectedName,
   selectOption,
   getLinkOptions,
   clear_input,
