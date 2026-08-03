@@ -2,7 +2,7 @@
   <div>
     <div class="relative">
       <FloatLabel variant="on">
-        <IconField class="autocomplete-icon-field">
+        <IconField class="barcode-icon-field">
           <AutoComplete
             :key="refresh"
             ref="autoCompleteRef"
