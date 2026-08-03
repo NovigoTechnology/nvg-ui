@@ -14,7 +14,7 @@
             fluid
             :disabled="disabled || (props.field.read_only && !props.filter_list) ? true : false"
             :class="{ 'p-inputtext:disabled': disabled }"
-            :size="props.size"
+            size="small"
             :option-label="option => option.label || option.description || option.value"
             :invalid="
               (invalid_fields?.includes(props.field.fieldname) ||
@@ -60,6 +60,7 @@
           </label>
         </FloatLabel>
         <InputIcon
+          v-if="!disabled"
           class="pi pi-arrow-right autocomplete-scan-icon"
           @click="() => console.log('holaaaaaaaa')"
         />
