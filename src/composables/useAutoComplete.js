@@ -364,6 +364,10 @@ export function useAutoComplete(props, emit) {
     }
   };
 
+  const goToDoc = field => {
+    console.log(field);
+  };
+
   /**
    * Raw backend search: calls `customCall.method` if the `customCall` prop is
    * set (for lookups that don't follow the standard search_link signature),
@@ -556,5 +560,6 @@ export function useAutoComplete(props, emit) {
     selectOption,
     getLinkOptions,
     clear_input,
+    goToDoc,
   };
 }

@@ -59,9 +59,9 @@
           </label>
         </FloatLabel>
         <InputIcon
-          v-if="!disabled"
+          v-if="!disabled || !inputValue[props.field.fieldname]"
           class="pi pi-arrow-right autocomplete-scan-icon"
-          @click="() => console.log('holaaaaaaaa')"
+          @click="() => goToDoc(inputValue[props.field.fieldname])"
         />
       </IconField>
     </div>
@@ -128,6 +128,7 @@ const {
   selectOption,
   getLinkOptions,
   clear_input,
+  goToDoc,
 } = useAutoComplete(props, emit);
 
 defineExpose({
