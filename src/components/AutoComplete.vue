@@ -59,7 +59,7 @@
           </label>
         </FloatLabel>
         <InputIcon
-          v-if="disabled || !inputValue[props.field.fieldname]"
+          v-if="disabled || inputValue[props.field.fieldname]"
           class="pi pi-arrow-right autocomplete-scan-icon"
           @click="() => goToDoc(inputValue[props.field.fieldname])"
         />
