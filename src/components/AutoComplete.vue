@@ -14,7 +14,6 @@
             fluid
             :disabled="disabled || (props.field.read_only && !props.filter_list) ? true : false"
             :class="{ 'p-inputtext:disabled': disabled }"
-            size="small"
             :option-label="option => option.label || option.description || option.value"
             :invalid="
               (invalid_fields?.includes(props.field.fieldname) ||
