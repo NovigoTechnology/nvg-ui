@@ -2,54 +2,64 @@
   <div>
     <div class="relative">
       <FloatLabel variant="on">
-        <AutoComplete
-          :key="refresh"
-          ref="autoCompleteRef"
-          v-model="inputValue[props.field.fieldname]"
-          :data-web="props.dataweb"
-          :input-id="props.field.fieldname"
-          :suggestions="translatedSuggestions"
-          :complete-on-focus="true"
-          fluid
-          :disabled="disabled || (props.field.read_only && !props.filter_list) ? true : false"
-          :class="{ 'p-inputtext:disabled': disabled }"
-          :size="props.size"
-          :option-label="option => option.label || option.description || option.value"
-          :invalid="
-            (invalid_fields?.includes(props.field.fieldname) ||
-              invalid_fields?.includes(props.field.label)) &&
-            !inputValue[props.field.fieldname]
-          "
-          @clear="() => clear_input(true)"
-          @complete="e => getLinkOptions(props.field.options, {}, e.query)"
-          @option-select="e => selectOption(e.value, props.field)"
-        >
-          <template v-if="!disabled" #dropdown>
-            <button type="button" class="p-autocomplete-dropdown" @click.stop="clear_input">
-              <svg class="icon icon-sm" style="stroke: var(--p-inputtext-color)" aria-hidden="true">
-                <use href="#icon-close" />
-              </svg>
-            </button>
-          </template>
-          <template #option="slotProps">
-            <div v-if="!slotProps.option.label && !slotProps.option.description">
-              <strong>{{ slotProps.option.value }}</strong>
-            </div>
-            <div v-else>
-              <strong>{{ slotProps.option.label }}</strong>
-              <div
-                v-if="
-                  slotProps.option.description &&
-                  (slotProps.option.isTitleLink ||
-                    slotProps.option.value !== slotProps.option.description)
-                "
-                class="text-sm text-color-secondary"
-              >
-                <span v-html="sanitizeHtml(slotProps.option.description)" />
+        <IconField class="autocomplete-icon-field">
+          <AutoComplete
+            :key="refresh"
+            ref="autoCompleteRef"
+            v-model="inputValue[props.field.fieldname]"
+            :data-web="props.dataweb"
+            :input-id="props.field.fieldname"
+            :suggestions="translatedSuggestions"
+            :complete-on-focus="true"
+            fluid
+            :disabled="disabled || (props.field.read_only && !props.filter_list) ? true : false"
+            :class="{ 'p-inputtext:disabled': disabled }"
+            :size="props.size"
+            :option-label="option => option.label || option.description || option.value"
+            :invalid="
+              (invalid_fields?.includes(props.field.fieldname) ||
+                invalid_fields?.includes(props.field.label)) &&
+              !inputValue[props.field.fieldname]
+            "
+            @clear="() => clear_input(true)"
+            @complete="e => getLinkOptions(props.field.options, {}, e.query)"
+            @option-select="e => selectOption(e.value, props.field)"
+          >
+            <template v-if="!disabled" #dropdown>
+              <button type="button" class="p-autocomplete-dropdown" @click.stop="clear_input">
+                <svg
+                  class="icon icon-sm"
+                  style="stroke: var(--p-inputtext-color)"
+                  aria-hidden="true"
+                >
+                  <use href="#icon-close" />
+                </svg>
+              </button>
+            </template>
+            <template #option="slotProps">
+              <div v-if="!slotProps.option.label && !slotProps.option.description">
+                <strong>{{ slotProps.option.value }}</strong>
               </div>
-            </div>
-          </template>
-        </AutoComplete>
+              <div v-else>
+                <strong>{{ slotProps.option.label }}</strong>
+                <div
+                  v-if="
+                    slotProps.option.description &&
+                    (slotProps.option.isTitleLink ||
+                      slotProps.option.value !== slotProps.option.description)
+                  "
+                  class="text-sm text-color-secondary"
+                >
+                  <span v-html="sanitizeHtml(slotProps.option.description)" />
+                </div>
+              </div>
+            </template>
+          </AutoComplete>
+          <InputIcon
+            class="pi pi-qrcode barcode-scan-icon"
+            @click="() => console.log('holaaaaaaaa')"
+          />
+        </IconField>
         <label :for="props.field.fieldname">
           {{ __(props.field.label) }}
         </label>
