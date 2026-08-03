@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="relative">
-      <FloatLabel variant="on">
-        <IconField class="barcode-icon-field">
+      <IconField class="barcode-icon-field">
+        <FloatLabel variant="on">
           <AutoComplete
             :key="refresh"
             ref="autoCompleteRef"
@@ -59,11 +59,11 @@
             class="pi pi-qrcode barcode-scan-icon"
             @click="() => console.log('holaaaaaaaa')"
           />
-        </IconField>
-        <label :for="props.field.fieldname">
-          {{ __(props.field.label) }}
-        </label>
-      </FloatLabel>
+          <label :for="props.field.fieldname">
+            {{ __(props.field.label) }}
+          </label>
+        </FloatLabel>
+      </IconField>
     </div>
   </div>
 </template>
