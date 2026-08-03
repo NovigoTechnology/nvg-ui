@@ -364,8 +364,8 @@ export function useAutoComplete(props, emit) {
     }
   };
 
-  const goToDoc = field => {
-    console.log(field);
+  const goToDoc = selectedOption => {
+    frappe.set_route('Form', props.field.options, selectedOption.value);
   };
 
   /**
