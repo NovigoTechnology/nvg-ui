@@ -60,7 +60,7 @@
           </label>
         </FloatLabel>
         <InputIcon
-          class="pi pi-qrcode autocomplete-scan-icon"
+          class="pi pi-arrow-right autocomplete-scan-icon"
           @click="() => console.log('holaaaaaaaa')"
         />
       </IconField>
