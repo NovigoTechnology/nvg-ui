@@ -71,6 +71,8 @@
 <script setup>
 import AutoComplete from 'primevue/autocomplete';
 import FloatLabel from 'primevue/floatlabel';
+import IconField from 'primevue/iconfield';
+import InputIcon from 'primevue/inputicon';
 
 import { useAutoComplete } from '../composables/useAutoComplete';
 import { sanitizeHtml } from '../utils/sanitizeHtml';
