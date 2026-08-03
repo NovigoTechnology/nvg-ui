@@ -55,14 +55,14 @@
               </div>
             </template>
           </AutoComplete>
-          <InputIcon
-            class="pi pi-qrcode barcode-scan-icon"
-            @click="() => console.log('holaaaaaaaa')"
-          />
           <label :for="props.field.fieldname">
             {{ __(props.field.label) }}
           </label>
         </FloatLabel>
+        <InputIcon
+          class="pi pi-qrcode barcode-scan-icon"
+          @click="() => console.log('holaaaaaaaa')"
+        />
       </IconField>
     </div>
   </div>
