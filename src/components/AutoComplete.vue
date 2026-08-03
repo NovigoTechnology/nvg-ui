@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="relative">
-      <IconField class="barcode-icon-field">
+      <IconField class="autocomplete-icon-field">
         <FloatLabel variant="on">
           <AutoComplete
             :key="refresh"
@@ -60,7 +60,7 @@
           </label>
         </FloatLabel>
         <InputIcon
-          class="pi pi-qrcode barcode-scan-icon"
+          class="pi pi-qrcode autocomplete-scan-icon"
           @click="() => console.log('holaaaaaaaa')"
         />
       </IconField>
