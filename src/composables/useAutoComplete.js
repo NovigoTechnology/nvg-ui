@@ -94,6 +94,7 @@ export function useAutoComplete(props, emit) {
   const suggestions = ref([]);
   /** @type {import('vue').Ref<AutoCompleteOption[]>} */
   const translatedSuggestions = ref([]);
+  const selectedName = ref(null);
 
   onMounted(() => {
     if (currentStore.value?.filters && currentStore.value.filters[props.field.fieldname]) {
@@ -331,6 +332,8 @@ export function useAutoComplete(props, emit) {
       };
     }
 
+    selectedName.value = selectedOption.value;
+
     const translatedOption = {
       label: selectedOption.label ? __(selectedOption.label) : '',
       description: selectedOption.description ? __(selectedOption.description) : '',
@@ -364,8 +367,8 @@ export function useAutoComplete(props, emit) {
     }
   };
 
-  const goToDoc = selectedOption => {
-    frappe.set_route('Form', props.field.options, selectedOption.value);
+  const goToDoc = () => {
+    frappe.set_route('Form', props.field.options, selectedName.value);
   };
 
   /**

@@ -61,7 +61,7 @@
         <InputIcon
           v-if="disabled || inputValue[props.field.fieldname]"
           class="pi pi-arrow-right autocomplete-scan-icon"
-          @click="() => goToDoc(selectedOption)"
+          @click="() => goToDoc()"
         />
       </IconField>
     </div>
