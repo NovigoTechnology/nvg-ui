@@ -139,20 +139,30 @@ export function useAutoComplete(props, emit) {
     }
   });
 
+  /**
+   * Re-derives the displayed text from the current value. Runs on every value change, and can
+   * be called by the consumer when the linked document's title changed without its name doing
+   * so — the same reason the desk exposes refresh_field.
+   * @returns {Promise<void>}
+   */
+  const refreshValue = async () => {
+    const value = props.field.value;
+
+    if (!value) {
+      inputValue.value[props.field.fieldname] = value;
+      selectedName.value = null;
+      return;
+    }
+
+    inputValue.value[props.field.fieldname] = await resolveLinkTitle(props.field.options, value);
+    selectedName.value = value;
+  };
+
   watch(
     () => props.field.value,
     async newValue => {
-      if (newValue) {
-        inputValue.value[props.field.fieldname] = await resolveLinkTitle(
-          props.field.options,
-          newValue
-        );
-        emit('update-data', newValue, props.field);
-        selectedName.value = newValue;
-      } else {
-        inputValue.value[props.field.fieldname] = newValue;
-        selectedName.value = null;
-      }
+      await refreshValue();
+      if (newValue) emit('update-data', newValue, props.field);
     },
     { immediate: true }
   );
@@ -594,6 +604,7 @@ export function useAutoComplete(props, emit) {
     selectOption,
     getLinkOptions,
     clear_input,
+    refreshValue,
     goToDoc,
   };
 }
