@@ -149,6 +149,8 @@ export function useAutoComplete(props, emit) {
         );
         emit('update-data', newValue, props.field);
         selectedName.value = newValue;
+        console.log(props.field.options);
+        console.log(props.field.value);
       } else {
         inputValue.value[props.field.fieldname] = await resolveLinkTitle(
           props.field.options,
