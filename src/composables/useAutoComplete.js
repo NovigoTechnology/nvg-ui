@@ -118,7 +118,7 @@ export function useAutoComplete(props, emit) {
     return title ? __(title) : name;
   };
 
-  onMounted(async () => {
+  onMounted(() => {
     if (currentStore.value?.filters && currentStore.value.filters[props.field.fieldname]) {
       inputValue.value[props.field.fieldname] = currentStore.value.filters[props.field.fieldname];
     }
@@ -133,11 +133,7 @@ export function useAutoComplete(props, emit) {
     }
 
     if (props.field.value) {
-      // inputValue.value[props.field.fieldname] = props.field.value;
-      inputValue.value[props.field.fieldname] = await resolveLinkTitle(
-        props.field.options,
-        props.field.value
-      );
+      inputValue.value[props.field.fieldname] = props.field.value;
     }
 
     if (props.field.needFilter && props.filters[props.field.dependingField]) {
@@ -158,7 +154,10 @@ export function useAutoComplete(props, emit) {
         emit('update-data', newValue, props.field);
         selectedName.value = newValue;
       } else {
-        inputValue.value[props.field.fieldname] = newValue;
+        inputValue.value[props.field.fieldname] = await resolveLinkTitle(
+          props.field.options,
+          newValue
+        );
         selectedName.value = null;
         console.log('recien ingresa');
       }
