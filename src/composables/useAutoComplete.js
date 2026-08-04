@@ -154,6 +154,9 @@ export function useAutoComplete(props, emit) {
           props.field.options,
           props.field.value
         );
+        console.log(inputValue.value);
+        console.log(props.field.options);
+        console.log(props.field.value);
         selectedName.value = props.field.value;
       }
     },
