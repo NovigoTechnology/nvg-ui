@@ -94,6 +94,7 @@ export function useAutoComplete(props, emit) {
   const suggestions = ref([]);
   /** @type {import('vue').Ref<AutoCompleteOption[]>} */
   const translatedSuggestions = ref([]);
+  const selectedName = ref(null);
 
   onMounted(() => {
     if (currentStore.value?.filters && currentStore.value.filters[props.field.fieldname]) {
@@ -128,8 +129,10 @@ export function useAutoComplete(props, emit) {
         const match = results?.find(r => r.value === newValue);
         inputValue.value[props.field.fieldname] = match?.label ? __(match.label) : newValue;
         emit('update-data', newValue, props.field);
+        selectedName.value = newValue;
       } else {
         inputValue.value[props.field.fieldname] = newValue;
+        selectedName.value = null;
       }
     },
     { immediate: true }
@@ -271,6 +274,7 @@ export function useAutoComplete(props, emit) {
     }
 
     inputValue.value[props.field.fieldname] = null;
+    selectedName.value = null;
 
     suggestions.value = [];
     translatedSuggestions.value = [];
@@ -331,6 +335,8 @@ export function useAutoComplete(props, emit) {
       };
     }
 
+    selectedName.value = selectedOption.value;
+
     const translatedOption = {
       label: selectedOption.label ? __(selectedOption.label) : '',
       description: selectedOption.description ? __(selectedOption.description) : '',
@@ -360,8 +366,13 @@ export function useAutoComplete(props, emit) {
 
     if (field.clear_input_after_selection) {
       inputValue.value[field.fieldname] = null;
+      selectedName.value = null;
       refresh.value = !refresh.value;
     }
+  };
+
+  const goToDoc = () => {
+    frappe.set_route('Form', props.field.options, selectedName.value);
   };
 
   /**
@@ -553,8 +564,10 @@ export function useAutoComplete(props, emit) {
     autoCompleteRef,
     inputValue,
     translatedSuggestions,
+    selectedName,
     selectOption,
     getLinkOptions,
     clear_input,
+    goToDoc,
   };
 }
