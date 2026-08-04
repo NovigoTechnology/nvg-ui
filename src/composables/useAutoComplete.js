@@ -118,7 +118,7 @@ export function useAutoComplete(props, emit) {
     return title ? __(title) : name;
   };
 
-  onMounted(() => {
+  onMounted(async () => {
     if (currentStore.value?.filters && currentStore.value.filters[props.field.fieldname]) {
       inputValue.value[props.field.fieldname] = currentStore.value.filters[props.field.fieldname];
     }
@@ -133,7 +133,11 @@ export function useAutoComplete(props, emit) {
     }
 
     if (props.field.value) {
-      inputValue.value[props.field.fieldname] = props.field.value;
+      // inputValue.value[props.field.fieldname] = props.field.value;
+      inputValue.value[props.field.fieldname] = await resolveLinkTitle(
+        props.field.options,
+        props.field.value
+      );
     }
 
     if (props.field.needFilter && props.filters[props.field.dependingField]) {
