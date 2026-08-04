@@ -156,6 +156,7 @@ export function useAutoComplete(props, emit) {
       } else {
         inputValue.value[props.field.fieldname] = newValue;
         selectedName.value = null;
+        console.log('recien ingresa');
       }
     },
     { immediate: true }
