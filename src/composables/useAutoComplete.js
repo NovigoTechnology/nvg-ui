@@ -150,13 +150,8 @@ export function useAutoComplete(props, emit) {
         emit('update-data', newValue, props.field);
         selectedName.value = newValue;
       } else {
-        inputValue.value[props.field.fieldname] = await resolveLinkTitle(
-          props.field.options,
-          props.field.value
-        );
-        emit('update-data', newValue, props.field);
-
-        selectedName.value = props.field.value;
+        inputValue.value[props.field.fieldname] = newValue;
+        selectedName.value = null;
       }
     },
     { immediate: true }
