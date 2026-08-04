@@ -132,10 +132,6 @@ export function useAutoComplete(props, emit) {
         existingValue.label || existingValue.description || existingValue.value;
     }
 
-    if (props.field.value) {
-      inputValue.value[props.field.fieldname] = props.field.value;
-    }
-
     if (props.field.needFilter && props.filters[props.field.dependingField]) {
       getLinkOptions(props.field.options, props.filters);
     } else {
@@ -154,12 +150,8 @@ export function useAutoComplete(props, emit) {
         emit('update-data', newValue, props.field);
         selectedName.value = newValue;
       } else {
-        inputValue.value[props.field.fieldname] = await resolveLinkTitle(
-          props.field.options,
-          newValue
-        );
+        inputValue.value[props.field.fieldname] = newValue;
         selectedName.value = null;
-        console.log('recien ingresa');
       }
     },
     { immediate: true }
