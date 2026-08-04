@@ -96,6 +96,28 @@ export function useAutoComplete(props, emit) {
   const translatedSuggestions = ref([]);
   const selectedName = ref(null);
 
+  /**
+   * Resolves what to display for a link value that arrives from outside (a form loaded with a
+   * value already set), where no search ran and only the docname is known.
+   *
+   * Mirrors how the desk does it: only doctypes listed in frappe.boot.link_title_doctypes have
+   * a title, and for those the title is looked up in frappe's own cache first, hitting the
+   * server only on a miss. Everything else displays the docname as is.
+   * @param {string} doctype
+   * @param {string} name
+   * @returns {Promise<string>}
+   */
+  const resolveLinkTitle = async (doctype, name) => {
+    const hasTitle = (frappe.boot?.link_title_doctypes || []).includes(doctype);
+    if (!doctype || !hasTitle) return name;
+
+    const title =
+      frappe.utils.get_link_title(doctype, name) ||
+      (await frappe.utils.fetch_link_title(doctype, name));
+
+    return title ? __(title) : name;
+  };
+
   onMounted(() => {
     if (currentStore.value?.filters && currentStore.value.filters[props.field.fieldname]) {
       inputValue.value[props.field.fieldname] = currentStore.value.filters[props.field.fieldname];
@@ -125,9 +147,10 @@ export function useAutoComplete(props, emit) {
     () => props.field.value,
     async newValue => {
       if (newValue) {
-        const results = await fetchLinkResults(props.field.options, {}, newValue);
-        const match = results?.find(r => r.value === newValue);
-        inputValue.value[props.field.fieldname] = match?.label ? __(match.label) : newValue;
+        inputValue.value[props.field.fieldname] = await resolveLinkTitle(
+          props.field.options,
+          newValue
+        );
         emit('update-data', newValue, props.field);
         selectedName.value = newValue;
       } else {
@@ -435,6 +458,9 @@ export function useAutoComplete(props, emit) {
    * labels/descriptions, stripping description parts that just repeat the
    * label, and merging duplicate values. Called on mount, on `@complete`
    * (as the user types), and after clearing.
+   *
+   * Also feeds frappe's link-title cache the way the desk does after every search, so a value
+   * arriving later from outside already has its title and `resolveLinkTitle` skips the server.
    * @param {string} doctype
    * @param {Object.<string, any>} [filters]
    * @param {string} [searchText]
@@ -446,6 +472,10 @@ export function useAutoComplete(props, emit) {
     if (r) {
       suggestions.value = r;
       const isTitleLink = (window.frappe?.boot?.link_title_doctypes || []).includes(doctype);
+
+      if (isTitleLink) {
+        r.forEach(item => frappe.utils.add_link_title(doctype, item.value, item.label));
+      }
 
       translatedSuggestions.value = mergeDuplicates(
         r.map(item => {

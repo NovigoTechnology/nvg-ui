@@ -20,7 +20,6 @@ const NUMERIC_TYPES = ['Float', 'Currency', 'Int', 'Percent'];
  * @property {number} [cols] - Fraction of a 12-column grid, e.g. 4 = 33.33%
  * @property {boolean} [readOnly]
  * @property {string} [prefix]
- * @property {string} [subtitleField]
  * @property {boolean} [clearRow] - Clear the whole row instead of just this field on clear
  * @property {Object.<string, any>} [componentProps] - Overrides the auto-built input props entirely
  * @property {GridTableColumn[]} [fields] - Sub-fields, only for type: 'Popover'
