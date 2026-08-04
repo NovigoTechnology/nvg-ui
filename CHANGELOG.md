@@ -1,3 +1,31 @@
+# [1.24.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.23.0...v1.24.0) (2026-08-04)
+
+
+### Bug Fixes
+
+* add class ([eb1cd48](https://github.com/NovigoTechnology/nvg-ui/commit/eb1cd48a9d804089ba1cc007435abbc14f56a46a))
+* add custom class ([c0f92e8](https://github.com/NovigoTechnology/nvg-ui/commit/c0f92e87373e50a4a267b8581a96b3ae1388c66c))
+* add function gotodoc ([1e30c62](https://github.com/NovigoTechnology/nvg-ui/commit/1e30c62d96f297247083b81d44fe4168bafad4d3))
+* add import inputicon ([5de983e](https://github.com/NovigoTechnology/nvg-ui/commit/5de983ed8aa29f0ce8a1d73d89807a84b64db1d9))
+* add info in function ([c9a7443](https://github.com/NovigoTechnology/nvg-ui/commit/c9a744399371f8b0b11dcbf291b5c87bb7f0483b))
+* add small ([ee68ae4](https://github.com/NovigoTechnology/nvg-ui/commit/ee68ae4cfc67c2b1950393ee37387595ed2b7981))
+* change icon ([3e513e5](https://github.com/NovigoTechnology/nvg-ui/commit/3e513e545afad5cde68a99954509720907ba7127))
+* condition ([ff92af3](https://github.com/NovigoTechnology/nvg-ui/commit/ff92af32862c99b22f4b4888ba4b2bf083e5f155))
+* condition ([6048b29](https://github.com/NovigoTechnology/nvg-ui/commit/6048b295a5ed70b0d92e37d8dc1f795406f93678))
+* condition ([6eaae07](https://github.com/NovigoTechnology/nvg-ui/commit/6eaae07da4d7234b6e2db8566edce7a7bc216307))
+* condition ([aea2cd1](https://github.com/NovigoTechnology/nvg-ui/commit/aea2cd15d6b6b93ed01bb94cb7b588cd5e906827))
+* move icon component ([57226b7](https://github.com/NovigoTechnology/nvg-ui/commit/57226b7ca5755f8eba90aa945e67ddf39bb2220b))
+* move icon component ([ec97e52](https://github.com/NovigoTechnology/nvg-ui/commit/ec97e5231c1d65906356617ea8b93cefc36543c3))
+* params in function ([f5510d8](https://github.com/NovigoTechnology/nvg-ui/commit/f5510d84540f5c8eb4114fbf91e65cea2481f908))
+* remove small ([b98edc0](https://github.com/NovigoTechnology/nvg-ui/commit/b98edc02de74a301d931ae45e1b3ca04adb1de00))
+* send data ([26eae7f](https://github.com/NovigoTechnology/nvg-ui/commit/26eae7fcac04e3462422bf963883b85e3c4e2e4e))
+
+
+### Features
+
+* gotodoc in autocomplete ([#127](https://github.com/NovigoTechnology/nvg-ui/issues/127)) ([668e087](https://github.com/NovigoTechnology/nvg-ui/commit/668e0876d53fbe68e88cf2e8e5741273bfc138ea))
+* integrate IconField and InputIcon into AutoComplete component ([f336d1a](https://github.com/NovigoTechnology/nvg-ui/commit/f336d1af7fc21d52ee92ea8d0a4eb053b85a7bd2))
+
 # [1.23.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.22.0...v1.23.0) (2026-07-15)
 
 
