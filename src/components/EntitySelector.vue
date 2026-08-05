@@ -3,6 +3,7 @@
     <div :class="{ 'field-with-buttons': showAddButton || showEditButton }">
       <FloatLabel variant="on">
         <AutoComplete
+          ref="autoCompleteRef"
           :field="fieldConfig"
           :query="props.query"
           :custom-call="props.customCall"
@@ -41,7 +42,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import AutoComplete from './AutoComplete.vue';
 import Button from 'primevue/button';
 import FloatLabel from 'primevue/floatlabel';
@@ -157,6 +158,16 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'item-selected', 'clear', 'add', 'edit']);
 
 const { fieldConfig, onAdd, onClear, onItemSelected, onEdit } = useEntitySelector(props, emit);
+
+const autoCompleteRef = ref(null);
+
+/**
+ * Re-derives the text shown for the current value. Call it when the linked document's title
+ * changed but its name did not, so the field stops showing the previous title.
+ */
+defineExpose({
+  refreshValue: () => autoCompleteRef.value?.refreshValue(),
+});
 </script>
 
 <!--

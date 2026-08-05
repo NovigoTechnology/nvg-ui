@@ -62,7 +62,8 @@
           <LinkField
             v-else-if="column.type === 'Link'"
             :model-value="data[column.field]"
-            :subtitle="column.subtitleField ? data[column.subtitleField] : ''"
+            :row="data"
+            :field="column.field"
             :doctype="column.options"
             :placeholder="column.label"
             :disabled="column.readOnly"

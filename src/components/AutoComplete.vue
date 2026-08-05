@@ -129,11 +129,13 @@ const {
   selectOption,
   getLinkOptions,
   clear_input,
+  refreshValue,
   goToDoc,
 } = useAutoComplete(props, emit);
 
 defineExpose({
   clear_input,
+  refreshValue,
 });
 </script>
 

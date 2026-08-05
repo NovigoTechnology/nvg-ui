@@ -39,20 +39,23 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watchEffect } from 'vue';
 import AutoComplete from 'primevue/autocomplete';
 import { call } from '../libs/frappe-client';
 import { sanitizeHtml } from '../utils/sanitizeHtml';
 
 const props = defineProps({
   modelValue: { type: String, default: '' },
-  subtitle: { type: String, default: '' },
   doctype: { type: String, required: true },
   placeholder: { type: String, default: '' },
   disabled: { type: Boolean, default: false },
   filters: { type: Object, default: () => ({}) },
   query: { type: String, default: '' },
   pageLength: { type: Number, default: 10 },
+  /** Row this field belongs to, handed to the doctype's link formatter as its `doc`. */
+  row: { type: Object, default: null },
+  /** Fieldname within that row, handed to the formatter as `df.fieldname`. */
+  field: { type: String, default: '' },
 });
 
 const emit = defineEmits(['update:modelValue', 'itemSelected', 'clearRow']);
@@ -64,18 +67,32 @@ const refresh = ref(false);
 const suggestions = ref([]);
 const translatedSuggestions = ref([]);
 
-const formatInputValue = (code, name) => {
-  if (code && name && name !== code) return `${code}: ${name}`;
-  return code || '';
+/**
+ * Builds what the input shows for a link value, delegating to the doctype's registered
+ * formatter (frappe.form.link_formatters, where ERPNext registers Item, Employee, Project…)
+ * so each doctype decides how its title is composed. Doctypes without a formatter show the
+ * value itself, same as the desk.
+ */
+const formatInputValue = code => {
+  if (!code) return '';
+
+  const formatter = window.frappe?.form?.link_formatters?.[props.doctype];
+  if (formatter && props.row) {
+    return formatter(code, props.row, { fieldname: props.field }) || code;
+  }
+
+  return code;
 };
 
-watch(
-  [() => props.modelValue, () => props.subtitle],
-  ([newValue, newSubtitle]) => {
-    inputValue.value = formatInputValue(newValue, newSubtitle);
-  },
-  { immediate: true }
-);
+/**
+ * Derives the displayed text from whatever the formatter reads, the way the desk re-runs its
+ * formatter when the doc changes. watchEffect tracks only the properties actually read — the
+ * row's title field and its own value — so editing any other column in the row is not a
+ * dependency and does not recompute this.
+ */
+watchEffect(() => {
+  inputValue.value = formatInputValue(props.modelValue);
+});
 
 const getLinkOptions = async (doctype, searchText = '') => {
   const args = {
@@ -137,7 +154,7 @@ const mergeDuplicates = results =>
   }, []);
 
 const selectOption = async selectedOption => {
-  inputValue.value = formatInputValue(selectedOption.value, selectedOption.label);
+  inputValue.value = formatInputValue(selectedOption.value);
   emit('update:modelValue', selectedOption.value);
   emit('itemSelected', selectedOption.value);
 };
