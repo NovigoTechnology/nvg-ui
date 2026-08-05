@@ -1,3 +1,21 @@
+## [1.24.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.24.0...v1.24.1) (2026-08-05)
+
+
+### Bug Fixes
+
+* add refresh autocomplete ([398e60e](https://github.com/NovigoTechnology/nvg-ui/commit/398e60ea78008813268fac5130b603daec0129ad))
+* del unuse code ([40daee3](https://github.com/NovigoTechnology/nvg-ui/commit/40daee383eca7fa4e32d5d252493abb12be8ea31))
+* linktitle ([a81d9ac](https://github.com/NovigoTechnology/nvg-ui/commit/a81d9acbb8f56dfd4925d854949fb2ed8ac54c64))
+* resolve link title and refresh on edit quickentry ([#129](https://github.com/NovigoTechnology/nvg-ui/issues/129)) ([8d26d09](https://github.com/NovigoTechnology/nvg-ui/commit/8d26d0944605a4bff1565bc616956e3880f76c83))
+* test ([f648249](https://github.com/NovigoTechnology/nvg-ui/commit/f6482494e01befea4776c4f6ae0206cad02f0e94))
+* test ([f7aa087](https://github.com/NovigoTechnology/nvg-ui/commit/f7aa087ea400616ed2af368beffdd70add059691))
+* test change value ([b2099e4](https://github.com/NovigoTechnology/nvg-ui/commit/b2099e498dc6c4123dfc89c451de967b3d98ed78))
+* test final ([abc2bc1](https://github.com/NovigoTechnology/nvg-ui/commit/abc2bc1591efd4018b23266717ee9c108e5c9843))
+* test log ([8b9cbb5](https://github.com/NovigoTechnology/nvg-ui/commit/8b9cbb5cc5bc8e23e89d3d006201b738185bfc72))
+* test log 2 ([1e7c6fa](https://github.com/NovigoTechnology/nvg-ui/commit/1e7c6faea60d0e60be061f16147e9e368a66c12e))
+* test update ([bfc516a](https://github.com/NovigoTechnology/nvg-ui/commit/bfc516a05f36671c380bd32e3a826aa41123a47b))
+* test2 ([eabe2e0](https://github.com/NovigoTechnology/nvg-ui/commit/eabe2e02e5023576e8cbd8d0c0d2c908562a465c))
+
 # [1.24.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.23.0...v1.24.0) (2026-08-04)
 
 
