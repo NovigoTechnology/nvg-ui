@@ -61,7 +61,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const today = computed(() => new Date());
+const today = new Date();
 
 /**
  * PrimeVue's DatePicker reads 'yy' as a 4-digit year, while Frappe writes that as 'yyyy'.
