@@ -1,3 +1,16 @@
+# [1.25.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.24.1...v1.25.0) (2026-08-06)
+
+
+### Bug Fixes
+
+* del unnecesary computed ([4fb0500](https://github.com/NovigoTechnology/nvg-ui/commit/4fb05000511bfb33db4804a03f1fb735b7446c45))
+
+
+### Features
+
+* integrate IconField and InputIcon into AutoComplete component ([9f5f311](https://github.com/NovigoTechnology/nvg-ui/commit/9f5f311c60efa81dea6a1774c07a07c29432ef3a))
+* integrate IconField and InputIcon into AutoComplete component ([#132](https://github.com/NovigoTechnology/nvg-ui/issues/132)) ([62f5086](https://github.com/NovigoTechnology/nvg-ui/commit/62f508690fbfea9102e4a40477b7470b0fb37884))
+
 ## [1.24.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.24.0...v1.24.1) (2026-08-05)
 
 
