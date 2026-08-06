@@ -94,6 +94,17 @@ export interface NumericFieldProps {
   numberFormat?: string
 }
 
+export interface DateFieldProps {
+  /** Date as the YYYY-MM-DD string Frappe stores, not a Date object. */
+  modelValue?: string | null
+  label?: string
+  id?: string
+  /** Frappe ('dd-mm-yyyy') or PrimeVue ('dd-mm-yy') spelling; defaults to System Settings. */
+  dateFormat?: string
+  disabled?: boolean
+  allowFutureDates?: boolean
+}
+
 // Component Exports
 export const AutoComplete: DefineComponent<AutoCompleteProps>
 export const GridTable: DefineComponent<GridTableProps>
@@ -102,6 +113,7 @@ export const QuickEntry: DefineComponent<QuickEntryProps>
 export const EntitySelector: DefineComponent<EntitySelectorProps>
 export const PhoneField: DefineComponent<PhoneFieldProps>
 export const NumericField: DefineComponent<NumericFieldProps>
+export const DateField: DefineComponent<DateFieldProps>
 
 // PrimeVue Components Re-exports
 export { default as DataTable } from 'primevue/datatable'
