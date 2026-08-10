@@ -192,32 +192,8 @@ export function useGridTable(props, emit) {
   };
 
   /**
-   * Finds the column definition that owns a field, looking inside Popover columns too.
-   * @param {string} field - Field name to look up
-   * @returns {GridTableColumn|null}
-   */
-  const columnFor = field => {
-    for (const col of props.columns) {
-      if (col.type === 'Popover') {
-        const subCol = col.fields?.find(sub => sub.field === field);
-        if (subCol) return subCol;
-      } else if (col.field === field) {
-        return col;
-      }
-    }
-    return null;
-  };
-
-  /**
    * Writes a new field value onto both the in-template editing copy and the backing dataArray,
    * then emits update:data and rowChange so the parent can react (e.g. recalculate totals).
-   *
-   * PrimeVue's InputNumber re-emits its current value on every blur, even when the user typed
-   * nothing, so leaving a cell would otherwise fire a rowChange and make the parent recalculate
-   * from that field. On the discount popover that rewrote a discount_percentage the user never
-   * touched, back-calculating it from the rounded discount_amount (1% became 0.999%). Values equal
-   * to what the input was given are therefore treated as no-ops.
-   *
    * @param {GridTableRow} editingRow - The row reference used inside the template slot
    * @param {number} index - Zero-based index of the row in dataArray
    * @param {string} field - The field name being updated
@@ -231,16 +207,14 @@ export function useGridTable(props, emit) {
       value = `${y}-${m}-${d}`;
     }
 
-    const row = dataArray.value[index];
-    if (!row) return;
-
-    const column = columnFor(field);
-    if (column && value === truncatedVal(column, row[field])) return;
-
     editingRow[field] = value;
-    row[field] = value;
-    emit('update:data', dataArray.value);
-    emit('rowChange', row, field);
+
+    const row = dataArray.value[index];
+    if (row) {
+      row[field] = value;
+      emit('update:data', dataArray.value);
+      emit('rowChange', row, field);
+    }
   };
 
   /**
