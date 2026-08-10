@@ -127,7 +127,7 @@
   </div>
 
   <!-- Popover for Popover-type columns -->
-  <Popover ref="sharedPopover" class="grid-popover" @show="onPopoverShow">
+  <Popover ref="sharedPopover" class="grid-popover" @show="onPopoverShow" @hide="onPopoverHide">
     <div v-if="activePopoverColumn" ref="popoverContent" class="grid-popover-content">
       <div
         v-for="subCol in activePopoverColumn.fields"
@@ -303,6 +303,7 @@ const {
   truncatedVal,
   openPopover,
   onPopoverShow,
+  onPopoverHide,
   onPopoverFieldUpdate,
   getPopoverPreview,
   openDialog,
