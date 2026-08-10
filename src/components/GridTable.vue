@@ -1,5 +1,5 @@
 <template>
-  <div class="grid-table">
+  <div ref="gridRoot" class="grid-table">
     <label v-if="label" class="grid-table__label">{{ label }}</label>
 
     <div v-if="showScanbar" class="form-field barcode-field">
@@ -99,6 +99,14 @@
             text
             size="small"
             @click="removeRow(index)"
+            @keydown.tab="
+              e => {
+                if (e.shiftKey || index !== dataArray.length - 1) return;
+                e.stopPropagation();
+                e.preventDefault();
+                addRow();
+              }
+            "
           />
         </template>
       </Column>
@@ -127,8 +135,8 @@
   </div>
 
   <!-- Popover for Popover-type columns -->
-  <Popover ref="sharedPopover" class="grid-popover">
-    <div v-if="activePopoverColumn" class="grid-popover-content">
+  <Popover ref="sharedPopover" class="grid-popover" @show="onPopoverShow" @hide="onPopoverHide">
+    <div v-if="activePopoverColumn" ref="popoverContent" class="grid-popover-content">
       <div
         v-for="subCol in activePopoverColumn.fields"
         :key="subCol.field"
@@ -278,6 +286,8 @@ const {
   dataArray,
   barcodeVal,
   sharedPopover,
+  popoverContent,
+  gridRoot,
   activePopoverColumn,
   activePopoverData,
   dialogVisible,
@@ -301,6 +311,8 @@ const {
   getProps,
   truncatedVal,
   openPopover,
+  onPopoverShow,
+  onPopoverHide,
   onPopoverFieldUpdate,
   getPopoverPreview,
   openDialog,

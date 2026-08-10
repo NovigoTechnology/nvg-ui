@@ -1,4 +1,4 @@
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, nextTick } from 'vue';
 import { debounce } from 'lodash-es';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
@@ -68,9 +68,11 @@ export function useGridTable(props, emit) {
   const dataArray = ref([...props.data]);
   const barcodeVal = ref(null);
   const sharedPopover = ref(null);
+  const popoverContent = ref(null);
   const activePopoverColumn = ref(null);
   const activePopoverData = ref(null);
   const activePopoverIndex = ref(null);
+  const gridRoot = ref(null);
   const dialogVisible = ref(false);
   const qtyDialogVisible = ref(false);
   const searchText = ref('');
@@ -158,13 +160,25 @@ export function useGridTable(props, emit) {
   };
 
   /**
-   * Appends a new empty row to the table and emits update:data and rowAdd.
+   * Appends a new empty row to the table and emits update:data and rowAdd, then puts the caret
+   * on its first editable field so the user can type straight away and the table scrolls the
+   * new row into view. The input is queried after the render instead of held in a ref because
+   * the table replaces its cell elements whenever it re-renders.
    */
-  const addRow = () => {
+  const addRow = async () => {
     const row = createEmptyRow();
     dataArray.value.push(row);
     emit('update:data', dataArray.value);
     emit('rowAdd', row);
+
+    await nextTick();
+    const rows = gridRoot.value?.querySelectorAll('.p-datatable-tbody > tr') ?? [];
+    const lastRow = rows[rows.length - 1];
+    lastRow?.scrollIntoView?.({ block: 'nearest' });
+    const field =
+      lastRow?.querySelector('.link-field input') ??
+      lastRow?.querySelector('input:not([type="checkbox"]):not(:disabled), textarea');
+    field?.focus();
   };
 
   /**
@@ -379,6 +393,39 @@ export function useGridTable(props, emit) {
   };
 
   /**
+   * Moves focus onto the first field of the popover as soon as it is shown.
+   * PrimeVue's Popover only auto-focuses an element carrying the autofocus attribute,
+   * so without this the panel stays unreachable when it is opened with the keyboard.
+   */
+  const onPopoverShow = async () => {
+    await nextTick();
+    const field = popoverContent.value?.querySelector('input, textarea');
+    field?.focus();
+    field?.select?.();
+  };
+
+  /**
+   * Sends focus back to the cell button that opened the popover when it closes, so tabbing
+   * resumes from the same row. The button is looked up by row index and column label instead of
+   * being kept from the opening click: the table re-renders when the popover opens and replaces
+   * the element, and a `columns` prop built by a computed hands back new objects on every recompute.
+   * Skipped when focus already moved somewhere outside the popover (e.g. the user clicked another
+   * cell, which closes it as a side effect) to avoid stealing it.
+   */
+  const onPopoverHide = () => {
+    const active = document.activeElement;
+    if (active && active !== document.body && !active.closest('.grid-popover-content')) return;
+
+    const rows = gridRoot.value?.querySelectorAll('.p-datatable-tbody > tr') ?? [];
+    const position = props.columns
+      .filter(col => col.type === 'Popover')
+      .findIndex(col => col.label === activePopoverColumn.value?.label);
+    rows[activePopoverIndex.value]
+      ?.querySelectorAll('.grid-popover-btn')
+      [Math.max(position, 0)]?.focus();
+  };
+
+  /**
    * Handles a value change emitted by any input inside the popover.
    * Delegates to onFieldValueUpdate using the currently active row index and data,
    * which in turn emits rowChange so the parent can recalculate (e.g. discount → amount).
@@ -523,6 +570,8 @@ export function useGridTable(props, emit) {
     dataArray,
     barcodeVal,
     sharedPopover,
+    popoverContent,
+    gridRoot,
     activePopoverColumn,
     activePopoverData,
     dialogVisible,
@@ -551,6 +600,8 @@ export function useGridTable(props, emit) {
     truncatedVal,
     // popover
     openPopover,
+    onPopoverShow,
+    onPopoverHide,
     onPopoverFieldUpdate,
     getPopoverPreview,
     // add multiple dialog
