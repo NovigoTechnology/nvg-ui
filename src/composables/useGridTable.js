@@ -1,4 +1,4 @@
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, nextTick } from 'vue';
 import { debounce } from 'lodash-es';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
@@ -68,6 +68,7 @@ export function useGridTable(props, emit) {
   const dataArray = ref([...props.data]);
   const barcodeVal = ref(null);
   const sharedPopover = ref(null);
+  const popoverContent = ref(null);
   const activePopoverColumn = ref(null);
   const activePopoverData = ref(null);
   const activePopoverIndex = ref(null);
@@ -379,6 +380,18 @@ export function useGridTable(props, emit) {
   };
 
   /**
+   * Moves focus onto the first field of the popover as soon as it is shown.
+   * PrimeVue's Popover only auto-focuses an element carrying the autofocus attribute,
+   * so without this the panel stays unreachable when it is opened with the keyboard.
+   */
+  const onPopoverShow = async () => {
+    await nextTick();
+    const field = popoverContent.value?.querySelector('input, textarea');
+    field?.focus();
+    field?.select?.();
+  };
+
+  /**
    * Handles a value change emitted by any input inside the popover.
    * Delegates to onFieldValueUpdate using the currently active row index and data,
    * which in turn emits rowChange so the parent can recalculate (e.g. discount → amount).
@@ -523,6 +536,7 @@ export function useGridTable(props, emit) {
     dataArray,
     barcodeVal,
     sharedPopover,
+    popoverContent,
     activePopoverColumn,
     activePopoverData,
     dialogVisible,
@@ -551,6 +565,7 @@ export function useGridTable(props, emit) {
     truncatedVal,
     // popover
     openPopover,
+    onPopoverShow,
     onPopoverFieldUpdate,
     getPopoverPreview,
     // add multiple dialog

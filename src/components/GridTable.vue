@@ -127,8 +127,8 @@
   </div>
 
   <!-- Popover for Popover-type columns -->
-  <Popover ref="sharedPopover" class="grid-popover">
-    <div v-if="activePopoverColumn" class="grid-popover-content">
+  <Popover ref="sharedPopover" class="grid-popover" @show="onPopoverShow">
+    <div v-if="activePopoverColumn" ref="popoverContent" class="grid-popover-content">
       <div
         v-for="subCol in activePopoverColumn.fields"
         :key="subCol.field"
@@ -278,6 +278,7 @@ const {
   dataArray,
   barcodeVal,
   sharedPopover,
+  popoverContent,
   activePopoverColumn,
   activePopoverData,
   dialogVisible,
@@ -301,6 +302,7 @@ const {
   getProps,
   truncatedVal,
   openPopover,
+  onPopoverShow,
   onPopoverFieldUpdate,
   getPopoverPreview,
   openDialog,
@@ -568,8 +570,46 @@ const {
 }
 
 /* ========================================
+   Keyboard focus
+
+   Mirrors Frappe's form grid, where a tabbed cell or button gets a grey ring
+   (`.grid-static-col:focus-visible`, `button.col:focus-visible`). The rules are
+   scoped to the grid and flagged important so a host app that strips the focus
+   ring off `.p-button` globally does not leave the grid unnavigable.
+   ======================================== */
+
+.grid-table__datatable .p-button:focus-visible,
+.grid-table__actions .p-button:focus-visible,
+.grid-popover .p-button:focus-visible {
+  outline: 1px solid var(--p-focus-ring-color, #c9c9c9) !important;
+  outline-offset: 1px !important;
+}
+
+.grid-table__datatable input[type='checkbox']:focus-visible {
+  outline: 1px solid var(--p-focus-ring-color, #c9c9c9);
+  outline-offset: 1px;
+}
+
+.grid-popover-btn.p-button:focus-visible {
+  background: #f3f4f6;
+}
+
+.grid-table__datatable .p-button.p-button-danger.p-button-text:focus-visible {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+/* ========================================
    Dark Mode
    ======================================== */
+
+[data-theme='dark'] .grid-popover-btn.p-button:focus-visible {
+  background: #1f2937;
+}
+
+[data-theme='dark'] .grid-table__datatable .p-button.p-button-danger.p-button-text:focus-visible {
+  background: #450a0a;
+}
 
 [data-theme='dark'] .grid-table__label {
   color: #9ca3af;
