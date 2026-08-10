@@ -173,7 +173,9 @@ export function useGridTable(props, emit) {
 
     await nextTick();
     const rows = gridRoot.value?.querySelectorAll('.p-datatable-tbody > tr') ?? [];
-    rows[rows.length - 1]?.querySelector('input:not([type="checkbox"])')?.focus();
+    const lastRow = rows[rows.length - 1];
+    lastRow?.scrollIntoView?.({ block: 'nearest' });
+    lastRow?.querySelector('input:not([type="checkbox"]), textarea')?.focus();
   };
 
   /**
