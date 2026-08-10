@@ -99,7 +99,12 @@
             text
             size="small"
             @click="removeRow(index)"
-            @keydown.tab="addRow"
+            @keydown.tab="
+              e => {
+                e.stopPropagation();
+                addRow();
+              }
+            "
           />
         </template>
       </Column>
@@ -295,7 +300,6 @@ const {
   checkRow,
   toggleAll,
   addRow,
-  onDeleteRowTab,
   removeRow,
   clearRowItems,
   onFieldValueUpdate,
