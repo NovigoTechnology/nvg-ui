@@ -160,13 +160,20 @@ export function useGridTable(props, emit) {
   };
 
   /**
-   * Appends a new empty row to the table and emits update:data and rowAdd.
+   * Appends a new empty row to the table and emits update:data and rowAdd, then puts the caret
+   * on its first editable field so the user can type straight away and the table scrolls the
+   * new row into view. The input is queried after the render instead of held in a ref because
+   * the table replaces its cell elements whenever it re-renders.
    */
-  const addRow = () => {
+  const addRow = async () => {
     const row = createEmptyRow();
     dataArray.value.push(row);
     emit('update:data', dataArray.value);
     emit('rowAdd', row);
+
+    await nextTick();
+    const rows = gridRoot.value?.querySelectorAll('.p-datatable-tbody > tr') ?? [];
+    rows[rows.length - 1]?.querySelector('input:not([type="checkbox"])')?.focus();
   };
 
   /**
