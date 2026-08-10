@@ -1,5 +1,5 @@
 <template>
-  <div class="grid-table">
+  <div ref="gridRoot" class="grid-table">
     <label v-if="label" class="grid-table__label">{{ label }}</label>
 
     <div v-if="showScanbar" class="form-field barcode-field">
@@ -279,6 +279,7 @@ const {
   barcodeVal,
   sharedPopover,
   popoverContent,
+  gridRoot,
   activePopoverColumn,
   activePopoverData,
   dialogVisible,

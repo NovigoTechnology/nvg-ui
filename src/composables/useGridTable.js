@@ -72,7 +72,7 @@ export function useGridTable(props, emit) {
   const activePopoverColumn = ref(null);
   const activePopoverData = ref(null);
   const activePopoverIndex = ref(null);
-  const activePopoverTrigger = ref(null);
+  const gridRoot = ref(null);
   const dialogVisible = ref(false);
   const qtyDialogVisible = ref(false);
   const searchText = ref('');
@@ -377,7 +377,6 @@ export function useGridTable(props, emit) {
     activePopoverColumn.value = column;
     activePopoverData.value = data;
     activePopoverIndex.value = index;
-    activePopoverTrigger.value = event.currentTarget;
     sharedPopover.value.toggle(event);
   };
 
@@ -395,13 +394,20 @@ export function useGridTable(props, emit) {
 
   /**
    * Sends focus back to the cell button that opened the popover when it closes, so tabbing
-   * resumes from the same row. Skipped when focus already moved somewhere outside the popover
-   * (e.g. the user clicked another cell, which closes it as a side effect) to avoid stealing it.
+   * resumes from the same row. The button is looked up by row and column instead of being kept
+   * from the opening click, because the table re-renders when the popover opens and replaces it.
+   * Skipped when focus already moved somewhere outside the popover (e.g. the user clicked another
+   * cell, which closes it as a side effect) to avoid stealing it.
    */
   const onPopoverHide = () => {
     const active = document.activeElement;
-    if (active && active !== document.body && !popoverContent.value?.contains(active)) return;
-    activePopoverTrigger.value?.focus();
+    if (active && active !== document.body && !active.closest('.grid-popover-content')) return;
+
+    const rows = gridRoot.value?.querySelectorAll('.p-datatable-tbody > tr') ?? [];
+    const position = props.columns
+      .filter(col => col.type === 'Popover')
+      .indexOf(activePopoverColumn.value);
+    rows[activePopoverIndex.value]?.querySelectorAll('.grid-popover-btn')[position]?.focus();
   };
 
   /**
@@ -550,6 +556,7 @@ export function useGridTable(props, emit) {
     barcodeVal,
     sharedPopover,
     popoverContent,
+    gridRoot,
     activePopoverColumn,
     activePopoverData,
     dialogVisible,
