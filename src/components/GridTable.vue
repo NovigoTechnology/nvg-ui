@@ -101,7 +101,9 @@
             @click="removeRow(index)"
             @keydown.tab="
               e => {
+                if (e.shiftKey || index !== dataArray.length - 1) return;
                 e.stopPropagation();
+                e.preventDefault();
                 addRow();
               }
             "
