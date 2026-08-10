@@ -99,7 +99,7 @@
             text
             size="small"
             @click="removeRow(index)"
-            @blur="console.log('blur eliminar', index)"
+            @blur="addRow"
           />
         </template>
       </Column>
