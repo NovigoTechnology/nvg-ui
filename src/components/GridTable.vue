@@ -99,7 +99,7 @@
             text
             size="small"
             @click="removeRow(index)"
-            @blur="addRow"
+            @keydown.tab="addRow"
           />
         </template>
       </Column>
@@ -295,6 +295,7 @@ const {
   checkRow,
   toggleAll,
   addRow,
+  onDeleteRowTab,
   removeRow,
   clearRowItems,
   onFieldValueUpdate,
