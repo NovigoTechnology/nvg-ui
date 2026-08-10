@@ -574,15 +574,14 @@ const {
 /* ========================================
    Keyboard focus
 
-   Mirrors Frappe's form grid, where a tabbed cell or button gets a grey ring
-   (`.grid-static-col:focus-visible`, `button.col:focus-visible`). The rules are
-   scoped to the grid and flagged important so a host app that strips the focus
-   ring off `.p-button` globally does not leave the grid unnavigable.
+   Mirrors Frappe's form grid: icon-only cell buttons get the thin outline of
+   `button.col:focus-visible`, while labelled buttons get the desk's 2px focus
+   shadow like `.btn:focus-visible`. The rules are scoped to the grid and flagged
+   important so a host app that strips the focus ring off `.p-button` globally
+   does not leave the grid unnavigable.
    ======================================== */
 
-.grid-table__datatable .p-button:focus-visible,
-.grid-table__actions .p-button:focus-visible,
-.grid-popover .p-button:focus-visible {
+.grid-table__datatable .p-button-icon-only:focus-visible {
   outline: 1px solid var(--p-focus-ring-color, #c9c9c9) !important;
   outline-offset: 1px !important;
 }
@@ -590,6 +589,12 @@ const {
 .grid-table__datatable input[type='checkbox']:focus-visible {
   outline: 1px solid var(--p-focus-ring-color, #c9c9c9);
   outline-offset: 1px;
+}
+
+.grid-table__actions .p-button:focus-visible,
+.grid-popover .p-button:focus-visible {
+  outline: none !important;
+  box-shadow: var(--focus-default, 0 0 0 2px #c9c9c9e5) !important;
 }
 
 .grid-popover-btn.p-button:focus-visible {

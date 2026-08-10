@@ -394,8 +394,9 @@ export function useGridTable(props, emit) {
 
   /**
    * Sends focus back to the cell button that opened the popover when it closes, so tabbing
-   * resumes from the same row. The button is looked up by row and column instead of being kept
-   * from the opening click, because the table re-renders when the popover opens and replaces it.
+   * resumes from the same row. The button is looked up by row index and column label instead of
+   * being kept from the opening click: the table re-renders when the popover opens and replaces
+   * the element, and a `columns` prop built by a computed hands back new objects on every recompute.
    * Skipped when focus already moved somewhere outside the popover (e.g. the user clicked another
    * cell, which closes it as a side effect) to avoid stealing it.
    */
@@ -406,8 +407,10 @@ export function useGridTable(props, emit) {
     const rows = gridRoot.value?.querySelectorAll('.p-datatable-tbody > tr') ?? [];
     const position = props.columns
       .filter(col => col.type === 'Popover')
-      .indexOf(activePopoverColumn.value);
-    rows[activePopoverIndex.value]?.querySelectorAll('.grid-popover-btn')[position]?.focus();
+      .findIndex(col => col.label === activePopoverColumn.value?.label);
+    rows[activePopoverIndex.value]
+      ?.querySelectorAll('.grid-popover-btn')
+      [Math.max(position, 0)]?.focus();
   };
 
   /**
