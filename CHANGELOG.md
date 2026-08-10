@@ -1,3 +1,24 @@
+## [1.25.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.25.0...v1.25.1) (2026-08-10)
+
+
+### Bug Fixes
+
+* add blur test ([32a1305](https://github.com/NovigoTechnology/nvg-ui/commit/32a1305dc05ba49d948447e3324d3ab56cb6f828))
+* add focus in popover ([645757d](https://github.com/NovigoTechnology/nvg-ui/commit/645757d7965fd0d053b352b9909a72beca8cd6af))
+* add focus in popover ([#139](https://github.com/NovigoTechnology/nvg-ui/issues/139)) ([c802a2e](https://github.com/NovigoTechnology/nvg-ui/commit/c802a2ea26f8071105725bd72374368141619a9d))
+* add row on blur button trash ([5764a9a](https://github.com/NovigoTechnology/nvg-ui/commit/5764a9a069b06363dea997e0973ba2810e774161))
+* addrow ([545a4ee](https://github.com/NovigoTechnology/nvg-ui/commit/545a4eecb8bdda68073156b68129c52703b98553))
+* calc amt ([c7e3ff6](https://github.com/NovigoTechnology/nvg-ui/commit/c7e3ff6bef493496b8beb50e96a127028aff1a9c))
+* focus ([b6eca98](https://github.com/NovigoTechnology/nvg-ui/commit/b6eca988fb48aef01d243fb52e471b8115964da5))
+* focus ([e7a4171](https://github.com/NovigoTechnology/nvg-ui/commit/e7a41719b94585f23b719c26ed01a273d9f2eac4))
+* focus ([8344e30](https://github.com/NovigoTechnology/nvg-ui/commit/8344e3013925192990116c11723835d8b3bb08c3))
+* focus correct input on tab ([9445300](https://github.com/NovigoTechnology/nvg-ui/commit/9445300fda69ed3f43dde0d8ab86f8d07e36481d))
+* focus on add row ([6b025af](https://github.com/NovigoTechnology/nvg-ui/commit/6b025af07736789beac96f359d8589f8c583267f))
+* keydown ([afdabf1](https://github.com/NovigoTechnology/nvg-ui/commit/afdabf1cded58c6a06631bb17dc1919bca4a2cc6))
+* popover close ([9914b93](https://github.com/NovigoTechnology/nvg-ui/commit/9914b935358fe6434a1e297923ed9818a1cf3cfd))
+* remove unnecesary styles ([c65b85c](https://github.com/NovigoTechnology/nvg-ui/commit/c65b85ced840977f824ee08456ff412a3366caf6))
+* shift tab ([c960e66](https://github.com/NovigoTechnology/nvg-ui/commit/c960e667cfe0f1abbf02fe8ceb540f9c338006da))
+
 # [1.25.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.24.1...v1.25.0) (2026-08-06)
 
 
