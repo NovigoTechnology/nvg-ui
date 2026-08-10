@@ -572,51 +572,8 @@ const {
 }
 
 /* ========================================
-   Keyboard focus
-
-   Mirrors Frappe's form grid: icon-only cell buttons get the thin outline of
-   `button.col:focus-visible`, while labelled buttons get the desk's 2px focus
-   shadow like `.btn:focus-visible`. The rules are scoped to the grid and flagged
-   important so a host app that strips the focus ring off `.p-button` globally
-   does not leave the grid unnavigable.
-   ======================================== */
-
-.grid-table__datatable .p-button-icon-only:focus-visible {
-  outline: 1px solid var(--p-focus-ring-color, #c9c9c9) !important;
-  outline-offset: 1px !important;
-}
-
-.grid-table__datatable input[type='checkbox']:focus-visible {
-  outline: 1px solid var(--p-focus-ring-color, #c9c9c9);
-  outline-offset: 1px;
-}
-
-.grid-table__actions .p-button:focus-visible,
-.grid-popover .p-button:focus-visible {
-  outline: none !important;
-  box-shadow: var(--focus-default, 0 0 0 2px #c9c9c9e5) !important;
-}
-
-.grid-popover-btn.p-button:focus-visible {
-  background: #f3f4f6;
-}
-
-.grid-table__datatable .p-button.p-button-danger.p-button-text:focus-visible {
-  background: #fef2f2;
-  color: #dc2626;
-}
-
-/* ========================================
    Dark Mode
    ======================================== */
-
-[data-theme='dark'] .grid-popover-btn.p-button:focus-visible {
-  background: #1f2937;
-}
-
-[data-theme='dark'] .grid-table__datatable .p-button.p-button-danger.p-button-text:focus-visible {
-  background: #450a0a;
-}
 
 [data-theme='dark'] .grid-table__label {
   color: #9ca3af;
