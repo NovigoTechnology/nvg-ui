@@ -1,4 +1,4 @@
-import { ref, onMounted, watch, onUnmounted, computed } from 'vue';
+import { ref, onMounted, watch, onUnmounted, computed, inject } from 'vue';
 import { call } from '../libs/frappe-client';
 import emitter from '../libs/mitt';
 
@@ -95,6 +95,7 @@ export function useAutoComplete(props, emit) {
   /** @type {import('vue').Ref<AutoCompleteOption[]>} */
   const translatedSuggestions = ref([]);
   const selectedName = ref(null);
+  const dialogRef = inject('dialogRef', null);
 
   /**
    * Resolves what to display for a link value that arrives from outside (a form loaded with a
@@ -400,7 +401,16 @@ export function useAutoComplete(props, emit) {
     }
   };
 
+  /**
+   * Opens the selected document in Desk, closing the dialog the field lives in, if any.
+   *
+   * PrimeVue teleports dialogs to the body, so a route change swaps the page underneath while
+   * the dialog stays on screen with no way back to it. `dialogRef` is provided by
+   * DynamicDialog to its whole content subtree, so the field resolves it on its own; outside a
+   * dialog the injection defaults to null and the close is a no-op.
+   */
   const goToDoc = () => {
+    dialogRef?.value?.close();
     frappe.set_route('Form', props.field.options, selectedName.value);
   };
 
