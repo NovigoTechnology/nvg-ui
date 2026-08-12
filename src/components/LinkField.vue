@@ -208,9 +208,18 @@ defineExpose({ clear_input });
   width: 100%;
 }
 
+/**
+ * PrimeVue centres .p-inputicon with `top: 50%` plus a `margin-top` of half the default icon
+ * size, so shrinking the font alone leaves it sitting high. Translating instead re-centres it
+ * whatever size it ends up being.
+ */
 .link-field-icon {
   cursor: pointer;
   font-size: 0.7rem !important;
+  width: 0.7rem !important;
+  height: 0.7rem !important;
+  margin-top: 0 !important;
+  transform: translateY(-50%);
   transition: color 0.2s;
 }
 
