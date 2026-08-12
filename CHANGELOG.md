@@ -1,3 +1,16 @@
+## [1.25.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.25.1...v1.25.2) (2026-08-12)
+
+
+### Bug Fixes
+
+* add styles ([68cc05f](https://github.com/NovigoTechnology/nvg-ui/commit/68cc05f17383ec716946c57b1ca7e3db0840eeff))
+* arrow autocomplete ([#140](https://github.com/NovigoTechnology/nvg-ui/issues/140)) ([6104fe7](https://github.com/NovigoTechnology/nvg-ui/commit/6104fe7f070720298c5cb10b54be4ba502752634))
+* close dialog on click gotodoc ([73aadb0](https://github.com/NovigoTechnology/nvg-ui/commit/73aadb02dd7bb4715690ff84a7a6d6754f9a6043))
+* icon field in linkfield ([607a220](https://github.com/NovigoTechnology/nvg-ui/commit/607a220ea7e3f142128309d65210d10fe88c1c62))
+* move styles ([8213ce8](https://github.com/NovigoTechnology/nvg-ui/commit/8213ce86f1963ed77a55c7aaa67a74a9e1f1de31))
+* rename class in autocomplete icon ([5dacfb7](https://github.com/NovigoTechnology/nvg-ui/commit/5dacfb795feee22f8408ad19de18ed2b1e816501))
+* update class ([5ee906e](https://github.com/NovigoTechnology/nvg-ui/commit/5ee906e0806f0623b396ca16a6aab87d7a230b4e))
+
 ## [1.25.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.25.0...v1.25.1) (2026-08-10)
 
 
