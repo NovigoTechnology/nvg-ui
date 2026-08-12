@@ -60,7 +60,7 @@
         </FloatLabel>
         <InputIcon
           v-if="!disabled && selectedName"
-          class="pi pi-arrow-right autocomplete-scan-icon"
+          class="pi pi-arrow-right autocomplete-icon-field"
           @click="goToDoc"
         />
       </IconField>
