@@ -60,7 +60,7 @@
         </FloatLabel>
         <InputIcon
           v-if="!disabled && selectedName"
-          class="pi pi-arrow-right autocomplete-scan-icon"
+          class="pi pi-arrow-right autocomplete-icon-input"
           @click="goToDoc"
         />
       </IconField>
@@ -144,6 +144,31 @@ defineExpose({
   opacity: 1 !important;
   background: var(--p-inputtext-disabled-background);
   color: var(--p-inputtext-disabled-color);
+}
+
+.autocomplete-icon-field {
+  width: 100%;
+}
+
+/**
+ * PrimeVue centres .p-inputicon with `top: 50%` plus a `margin-top` of half the default icon
+ * size, so shrinking the font alone leaves it sitting high. Translating instead re-centres it
+ * whatever size it ends up being. The inline-end margin clears the dropdown button, which
+ * occupies the trailing edge of the input.
+ */
+.autocomplete-icon-input {
+  cursor: pointer;
+  margin-inline-end: 2rem;
+  font-size: 0.7rem !important;
+  width: 0.7rem !important;
+  height: 0.7rem !important;
+  margin-top: 0 !important;
+  transform: translateY(-50%);
+  transition: color 0.2s;
+}
+
+.autocomplete-icon-input:hover {
+  color: var(--gray-700);
 }
 
 .custom-button {
