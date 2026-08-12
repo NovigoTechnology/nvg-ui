@@ -1,46 +1,55 @@
 <template>
   <div class="link-field">
-    <AutoComplete
-      :key="refresh"
-      ref="autoCompleteRef"
-      v-model="inputValue"
-      :input-id="fieldname"
-      :suggestions="translatedSuggestions"
-      :placeholder="__(props.placeholder || props.doctype)"
-      :complete-on-focus="true"
-      fluid
-      :disabled="props.disabled"
-      :option-label="option => option.label || option.value"
-      force-selection
-      :empty-message="__('No results found')"
-      @complete="e => getLinkOptions(props.doctype, e.query)"
-      @update:model-value="e => e === '' && clear_input(true)"
-      @option-select="e => selectOption(e.value)"
-    >
-      <template #option="slotProps">
-        <div v-if="!slotProps.option.label && !slotProps.option.description">
-          <strong>{{ slotProps.option.value }}</strong>
-        </div>
-        <div v-else>
-          <strong>{{ slotProps.option.label }}</strong>
-          <div
-            v-if="
-              slotProps.option.description &&
-              (slotProps.option.isTitleLink ||
-                slotProps.option.value !== slotProps.option.description)
-            "
-            class="text-sm text-color-secondary"
-            v-html="sanitizeHtml(slotProps.option.description)"
-          />
-        </div>
-      </template>
-    </AutoComplete>
+    <IconField>
+      <AutoComplete
+        :key="refresh"
+        ref="autoCompleteRef"
+        v-model="inputValue"
+        :input-id="fieldname"
+        :suggestions="translatedSuggestions"
+        :placeholder="__(props.placeholder || props.doctype)"
+        :complete-on-focus="true"
+        fluid
+        :disabled="props.disabled"
+        :option-label="option => option.label || option.value"
+        force-selection
+        :empty-message="__('No results found')"
+        @complete="e => getLinkOptions(props.doctype, e.query)"
+        @update:model-value="e => e === '' && clear_input(true)"
+        @option-select="e => selectOption(e.value)"
+      >
+        <template #option="slotProps">
+          <div v-if="!slotProps.option.label && !slotProps.option.description">
+            <strong>{{ slotProps.option.value }}</strong>
+          </div>
+          <div v-else>
+            <strong>{{ slotProps.option.label }}</strong>
+            <div
+              v-if="
+                slotProps.option.description &&
+                (slotProps.option.isTitleLink ||
+                  slotProps.option.value !== slotProps.option.description)
+              "
+              class="text-sm text-color-secondary"
+              v-html="sanitizeHtml(slotProps.option.description)"
+            />
+          </div>
+        </template>
+      </AutoComplete>
+      <InputIcon
+        v-if="!props.disabled && props.modelValue"
+        class="pi pi-arrow-right link-field-icon"
+        @click="goToDoc"
+      />
+    </IconField>
   </div>
 </template>
 
 <script setup>
-import { ref, watchEffect } from 'vue';
+import { inject, ref, watchEffect } from 'vue';
 import AutoComplete from 'primevue/autocomplete';
+import IconField from 'primevue/iconfield';
+import InputIcon from 'primevue/inputicon';
 import { call } from '../libs/frappe-client';
 import { sanitizeHtml } from '../utils/sanitizeHtml';
 
@@ -62,6 +71,7 @@ const emit = defineEmits(['update:modelValue', 'itemSelected', 'clearRow']);
 
 const fieldname = 'link_field_' + props.doctype;
 const autoCompleteRef = ref(null);
+const dialogRef = inject('dialogRef', null);
 const inputValue = ref('');
 const refresh = ref(false);
 const suggestions = ref([]);
@@ -159,6 +169,19 @@ const selectOption = async selectedOption => {
   emit('itemSelected', selectedOption.value);
 };
 
+/**
+ * Opens the selected document in Desk, closing the dialog the field lives in, if any.
+ *
+ * PrimeVue teleports dialogs to the body, so a route change swaps the page underneath while
+ * the dialog stays on screen with no way back to it. `dialogRef` is provided by DynamicDialog
+ * to its whole content subtree, so the field resolves it on its own; outside a dialog the
+ * injection defaults to null and the close is a no-op.
+ */
+const goToDoc = () => {
+  dialogRef?.value?.close();
+  frappe.set_route('Form', props.doctype, props.modelValue);
+};
+
 const clear_input = async (keepFocus = false) => {
   inputValue.value = '';
   suggestions.value = [];
@@ -177,8 +200,22 @@ defineExpose({ clear_input });
 </script>
 
 <style>
+.link-field .p-iconfield {
+  width: 100%;
+}
+
 .link-field .p-autocomplete {
   width: 100%;
+}
+
+.link-field-icon {
+  cursor: pointer;
+  font-size: 0.7rem !important;
+  transition: color 0.2s;
+}
+
+.link-field-icon:hover {
+  color: var(--gray-700);
 }
 
 .link-field .p-autocomplete .p-autocomplete-input {
