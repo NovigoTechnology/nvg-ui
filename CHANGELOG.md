@@ -1,3 +1,10 @@
+## [1.25.3](https://github.com/NovigoTechnology/nvg-ui/compare/v1.25.2...v1.25.3) (2026-08-17)
+
+
+### Bug Fixes
+
+* align CodeQL action versions to v4.37.7 ([30869fd](https://github.com/NovigoTechnology/nvg-ui/commit/30869fdfff2496b35f424047e1ea1ba2196a40c4))
+
 ## [1.25.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.25.1...v1.25.2) (2026-08-12)
 
 
