@@ -1,3 +1,11 @@
+## [1.25.4](https://github.com/NovigoTechnology/nvg-ui/compare/v1.25.3...v1.25.4) (2026-08-17)
+
+
+### Bug Fixes
+
+* **ci:** set NODE_AUTH_TOKEN at job level to fix yarn cache dir failure ([dfc09f2](https://github.com/NovigoTechnology/nvg-ui/commit/dfc09f205e184279a88400d99d8aaa600b97e979))
+* **ci:** set NODE_AUTH_TOKEN at job level to fix yarn cache dir failure ([#146](https://github.com/NovigoTechnology/nvg-ui/issues/146)) ([250b60b](https://github.com/NovigoTechnology/nvg-ui/commit/250b60bf937f9547c0a42ac7233f2e7ac7a92c8b))
+
 ## [1.25.3](https://github.com/NovigoTechnology/nvg-ui/compare/v1.25.2...v1.25.3) (2026-08-17)
 
 
