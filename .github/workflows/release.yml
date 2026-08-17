@@ -13,6 +13,8 @@ jobs:
   release:
     name: Create GitHub Release & Publish to GitHub Packages
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NOVIGO_BOT_20250619 }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -36,8 +38,6 @@ jobs:
 
       - name: Publish to GitHub Packages
         run: yarn publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NOVIGO_BOT_20250619 }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3
