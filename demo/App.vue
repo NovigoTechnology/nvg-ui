@@ -67,6 +67,7 @@
         :columns="gridColumns"
         label="Renglones"
         :filters-fields="{ customer: { filters: {} } }"
+        show-add-multiple
       />
     </section>
 
