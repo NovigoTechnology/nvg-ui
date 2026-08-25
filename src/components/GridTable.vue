@@ -591,7 +591,7 @@ const {
 }
 
 .add-multiple__search-row .p-inputtext {
-  min-height: 2rem;
+  min-height: var(--input-height, 2rem);
   padding-block: 0.35rem;
   padding-inline: 0.65rem;
   border: 1px solid #dbe1ea;
@@ -609,11 +609,19 @@ const {
   border-color: #cbd5e1;
 }
 
+/*
+ * !important here for the same reason as the dialog close button: nagus's own .p-button /
+ * .p-button-icon-only overrides (public/scss/overrides/_primevue.scss) also use !important,
+ * and being declared later in that file, its horizontal padding wins over a plain (non-
+ * !important) width/padding here — leaving a fixed-width square button with side padding
+ * added back in, i.e. not actually square anymore. Matching nagus's own --input-height token
+ * keeps this button exactly as tall as the search input next to it.
+ */
 .add-multiple__search-row .p-button {
-  width: 2rem;
-  min-width: 2rem;
-  height: 2rem;
-  padding: 0;
+  width: var(--input-height, 2rem) !important;
+  min-width: var(--input-height, 2rem) !important;
+  height: var(--input-height, 2rem) !important;
+  padding: 0 !important;
   border-radius: 0.5rem;
 }
 
@@ -622,8 +630,8 @@ const {
 }
 
 .add-multiple__results {
-  --add-multiple-code-column: minmax(8.5rem, 0.9fr);
-  --add-multiple-description-column: minmax(0, 1.6fr);
+  --add-multiple-code-column: minmax(6.25rem, 7rem);
+  --add-multiple-description-column: minmax(0, 1fr);
 
   position: relative;
   display: grid;
