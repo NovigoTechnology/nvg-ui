@@ -7,18 +7,64 @@ export const DOCTYPE_DATA = {
     { value: 'CUST-0005', label: 'Wayne Enterprises' },
   ],
   Item: [
-    { value: 'ITEM-001', label: 'Widget A' },
-    { value: 'ITEM-002', label: 'Widget B' },
-    { value: 'ITEM-003', label: 'Gadget C' },
+    { value: 'ITEM-001', label: 'Widget A', description: 'General purpose widget, steel finish' },
+    { value: 'ITEM-002', label: 'Widget B', description: 'Reinforced widget for heavy-duty use' },
+    { value: 'ITEM-003', label: 'Gadget C', description: 'Compact gadget, battery included' },
+    { value: 'ITEM-004', label: 'Widget C', description: 'Lightweight widget, plastic finish' },
+    { value: 'ITEM-005', label: 'Gadget A', description: 'Entry-level gadget, no accessories' },
+    { value: 'ITEM-006', label: 'Gadget B', description: 'Mid-range gadget, travel case included' },
+    {
+      value: 'ITEM-007',
+      label: 'Tool Kit A',
+      description: 'Basic maintenance kit with compact tools',
+    },
+    {
+      value: 'ITEM-008',
+      label: 'Tool Kit B',
+      description: 'Extended maintenance kit for workshop use',
+    },
+    {
+      value: 'ITEM-009',
+      label: 'Cable Pack A',
+      description: 'Assorted cable pack, one meter length',
+    },
+    {
+      value: 'ITEM-010',
+      label: 'Cable Pack B',
+      description: 'Assorted cable pack, reinforced connectors',
+    },
+    {
+      value: 'ITEM-011',
+      label: 'Adapter A',
+      description: 'Universal adapter for standard accessories',
+    },
+    {
+      value: 'ITEM-012',
+      label: 'Adapter B',
+      description: 'Compact adapter with reinforced housing',
+    },
+    { value: 'ITEM-013', label: 'Mount A', description: 'Adjustable desk mount, matte finish' },
+    { value: 'ITEM-014', label: 'Mount B', description: 'Wall mount with quick-release bracket' },
+    { value: 'ITEM-015', label: 'Case A', description: 'Protective carrying case, soft interior' },
   ],
 };
 
-function searchLink({ doctype, txt = '' } = {}) {
+function searchLink({ doctype, txt = '', page_length } = {}) {
   const pool = DOCTYPE_DATA[doctype] || [];
   const q = txt.toLowerCase();
-  return pool
-    .filter(o => o.value.toLowerCase().includes(q) || o.label.toLowerCase().includes(q))
-    .map(o => ({ value: o.value, label: o.label, description: o.label }));
+  const filtered = pool.filter(
+    o => o.value.toLowerCase().includes(q) || o.label.toLowerCase().includes(q)
+  );
+  const limit = Number(page_length);
+  const visible = Number.isFinite(limit) && limit > 0 ? filtered.slice(0, limit) : filtered;
+  const results = visible.map(o => ({
+    value: o.value,
+    label: o.label,
+    description: o.description || o.label,
+  }));
+
+  results.total_count = filtered.length;
+  return results;
 }
 
 const COUNTRY_INFO = {

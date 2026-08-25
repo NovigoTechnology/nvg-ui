@@ -66,7 +66,7 @@
         v-model:data="gridData"
         :columns="gridColumns"
         label="Renglones"
-        :filters-fields="{ customer: { filters: {} } }"
+        :filters-fields="{ item: { filters: {} }, customer: { filters: {} } }"
         show-add-multiple
       />
     </section>
@@ -116,13 +116,13 @@ const numericValue = ref(null);
 const phoneValue = ref(null);
 
 const gridColumns = [
-  { field: 'item', label: 'Item', type: 'Data', cols: 4 },
+  { field: 'item', label: 'Item', type: 'Link', options: 'Item', cols: 4 },
   { field: 'qty', label: 'Cantidad', type: 'Float', cols: 2 },
   { field: 'customer', label: 'Customer', type: 'Link', options: 'Customer', cols: 4 },
 ];
 const gridData = ref([
-  { item: 'Widget A', qty: 2, customer: 'CUST-0001' },
-  { item: 'Widget B', qty: 5, customer: null },
+  { item: 'S000001', qty: 2, customer: 'CUST-0001' },
+  { item: 'T000001', qty: 5, customer: null },
 ]);
 
 function createQuickEntryStore() {
