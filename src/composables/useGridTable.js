@@ -77,7 +77,6 @@ export function useGridTable(props, emit) {
   const qtyDialogVisible = ref(false);
   const searchText = ref('');
   const searchResults = ref([]);
-  const searchTotal = ref(null);
   const hasMore = ref(false);
   const hasSearched = ref(false);
   const currentPageLength = ref(props.pageLength);
@@ -94,10 +93,6 @@ export function useGridTable(props, emit) {
   const addMultipleQtyColumn = computed(() =>
     props.columns.find(c => c.type === 'Int' || c.type === 'Float')
   );
-  const searchTotalLabel = computed(() => {
-    if (searchTotal.value !== null && searchTotal.value !== undefined) return searchTotal.value;
-    return hasMore.value ? `${searchResults.value.length}+` : searchResults.value.length;
-  });
 
   // --- Watches ---
   watch(
@@ -486,7 +481,6 @@ export function useGridTable(props, emit) {
   const openDialog = () => {
     searchText.value = '';
     searchResults.value = [];
-    searchTotal.value = null;
     hasSearched.value = false;
     hasMore.value = false;
     currentPageLength.value = props.pageLength;
@@ -519,10 +513,7 @@ export function useGridTable(props, emit) {
       args.query = props.filtersFields[linkCol.field]?.query;
     }
 
-    const response = await call('frappe.desk.search.search_link', args);
-    const results = Array.isArray(response) ? response : response?.results || [];
-    const totalCount =
-      response?.total_count ?? response?.total ?? response?.count ?? results.total_count;
+    const results = await call('frappe.desk.search.search_link', args);
 
     hasSearched.value = true;
     searchResults.value =
@@ -531,11 +522,7 @@ export function useGridTable(props, emit) {
         label: r.label || r.value,
         description: r.description || '',
       })) || [];
-    searchTotal.value = Number.isFinite(Number(totalCount)) ? Number(totalCount) : null;
-    hasMore.value =
-      searchTotal.value !== null
-        ? searchResults.value.length < searchTotal.value
-        : results?.length >= currentPageLength.value;
+    hasMore.value = results?.length >= currentPageLength.value;
   };
 
   /**
@@ -592,8 +579,6 @@ export function useGridTable(props, emit) {
     qtyDialogVisible,
     searchText,
     searchResults,
-    searchTotal,
-    searchTotalLabel,
     hasMore,
     hasSearched,
     pendingItem,

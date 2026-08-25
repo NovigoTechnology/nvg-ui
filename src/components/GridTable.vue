@@ -303,7 +303,6 @@ const {
   qtyDialogVisible,
   searchText,
   searchResults,
-  searchTotal,
   hasMore,
   hasSearched,
   pendingItem,
@@ -334,15 +333,11 @@ const {
 
 /**
  * `frappe.desk.search.search_link` (the real backend endpoint) returns a plain array with no
- * total count, so most of the time `searchTotal` stays null — there's no "of 15" to report,
- * only how many are on screen. Phrased separately instead of forcing everything through a
- * "{0} of {1}" template, which reads oddly once the total is unknown (e.g. "10 of 10+").
+ * total count, so this only ever reports how many are on screen, never "of N".
  */
-const searchResultsSummary = computed(() => {
-  const shown = searchResults.value.length;
-  if (searchTotal.value != null) return __('Showing {0} of {1}', [shown, searchTotal.value]);
-  return hasMore.value ? __('Showing {0}+ results', [shown]) : __('Showing {0} results', [shown]);
-});
+const searchResultsSummary = computed(() =>
+  __('Showing {0} results', [searchResults.value.length])
+);
 </script>
 <style>
 .grid-table {
