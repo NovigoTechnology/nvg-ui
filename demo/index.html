@@ -1,11 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <title>Demo NVG UI</title>
+    <style>
+      /*
+        Components render bare <svg class="icon icon-sm"><use href="#icon-..." /></svg>
+        icons, expecting Frappe desk's own icon sprite + CSS (which sizes .icon/.icon-sm).
+        Outside a desk page that sprite doesn't exist, and an unsized <svg> falls back to
+        the browser's 300x150 default replaced-element size, blowing up the input/button
+        it sits in. This just gives them the size desk would have.
+      */
+      .icon {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        vertical-align: middle;
+        flex-shrink: 0;
+      }
+      .icon-sm {
+        width: 12px;
+        height: 12px;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
+
+    <!--
+      Stand-in for Frappe desk's own icon sprite (general icons + country flags for
+      PhoneField). Components reference #icon-close, #icon-calendar and #icon-<ISO code>
+      expecting that sprite to already be on the page; outside the desk it isn't, so `<use>`
+      resolves to nothing and the icon is blank. Minimal hand-drawn substitutes below, not
+      Frappe's actual artwork — flags cover only the countries demo/mocks/frappe.js returns
+      (AR, BR, US, ES).
+    -->
+    <svg style="display: none" aria-hidden="true">
+      <symbol id="icon-close" viewBox="0 0 16 16">
+        <path
+          d="M4 4L12 12M12 4L4 12"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+      </symbol>
+      <symbol id="icon-calendar" viewBox="0 0 16 16">
+        <rect
+          x="2"
+          y="3"
+          width="12"
+          height="11"
+          rx="1.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.2"
+        />
+        <path d="M2 6.5H14" stroke="currentColor" stroke-width="1.2" />
+        <path
+          d="M5 2V4.2M11 2V4.2"
+          stroke="currentColor"
+          stroke-width="1.2"
+          stroke-linecap="round"
+        />
+      </symbol>
+
+      <symbol id="icon-AR" viewBox="0 0 24 16">
+        <rect width="24" height="16" fill="#fff" />
+        <rect width="24" height="5.3" fill="#75aadb" />
+        <rect y="10.7" width="24" height="5.3" fill="#75aadb" />
+        <circle cx="12" cy="8" r="2" fill="#f6b40e" stroke="#85340a" stroke-width="0.4" />
+      </symbol>
+      <symbol id="icon-BR" viewBox="0 0 24 16">
+        <rect width="24" height="16" fill="#009c3b" />
+        <path d="M12 2L22 8L12 14L2 8Z" fill="#ffdf00" />
+        <circle cx="12" cy="8" r="3.2" fill="#002776" />
+      </symbol>
+      <symbol id="icon-US" viewBox="0 0 24 16">
+        <rect width="24" height="16" fill="#fff" />
+        <g fill="#b22234">
+          <rect y="0" width="24" height="1.23" />
+          <rect y="2.46" width="24" height="1.23" />
+          <rect y="4.92" width="24" height="1.23" />
+          <rect y="7.38" width="24" height="1.23" />
+          <rect y="9.85" width="24" height="1.23" />
+          <rect y="12.3" width="24" height="1.23" />
+          <rect y="14.77" width="24" height="1.23" />
+        </g>
+        <rect width="10" height="8.6" fill="#3c3b6e" />
+      </symbol>
+      <symbol id="icon-ES" viewBox="0 0 24 16">
+        <rect width="24" height="16" fill="#c60b1e" />
+        <rect y="4" width="24" height="8" fill="#ffc400" />
+      </symbol>
+    </svg>
+
     <script type="module" src="/main.js"></script>
   </body>
 </html>
