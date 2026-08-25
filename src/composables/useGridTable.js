@@ -592,6 +592,7 @@ export function useGridTable(props, emit) {
     qtyDialogVisible,
     searchText,
     searchResults,
+    searchTotal,
     searchTotalLabel,
     hasMore,
     hasSearched,

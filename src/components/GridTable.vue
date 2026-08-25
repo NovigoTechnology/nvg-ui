@@ -198,9 +198,7 @@
     </div>
 
     <template v-if="hasSearched" #footer>
-      <span class="add-multiple__results-count">
-        {{ __('Showing {0} of {1}', [searchResults.length, searchTotalLabel]) }}
-      </span>
+      <span class="add-multiple__results-count">{{ searchResultsSummary }}</span>
       <Button
         :label="__('Load more')"
         severity="secondary"
@@ -256,6 +254,7 @@ import InputIcon from 'primevue/inputicon';
 import LinkField from './LinkField.vue';
 import { sanitizeHtml } from '../utils/sanitizeHtml';
 import { useGridTable } from '../composables/useGridTable.js';
+import { computed } from 'vue';
 
 const props = defineProps({
   data: { type: Array, default: () => [] },
@@ -304,7 +303,7 @@ const {
   qtyDialogVisible,
   searchText,
   searchResults,
-  searchTotalLabel,
+  searchTotal,
   hasMore,
   hasSearched,
   pendingItem,
@@ -332,6 +331,18 @@ const {
   selectItem,
   confirmQty,
 } = useGridTable(props, emit);
+
+/**
+ * `frappe.desk.search.search_link` (the real backend endpoint) returns a plain array with no
+ * total count, so most of the time `searchTotal` stays null — there's no "of 15" to report,
+ * only how many are on screen. Phrased separately instead of forcing everything through a
+ * "{0} of {1}" template, which reads oddly once the total is unknown (e.g. "10 of 10+").
+ */
+const searchResultsSummary = computed(() => {
+  const shown = searchResults.value.length;
+  if (searchTotal.value != null) return __('Showing {0} of {1}', [shown, searchTotal.value]);
+  return hasMore.value ? __('Showing {0}+ results', [shown]) : __('Showing {0} results', [shown]);
+});
 </script>
 <style>
 .grid-table {
