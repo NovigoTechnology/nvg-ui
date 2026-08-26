@@ -68,6 +68,7 @@
         label="Renglones"
         :filters-fields="{ item: { filters: {} }, customer: { filters: {} } }"
         show-add-multiple
+        @item-selected="onGridItemSelected"
       />
     </section>
 
@@ -90,6 +91,8 @@ import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
 import ConfirmDialog from 'primevue/confirmdialog';
 import Button from 'primevue/button';
+
+import { DOCTYPE_DATA } from './mocks/frappe.js';
 
 import AutoComplete from '../src/components/AutoComplete.vue';
 import LinkField from '../src/components/LinkField.vue';
@@ -121,9 +124,22 @@ const gridColumns = [
   { field: 'customer', label: 'Customer', type: 'Link', options: 'Customer', cols: 4 },
 ];
 const gridData = ref([
-  { item: 'S000001', qty: 2, customer: 'CUST-0001' },
-  { item: 'T000001', qty: 5, customer: null },
+  { item: 'ITEM-001', item_name: 'Widget A', qty: 2, customer: 'CUST-0001' },
+  { item: 'ITEM-002', item_name: 'Widget B', qty: 5, customer: null },
 ]);
+
+/**
+ * Stands in for the host app's own item-details fetch (nagus does this in
+ * useItemCalculations.handleItemSelected): after a Link column selection, the row gets the
+ * title field the doctype's link formatter reads. Async on purpose — the real one is a
+ * backend round-trip, and LinkField's display depends on that timing.
+ */
+const onGridItemSelected = async ({ row, itemData, column }) => {
+  if (column.field !== 'item') return;
+  const item = DOCTYPE_DATA.Item.find(o => o.value === itemData);
+  await new Promise(resolve => setTimeout(resolve, 50));
+  row.item_name = item?.label ?? null;
+};
 
 function createQuickEntryStore() {
   return reactive({

@@ -106,7 +106,25 @@ window.frappe = {
     sysdefaults: { date_format: 'dd-mm-yyyy' },
     docs: [{ code: 'AR' }],
   },
-  form: { link_formatters: {} },
+  /**
+   * Mirrors ERPNext's own Item link formatter (erpnext/public/js/utils.js `add_link_title`):
+   * a row whose title field differs from the link value renders as "CODE: Title". LinkField
+   * delegates to whatever is registered here, so without an entry the formatter path — and
+   * the "CODE: Title" display it produces — can't be exercised outside a real desk page.
+   */
+  form: {
+    link_formatters: {
+      Item(value, doc, df) {
+        if (value && doc?.item_name) {
+          if (doc.item_name !== value && doc[df.fieldname] === value) {
+            return `${value}: ${doc.item_name}`;
+          }
+          return value;
+        }
+        return value;
+      },
+    },
+  },
   set_route(...parts) {
     window.dispatchEvent(new CustomEvent('demo:set-route', { detail: parts }));
   },
