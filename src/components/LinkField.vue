@@ -88,7 +88,7 @@ const formatInputValue = code => {
 
   const formatter = window.frappe?.form?.link_formatters?.[props.doctype];
   if (formatter && props.row) {
-    const retult = formatter(code, props.row, { fieldname: props.field }) || code;
+    const result = formatter(code, props.row, { fieldname: props.field }) || code;
     console.log(result);
     return result;
   }
