@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import { inject, nextTick, ref, watchEffect } from 'vue';
+import { inject, ref, watchEffect } from 'vue';
 import AutoComplete from 'primevue/autocomplete';
 import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
@@ -88,11 +88,8 @@ const formatInputValue = code => {
 
   const formatter = window.frappe?.form?.link_formatters?.[props.doctype];
   if (formatter && props.row) {
-    const result = formatter(code, props.row, { fieldname: props.field }) || code;
-    console.log(result);
-    return result;
+    return formatter(code, props.row, { fieldname: props.field }) || code;
   }
-  console.log(code);
 
   return code;
 };
@@ -103,9 +100,9 @@ const formatInputValue = code => {
  * row's title field and its own value — so editing any other column in the row is not a
  * dependency and does not recompute this.
  */
-// watchEffect(() => {
-//   inputValue.value = formatInputValue(props.modelValue);
-// });
+watchEffect(() => {
+  inputValue.value = formatInputValue(props.modelValue);
+});
 
 const getLinkOptions = async (doctype, searchText = '') => {
   const args = {
@@ -167,15 +164,9 @@ const mergeDuplicates = results =>
   }, []);
 
 const selectOption = async selectedOption => {
-  const reselectedSameValue = props.row?.[props.field] === selectedOption.value;
-
   inputValue.value = formatInputValue(selectedOption.value);
   emit('update:modelValue', selectedOption.value);
   emit('itemSelected', selectedOption.value);
-  if (reselectedSameValue) {
-    await nextTick();
-    inputValue.value = formatInputValue(selectedOption.value);
-  }
 };
 
 /**
