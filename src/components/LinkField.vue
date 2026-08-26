@@ -103,9 +103,9 @@ const formatInputValue = code => {
  * row's title field and its own value — so editing any other column in the row is not a
  * dependency and does not recompute this.
  */
-watchEffect(() => {
-  inputValue.value = formatInputValue(props.modelValue);
-});
+// watchEffect(() => {
+//   inputValue.value = formatInputValue(props.modelValue);
+// });
 
 const getLinkOptions = async (doctype, searchText = '') => {
   const args = {
