@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import { inject, ref, watchEffect } from 'vue';
+import { inject, nextTick, ref, watchEffect } from 'vue';
 import AutoComplete from 'primevue/autocomplete';
 import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
@@ -167,9 +167,15 @@ const mergeDuplicates = results =>
   }, []);
 
 const selectOption = async selectedOption => {
+  const reselectedSameValue = props.row?.[props.field] === selectedOption.value;
+
   inputValue.value = formatInputValue(selectedOption.value);
   emit('update:modelValue', selectedOption.value);
   emit('itemSelected', selectedOption.value);
+  if (reselectedSameValue) {
+    await nextTick();
+    inputValue.value = formatInputValue(selectedOption.value);
+  }
 };
 
 /**
