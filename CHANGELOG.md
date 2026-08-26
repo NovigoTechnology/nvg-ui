@@ -1,3 +1,26 @@
+# [1.26.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.25.4...v1.26.0) (2026-08-26)
+
+
+### Bug Fixes
+
+* add multiple on in demo ([144d4dd](https://github.com/NovigoTechnology/nvg-ui/commit/144d4dd2fc662adc912628add11b232c9c491f9f))
+* add styles in add multi ([f6cedfd](https://github.com/NovigoTechnology/nvg-ui/commit/f6cedfd60e45c86ab5ed3a5e207473d948fa80d4))
+* final version ([1b9a9b1](https://github.com/NovigoTechnology/nvg-ui/commit/1b9a9b1b489c25763ee0f89417f2ee885857e34c))
+* revert changes ([9271924](https://github.com/NovigoTechnology/nvg-ui/commit/92719249267a5b48496741b4385427c6ac4334b2))
+* showing ([8723339](https://github.com/NovigoTechnology/nvg-ui/commit/872333917cb1dd25d2044f77c0215b174cd8a627))
+* showing results ([0384fb5](https://github.com/NovigoTechnology/nvg-ui/commit/0384fb51c81be4371e01d3a8e301a76c2282d0ce))
+* style ([0872cc1](https://github.com/NovigoTechnology/nvg-ui/commit/0872cc1b1a1774e5d14c2c0c412e4b8d95eafbe9))
+* test linkfield ([168b061](https://github.com/NovigoTechnology/nvg-ui/commit/168b061e98040f1fa104182da8d8265fc8c78d62))
+* test linkfield ([001558d](https://github.com/NovigoTechnology/nvg-ui/commit/001558d8065d25b5634b0ca1c2cb6f7dd2af4b38))
+* test linkfield ([cffffdd](https://github.com/NovigoTechnology/nvg-ui/commit/cffffdddc096f59c4fcdab4bcc3fe669b7bda2a3))
+* test linkfield watcheffect ([1b3be0b](https://github.com/NovigoTechnology/nvg-ui/commit/1b3be0b3332dca0d39fb6e2526495ee1b3e5fecc))
+
+
+### Features
+
+* add mock implementation of frappe global for standalone demo ([f749334](https://github.com/NovigoTechnology/nvg-ui/commit/f749334cc79439a2f78820960688f0e2ad45c3af))
+* add mock implementation of frappe global for standalone demo ([#153](https://github.com/NovigoTechnology/nvg-ui/issues/153)) ([270892c](https://github.com/NovigoTechnology/nvg-ui/commit/270892cf5743e3f9fbb77c3314abab924221d5a6))
+
 ## [1.25.4](https://github.com/NovigoTechnology/nvg-ui/compare/v1.25.3...v1.25.4) (2026-08-17)
 
 
