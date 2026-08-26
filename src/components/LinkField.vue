@@ -11,7 +11,7 @@
         :complete-on-focus="true"
         fluid
         :disabled="props.disabled"
-        :option-label="option => option.label || option.value"
+        :option-label="formatOptionLabel"
         force-selection
         :empty-message="__('No results found')"
         @complete="e => getLinkOptions(props.doctype, e.query)"
@@ -92,6 +92,14 @@ const formatInputValue = code => {
   }
 
   return code;
+};
+
+const formatOptionLabel = option => {
+  const formatter = window.frappe?.form?.link_formatters?.[props.doctype];
+  if (!formatter || !props.row) return option.label || option.value;
+
+  const doc = { ...props.row, [props.field]: option.value };
+  return formatter(option.value, doc, { fieldname: props.field }) || option.value;
 };
 
 /**

@@ -514,6 +514,7 @@ export function useGridTable(props, emit) {
     }
 
     const results = await call('frappe.desk.search.search_link', args);
+
     hasSearched.value = true;
     searchResults.value =
       results?.map(r => ({

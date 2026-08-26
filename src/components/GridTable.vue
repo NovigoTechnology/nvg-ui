@@ -167,7 +167,7 @@
     :header="__('Add Multiple')"
     modal
     dismissable-mask
-    class="nagus-dialog nagus-dialog--md"
+    class="nagus-dialog nagus-dialog--md add-multiple-dialog"
     @show="doSearch(true)"
   >
     <div class="add-multiple__search-row">
@@ -197,8 +197,16 @@
       </div>
     </div>
 
-    <template v-if="hasMore" #footer>
-      <Button :label="__('Load more')" severity="secondary" size="small" text @click="loadMore" />
+    <template v-if="hasSearched" #footer>
+      <span class="add-multiple__results-count">{{ searchResultsSummary }}</span>
+      <Button
+        :label="__('Load more')"
+        severity="secondary"
+        size="small"
+        text
+        :disabled="!hasMore"
+        @click="loadMore"
+      />
     </template>
   </Dialog>
 
@@ -208,7 +216,7 @@
     :header="__('Set Quantity')"
     modal
     dismissable-mask
-    class="nagus-dialog nagus-dialog--sm"
+    class="nagus-dialog nagus-dialog--sm add-multiple-qty-dialog"
   >
     <div class="add-multiple__qty-body">
       <span class="add-multiple__qty-item-name">{{
@@ -246,6 +254,7 @@ import InputIcon from 'primevue/inputicon';
 import LinkField from './LinkField.vue';
 import { sanitizeHtml } from '../utils/sanitizeHtml';
 import { useGridTable } from '../composables/useGridTable.js';
+import { computed } from 'vue';
 
 const props = defineProps({
   data: { type: Array, default: () => [] },
@@ -321,6 +330,14 @@ const {
   selectItem,
   confirmQty,
 } = useGridTable(props, emit);
+
+/**
+ * `frappe.desk.search.search_link` (the real backend endpoint) returns a plain array with no
+ * total count, so this only ever reports how many are on screen, never "of N".
+ */
+const searchResultsSummary = computed(() =>
+  __('Showing {0} results', [searchResults.value.length])
+);
 </script>
 <style>
 .grid-table {
@@ -469,54 +486,248 @@ const {
   gap: 0.5rem;
 }
 
-.add-multiple__search-row {
+.p-dialog:has(.add-multiple__search-row),
+.p-dialog.add-multiple-dialog,
+.add-multiple-dialog {
+  width: 42rem !important;
+  max-width: calc(100vw - 2rem) !important;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.p-dialog:has(.add-multiple__search-row) .p-dialog-header,
+.add-multiple-dialog .p-dialog-header {
+  align-items: flex-start;
+  padding: 1rem 1rem 0.75rem;
+}
+
+.p-dialog:has(.add-multiple__search-row) .p-dialog-title,
+.add-multiple-dialog .p-dialog-title {
+  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/*
+ * nagus styles its dialog close button as a small "×" glyph (public/scss/components/
+ * _dialogs.scss + overrides/_primevue.scss): size, radius, shadow and hover colors reproduced
+ * here. Two things don't carry over, both left as PrimeVue's own defaults instead:
+ *  - nagus keys every rule off `.p-dialog-header-close`, the PrimeVue 3 class name; PrimeVue 4
+ *    (what both nagus and nvg-ui run) renders `.p-dialog-close-button`, so that styling never
+ *    actually applies anywhere in nagus today — reproduced here under the class that's real.
+ *  - nagus also hides the icon and swaps in a literal "×" via `::after`. PrimeVue 4's own
+ *    Button already reserves that pseudo-element for icon-only buttons (forces width:0 and
+ *    visibility:hidden on it), so content injected there never renders — confirmed empirically,
+ *    not just a hunch. The close button keeps PrimeVue's stock X icon instead.
+ * !important throughout (matching nagus's own approach): PrimeVue injects each component's
+ * theme CSS lazily, on first use, which can land after nvg-ui's own <style> — so equal-
+ * specificity selectors here lose to PrimeVue's default background/color without it.
+ */
+.p-dialog:has(.add-multiple__search-row) .p-dialog-close-button,
+.p-dialog:has(.add-multiple__qty-body) .p-dialog-close-button,
+.add-multiple-dialog .p-dialog-close-button,
+.add-multiple-qty-dialog .p-dialog-close-button {
+  width: 2rem !important;
+  height: 2rem !important;
+  padding: 0 !important;
+  border: 1px solid #dbe1ea !important;
+  border-radius: 0.5rem !important;
+  color: #94a3b8 !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s;
+}
+
+.p-dialog:has(.add-multiple__search-row) .p-dialog-close-button:hover,
+.p-dialog:has(.add-multiple__qty-body) .p-dialog-close-button:hover,
+.add-multiple-dialog .p-dialog-close-button:hover,
+.add-multiple-qty-dialog .p-dialog-close-button:hover {
+  border-color: #cbd5e1 !important;
+  background: #f8fafc !important;
+  color: #64748b !important;
+}
+
+.p-dialog:has(.add-multiple__search-row) .p-dialog-close-button:focus,
+.p-dialog:has(.add-multiple__search-row) .p-dialog-close-button:focus-visible,
+.p-dialog:has(.add-multiple__search-row) .p-dialog-close-button.p-focus,
+.p-dialog:has(.add-multiple__qty-body) .p-dialog-close-button:focus,
+.p-dialog:has(.add-multiple__qty-body) .p-dialog-close-button:focus-visible,
+.p-dialog:has(.add-multiple__qty-body) .p-dialog-close-button.p-focus,
+.add-multiple-dialog .p-dialog-close-button:focus,
+.add-multiple-dialog .p-dialog-close-button:focus-visible,
+.add-multiple-dialog .p-dialog-close-button.p-focus,
+.add-multiple-qty-dialog .p-dialog-close-button:focus,
+.add-multiple-qty-dialog .p-dialog-close-button:focus-visible,
+.add-multiple-qty-dialog .p-dialog-close-button.p-focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.p-dialog:has(.add-multiple__search-row) .p-dialog-content,
+.add-multiple-dialog .p-dialog-content {
+  padding: 0 1rem;
+}
+
+.p-dialog:has(.add-multiple__search-row) .p-dialog-footer,
+.add-multiple-dialog .p-dialog-footer {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.25rem;
+  padding: 0.875rem 1rem 1rem;
+  border-top: none;
+}
+
+.add-multiple__results-count {
+  margin-right: auto;
+  color: #64748b;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.add-multiple__search-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2rem;
+  gap: 0.375rem;
+  margin-bottom: 0.625rem;
+}
+
+.add-multiple__search-row .p-inputtext {
+  min-height: var(--input-height, 2rem);
+  padding-block: 0.35rem;
+  padding-inline: 0.65rem;
+  border: 1px solid #dbe1ea;
+  border-radius: 0.5rem;
+  color: #334155;
+  font-size: 0.75rem;
+}
+
+.add-multiple__search-row .p-inputtext::placeholder {
+  color: #94a3b8;
+}
+
+.add-multiple__search-row .p-inputtext:hover,
+.add-multiple__search-row .p-inputtext:focus {
+  border-color: #cbd5e1;
+}
+
+/*
+ * !important here for the same reason as the dialog close button: nagus's own .p-button /
+ * .p-button-icon-only overrides (public/scss/overrides/_primevue.scss) also use !important,
+ * and being declared later in that file, its horizontal padding wins over a plain (non-
+ * !important) width/padding here — leaving a fixed-width square button with side padding
+ * added back in, i.e. not actually square anymore. Matching nagus's own --input-height token
+ * keeps this button exactly as tall as the search input next to it.
+ */
+.add-multiple__search-row .p-button {
+  width: var(--input-height, 2rem) !important;
+  min-width: var(--input-height, 2rem) !important;
+  height: var(--input-height, 2rem) !important;
+  padding: 0 !important;
+  border-radius: 0.5rem;
+}
+
+.add-multiple__search-row .p-button .p-button-icon {
+  font-size: 0.75rem;
 }
 
 .add-multiple__results {
-  display: flex;
-  flex-direction: column;
+  --add-multiple-code-column: minmax(6.25rem, 7rem);
+  --add-multiple-description-column: minmax(0, 1fr);
+
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--add-multiple-code-column) var(--add-multiple-description-column);
+  max-height: 21rem;
+  overflow: auto;
+  border: 1px solid #e6ebf2;
+  border-radius: 0.75rem;
+  background: #ffffff;
+}
+
+.add-multiple__results::before,
+.add-multiple__results::after {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  min-width: 0;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid #edf2f7;
+  background: #fafbfc;
+  color: #7b8794;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.add-multiple__results::before {
+  content: 'Code';
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.add-multiple__results::after {
+  content: 'Description';
+  grid-column: 2;
+  grid-row: 1;
 }
 
 .add-multiple__item {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  padding: 0.5rem 0.5rem;
-  border-bottom: 1px solid var(--p-content-border-color);
+  display: contents;
   cursor: pointer;
-  gap: 0.75rem;
+}
+
+.add-multiple__item > * {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 2.9rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #edf2f7;
+  cursor: pointer;
   transition: background 0.15s;
 }
 
-.add-multiple__item:last-child {
+.add-multiple__item:last-of-type > * {
   border-bottom: none;
 }
 
-.add-multiple__item:hover {
-  background: var(--p-content-hover-background);
+.add-multiple__item:hover > * {
+  background: #f8fafc;
 }
 
 .add-multiple__item-name {
-  font-size: 0.8125rem;
-  font-weight: 400;
+  grid-column: 1;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.add-multiple__item > div {
+  grid-column: 2;
 }
 
 .add-multiple__item-desc {
-  font-size: 0.75rem;
-  color: var(--p-text-muted-color);
-  text-align: right;
+  display: block;
+  color: #475569;
+  font-size: 0.8rem;
+  text-align: left;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .add-multiple__empty {
-  padding: 1.5rem 0;
+  grid-column: 1 / -1;
+  padding: 2rem 1rem;
   text-align: center;
-  color: var(--p-text-muted-color);
+  color: #94a3b8;
   font-size: 0.8125rem;
 }
 
@@ -646,6 +857,71 @@ const {
 
 [data-theme='dark'] .grid-popover-label {
   color: #9ca3af;
+}
+
+[data-theme='dark'] .p-dialog:has(.add-multiple__search-row) .p-dialog-title,
+[data-theme='dark'] .add-multiple-dialog .p-dialog-title {
+  color: #e5e7eb;
+}
+
+[data-theme='dark'] .p-dialog:has(.add-multiple__search-row) .p-dialog-close-button,
+[data-theme='dark'] .p-dialog:has(.add-multiple__qty-body) .p-dialog-close-button,
+[data-theme='dark'] .add-multiple-dialog .p-dialog-close-button,
+[data-theme='dark'] .add-multiple-qty-dialog .p-dialog-close-button {
+  border-color: #334155 !important;
+  color: #94a3b8 !important;
+  background: #111827 !important;
+}
+
+[data-theme='dark'] .p-dialog:has(.add-multiple__search-row) .p-dialog-close-button:hover,
+[data-theme='dark'] .p-dialog:has(.add-multiple__qty-body) .p-dialog-close-button:hover,
+[data-theme='dark'] .add-multiple-dialog .p-dialog-close-button:hover,
+[data-theme='dark'] .add-multiple-qty-dialog .p-dialog-close-button:hover {
+  border-color: #475569 !important;
+  background: #1f2937 !important;
+  color: #cbd5e1 !important;
+}
+
+[data-theme='dark'] .add-multiple__search-row .p-inputtext {
+  border-color: #334155;
+  color: #e5e7eb;
+  background: #0f172a;
+}
+
+[data-theme='dark'] .add-multiple__search-row .p-inputtext::placeholder,
+[data-theme='dark'] .add-multiple__item-name,
+[data-theme='dark'] .add-multiple__empty,
+[data-theme='dark'] .add-multiple__results-count {
+  color: #94a3b8;
+}
+
+[data-theme='dark'] .add-multiple__search-row .p-inputtext:hover,
+[data-theme='dark'] .add-multiple__search-row .p-inputtext:focus {
+  border-color: #475569;
+}
+
+[data-theme='dark'] .add-multiple__results {
+  border-color: #1e293b;
+  background: #0f172a;
+}
+
+[data-theme='dark'] .add-multiple__results::before,
+[data-theme='dark'] .add-multiple__results::after {
+  border-bottom-color: #1e293b;
+  background: #111827;
+  color: #94a3b8;
+}
+
+[data-theme='dark'] .add-multiple__item > * {
+  border-bottom-color: #1e293b;
+}
+
+[data-theme='dark'] .add-multiple__item:hover > * {
+  background: #111827;
+}
+
+[data-theme='dark'] .add-multiple__item-desc {
+  color: #cbd5e1;
 }
 
 .grid-table__datatable--clickable .p-datatable-tbody > tr {
