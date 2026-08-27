@@ -14,7 +14,7 @@ const NUMERIC_TYPES = ['Float', 'Currency', 'Int', 'Percent'];
  * @typedef {Object} GridTableColumn
  * @property {string} field
  * @property {string} [label]
- * @property {string} [type] - Data, Int, Float, Currency, Percent, Textarea, Date, Link, Popover, ...
+ * @property {string} [type] - Data, Int, Float, Currency, Percent, Textarea, Date, Datetime, Link, Popover, ...
  * @property {string} [options] - Link doctype
  * @property {string} [width]
  * @property {number} [cols] - Fraction of a 12-column grid, e.g. 4 = 33.33%
@@ -213,10 +213,14 @@ export function useGridTable(props, emit) {
    */
   const onFieldValueUpdate = (editingRow, index, field, value) => {
     if (value instanceof Date) {
-      const y = value.getFullYear();
-      const m = String(value.getMonth() + 1).padStart(2, '0');
-      const d = String(value.getDate()).padStart(2, '0');
-      value = `${y}-${m}-${d}`;
+      const pad = part => String(part).padStart(2, '0');
+      const date = `${value.getFullYear()}-${pad(value.getMonth() + 1)}-${pad(value.getDate())}`;
+
+      // Datetime columns round-trip the time back to the backend; Date columns stay date-only.
+      const isDatetime = props.columns.find(c => c.field === field)?.type === 'Datetime';
+      value = isDatetime
+        ? `${date} ${pad(value.getHours())}:${pad(value.getMinutes())}:${pad(value.getSeconds())}`
+        : date;
     }
 
     editingRow[field] = value;
@@ -261,6 +265,7 @@ export function useGridTable(props, emit) {
   /**
    * Returns the Vue input component that should render a given column type.
    * Numeric types (Int, Float, Currency, Percent) use NumericField;
+   * Date and Datetime use DatePicker (Datetime with the time picker enabled);
    * Textarea uses PrimeVue Textarea; everything else uses InputText.
    * @param {GridTableColumn} column - Column definition
    * @returns {import('vue').Component} Vue component reference
@@ -268,7 +273,7 @@ export function useGridTable(props, emit) {
   const getComponent = column => {
     if (['Int', 'Float', 'Currency', 'Percent'].includes(column.type)) return NumericField;
     if (column.type === 'Textarea') return Textarea;
-    if (column.type === 'Date') return DatePicker;
+    if (column.type === 'Date' || column.type === 'Datetime') return DatePicker;
     return InputText;
   };
 
@@ -280,9 +285,11 @@ export function useGridTable(props, emit) {
    * @returns {Object} Props object ready to be spread onto the component via v-bind
    */
   const getProps = column => {
-    if (column.type === 'Date') {
+    if (column.type === 'Date' || column.type === 'Datetime') {
+      const isDatetime = column.type === 'Datetime';
       return {
         disabled: column.readOnly,
+        ...(isDatetime && { showTime: true, hourFormat: '24' }),
         ...(column.componentProps || {
           fluid: true,
           dateFormat: props.dateFormat,
@@ -366,11 +373,22 @@ export function useGridTable(props, emit) {
       const decimals = col.componentProps?.maxFractionDigits ?? props.floatPrecision;
       return Math.trunc(num * Math.pow(10, decimals)) / Math.pow(10, decimals);
     }
-    if (col.type === 'Date') {
+    if (col.type === 'Date' || col.type === 'Datetime') {
       if (!val) return null;
       if (val instanceof Date) return val;
-      const [year, month, day] = String(val).split('-');
-      return year && month && day ? new Date(Number(year), Number(month) - 1, Number(day)) : null;
+      const [datePart, timePart = ''] = String(val).split(' ');
+      const [year, month, day] = datePart.split('-');
+      if (!year || !month || !day) return null;
+
+      const [hours = 0, minutes = 0, seconds = 0] = timePart.split(':');
+      return new Date(
+        Number(year),
+        Number(month) - 1,
+        Number(day),
+        Number(hours),
+        Number(minutes),
+        Math.trunc(Number(seconds)) || 0
+      );
     }
     return val;
   };

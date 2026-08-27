@@ -121,11 +121,18 @@ const phoneValue = ref(null);
 const gridColumns = [
   { field: 'item', label: 'Item', type: 'Link', options: 'Item', cols: 4 },
   { field: 'qty', label: 'Cantidad', type: 'Float', cols: 2 },
-  { field: 'customer', label: 'Customer', type: 'Link', options: 'Customer', cols: 4 },
+  { field: 'customer', label: 'Customer', type: 'Link', options: 'Customer', cols: 3 },
+  { field: 'suspended_at', label: 'Suspendida', type: 'Datetime', cols: 3, readOnly: true },
 ];
 const gridData = ref([
-  { item: 'ITEM-001', item_name: 'Widget A', qty: 2, customer: 'CUST-0001' },
-  { item: 'ITEM-002', item_name: 'Widget B', qty: 5, customer: null },
+  {
+    item: 'ITEM-001',
+    item_name: 'Widget A',
+    qty: 2,
+    customer: 'CUST-0001',
+    suspended_at: '2026-08-27 14:59:48.652939',
+  },
+  { item: 'ITEM-002', item_name: 'Widget B', qty: 5, customer: null, suspended_at: null },
 ]);
 
 /**
