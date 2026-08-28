@@ -47,6 +47,7 @@ export interface GridTableProps {
   currencyPrecision?: number
   pageLength?: number
   showAddMultiple?: boolean
+  allowRowDelete?: boolean
   scrollHeight?: string
 }
 
