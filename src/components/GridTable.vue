@@ -274,8 +274,6 @@ const props = defineProps({
   rowClick: { type: Boolean, default: false },
   showScanbar: { type: Boolean, default: false },
   showDelRow: { type: Boolean, default: true },
-  // Keeps the per-row delete button on a read-only grid, where it is otherwise hidden along
-  // with the editing affordances. For pickers whose rows can be discarded but not edited.
   allowRowDelete: { type: Boolean, default: false },
   showCheck: { type: Boolean, default: false },
   loading: { type: Boolean, default: false },
