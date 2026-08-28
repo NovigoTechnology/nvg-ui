@@ -91,14 +91,14 @@
         </template>
       </Column>
 
-      <Column v-if="!readOnly && showDelRow">
+      <Column v-if="showDelRow && (!readOnly || allowRowDelete)">
         <template #body="{ index }">
           <Button
             icon="pi pi-trash"
             severity="danger"
             text
             size="small"
-            @click="removeRow(index)"
+            @click.stop="removeRow(index)"
             @keydown.tab="
               e => {
                 if (e.shiftKey || index !== dataArray.length - 1) return;
@@ -274,6 +274,9 @@ const props = defineProps({
   rowClick: { type: Boolean, default: false },
   showScanbar: { type: Boolean, default: false },
   showDelRow: { type: Boolean, default: true },
+  // Keeps the per-row delete button on a read-only grid, where it is otherwise hidden along
+  // with the editing affordances. For pickers whose rows can be discarded but not edited.
+  allowRowDelete: { type: Boolean, default: false },
   showCheck: { type: Boolean, default: false },
   loading: { type: Boolean, default: false },
   scrollHeight: { type: String, default: '300px' },
