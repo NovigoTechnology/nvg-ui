@@ -1,3 +1,12 @@
+## [1.26.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.26.0...v1.26.1) (2026-08-29)
+
+
+### Bug Fixes
+
+* allow row deletion in read-only grid when specified ([499307f](https://github.com/NovigoTechnology/nvg-ui/commit/499307fe7300e13c681b9f70be62948e7bc26a00))
+* allow row deletion in read-only grid when specified ([#155](https://github.com/NovigoTechnology/nvg-ui/issues/155)) ([70cfa42](https://github.com/NovigoTechnology/nvg-ui/commit/70cfa42525b9b217a12f27d6e3c3756b2b50b1af))
+* del unnecesary comments ([4969201](https://github.com/NovigoTechnology/nvg-ui/commit/4969201354e891b9e938bd572cc971f644b170de))
+
 # [1.26.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.25.4...v1.26.0) (2026-08-26)
 
 
