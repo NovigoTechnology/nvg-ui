@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "dompurify": "3.4.14",
-    "libphonenumber-js": "^1.13.11",
+    "libphonenumber-js": "^1.13.12",
     "lodash-es": "^4.18.0",
     "mitt": "^3.0.1"
   },
