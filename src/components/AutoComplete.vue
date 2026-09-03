@@ -160,11 +160,17 @@ defineExpose({
   cursor: pointer;
   margin-inline-end: 2rem;
   font-size: 0.7rem !important;
-  width: 0.7rem !important;
-  height: 0.7rem !important;
+  width: 1.2rem !important;
+  height: 1.2rem !important;
   margin-top: 0 !important;
   transform: translateY(-50%);
   transition: color 0.2s;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 5px;
+  border-radius: 3px;
 }
 
 .autocomplete-icon-input:hover {
