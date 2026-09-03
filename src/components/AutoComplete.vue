@@ -165,6 +165,8 @@ defineExpose({
   margin-top: 0 !important;
   transform: translateY(-50%);
   transition: color 0.2s;
+  padding: 1px;
+  background-color: white;
 }
 
 .autocomplete-icon-input:hover {

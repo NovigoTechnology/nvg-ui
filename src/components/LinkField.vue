@@ -229,6 +229,8 @@ defineExpose({ clear_input });
   margin-top: 0 !important;
   transform: translateY(-50%);
   transition: color 0.2s;
+  padding: 1px;
+  background-color: white;
 }
 
 .link-field-icon:hover {
