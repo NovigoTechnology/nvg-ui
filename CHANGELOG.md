@@ -1,3 +1,13 @@
+## [1.26.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.26.1...v1.26.2) (2026-09-03)
+
+
+### Bug Fixes
+
+* add more styles ([ebcd6ed](https://github.com/NovigoTechnology/nvg-ui/commit/ebcd6ed8e4d4c782f03d86d361f88e7e172d3d3c))
+* add new style in box shadow ([37a6a18](https://github.com/NovigoTechnology/nvg-ui/commit/37a6a184409431de87663a866c315f3616eddb65))
+* add styles in arrow ([530ccf4](https://github.com/NovigoTechnology/nvg-ui/commit/530ccf40b8e7daaac386787a207c3ea11c77a8c1))
+* arrow doc ([#161](https://github.com/NovigoTechnology/nvg-ui/issues/161)) ([4da1498](https://github.com/NovigoTechnology/nvg-ui/commit/4da1498a4ffe2e6571bd0437b5c932a7a64ab71c))
+
 ## [1.26.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.26.0...v1.26.1) (2026-08-29)
 
 
