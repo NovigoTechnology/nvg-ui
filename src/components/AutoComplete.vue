@@ -170,7 +170,7 @@ defineExpose({
   align-items: center;
   justify-content: center;
   box-shadow: 0px 0px 5px;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 .autocomplete-icon-input:hover {
