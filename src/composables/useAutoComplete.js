@@ -341,20 +341,13 @@ export function useAutoComplete(props, emit) {
    * Called when the user picks a suggestion from the dropdown. Writes the
    * chosen value into the store (dataForm/fullDataForm/filters), updates
    * the visible input text, notifies the parent and any dependent fields,
-   * and applies field-specific side effects (referring_physician,
-   * clear_input_after_selection).
+   * and applies field-specific side effects (clear_input_after_selection).
    * @param {AutoCompleteOption} selectedOption
    * @param {AutoCompleteField} field
    */
   const selectOption = (selectedOption, field) => {
     if (currentStore.value?.dataForm) {
       currentStore.value.dataForm[field.fieldname] = selectedOption.value;
-    }
-
-    if (field.fieldname === 'referring_physician') {
-      if (store.physician !== undefined) {
-        store.physician = selectedOption;
-      }
     }
 
     if (currentStore.value?.fullDataForm) {
