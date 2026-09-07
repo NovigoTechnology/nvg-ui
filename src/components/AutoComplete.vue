@@ -31,7 +31,7 @@
                   style="stroke: var(--p-inputtext-color)"
                   aria-hidden="true"
                 >
-                  <use href="#icon-close" />
+                  <use href="#icon-x" />
                 </svg>
               </button>
             </template>
