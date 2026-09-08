@@ -4,15 +4,14 @@
 /**
  * Resolves positional {0}, {1} placeholders without a translation catalogue.
  * @param {string} text
- * @param {Array|*} [replace] - Values for the placeholders; missing ones are left as-is.
+ * @param {Array|*} [replace] - Values for the placeholders; a missing or null value leaves the
+ *   placeholder untouched, matching the passthrough installed in index.js.
  * @returns {string}
  */
 const interpolate = (text, replace) => {
   if (!text || replace === undefined || replace === null) return text;
   const list = Array.isArray(replace) ? replace : [replace];
-  return String(text).replace(/\{(\d+)\}/g, (match, index) =>
-    list[index] === undefined ? match : list[index]
-  );
+  return String(text).replace(/\{(\d+)\}/g, (match, index) => list[index] ?? match);
 };
 
 /**
