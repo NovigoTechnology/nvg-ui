@@ -1,3 +1,13 @@
+## [1.26.3](https://github.com/NovigoTechnology/nvg-ui/compare/v1.26.2...v1.26.3) (2026-09-08)
+
+
+### Bug Fixes
+
+* components nvg base ([#163](https://github.com/NovigoTechnology/nvg-ui/issues/163)) ([47dabc0](https://github.com/NovigoTechnology/nvg-ui/commit/47dabc06fddaa6dc559a7389bb9e1a0ab4d21970))
+* icon close ([3aa6368](https://github.com/NovigoTechnology/nvg-ui/commit/3aa63684a7e14cc057c31f31f2b4e1b645d1dd89))
+* improve documentation and simplify placeholder replacement logic in interpolate function ([658150d](https://github.com/NovigoTechnology/nvg-ui/commit/658150d6d6ea4c7be394c3a36f0b1b338f5ecb4d))
+* streamline autoComplete side effects and enhance translation helper ([ea75f62](https://github.com/NovigoTechnology/nvg-ui/commit/ea75f628aacc74be8ab505599cae8f854a598a5f))
+
 ## [1.26.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.26.1...v1.26.2) (2026-09-03)
 
 
