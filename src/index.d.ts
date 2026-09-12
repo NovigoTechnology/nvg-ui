@@ -20,6 +20,7 @@ export interface AutoCompleteProps {
   filter_list?: boolean
   invalid_fields?: string[]
   isTable?: boolean
+  showGoToDoc?: boolean
 }
 
 export interface GridTableColumn {
@@ -79,6 +80,7 @@ export interface EntitySelectorProps {
   invalid?: boolean
   pageLength?: number
   disabled?: boolean
+  showGoToDoc?: boolean
 }
 
 export interface PhoneFieldProps {
