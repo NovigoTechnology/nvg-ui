@@ -1,3 +1,11 @@
+# [1.27.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.26.3...v1.27.0) (2026-09-14)
+
+
+### Features
+
+* add showGoToDoc prop to AutoComplete and EntitySelector components ([a192cef](https://github.com/NovigoTechnology/nvg-ui/commit/a192cefa5808974140a9cac6efff85db1f6fdf4b))
+* add showGoToDoc prop to AutoComplete and EntitySelector components ([#170](https://github.com/NovigoTechnology/nvg-ui/issues/170)) ([71ae485](https://github.com/NovigoTechnology/nvg-ui/commit/71ae485e5feb1a9bed2173119b74ef4c69284e48))
+
 ## [1.26.3](https://github.com/NovigoTechnology/nvg-ui/compare/v1.26.2...v1.26.3) (2026-09-08)
 
 
