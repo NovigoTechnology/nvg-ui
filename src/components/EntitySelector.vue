@@ -11,6 +11,7 @@
           :invalid_fields="props.invalid ? [props.fieldname] : []"
           :page-length="props.pageLength"
           :disabled="props.disabled"
+          :show-go-to-doc="props.showGoToDoc"
           @update-autocomplete-value="onItemSelected"
           @clear-row="onClear"
         />
@@ -152,6 +153,13 @@ const props = defineProps({
   disabled: {
     type: Boolean,
     default: false,
+  },
+  /**
+   * Show the arrow that opens the selected document in Desk
+   */
+  showGoToDoc: {
+    type: Boolean,
+    default: true,
   },
 });
 

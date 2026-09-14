@@ -74,6 +74,7 @@
               :required="!!field.reqd"
               :show-add-button="false"
               :show-edit-button="false"
+              :show-go-to-doc="false"
               :invalid="
                 store.missingFields.includes(field.label) || !!store.fieldErrors[field.fieldname]
               "

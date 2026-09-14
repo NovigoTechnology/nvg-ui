@@ -59,7 +59,7 @@
           </label>
         </FloatLabel>
         <InputIcon
-          v-if="!disabled && selectedName"
+          v-if="showGoToDoc && !disabled && selectedName"
           class="pi pi-arrow-right autocomplete-icon-input"
           @click="goToDoc"
         />
@@ -115,6 +115,14 @@ const props = defineProps({
   customCall: {
     type: Object,
     default: null,
+  },
+  /**
+   * Shows the arrow that opens the selected document in Desk. Turn it off where leaving the
+   * current view makes no sense, e.g. inside a QuickEntry dialog.
+   */
+  showGoToDoc: {
+    type: Boolean,
+    default: true,
   },
 });
 
