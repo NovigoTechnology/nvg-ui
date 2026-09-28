@@ -127,41 +127,41 @@
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
 "@commitlint/cli@^21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-21.2.2.tgz#ad1665bddd42249575fac99764c23998387b3dfe"
-  integrity sha512-a+6hQxIxnpdvSvS2apvttPNbEliYsVC3PqFYDiiB2kjbwIsQsj1urvQ4Tkf70pKYozPalKAuRQmm/GHwndduqA==
+  version "21.2.3"
+  resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-21.2.3.tgz#bbdc0304c3a343ce0aee77c305009d6bab1c7ab7"
+  integrity sha512-5yOX6IRjcrIReCxpyAd04hgI/yhUMpVBJ/ouwFV0wk9yx5+fYRDWZWJ5h55Tbedgfol+5m2mU5nqzbB8g3v0vQ==
   dependencies:
-    "@commitlint/config-conventional" "^21.2.2"
-    "@commitlint/format" "^21.2.2"
-    "@commitlint/lint" "^21.2.2"
-    "@commitlint/load" "^21.2.2"
-    "@commitlint/read" "^21.2.1"
-    "@commitlint/types" "^21.2.0"
+    "@commitlint/config-conventional" "^21.2.3"
+    "@commitlint/format" "^21.2.3"
+    "@commitlint/lint" "^21.2.3"
+    "@commitlint/load" "^21.2.3"
+    "@commitlint/read" "^21.2.3"
+    "@commitlint/types" "^21.2.3"
     tinyexec "^1.0.0"
     yargs "^18.0.0"
 
-"@commitlint/config-conventional@^21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@commitlint/config-conventional/-/config-conventional-21.2.2.tgz#c8902f3ea1e741f55ec0fc7c177bcdf28ffd0082"
-  integrity sha512-NxA37SZviusFUEYOQZ5hNnZ1h7O/KiemPkxjOlpzKJNnWxThiwc6/SaZhaPa8fyLvfRBAywhQhJJk8XESHWlpQ==
+"@commitlint/config-conventional@^21.2.2", "@commitlint/config-conventional@^21.2.3":
+  version "21.2.3"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-conventional/-/config-conventional-21.2.3.tgz#ae8a53f6671245ad0d55698b17c711d0b7e705d8"
+  integrity sha512-EP2n5DN2GwRWNVrLX0Jx3mpQlW5PfFi9HnD9OJ8hN/H0xFqpCFyHeGDhg+0P8/21iMMcdkcQgbNqmVklebqYsQ==
   dependencies:
-    "@commitlint/types" "^21.2.0"
+    "@commitlint/types" "^21.2.3"
     conventional-changelog-conventionalcommits "^10.0.0"
 
-"@commitlint/config-validator@^21.2.0":
-  version "21.2.0"
-  resolved "https://registry.yarnpkg.com/@commitlint/config-validator/-/config-validator-21.2.0.tgz#9597a3195ec5371594868f1eca14a3b3e6ffdc36"
-  integrity sha512-t7AzNHAKeIdo/3NRGwzpufKHsKkPHmFs/56N2Fnsh0/r0rGtnQzTxk6vnFgjaGr4hdSQKNB50/KAhR9Yk4LJKA==
+"@commitlint/config-validator@^21.2.3":
+  version "21.2.3"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-validator/-/config-validator-21.2.3.tgz#da0c187644c491b286ce0600e7ae959f5901bd02"
+  integrity sha512-JQ13v0GafSM4fBYX8UowSy++07Was20auq0NcTdnzSEq6/05Cq5GBUMIfKkqjzyBwC9sJFmPpKWgLLhH7cygkw==
   dependencies:
-    "@commitlint/types" "^21.2.0"
+    "@commitlint/types" "^21.2.3"
     ajv "^8.11.0"
 
-"@commitlint/ensure@^21.2.0":
-  version "21.2.0"
-  resolved "https://registry.yarnpkg.com/@commitlint/ensure/-/ensure-21.2.0.tgz#6a46807a290bc95ac3cc001fd4068e538977627b"
-  integrity sha512-76IF9vDNS13lAzEEik9eKwzt8f9hYhWiwVXZ2AnyLCz5/f511FsEQ3pw1X3/zSQpdRLQU7i5qDMVKyXi1GWjSg==
+"@commitlint/ensure@^21.2.3":
+  version "21.2.3"
+  resolved "https://registry.yarnpkg.com/@commitlint/ensure/-/ensure-21.2.3.tgz#a12ff4ad86b138c5119a2eda07c9502b774f5bb5"
+  integrity sha512-gEjNKgRocbODI5/sMx2Qc9XOf2/zFTNV2aEK1QZ4gKDKxDC/VR7us3QtIX1C5d5xxHxx0I/tEbYbdSP1Am2LwA==
   dependencies:
-    "@commitlint/types" "^21.2.0"
+    "@commitlint/types" "^21.2.3"
     es-toolkit "^1.46.0"
 
 "@commitlint/execute-rule@^21.0.1":
@@ -169,41 +169,41 @@
   resolved "https://registry.yarnpkg.com/@commitlint/execute-rule/-/execute-rule-21.0.1.tgz#3ebeee4d645527edfc3cf583ecbad92a4c28eddb"
   integrity sha512-RifH+FmImozKBE6mozhF4K3r2RRKP7SMi/Q/zLCmExtp5e05lhHOUYqGBlFBAGNHaZxU/WYw1XuugYK9jQzqnA==
 
-"@commitlint/format@^21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@commitlint/format/-/format-21.2.2.tgz#e08d38f153d44615aed53123dfdab1abaab82ee0"
-  integrity sha512-v6fvxZSc/AvVMROlr3H34+1766bZSYApRUSCAMjWamStPjKMvZ8GdvVA5YW/VQNgbFTmcMz6OYmSTJEvIjPrfA==
+"@commitlint/format@^21.2.3":
+  version "21.2.3"
+  resolved "https://registry.yarnpkg.com/@commitlint/format/-/format-21.2.3.tgz#d33a6ebb364fc84bc39be8ca527ec47a8dc053b5"
+  integrity sha512-KKwCjXYqA8r295uhLnulDXL9yekdXmj2yp2Q0XsBPhxQ2iPuvRE8F43j7g7yexo69wTdmUQmFz15jpderluzUQ==
   dependencies:
-    "@commitlint/types" "^21.2.0"
+    "@commitlint/types" "^21.2.3"
     picocolors "^1.1.1"
 
-"@commitlint/is-ignored@^21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@commitlint/is-ignored/-/is-ignored-21.2.2.tgz#6c44ae438aa415158d2c58d1cedcd9ac3d6a716a"
-  integrity sha512-9UoKNgfFE3LU7FrzierCvk3CdDfMDeVGC86qZiT/n0TIjfq/dmZ9MHuXd45OTNRa26ZanmJRxEtmiXk/lEJihg==
+"@commitlint/is-ignored@^21.2.3":
+  version "21.2.3"
+  resolved "https://registry.yarnpkg.com/@commitlint/is-ignored/-/is-ignored-21.2.3.tgz#0526db0d3a680e1259ec43f0236a8b86f526412f"
+  integrity sha512-Ng4nRj/LBAOvc+GQu7bsFW4/fL89LvZ14OOC/ERLbUpnG6QBwWRzY/1oXGwPs3C8YHWjJObin4kLYo2YeEn70w==
   dependencies:
-    "@commitlint/types" "^21.2.0"
+    "@commitlint/types" "^21.2.3"
     semver "^7.6.0"
 
-"@commitlint/lint@^21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@commitlint/lint/-/lint-21.2.2.tgz#24492822825e6e430b24f205447233b41183fadd"
-  integrity sha512-Fy8JxEBzdmsYWFude/61GxXu5O+wEymwiRK2z9GL9R8mCsXphCoGxAFc5iHn5mjlfcSrhiiONE+ksf4KOjnaPg==
+"@commitlint/lint@^21.2.3":
+  version "21.2.3"
+  resolved "https://registry.yarnpkg.com/@commitlint/lint/-/lint-21.2.3.tgz#9d88a9f2d9174d4aa1e1319a15e0b46b9076203f"
+  integrity sha512-lUZcSuVLLEDkhge9ERk8Rp+FXQtrUhCK+h328BFnzKXrTuXGdqiYMEpTlNWdZaOrjyMhMJaz354ZaWEGJxcLeg==
   dependencies:
-    "@commitlint/is-ignored" "^21.2.2"
-    "@commitlint/parse" "^21.2.2"
-    "@commitlint/rules" "^21.2.2"
-    "@commitlint/types" "^21.2.0"
+    "@commitlint/is-ignored" "^21.2.3"
+    "@commitlint/parse" "^21.2.3"
+    "@commitlint/rules" "^21.2.3"
+    "@commitlint/types" "^21.2.3"
 
-"@commitlint/load@^21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@commitlint/load/-/load-21.2.2.tgz#882128f6412ae123eb507b0a9e32a3c99ff3981d"
-  integrity sha512-0Tt6wDPX167cjKC5D4zhm0+20wJJG+TN/TKovMOspfSe78rOnKX+MNzlVNiu6HyQPZChPJ8QBH31MVt6Bb8fCg==
+"@commitlint/load@^21.2.3":
+  version "21.2.3"
+  resolved "https://registry.yarnpkg.com/@commitlint/load/-/load-21.2.3.tgz#9dcc036dd4ad19941b90f3a36fb273c915a5b750"
+  integrity sha512-cDrL8lOo23Lk7knGzQdjbFcq7z2JgvjwV6PhbESVvEc+Fe21MeLjPKBJi8nKjg7j+jh79CVbVSUbZc104thXRw==
   dependencies:
-    "@commitlint/config-validator" "^21.2.0"
+    "@commitlint/config-validator" "^21.2.3"
     "@commitlint/execute-rule" "^21.0.1"
-    "@commitlint/resolve-extends" "^21.2.2"
-    "@commitlint/types" "^21.2.0"
+    "@commitlint/resolve-extends" "^21.2.3"
+    "@commitlint/types" "^21.2.3"
     cosmiconfig "^9.0.1"
     cosmiconfig-typescript-loader "^6.1.0"
     es-toolkit "^1.46.0"
@@ -215,45 +215,45 @@
   resolved "https://registry.yarnpkg.com/@commitlint/message/-/message-21.2.0.tgz#72cbca26f7b1b37da5c1e40644c673efbb0e193e"
   integrity sha512-YxGoiXD/HXNXLJPrQwE5poXa+XH0CBEm+mdvbHQP0g6MV/dmJyUFCzPNzZbxL93GvZ70TmtTK0Z0/IBpAqHv8g==
 
-"@commitlint/parse@^21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@commitlint/parse/-/parse-21.2.2.tgz#1ed7757d808bf18bfac4d881f9ad97a540723b30"
-  integrity sha512-MEkobPfvRp+z06Wro8HMG1BDGHzZmj82A1LH1nWeG3ipHpg/x4m6v3wEDvMBIKjRFUnfR3nBeFs3MVCr7UdAmg==
+"@commitlint/parse@^21.2.3":
+  version "21.2.3"
+  resolved "https://registry.yarnpkg.com/@commitlint/parse/-/parse-21.2.3.tgz#6c530c00e3fdb4ea574330c2b0b5ac3df6a1b335"
+  integrity sha512-Jt61QpF1xA88damCELe8I0FlDZPSpXNc8IhN7z5kZ0EcDYPjdZ+ZHPvsSXl69r2MIlLnNKeHhOn2cmVpziFE9w==
   dependencies:
-    "@commitlint/types" "^21.2.0"
+    "@commitlint/types" "^21.2.3"
     conventional-changelog-angular "^9.0.0"
     conventional-commits-parser "^7.0.0"
 
-"@commitlint/read@^21.2.1":
-  version "21.2.1"
-  resolved "https://registry.yarnpkg.com/@commitlint/read/-/read-21.2.1.tgz#a39f19f73b45a604619831fdcbf93fa022feb870"
-  integrity sha512-hUW7EJQnNTL0vPOmVMNK4CrnrNBN0nN+JJHReFkdHO5y4iyHeEmTBwuC15OCqUTjxWo7idnH1LftfpWVIaPWIA==
+"@commitlint/read@^21.2.3":
+  version "21.2.3"
+  resolved "https://registry.yarnpkg.com/@commitlint/read/-/read-21.2.3.tgz#d8b56fd369c553c846c9020ec82d0acdad1486b3"
+  integrity sha512-szAepuLA1vTTr7fuudEg7jYyVHudf+FH+vptU91bhxE1WnE8TKrfTAi44HVllz8XpI8Pvp4GjR/iP5Nshgh+og==
   dependencies:
     "@commitlint/top-level" "^21.2.0"
-    "@commitlint/types" "^21.2.0"
+    "@commitlint/types" "^21.2.3"
     "@conventional-changelog/git-client" "^3.0.0"
     tinyexec "^1.0.0"
 
-"@commitlint/resolve-extends@^21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@commitlint/resolve-extends/-/resolve-extends-21.2.2.tgz#f867d0cea131f2c2bd64e6d079a443b0e5c6e851"
-  integrity sha512-RPkJ/IFi7sMUUVbZLqwWFtWw/zRDcfFsmrPSiTMrt5wb7AdxOr86EGQFvmGzef5QKV5IPBWWCujqVTw1RWX44A==
+"@commitlint/resolve-extends@^21.2.3":
+  version "21.2.3"
+  resolved "https://registry.yarnpkg.com/@commitlint/resolve-extends/-/resolve-extends-21.2.3.tgz#b342eff7b98767199333de1fb6f6d8f3e88a57f9"
+  integrity sha512-bqJdmAtXgAQel+l02uIsF7rHgKgx1AGZdGBjam7uK4XW54ZAQtB6XAIUXezYprQiCcRMpBh4fHs5JodXK4mVZA==
   dependencies:
-    "@commitlint/config-validator" "^21.2.0"
-    "@commitlint/types" "^21.2.0"
+    "@commitlint/config-validator" "^21.2.3"
+    "@commitlint/types" "^21.2.3"
     es-toolkit "^1.46.0"
     global-directory "^5.0.0"
     resolve-from "^5.0.0"
 
-"@commitlint/rules@^21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@commitlint/rules/-/rules-21.2.2.tgz#11282e8645ac1bbac948dc9a53e33b50e6ac5ef2"
-  integrity sha512-eplQzyYkBjYB1HyyRj8hkcK11Y9DU9nuBz7uOKEd6NpE9NGDytLFCAnlRE+OoiK/5sHEJsaz2RGhuWBvYzIbNA==
+"@commitlint/rules@^21.2.3":
+  version "21.2.3"
+  resolved "https://registry.yarnpkg.com/@commitlint/rules/-/rules-21.2.3.tgz#c1b397c7fd89eae3fac616e0e1fc694ab6a90a83"
+  integrity sha512-5+YnI/LuTx3JDl9GjqfP2z9x96M8KKDrd+4jOel/T0L1BB3oAmBlSN8xppf63QsudiVEgR8C0gRoAMrPVrms6g==
   dependencies:
-    "@commitlint/ensure" "^21.2.0"
+    "@commitlint/ensure" "^21.2.3"
     "@commitlint/message" "^21.2.0"
     "@commitlint/to-lines" "^21.0.1"
-    "@commitlint/types" "^21.2.0"
+    "@commitlint/types" "^21.2.3"
 
 "@commitlint/to-lines@^21.0.1":
   version "21.0.1"
@@ -267,10 +267,10 @@
   dependencies:
     escalade "^3.2.0"
 
-"@commitlint/types@^21.2.0":
-  version "21.2.0"
-  resolved "https://registry.yarnpkg.com/@commitlint/types/-/types-21.2.0.tgz#da93897b416f788323f639cce6045310aeb03096"
-  integrity sha512-7zVFCDB2reMvJH5dmbKnOQPjZEvjdJTH8jc0U/PIPU1r3/+vf5pD1HlfitV2MWsWXrvu7u39iY1lyLUPOaN0Gw==
+"@commitlint/types@^21.2.3":
+  version "21.2.3"
+  resolved "https://registry.yarnpkg.com/@commitlint/types/-/types-21.2.3.tgz#004da63f916654309485f5c1ec4dcba8bd2ebe78"
+  integrity sha512-sGEA473TlCvhCGNoTBY9OXZVWdscIXdGt0dm8EpB+2MRfmt8LNh/X56P/T3nCtEB+eH5qGEa3odphSAoUxSfSQ==
   dependencies:
     conventional-commits-parser "^7.0.0"
     picocolors "^1.1.1"
@@ -644,22 +644,17 @@
     "@octokit/types" "^17.0.0"
     universal-user-agent "^7.0.0"
 
-"@octokit/openapi-types@^27.0.0":
-  version "27.0.0"
-  resolved "https://registry.yarnpkg.com/@octokit/openapi-types/-/openapi-types-27.0.0.tgz#374ea53781965fd02a9d36cacb97e152cefff12d"
-  integrity sha512-whrdktVs1h6gtR+09+QsNk2+FO+49j6ga1c55YZudfEG+oKJVvJLQi3zkOm5JjiUXAagWK2tI2kTGKJ2Ys7MGA==
-
 "@octokit/openapi-types@^28.0.0":
   version "28.0.0"
   resolved "https://registry.yarnpkg.com/@octokit/openapi-types/-/openapi-types-28.0.0.tgz#a8e47691c1602f47764e7f15d165d6f66736b005"
   integrity sha512-0rFyLuyHvIj6uuZWuDslxkowFYdPXoNIkeAv4b27dzm2Tf4vGWXnPsMcxs7d65kLdMERgP3wc1AEPlqMz8e1cQ==
 
-"@octokit/plugin-paginate-rest@^14.0.0":
-  version "14.0.0"
-  resolved "https://registry.yarnpkg.com/@octokit/plugin-paginate-rest/-/plugin-paginate-rest-14.0.0.tgz#44dc9fff2dacb148d4c5c788b573ddc044503026"
-  integrity sha512-fNVRE7ufJiAA3XUrha2omTA39M6IXIc6GIZLvlbsm8QOQCYvpq/LkMNGyFlB1d8hTDzsAXa3OKtybdMAYsV/fw==
+"@octokit/plugin-paginate-rest@^15.0.0":
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/@octokit/plugin-paginate-rest/-/plugin-paginate-rest-15.0.0.tgz#17b0dae6f33459888f790b40c5aaf087803d63a8"
+  integrity sha512-lw9A9YL5s4VPj+VEx8uMxaxQm2YTgrPDkrLEuZuu18R8TK3oPcXF4K6t52nx6xn1RcogZC9i188sAr/4XYJaQQ==
   dependencies:
-    "@octokit/types" "^16.0.0"
+    "@octokit/types" "^17.0.0"
 
 "@octokit/plugin-retry@^8.0.0":
   version "8.1.1"
@@ -697,13 +692,6 @@
     json-with-bigint "^3.5.12"
     universal-user-agent "^7.0.2"
 
-"@octokit/types@^16.0.0":
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/@octokit/types/-/types-16.0.0.tgz#fbd7fa590c2ef22af881b1d79758bfaa234dbb7c"
-  integrity sha512-sKq+9r1Mm4efXW1FCk7hFSeJo4QKreL/tTbR0rz/qx/r1Oa2VV83LTA/H/MuCOX7uCIJmQVRKBcbmWoySjAnSg==
-  dependencies:
-    "@octokit/openapi-types" "^27.0.0"
-
 "@octokit/types@^17.0.0":
   version "17.0.0"
   resolved "https://registry.yarnpkg.com/@octokit/types/-/types-17.0.0.tgz#c0fa4090b8d957dd9b65a511f71f87ee14037694"
@@ -711,10 +699,10 @@
   dependencies:
     "@octokit/openapi-types" "^28.0.0"
 
-"@oxc-project/types@=0.149.0":
-  version "0.149.0"
-  resolved "https://registry.yarnpkg.com/@oxc-project/types/-/types-0.149.0.tgz#328c1d19403980199c869676871db9ed46932ff8"
-  integrity sha512-Efcc+iF0j3Bf67YjEqIqWXbX5XddXoK/Mw4K1/JuXwRCZ8N16VR7iT23nlCc9XrveFVh/E5Rqs2StT0V8v9LdA==
+"@oxc-project/types@=0.151.0":
+  version "0.151.0"
+  resolved "https://registry.yarnpkg.com/@oxc-project/types/-/types-0.151.0.tgz#37206ed3fdebb8c4c5fc49ae20d53d9b4eed2bfe"
+  integrity sha512-J1yXrIlNDZVzE3ada310xeAw7nH8yCAyLPuUIsjKatFPmfn5bS1oW+cM+QsGOtVWd5nhSpbwZWx/rue+r5Z+PA==
 
 "@pkgr/core@^0.3.6":
   version "0.3.6"
@@ -784,80 +772,80 @@
     "@primeuix/utils" "^0.6.2"
     "@primevue/core" "4.5.5"
 
-"@rolldown/binding-android-arm-eabi@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rolldown/binding-android-arm-eabi/-/binding-android-arm-eabi-1.2.8.tgz#55f0a8e97eb87a0873ea1466d2b4af9510739589"
-  integrity sha512-tN5aztYkKCte4i5SIrrz5yK/HMjEuCqCSCJa418jOV8tZ1cBY3YF2otxB1ktPxzsLA1BeTqwapK0bfjxNvHJVw==
+"@rolldown/binding-android-arm-eabi@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@rolldown/binding-android-arm-eabi/-/binding-android-arm-eabi-1.2.11.tgz#898b1c0c0c4de1ffb5997050a705f04cc102b4eb"
+  integrity sha512-A5kXfGKvKWWZE0TtPrfsvT+q4Y5d1QG8gGUzpYjGydM+fARM9MuX90PrXYXe0XbsDVgyxxNzHo6giCj90bsFNw==
 
-"@rolldown/binding-android-arm64@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rolldown/binding-android-arm64/-/binding-android-arm64-1.2.8.tgz#3b783ee41120b2fefac41bd8e6d711f4ce7f82a7"
-  integrity sha512-dIYTWl9XprMUiQFoc55KUyk/oS8SKYH3zFl0LTR7RT0Xj4hgSVyuJcroH8JUu8RcpF8fTB6E0aOwCkZoYPcDSQ==
+"@rolldown/binding-android-arm64@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@rolldown/binding-android-arm64/-/binding-android-arm64-1.2.11.tgz#bf8ee88baaecd1747326d6c1d05ebdad483edc34"
+  integrity sha512-z6cTycz+iJ4PVkuL4HHW4DfTfoeU/2nqYYuSOrTmH7yHK5Y0LCOnA03V4ZNxavyVaU1oOqUgIg2klN/s+USGOA==
 
-"@rolldown/binding-darwin-arm64@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rolldown/binding-darwin-arm64/-/binding-darwin-arm64-1.2.8.tgz#56c27646e8faae70aa56065a3b686b1d7de9d8b4"
-  integrity sha512-PCSDQGXD2IyTEFrcgPyBM8jJuGmrbCMuoIOXdbEGVemruKACXoLQJrb+A45Z0L5t1RQkdfJprAYPkikbh7dzdA==
+"@rolldown/binding-darwin-arm64@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@rolldown/binding-darwin-arm64/-/binding-darwin-arm64-1.2.11.tgz#4ebc103da1e0d6b24d815c1fb1d6af73245c1b1f"
+  integrity sha512-jShvqNtP6vDC6/A5JOAzbVV+DkgHqhl/ScVCJEbt+TUY6QYz7YnXcrg3sLtFBniro0f/Ld50ZwCWA6f7KYD1nQ==
 
-"@rolldown/binding-darwin-x64@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rolldown/binding-darwin-x64/-/binding-darwin-x64-1.2.8.tgz#3b9da1032c897ce191cb23601dbf9887ce6895ae"
-  integrity sha512-Uk7lRsGhPFHVX/sAUC6D5H9Ol30dFHd6iquokll2th3LpdJ3F5CzQB+7DHn0Ri2mG+U7k2zXiPHDrwZenXhwSA==
+"@rolldown/binding-darwin-x64@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@rolldown/binding-darwin-x64/-/binding-darwin-x64-1.2.11.tgz#ab669b448eb2cd2366a7ff01a84579a0f854f5f0"
+  integrity sha512-f2i2xiNWq1Z1l2++q2fuhZRdLAT3aqxD6vRNm1RAxpUoBcdqNB3C0s1Bt+K+PbEx2F5F4gQp6hqKkphCY/xF9w==
 
-"@rolldown/binding-freebsd-x64@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rolldown/binding-freebsd-x64/-/binding-freebsd-x64-1.2.8.tgz#43d4257704b15204aa42059e36a638b63c0e402d"
-  integrity sha512-DjszaTEVogPqA5bYzsEeqDCQxbcp2fexQwKcRspYji2yzR68fCf+e4fx6kBSRDwX5/brZaHw/hWS9+A/+/w9sQ==
+"@rolldown/binding-freebsd-x64@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@rolldown/binding-freebsd-x64/-/binding-freebsd-x64-1.2.11.tgz#74c26ec877c293c47c8958ab58e07e57f9382070"
+  integrity sha512-4Ir5FSOKIAMr4r0kExpt1s3bMgzJU3rA45AYOHtQpls0oNeqcYBKrWMlckrYH4KCfGLfkfn1tN1dmZPMVsdXow==
 
-"@rolldown/binding-linux-arm-gnueabihf@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rolldown/binding-linux-arm-gnueabihf/-/binding-linux-arm-gnueabihf-1.2.8.tgz#d95b9fe9f04f2278cb2eef98e2cf20199c3fe5d0"
-  integrity sha512-zmwa7FTmdzB6aaEEuuls18H6Ap5JmJPSoPTuXixeJZV6tG40SyLkApQtz1g8ptZtiEKqj9OM0oNLPh1AgvE31Q==
+"@rolldown/binding-linux-arm-gnueabihf@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@rolldown/binding-linux-arm-gnueabihf/-/binding-linux-arm-gnueabihf-1.2.11.tgz#cbfe844867d7dbce1655c9b593be05bcaffb501d"
+  integrity sha512-/gnRDM+39BROzAN/k1OZjDPnDMcZxB/0EUxKjONO5yVkNEvlsoMDrxGNKgZi/ttFriS2gwlDNzB65pvNbFOXIQ==
 
-"@rolldown/binding-linux-arm64-gnu@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rolldown/binding-linux-arm64-gnu/-/binding-linux-arm64-gnu-1.2.8.tgz#07f33840b650b6a3f5954ccfc43b13629374182a"
-  integrity sha512-KdYQDPHwJVnbFwdTGMgxsI9SqblBlz6STGM+w1We/d5B8OWWidYH0MwkU/uA1wM5fIpO2MkOVxXrNzzuZhw9ew==
+"@rolldown/binding-linux-arm64-gnu@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@rolldown/binding-linux-arm64-gnu/-/binding-linux-arm64-gnu-1.2.11.tgz#2028ebac4a3f56b26ecd02f8850c74447087cbb2"
+  integrity sha512-PFaK8HwvAHbaKbBcDNQihjMKYvFnA5hiENx/l5tphTDz1E0WFp32l0A7aq7lyUwGsRw/xSrNIy/gIK4thrSCrw==
 
-"@rolldown/binding-linux-arm64-musl@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rolldown/binding-linux-arm64-musl/-/binding-linux-arm64-musl-1.2.8.tgz#357922929ec19c05f6d8eabd0899a053bab1a08b"
-  integrity sha512-jFJTifHnNPY+yzOoNZQfSIysrVyXzEQPhPnOUjmD1bcQGHH6s7c8cViKWar8YplQImE5N9JRqMCLrM2CdxOrZA==
+"@rolldown/binding-linux-arm64-musl@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@rolldown/binding-linux-arm64-musl/-/binding-linux-arm64-musl-1.2.11.tgz#a143325f96d5d5040dff50e292374f7467e7c82c"
+  integrity sha512-AskzJUIKRLPxkruR1wLKewGbOw+EYfU/9lOrBFj4AFrEA8hPpKFnODWNu2WLaNs0QNkEb9QIJufmVZZIL/bJlg==
 
-"@rolldown/binding-linux-ppc64-gnu@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rolldown/binding-linux-ppc64-gnu/-/binding-linux-ppc64-gnu-1.2.8.tgz#0bc7b29262d3022d8cf57876d70d819387bd3dc9"
-  integrity sha512-FhiOziBDWPBjbcmRzfLyIJnaP7AVMFXT7YCXPjXxj7wKU3vx24RjrCNN/zjvVa+N2vVoHJwCoUBvsrN/DG3zIA==
+"@rolldown/binding-linux-ppc64-gnu@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@rolldown/binding-linux-ppc64-gnu/-/binding-linux-ppc64-gnu-1.2.11.tgz#b38937ad8b4821682e3671ebfb609cb0e3ecb935"
+  integrity sha512-qlUGAheh2yh8afH7QBgx0PrRHN85hKnNd78x8MeMhXivuevgd8vgf6/CstOzmNKY/lLTHvNTrPy98cLnAugzJw==
 
-"@rolldown/binding-linux-s390x-gnu@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rolldown/binding-linux-s390x-gnu/-/binding-linux-s390x-gnu-1.2.8.tgz#3a3d653becc48975025b8922056822662b7d4414"
-  integrity sha512-WnHfADMzOV2Y55wlx1hzzQnar/wDt/VdvWSD99r18Mz9ylNieIGOkRx3UV21h7m/eJvjySYJkO26VvGNFkwsIQ==
+"@rolldown/binding-linux-s390x-gnu@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@rolldown/binding-linux-s390x-gnu/-/binding-linux-s390x-gnu-1.2.11.tgz#6be2645a1ad89185e8d03f69116798c94eae19ec"
+  integrity sha512-secpEad+0vCbSfn8upFySkDskv+bGPk3THSDS9Y89yc4rb4kzqHp8Dmyd9BkQW4SnhNXBZCl/6CrO//hZahNJQ==
 
-"@rolldown/binding-linux-x64-gnu@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rolldown/binding-linux-x64-gnu/-/binding-linux-x64-gnu-1.2.8.tgz#c14ec9af7dbc2b1e459b36e292d57b27565f6737"
-  integrity sha512-H9tRr5ibfXFVLxbPOseVewewFpl28zcEdjRDt2FTUZU7odxP0gEv1ki4/kGmcGOh78oRwZuuQllGLZ9zTJp84g==
+"@rolldown/binding-linux-x64-gnu@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@rolldown/binding-linux-x64-gnu/-/binding-linux-x64-gnu-1.2.11.tgz#fbc9a6a6c3b3db00e35573c67894bfbaa3128040"
+  integrity sha512-mOVBT3dPpkWm8XBWPmU4bf+U6dYDLeMo/9ojUmis4N0L5uu10qra5vOyngZ7/PSdoE4G9KvRt4bloRxNjLas7A==
 
-"@rolldown/binding-linux-x64-musl@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rolldown/binding-linux-x64-musl/-/binding-linux-x64-musl-1.2.8.tgz#40c2888d1ac87d9e39c6fc6799c060510e7a4d69"
-  integrity sha512-UefiqfM3D6IVNlZ8tSGs9+Ejjud2T+oxO0IHADU45Y+lyEjD2dVFyZHbkfX0LUb5Zugo/oIv1eCO/KVYhgYJYA==
+"@rolldown/binding-linux-x64-musl@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@rolldown/binding-linux-x64-musl/-/binding-linux-x64-musl-1.2.11.tgz#f3f07a30c03d1d3a673b21fd4eaba84979aa4fd4"
+  integrity sha512-Is78i9A8Ui4SqcxUwFJ9uMmjDn58IbVTjFWYdQestFEgeuEmHMLGNriXnVJKkwG2YiZjw8cP0zCTyDMdDGtOOg==
 
-"@rolldown/binding-openharmony-arm64@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rolldown/binding-openharmony-arm64/-/binding-openharmony-arm64-1.2.8.tgz#3e021f4e77283ca111c709d3ed6775419f471056"
-  integrity sha512-637Ke4kWSy6rp9cxQ9gMOXlxPgIw/c1beASV4M//3+9I4uwBVOOl74G+e3zyU3u19U7RkRl/HuewixZ/Z6+Rjg==
+"@rolldown/binding-openharmony-arm64@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@rolldown/binding-openharmony-arm64/-/binding-openharmony-arm64-1.2.11.tgz#c3848c61dd3b15edde9c98dfa8d50edb356ec71f"
+  integrity sha512-dUCXneZ87INUMyQ0D+C0HrEBNUPNXHaPmU5GTjyKTJEiussw9Kaj5Ln8UztPe4epV/ffvgNBEadksdYhmW6xJA==
 
-"@rolldown/binding-win32-arm64-msvc@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rolldown/binding-win32-arm64-msvc/-/binding-win32-arm64-msvc-1.2.8.tgz#32b6c6a335ad14f97025bb2bc90135222405bb76"
-  integrity sha512-xWBkPOF1Q9k/Gv1nQXnVdLxKu74jXppuOM4Z3mnypVUJJJwLsMl7hNJGRAUJoG8A5MgOI1ACKM+wBFxSJzKy4A==
+"@rolldown/binding-win32-arm64-msvc@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@rolldown/binding-win32-arm64-msvc/-/binding-win32-arm64-msvc-1.2.11.tgz#99d9f7eb53b26f09212d646e9f50708a2f14414f"
+  integrity sha512-jByxb6qfd+bH1xUd0qnfFnb17i9sWBPY2tOavJ0l3tdr3OTu+Kvtm8cd/JV5nFt657b1VqGltxg9olOEfofXWw==
 
-"@rolldown/binding-win32-x64-msvc@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@rolldown/binding-win32-x64-msvc/-/binding-win32-x64-msvc-1.2.8.tgz#df4e965896c61411b96566abf345f46141f498c4"
-  integrity sha512-uz2ZvfgXbxqNwijjjbxrnvALwpyODDcgc1T1N8N3rf/DXKQmaFwmB4LX4yyjggpwN2obdQLb2rgirX5ffCWYng==
+"@rolldown/binding-win32-x64-msvc@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@rolldown/binding-win32-x64-msvc/-/binding-win32-x64-msvc-1.2.11.tgz#c7bf663043c01021f63122a8499e9aca36408467"
+  integrity sha512-/PzKqzAJ03i19oy2ItPvyvaVjOjBCNnfaJs8yvUdGBKmiESgnrJSQ2awd81QzFbbnAmu7YO9ZnJrDCb9VSJPRA==
 
 "@rolldown/pluginutils@^1.0.0", "@rolldown/pluginutils@^1.0.1":
   version "1.0.1"
@@ -917,13 +905,13 @@
     micromatch "^4.0.0"
     p-reduce "^2.0.0"
 
-"@semantic-release/github@12.0.9", "@semantic-release/github@^12.0.0":
-  version "12.0.9"
-  resolved "https://registry.yarnpkg.com/@semantic-release/github/-/github-12.0.9.tgz#1cd28dafdad398fe423fd94578da772dbfb27d6a"
-  integrity sha512-ODIqb0V3QqndipryEEiaBxUQCFjvv7Oese5Dt4omMGa60YRNEW0Sx3K+zri0uac2Y6S9nOlMehciWIzvvRCTGQ==
+"@semantic-release/github@12.0.10", "@semantic-release/github@^12.0.0":
+  version "12.0.10"
+  resolved "https://registry.yarnpkg.com/@semantic-release/github/-/github-12.0.10.tgz#a0489f6a2d30a977e38b680ae2ef7524b59be8ad"
+  integrity sha512-QskygvpX8hFx9UEbqJ+C46OIhaJjsysNQ8PYJPuRDc/ek5+dh8WYGD1ofUahCcGLAOmnnwZTcmCJCEXM8XxhRw==
   dependencies:
     "@octokit/core" "^7.0.0"
-    "@octokit/plugin-paginate-rest" "^14.0.0"
+    "@octokit/plugin-paginate-rest" "^15.0.0"
     "@octokit/plugin-retry" "^8.0.0"
     "@octokit/plugin-throttling" "^11.0.0"
     "@semantic-release/error" "^4.0.0"
@@ -941,9 +929,9 @@
     url-join "^5.0.0"
 
 "@semantic-release/npm@^13.1.1", "@semantic-release/npm@^13.1.5":
-  version "13.1.5"
-  resolved "https://registry.yarnpkg.com/@semantic-release/npm/-/npm-13.1.5.tgz#99178d57ca8f68fb4ea2aa2d388052ec3f397498"
-  integrity sha512-Hq5UxzoatN3LHiq2rTsWS54nCdqJHlsssGERCo8WlvdfFA9LoN0vO+OuKVSjtNapIc/S8C2LBj206wKLHg62mg==
+  version "13.2.0"
+  resolved "https://registry.yarnpkg.com/@semantic-release/npm/-/npm-13.2.0.tgz#26ad9df4264e9c2ad461b2a854fc504989dec0cd"
+  integrity sha512-Uz4JGafLoEGiheLKEs1orockCWP6liY9D2YnvKHYbqo9hCHAw9fuAHcU53q29SXVCtkvDhs/QVUg7Vvuyfp4Jg==
   dependencies:
     "@actions/core" "^3.0.0"
     "@semantic-release/error" "^4.0.0"
@@ -1925,9 +1913,9 @@ eslint-plugin-prettier@^5.2.2:
     synckit "^0.11.13"
 
 eslint-plugin-vue@^10.10.0:
-  version "10.11.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-10.11.0.tgz#c2f72845a56a87dcac0c973c89a3f23c09b40c43"
-  integrity sha512-fGt38SsaPCZ2FmA3bX/3vOW2qdsPNx0/9x+7Aab6NMX++PhynMtK4LWC4vzXgfQBCqpUAler18H38GA+NBAd0Q==
+  version "10.11.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-10.11.1.tgz#2cd8190d5163daf2e0e367d255390c79aabc8c89"
+  integrity sha512-pasVXhl7wUmIvhujoqs/m0mJ9r59QW1IR9XXYKGR0FETzSM+Hhlf4qKIYgWiDDP+9YKv4YfbwskD7LqIdVcgQw==
   dependencies:
     "@eslint-community/eslint-utils" "^4.9.1"
     natural-compare "^1.4.0"
@@ -1957,9 +1945,9 @@ eslint-visitor-keys@^3.4.3:
   integrity sha512-tD40eHxA35h0PEIZNeIjkHoDR4YjjJp34biM0mDvplBe//mB+IHCqHDGV7pxF+7MklTvighcCPPZC7ynWyjdTA==
 
 eslint@^10.9.1:
-  version "10.10.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-10.10.0.tgz#14b1d1849eedb2ee6805f3759050479ce2b23d71"
-  integrity sha512-NPXn6r5zl4uET1DAVPaOwzX3rut4c0wcmw3dWJAfOsTM5+TogXo0DDjz8pwm/hL8cyVNpHqeK4JpN0NjnyFFNw==
+  version "10.11.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-10.11.0.tgz#304d1591b7c6a327e3f64b4f550f99fda160ae20"
+  integrity sha512-P7a6UEEqb9G95MYAtqkmsTbVXIYyzIfl6NGOIJk162PaahFxFyeGcrlXYFSiagECg4sEm8IseJdZBKR3rx6MsQ==
   dependencies:
     "@eslint-community/eslint-utils" "^4.8.0"
     "@eslint-community/regexpp" "^4.12.2"
@@ -3758,9 +3746,9 @@ prettier-linter-helpers@^1.0.1:
     fast-diff "^1.1.2"
 
 prettier@^3.9.6:
-  version "3.9.8"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.9.8.tgz#54e81128584538c81d85fce9d5fd77a410c385c5"
-  integrity sha512-WRFq3Wn3WId7LLROfMLdH7xaFr2jR62wU8nLO6rQUOLOxNZUviyJQs1M0iIhLexSFy+L+w0ch66wtoO2jRjG0A==
+  version "3.9.9"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.9.9.tgz#09b826918c91cd4cbc80e0cbd1d2a922ff04f233"
+  integrity sha512-Z/CJHIkdujO/OtN7nXUii0Rf3VT5SRuhjBA82Xvu2XhBUgX3nhP67T0LHceBdQLex7OOFGTox+Q5Yg8Jk2Qivg==
 
 pretty-ms@^9.2.0:
   version "9.3.0"
@@ -3769,10 +3757,10 @@ pretty-ms@^9.2.0:
   dependencies:
     parse-ms "^4.0.0"
 
-primeicons@8.0.1:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-8.0.1.tgz#312c1d614ad1d01e68db6ccd12b06ea88ad59896"
-  integrity sha512-5O1zIpEKUk0pKfEQSdNVJRxPivo0271zAe7vnZGl+fughxixv4PnVou2J6pPy2wy83nrDn58BqeBwWnpCZmjkw==
+primeicons@8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-8.0.2.tgz#2bdcc8a9679791e7dd20b65c2c32121cd1aa5b38"
+  integrity sha512-o3UQey3nXMEQRAudVYZZWswz6mmnWpPnksYb7wIu4rEEVfdS3pLnxnmSJx5gKBRMer1MxnhJZG5QRDxVVJFNkA==
 
 primevue@^4.5.5:
   version "4.5.5"
@@ -3946,29 +3934,29 @@ resolve-from@^5.0.0:
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-5.0.0.tgz#c35225843df8f776df21c57557bc087e9dfdfc69"
   integrity sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==
 
-rolldown@~1.2.6:
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/rolldown/-/rolldown-1.2.8.tgz#3a18ad3c74809f05abe9130229b2b8b4249e9e21"
-  integrity sha512-Z67nTmhZe7anqnM/EjI392w5i/ANUinjip7QYsOyN37oayduxt3ksdX0hf5OOamkAd53BiIHfbfSzfUmzKFQqQ==
+rolldown@~1.2.9:
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/rolldown/-/rolldown-1.2.11.tgz#89c4e07d9098b88fe0b023de59d63a6216e9285c"
+  integrity sha512-qpSwIyz0jHQq5qXBTNxFmE6664rJ7O+4TvPFOiOaBSrz8IOHc1koKKSqTM2H6u1UG1+TveuC6vaDHKXFOvb1Kw==
   dependencies:
-    "@oxc-project/types" "=0.149.0"
+    "@oxc-project/types" "=0.151.0"
     "@rolldown/pluginutils" "^1.0.0"
   optionalDependencies:
-    "@rolldown/binding-android-arm-eabi" "1.2.8"
-    "@rolldown/binding-android-arm64" "1.2.8"
-    "@rolldown/binding-darwin-arm64" "1.2.8"
-    "@rolldown/binding-darwin-x64" "1.2.8"
-    "@rolldown/binding-freebsd-x64" "1.2.8"
-    "@rolldown/binding-linux-arm-gnueabihf" "1.2.8"
-    "@rolldown/binding-linux-arm64-gnu" "1.2.8"
-    "@rolldown/binding-linux-arm64-musl" "1.2.8"
-    "@rolldown/binding-linux-ppc64-gnu" "1.2.8"
-    "@rolldown/binding-linux-s390x-gnu" "1.2.8"
-    "@rolldown/binding-linux-x64-gnu" "1.2.8"
-    "@rolldown/binding-linux-x64-musl" "1.2.8"
-    "@rolldown/binding-openharmony-arm64" "1.2.8"
-    "@rolldown/binding-win32-arm64-msvc" "1.2.8"
-    "@rolldown/binding-win32-x64-msvc" "1.2.8"
+    "@rolldown/binding-android-arm-eabi" "1.2.11"
+    "@rolldown/binding-android-arm64" "1.2.11"
+    "@rolldown/binding-darwin-arm64" "1.2.11"
+    "@rolldown/binding-darwin-x64" "1.2.11"
+    "@rolldown/binding-freebsd-x64" "1.2.11"
+    "@rolldown/binding-linux-arm-gnueabihf" "1.2.11"
+    "@rolldown/binding-linux-arm64-gnu" "1.2.11"
+    "@rolldown/binding-linux-arm64-musl" "1.2.11"
+    "@rolldown/binding-linux-ppc64-gnu" "1.2.11"
+    "@rolldown/binding-linux-s390x-gnu" "1.2.11"
+    "@rolldown/binding-linux-x64-gnu" "1.2.11"
+    "@rolldown/binding-linux-x64-musl" "1.2.11"
+    "@rolldown/binding-openharmony-arm64" "1.2.11"
+    "@rolldown/binding-win32-arm64-msvc" "1.2.11"
+    "@rolldown/binding-win32-x64-msvc" "1.2.11"
 
 safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
@@ -4581,14 +4569,14 @@ vite-plugin-css-injected-by-js@^5.0.2:
   integrity sha512-Hvg48QfYsCL53ju9T5zTC0Ofg90XLa8t5zhhKmPYbayoMQieNcQDkkRX8pv4TAcKPZwVisLFiwDy5uBjOn+3Ow==
 
 "vite@^6.0.0 || ^7.0.0 || ^8.0.0", vite@^8.2.2:
-  version "8.3.0"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-8.3.0.tgz#f9565cfd4879d58d28fa64d3c7aff3b372d2ccc8"
-  integrity sha512-lhZBVvEHefgE+HQZC9O7EBJgCU/nVzFNl7vkS4RE0APtWLP02/8QVIkQtzBxPquh7lq5/78NHipTj7ODQ6XuyQ==
+  version "8.3.1"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-8.3.1.tgz#aa1099a4ccaf104a8c32492951497fa1781d9fce"
+  integrity sha512-/bvH9E9tmCXRGp2uXY3WbOldqpTwFkbha/8ANaEQ6VkxhH60KyqLwgZq6lG2y+4uT55x9+9eUHMpQ7uGnOCKjA==
   dependencies:
     lightningcss "^1.33.0"
     picomatch "^4.0.7"
     postcss "^8.5.28"
-    rolldown "~1.2.6"
+    rolldown "~1.2.9"
     tinyglobby "^0.2.17"
   optionalDependencies:
     fsevents "~2.3.3"
