@@ -1,3 +1,12 @@
+## [1.27.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.27.0...v1.27.1) (2026-10-26)
+
+
+### Bug Fixes
+
+* adjust z-index for table header in GridTable component ([fd7486b](https://github.com/NovigoTechnology/nvg-ui/commit/fd7486b0a47474e12be9b2e3c76b6e8a1e7df73e))
+* enhance link formatting by including options in formatter ([b7110b1](https://github.com/NovigoTechnology/nvg-ui/commit/b7110b1c6741497f60df6d2a944a73aca7478d54))
+* enhance link formatting by including options in formatter ([#204](https://github.com/NovigoTechnology/nvg-ui/issues/204)) ([4d35491](https://github.com/NovigoTechnology/nvg-ui/commit/4d35491f53ffc5722814938e73d1d21f3e92ff26))
+
 # [1.27.0](https://github.com/NovigoTechnology/nvg-ui/compare/v1.26.3...v1.27.0) (2026-09-14)
 
 
