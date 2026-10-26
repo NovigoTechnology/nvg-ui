@@ -78,6 +78,13 @@ const suggestions = ref([]);
 const translatedSuggestions = ref([]);
 
 /**
+ * The docfield handed to the link formatters. It carries `options` because ERPNext's
+ * add_link_title only appends the title when `df.options !== df.parent`: with neither set
+ * both are undefined, and Item would show "S000001" instead of "S000001: Shoes 1".
+ */
+const formatterDf = () => ({ fieldname: props.field, options: props.doctype });
+
+/**
  * Builds what the input shows for a link value, delegating to the doctype's registered
  * formatter (frappe.form.link_formatters, where ERPNext registers Item, Employee, Project…)
  * so each doctype decides how its title is composed. Doctypes without a formatter show the
@@ -88,7 +95,7 @@ const formatInputValue = code => {
 
   const formatter = window.frappe?.form?.link_formatters?.[props.doctype];
   if (formatter && props.row) {
-    return formatter(code, props.row, { fieldname: props.field }) || code;
+    return formatter(code, props.row, formatterDf()) || code;
   }
 
   return code;
@@ -99,7 +106,7 @@ const formatOptionLabel = option => {
   if (!formatter || !props.row) return option.label || option.value;
 
   const doc = { ...props.row, [props.field]: option.value };
-  return formatter(option.value, doc, { fieldname: props.field }) || option.value;
+  return formatter(option.value, doc, formatterDf()) || option.value;
 };
 
 /**
