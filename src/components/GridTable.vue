@@ -368,6 +368,10 @@ const searchResultsSummary = computed(() =>
   grid-column: 1 / -1;
 }
 
+.grid-table__datatable .p-datatable-scrollable-table > .p-datatable-thead {
+  z-index: 2;
+}
+
 .grid-table__datatable .p-datatable-thead > tr > th {
   background: transparent;
   border-bottom: 1px solid #e5e7eb;
