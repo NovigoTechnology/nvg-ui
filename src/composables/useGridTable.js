@@ -21,6 +21,8 @@ const NUMERIC_TYPES = ['Float', 'Currency', 'Int', 'Percent'];
  * @property {boolean} [readOnly]
  * @property {string} [prefix]
  * @property {boolean} [clearRow] - Clear the whole row instead of just this field on clear
+ * @property {boolean} [addMultipleQtyField] - Receives the quantity typed in the Add Multiple
+ *   dialog, for when the quantity is not the first Int or Float column
  * @property {Object.<string, any>} [componentProps] - Overrides the auto-built input props entirely
  * @property {GridTableColumn[]} [fields] - Sub-fields, only for type: 'Popover'
  */
@@ -89,9 +91,14 @@ export function useGridTable(props, emit) {
   );
   /** The first Link-type column; used as the search target in the Add Multiple dialog */
   const addMultipleLinkColumn = computed(() => props.columns.find(c => c.type === 'Link'));
-  /** The first Int or Float column; receives the quantity entered in the Add Multiple qty dialog */
-  const addMultipleQtyColumn = computed(() =>
-    props.columns.find(c => c.type === 'Int' || c.type === 'Float')
+  /**
+   * The column that receives the quantity entered in the Add Multiple qty dialog: the one marked
+   * with `addMultipleQtyField`, otherwise the first Int or Float column.
+   */
+  const addMultipleQtyColumn = computed(
+    () =>
+      props.columns.find(c => c.addMultipleQtyField) ||
+      props.columns.find(c => c.type === 'Int' || c.type === 'Float')
   );
 
   // --- Watches ---
