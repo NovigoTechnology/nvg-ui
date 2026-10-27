@@ -1,3 +1,12 @@
+## [1.27.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.27.1...v1.27.2) (2026-10-27)
+
+
+### Bug Fixes
+
+* add addMultipleQtyField option to GridTableColumn interface ([2e11e47](https://github.com/NovigoTechnology/nvg-ui/commit/2e11e47b7527ef4d10b7a63f0be0e8deed02da7c))
+* add support for multiple quantity field in GridTable column defi… ([#205](https://github.com/NovigoTechnology/nvg-ui/issues/205)) ([b888256](https://github.com/NovigoTechnology/nvg-ui/commit/b88825608c05b5fe137ed0d452edb80846c566f6))
+* add support for multiple quantity field in GridTable column definition ([7ec558a](https://github.com/NovigoTechnology/nvg-ui/commit/7ec558a2aaa4fc5b90ccaf2d7701997e1a062069))
+
 ## [1.27.1](https://github.com/NovigoTechnology/nvg-ui/compare/v1.27.0...v1.27.1) (2026-10-26)
 
 
