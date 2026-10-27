@@ -35,6 +35,7 @@ export interface GridTableColumn {
   filters?: Record<string, any>
   query?: string
   prefix?: string
+  addMultipleQtyField?: boolean
 }
 
 export interface GridTableProps {
