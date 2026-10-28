@@ -1,3 +1,11 @@
+## [1.27.3](https://github.com/NovigoTechnology/nvg-ui/compare/v1.27.2...v1.27.3) (2026-10-28)
+
+
+### Bug Fixes
+
+* add required prop to DateField component and update label display ([2e2821b](https://github.com/NovigoTechnology/nvg-ui/commit/2e2821ba9ea18a7b4e2de03b0402e68a17b7fbd5))
+* add required prop to DateField component and update label display ([#206](https://github.com/NovigoTechnology/nvg-ui/issues/206)) ([2b574e2](https://github.com/NovigoTechnology/nvg-ui/commit/2b574e26b7964555e15a40fe21116af5503175c4))
+
 ## [1.27.2](https://github.com/NovigoTechnology/nvg-ui/compare/v1.27.1...v1.27.2) (2026-10-27)
 
 
