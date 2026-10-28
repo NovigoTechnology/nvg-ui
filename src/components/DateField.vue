@@ -16,7 +16,10 @@
         </svg>
       </template>
     </DatePicker>
-    <label :for="id">{{ label }}</label>
+    <label :for="id">
+      {{ label }}
+      <span v-if="required" class="required">*</span>
+    </label>
   </FloatLabel>
   <DatePicker
     v-else
@@ -55,6 +58,8 @@ const props = defineProps({
    */
   dateFormat: { type: String, default: '' },
   disabled: { type: Boolean, default: false },
+  /** Marks the label with an asterisk, as EntitySelector does. */
+  required: { type: Boolean, default: false },
   /** By default the picker refuses dates after today; set to allow them. */
   allowFutureDates: { type: Boolean, default: false },
 });

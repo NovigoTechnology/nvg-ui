@@ -106,6 +106,7 @@ export interface DateFieldProps {
   /** Frappe ('dd-mm-yyyy') or PrimeVue ('dd-mm-yy') spelling; defaults to System Settings. */
   dateFormat?: string
   disabled?: boolean
+  required?: boolean
   allowFutureDates?: boolean
 }
 
