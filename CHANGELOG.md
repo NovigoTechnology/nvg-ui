@@ -1,3 +1,11 @@
+## [1.27.4](https://github.com/NovigoTechnology/nvg-ui/compare/v1.27.3...v1.27.4) (2026-11-03)
+
+
+### Bug Fixes
+
+* **security:** update vulnerable undici versions ([ec2e5c3](https://github.com/NovigoTechnology/nvg-ui/commit/ec2e5c3efc2c01d366e3113ed86f69f21412074b))
+* update .gitignore and .yarnrc to include .yarn-cache for Yarn dependency isolation ([77aeecc](https://github.com/NovigoTechnology/nvg-ui/commit/77aeeccd8f96e83882017ff4b49bedee2009be60))
+
 ## [1.27.3](https://github.com/NovigoTechnology/nvg-ui/compare/v1.27.2...v1.27.3) (2026-10-28)
 
 
