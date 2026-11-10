@@ -74,6 +74,7 @@ import emitter from '../libs/mitt';
  *   selectOption: (selectedOption: AutoCompleteOption, field: AutoCompleteField) => void,
  *   getLinkOptions: (doctype: string, filters?: Object.<string, any>, searchText?: string) => Promise<void>,
  *   clear_input: (keepFocus?: boolean) => Promise<void>,
+ *   update_input: (valueObj: {label?: string, value?: string}, field: AutoCompleteField|null, fieldname?: string) => void,
  * }}
  */
 export function useAutoComplete(props, emit) {
@@ -366,11 +367,26 @@ export function useAutoComplete(props, emit) {
       value: selectedOption.value,
     };
 
+    if (field.fieldname === 'referring_physician' && currentStore.value?.physician !== undefined) {
+      currentStore.value.physician = {
+        ...selectedOption,
+        label: translatedOption.label,
+        description: translatedOption.description,
+      };
+    }
+
     inputValue.value[field.fieldname] =
       translatedOption.label || translatedOption.description || translatedOption.value;
 
     if (currentStore.value?.filters) {
       currentStore.value.filters[field.fieldname] = selectedOption.value;
+    }
+
+    if (field.provideFilter) {
+      providedFilters.value = { [field.fieldname]: selectedOption.value };
+      if (currentStore.value?.autocompleteFilter !== undefined) {
+        currentStore.value.autocompleteFilter = providedFilters.value;
+      }
     }
 
     emit(
@@ -609,5 +625,6 @@ export function useAutoComplete(props, emit) {
     clear_input,
     refreshValue,
     goToDoc,
+    update_input,
   };
 }

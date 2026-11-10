@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative">
+    <div :class="{ flex: props.field.quick_entry }" class="relative items-center gap-4">
       <IconField class="autocomplete-icon-field">
         <FloatLabel variant="on">
           <AutoComplete
@@ -64,12 +64,35 @@
           @click="goToDoc"
         />
       </IconField>
+      <Button
+        v-if="props.field.quick_entry"
+        :id="`new_${props.field.fieldname}`"
+        :disabled="disabled"
+        raised
+        severity="info"
+        size="small"
+        @click="createNew = !createNew"
+      >
+        <span style="text-wrap: nowrap">
+          {{ __('New {0}', [__(props.field.placeholder || props.field.label)]) }}
+        </span>
+      </Button>
     </div>
+    <slot
+      v-if="createNew"
+      name="quick-entry"
+      :field="props.field"
+      :create-new="createNew"
+      :on-update="(value, field) => update_input(value, field, field.fieldname)"
+      :on-close="closeQuickEntry"
+    />
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import AutoComplete from 'primevue/autocomplete';
+import Button from 'primevue/button';
 import FloatLabel from 'primevue/floatlabel';
 import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
@@ -80,6 +103,8 @@ import { sanitizeHtml } from '../utils/sanitizeHtml';
 const props = defineProps({
   field: Object,
   disabled: Boolean,
+  editOrCreateQuick: Function,
+  isTable: Boolean,
   size: String,
   invalid_fields: {
     type: Array,
@@ -128,6 +153,8 @@ const props = defineProps({
 
 const emit = defineEmits(['update-autocomplete-value', 'update-filter', 'update-data', 'clearRow']);
 
+const createNew = ref(false);
+
 const {
   refresh,
   autoCompleteRef,
@@ -139,7 +166,12 @@ const {
   clear_input,
   refreshValue,
   goToDoc,
+  update_input,
 } = useAutoComplete(props, emit);
+
+const closeQuickEntry = () => {
+  createNew.value = false;
+};
 
 defineExpose({
   clear_input,
