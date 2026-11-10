@@ -8,7 +8,6 @@ on:
 
 permissions:
   contents: write
-  packages: write
   issues: write
   pull-requests: write
 
@@ -16,9 +15,6 @@ jobs:
   release:
     name: Semantic Release
     runs-on: ubuntu-latest
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -30,8 +26,6 @@ jobs:
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v6
         with:
           node-version: '24'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@novigotechnology'
           cache: 'yarn'
 
       - name: Install dependencies
@@ -46,7 +40,31 @@ jobs:
       - name: Validate package contents
         run: yarn package:check
 
+      - name: Capture current release tag
+        id: previous-release
+        run: echo "tag=$(git describe --tags --abbrev=0 2>/dev/null || true)" >> "$GITHUB_OUTPUT"
+
       - name: Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: yarn semantic-release
+
+      - name: Verify release tag contents
+        env:
+          PREVIOUS_TAG: ${{ steps.previous-release.outputs.tag }}
+        run: |
+          current_tag=$(git describe --tags --abbrev=0 2>/dev/null || true)
+          if [ -z "$current_tag" ] || [ "$current_tag" = "$PREVIOUS_TAG" ]; then
+            echo "No new release was created."
+            exit 0
+          fi
+
+          for file in dist/index.d.ts dist/nvg-ui.es.js dist/nvg-ui.umd.js; do
+            git cat-file -e "${current_tag}:${file}"
+          done
+
+          tag_version=${current_tag#v}
+          manifest_version=$(git show "${current_tag}:package.json" | node -p \
+            "JSON.parse(require('fs').readFileSync(0, 'utf8')).version")
+          test "$manifest_version" = "$tag_version"
+          echo "Verified ${current_tag}: version ${manifest_version} with prebuilt dist."
