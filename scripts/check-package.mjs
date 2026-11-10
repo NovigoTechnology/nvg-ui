@@ -1,19 +1,15 @@
 import { readFileSync } from 'node:fs';
 
 const manifest = JSON.parse(readFileSync(new URL('../package.json', import.meta.url)));
-const forbiddenLifecycleScripts = ['preinstall', 'install', 'postinstall', 'prepare'];
+const forbiddenLifecycleScripts = ['preinstall', 'install', 'postinstall', 'prepare', 'prepack'];
 const unexpectedScripts = forbiddenLifecycleScripts.filter(name => manifest.scripts?.[name]);
 
 if (manifest.name !== '@novigotechnology/nvg-ui') {
   throw new Error(`Unexpected package name: ${manifest.name}`);
 }
 
-if (manifest.publishConfig?.registry !== 'https://npm.pkg.github.com') {
-  throw new Error(`Unexpected publish registry: ${manifest.publishConfig?.registry}`);
-}
-
-if (manifest.publishConfig?.access !== 'restricted') {
-  throw new Error('The package must be published with restricted access');
+if (manifest.repository?.url !== 'git+https://github.com/NovigoTechnology/nvg-ui.git') {
+  throw new Error(`Unexpected package repository: ${manifest.repository?.url}`);
 }
 
 if (unexpectedScripts.length > 0) {

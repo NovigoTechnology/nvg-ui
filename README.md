@@ -3,72 +3,30 @@
 [![CI](https://github.com/NovigoTechnology/nvg-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/NovigoTechnology/nvg-ui/actions/workflows/ci.yml)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
 
-Reusable Vue components for Novigo applications. The package is distributed privately as
-`@novigotechnology/nvg-ui` through GitHub Packages (`https://npm.pkg.github.com`).
+Reusable Vue components for Novigo applications. Releases are consumed directly from this public
+Git repository with prebuilt production artifacts.
 
 ## Installation
 
-### Local development
-
-Create a [classic personal access token](https://github.com/settings/tokens) with the
-`read:packages` scope. The GitHub user that owns the token must also have read access to the
-package. Authorize the token for the NovigoTechnology organization if SSO is enabled.
-
-Keep the token outside the repository. For example, add this to `~/.npmrc`:
-
-```ini
-@novigotechnology:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
-always-auth=true
-```
-
-Then export the token only in your local shell:
-
-```bash
-export NODE_AUTH_TOKEN=YOUR_CLASSIC_PAT
-```
-
-To preserve existing imports such as `import ... from 'nvg-ui'`, consumers using Yarn Classic
-must install the scoped package through an npm alias. Replace `<VERSION>` with a published
-version:
+Yarn Classic consumers can preserve existing imports from `nvg-ui` and use semantic Git tags:
 
 ```json
 {
   "dependencies": {
-    "nvg-ui": "npm:@novigotechnology/nvg-ui@^<VERSION>"
+    "nvg-ui": "git+https://github.com/NovigoTechnology/nvg-ui.git#semver:^1.27.6"
   }
 }
 ```
 
-Run `yarn install` and commit the resulting `yarn.lock`. New applications may instead depend on
-`@novigotechnology/nvg-ui` directly and use the scoped name in their imports.
+Then regenerate and commit the lockfile:
 
-Do not commit a PAT, a generated `.npmrc` containing a token, or a resolved token value.
-
-### GitHub Actions consumers
-
-Each consumer repository must have read access under the package's **Manage Actions access**
-settings. Its workflow can then use its own `GITHUB_TOKEN`:
-
-```yaml
-permissions:
-  contents: read
-  packages: read
-
-steps:
-  - uses: actions/setup-node@v6
-    with:
-      node-version: '24'
-      registry-url: 'https://npm.pkg.github.com'
-      scope: '@novigotechnology'
-      cache: 'yarn'
-  - run: yarn install --frozen-lockfile
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```bash
+yarn install
 ```
 
-See [GITHUB_PACKAGES_SETUP.md](GITHUB_PACKAGES_SETUP.md) for the package administration and
-consumer migration checklist.
+No PAT, npm registry configuration, `NODE_AUTH_TOKEN`, or GitHub Packages permission is required.
+Every release tag contains `dist/` and declarations, so installing the dependency does not run a
+build or Husky.
 
 ## Usage
 
@@ -89,19 +47,22 @@ yarn build
 yarn package:check
 ```
 
-`yarn hooks:install` enables the repository's Git hooks explicitly for contributors. It is not an
-install lifecycle script. `yarn build` produces the two JavaScript bundles and copies the public
-type declarations into `dist/`. `yarn package:check` verifies the exact tarball contents and
-rejects install lifecycle scripts. Husky and the build are therefore never run when a consumer
-installs the published package.
+`yarn hooks:install` explicitly enables Git hooks for contributors. It is intentionally not an
+install lifecycle script.
 
 ## Releases
 
-The `Auto Release` workflow runs semantic-release on `main`. It builds and validates the package,
-publishes it to GitHub Packages with restricted access using the workflow's `GITHUB_TOKEN`, and
-creates the GitHub release. No publishing PAT is stored in the repository.
+The `Auto Release` workflow runs semantic-release on `main` and performs the release atomically:
 
-The package is linked to this repository through the `repository` field in `package.json`.
+1. Install, lint, test through CI, and build the library.
+2. Validate the package contents and forbid consumer lifecycle scripts.
+3. Set the next semantic version in `package.json`.
+4. Commit `package.json` and the generated `dist/` with `[skip ci]`.
+5. Tag that release commit and create the GitHub release.
+6. Verify that the tag contains both bundles, declarations, and a matching manifest version.
+
+The workflow uses the repository's ephemeral `GITHUB_TOKEN`; no publishing PAT is stored. See
+[GIT_DISTRIBUTION.md](GIT_DISTRIBUTION.md) for the invariants and consumer migration procedure.
 
 ## License
 
