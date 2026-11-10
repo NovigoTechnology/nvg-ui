@@ -4,22 +4,9 @@
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     [
-      "@semantic-release/changelog",
-      {
-        "changelogFile": "CHANGELOG.md"
-      }
-    ],
-    [
       "@semantic-release/npm",
       {
-        "npmPublish": false
-      }
-    ],
-    [
-      "@semantic-release/git",
-      {
-        "assets": ["package.json", "CHANGELOG.md"],
-        "message": "chore(release): v${nextRelease.version}\n\n${nextRelease.notes}"
+        "npmPublish": true
       }
     ],
     [
@@ -28,7 +15,7 @@
         "assets": [
           { "path": "dist/nvg-ui.es.js", "label": "ES Module" },
           { "path": "dist/nvg-ui.umd.js", "label": "UMD Module" },
-          { "path": "dist/nvg-ui.css", "label": "Styles" }
+          { "path": "dist/index.d.ts", "label": "Type declarations" }
         ]
       }
     ]

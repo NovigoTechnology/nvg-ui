@@ -5,15 +5,14 @@
   "private": false,
   "main": "dist/nvg-ui.umd.js",
   "module": "dist/nvg-ui.es.js",
-  "types": "src/index.d.ts",
+  "types": "dist/index.d.ts",
   "type": "module",
   "files": [
-    "dist",
-    "src/index.d.ts",
-    "scripts"
+    "dist"
   ],
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
   },
   "homepage": "https://github.com/NovigoTechnology/nvg-ui#readme",
   "bugs": {
@@ -37,8 +36,6 @@
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
     "@primeuix/themes": "^2.0.3",
-    "@semantic-release/changelog": "^7.0.0",
-    "@semantic-release/git": "^11.0.1",
     "@semantic-release/github": "12.0.10",
     "@semantic-release/npm": "^13.1.5",
     "@vitejs/plugin-vue": "^6.0.8",
@@ -65,20 +62,16 @@
     "mitt": "^3.0.1"
   },
   "scripts": {
-    "preinstall": "sh scripts/preinstall.sh",
     "dev": "vite --config vite.config.js",
-    "build": "vite build --config vite.config.js",
+    "build": "vite build --config vite.config.js && cp src/index.d.ts dist/index.d.ts",
+    "hooks:install": "husky",
+    "package:check": "npm_config_cache=/tmp/nvg-ui-npm-cache npm pack --dry-run --json --ignore-scripts | node scripts/check-package.mjs",
     "lint": "eslint src demo",
     "lint:fix": "eslint src demo --fix",
     "test": "vitest run",
     "test:watch": "vitest",
     "format": "prettier --write \"src/**/*.{js,vue}\" \"demo/**/*.{js,vue}\"",
-    "format:check": "prettier --check \"src/**/*.{js,vue}\" \"demo/**/*.{js,vue}\"",
-    "prepare": "husky && yarn build",
-    "version:patch": "yarn version --patch --message 'chore(release): v%s'",
-    "version:minor": "yarn version --minor --message 'chore(release): v%s'",
-    "version:major": "yarn version --major --message 'chore(release): v%s'",
-    "release": "yarn build && yarn semantic-release"
+    "format:check": "prettier --check \"src/**/*.{js,vue}\" \"demo/**/*.{js,vue}\""
   },
   "lint-staged": {
     "*.{js,vue}": [

@@ -16,6 +16,9 @@ jobs:
   release:
     name: Semantic Release
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -27,6 +30,8 @@ jobs:
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v6
         with:
           node-version: '24'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@novigotechnology'
           cache: 'yarn'
 
       - name: Install dependencies
@@ -38,7 +43,10 @@ jobs:
       - name: Build library
         run: yarn build
 
+      - name: Validate package contents
+        run: yarn package:check
+
       - name: Semantic Release
         env:
-          GITHUB_TOKEN: ${{ secrets.NOVIGO_BOT_20250619 }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: yarn semantic-release

@@ -3,243 +3,107 @@
 [![CI](https://github.com/NovigoTechnology/nvg-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/NovigoTechnology/nvg-ui/actions/workflows/ci.yml)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
 
-Reusable Vue.js components for Novigo applications.
+Reusable Vue components for Novigo applications. The package is distributed privately as
+`@novigotechnology/nvg-ui` through GitHub Packages (`https://npm.pkg.github.com`).
 
-> **Note:** This is a **private repository**. Only team members with repository access can install this package.
+## Installation
 
-## 📦 Installation
+### Local development
 
-This package is published to **GitHub Packages** (private registry).  
-✅ **Free** for private repositories  
-🔒 **Access** limited to repository collaborators
+Create a [classic personal access token](https://github.com/settings/tokens) with the
+`read:packages` scope. The GitHub user that owns the token must also have read access to the
+package. Authorize the token for the NovigoTechnology organization if SSO is enabled.
 
-### 1. Configure GitHub Packages authentication
-
-Create or edit `~/.npmrc` in your home directory:
-
-```bash
-# Option A: Using Personal Access Token (classic)
-# Create token at: https://github.com/settings/tokens
-# Required scopes: read:packages
-echo "//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN" >> ~/.npmrc
-echo "@novigotechnology:registry=https://npm.pkg.github.com" >> ~/.npmrc
-
-# Option B: Using GitHub CLI (recommended)
-gh auth token | xargs -I {} echo "//npm.pkg.github.com/:_authToken={}" >> ~/.npmrc
-echo "@novigotechnology:registry=https://npm.pkg.github.com" >> ~/.npmrc
-```
-
-Or create a project-specific `.npmrc` in your project root:
+Keep the token outside the repository. For example, add this to `~/.npmrc`:
 
 ```ini
 @novigotechnology:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
+always-auth=true
 ```
 
-Then set the environment variable:
-```bash
-export GITHUB_TOKEN=your_personal_access_token
-```
-
-### 2. Install the package
+Then export the token only in your local shell:
 
 ```bash
-# Latest version
-yarn add @novigotechnology/nvg-ui
-
-# Specific version
-yarn add @novigotechnology/nvg-ui@1.0.51
+export NODE_AUTH_TOKEN=YOUR_CLASSIC_PAT
 ```
 
-### Alternative: Install from Git (without registry)
+To preserve existing imports such as `import ... from 'nvg-ui'`, consumers using Yarn Classic
+must install the scoped package through an npm alias. Replace `<VERSION>` with a published
+version:
 
-If you prefer to install directly from GitHub:
-
-```bash
-yarn add git+ssh://git@github.com/NovigoTechnology/nvg-ui.git
-yarn add git+ssh://git@github.com/NovigoTechnology/nvg-ui.git#v1.0.51
-```
-
-## 🚀 Usage
-
-```javascript
-import { AutoComplete, GridTable, LinkField } from '@novigotechnology/nvg-ui';
-
-// In your Vue component
-export default {
-  components: {
-    AutoComplete,
-    GridTable,
-    LinkField
+```json
+{
+  "dependencies": {
+    "nvg-ui": "npm:@novigotechnology/nvg-ui@^<VERSION>"
   }
 }
 ```
 
-## 🛠️ Development
+Run `yarn install` and commit the resulting `yarn.lock`. New applications may instead depend on
+`@novigotechnology/nvg-ui` directly and use the scoped name in their imports.
 
-### Prerequisites
-- Node.js 24+
-- yarn
+Do not commit a PAT, a generated `.npmrc` containing a token, or a resolved token value.
 
-### Install dependencies
+### GitHub Actions consumers
+
+Each consumer repository must have read access under the package's **Manage Actions access**
+settings. Its workflow can then use its own `GITHUB_TOKEN`:
+
+```yaml
+permissions:
+  contents: read
+  packages: read
+
+steps:
+  - uses: actions/setup-node@v6
+    with:
+      node-version: '24'
+      registry-url: 'https://npm.pkg.github.com'
+      scope: '@novigotechnology'
+      cache: 'yarn'
+  - run: yarn install --frozen-lockfile
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+See [GITHUB_PACKAGES_SETUP.md](GITHUB_PACKAGES_SETUP.md) for the package administration and
+consumer migration checklist.
+
+## Usage
+
+```javascript
+import { AutoComplete, GridTable } from 'nvg-ui';
+```
+
+## Development
+
+Requirements: Node.js 24+, Yarn Classic 1.22.x.
 
 ```bash
 yarn install
+yarn hooks:install
+yarn test
+yarn lint
+yarn build
+yarn package:check
 ```
 
-### Available scripts
+`yarn hooks:install` enables the repository's Git hooks explicitly for contributors. It is not an
+install lifecycle script. `yarn build` produces the two JavaScript bundles and copies the public
+type declarations into `dist/`. `yarn package:check` verifies the exact tarball contents and
+rejects install lifecycle scripts. Husky and the build are therefore never run when a consumer
+installs the published package.
 
-```bash
-# Development
-yarn dev              # Start development server
+## Releases
 
-# Build
-yarn build            # Build library for production
+The `Auto Release` workflow runs semantic-release on `main`. It builds and validates the package,
+publishes it to GitHub Packages with restricted access using the workflow's `GITHUB_TOKEN`, and
+creates the GitHub release. No publishing PAT is stored in the repository.
 
-# Linting and formatting
-yarn lint             # Run ESLint
-yarn lint:fix         # Fix ESLint errors automatically
-yarn format           # Format code with Prettier
-yarn format:check     # Check format without modifying
+The package is linked to this repository through the `repository` field in `package.json`.
 
-# Versioning and release
-yarn version:patch    # Increment patch version (1.0.0 -> 1.0.1)
-yarn version:minor    # Increment minor version (1.0.0 -> 1.1.0)
-yarn version:major    # Increment major version (1.0.0 -> 2.0.0)
-yarn release          # Build + version patch + push + tags
-```
+## License
 
-**Note:** The `dist/` folder is not versioned. CI/CD builds it automatically during the release process.
-
-## 🔄 CI/CD
-
-### GitHub Actions Workflows
-
-#### CI (Continuous Integration)
-Runs automatically on push and pull requests:
-- ✅ **Conventional Commits validation** (PRs only)
-  - Validates all commit messages in the PR
-  - Validates PR title follows Conventional Commits format
-- ✅ Linting with ESLint
-- ✅ Format check with Prettier
-- ✅ Library build
-- ✅ Upload artifacts
-
-**Branches:** `main`, `master`, `develop`, `feat/**`, `fix/**`
-
-**Actions versions:** Latest (checkout v6, setup-node v6, upload-artifact v7)
-**Node.js version:** 24 LTS
-
-#### Release & Publish
-Automatically publishes to GitHub Packages when a tag is pushed:
-- ✅ Validate code (lint + build)
-- ✅ Publish to GitHub Packages
-- ✅ Create GitHub Release with artifacts
-- ✅ Generate release notes automatically
-
-**Trigger:** Tags with format `v*.*.*` (e.g., `v1.0.52`)
-
-```bash
-# To publish a new version:
-yarn release
-```
-
-**Note:** The workflow uses `GITHUB_TOKEN` automatically (no manual secret configuration needed).
-
-#### CodeQL Security Analysis
-Automated code security scanning:
-- 🔍 Scans for security vulnerabilities
-- 🔒 Identifies common coding errors
-- 📊 Security and quality queries
-- ⏰ Runs weekly (Mondays) + on every push/PR
-
-**Language:** JavaScript/TypeScript
-
-#### Dependabot
-Automatic dependency updates:
-- 📦 npm dependencies (weekly)
-- 🔧 GitHub Actions (weekly)
-- ✅ Auto-merge patch and minor updates
-- ⚠️ Major updates require manual review
-
-## 🎯 Pre-commit Hooks
-
-This project uses **Husky** and **lint-staged** to validate code before each commit:
-
-- ✅ ESLint - Fixes errors automatically
-- ✅ Prettier - Formats code
-- ⚠️ Commit is blocked if there are unfixable errors
-
-### Skip hooks (not recommended)
-```bash
-git commit --no-verify -m "message"
-```
-
-## 📋 Contributing
-
-1. Fork the project
-2. Create a feature branch (`git checkout -b feat/amazing-feature`)
-3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-4. Push to the branch (`git push origin feat/amazing-feature`)
-5. Open a Pull Request
-
-### Commit conventions
-
-We use [Conventional Commits](https://www.conventionalcommits.org/):
-
-- `feat:` New feature
-- `fix:` Bug fix
-- `docs:` Documentation changes
-- `style:` Formatting, missing semicolons, etc
-- `refactor:` Code refactoring
-- `perf:` Performance improvements
-- `test:` Add or fix tests
-- `chore:` Build changes, dependencies, etc
-
-## 📄 License
-
-**Closed-source Code License (CSCL)** - Proprietary
-
-Copyright (C) NovigoTechnology - All Rights Reserved.
-
-This is proprietary software. Unauthorized copying, transferring, or reproduction of the contents of this project, via any medium, is strictly prohibited.
-
-See [LICENSE](LICENSE) for full details.
-
-## 🔗 Links
-
-- [GitHub Repository](https://github.com/NovigoTechnology/nvg-ui)
-- [GitHub Packages](https://github.com/NovigoTechnology/nvg-ui/packages)
-- [Issues](https://github.com/NovigoTechnology/nvg-ui/issues)
-- [Releases](https://github.com/NovigoTechnology/nvg-ui/releases)
-
----
-
-## 📝 Additional Documentation
-
-### GitHub Packages vs npm Registry
-
-This package uses **GitHub Packages** instead of the public npm registry because:
-- ✅ Free for private repositories
-- ✅ Integrated with GitHub authentication
-- ✅ No separate npm account needed
-- ✅ Better access control with GitHub teams
-- ✅ Automatic authentication in GitHub Actions
-
-### Troubleshooting
-
-**Error: Unable to authenticate**
-- Verify your Personal Access Token has `read:packages` scope
-- Check your `.npmrc` configuration
-- Try: `npm logout && npm login --registry=https://npm.pkg.github.com`
-
-**Error: 404 Not Found**
-- Package name must match: `@novigotechnology/nvg-ui`
-- Verify you have access to the GitHub repository
-- Ensure the package has been published at least once
-
-**CI/CD Issues**
-- GitHub Actions automatically has `packages: write` permission
-- Verify the workflow has `permissions: packages: write` in the YAML file
-- [Issues](https://github.com/NovigoTechnology/nvg-ui/issues)
-- [Releases](https://github.com/NovigoTechnology/nvg-ui/releases)
+Closed-source Code License (CSCL). Copyright (C) NovigoTechnology — All Rights Reserved. See
+[LICENSE](LICENSE).
