@@ -95,6 +95,9 @@ jobs:
       - name: Build library
         run: yarn build
 
+      - name: Validate package contents
+        run: yarn package:check
+
       - name: Check build output
         run: |
           if [ ! -d "dist" ]; then

@@ -1,187 +1,111 @@
-# Quick Setup Guide - GitHub Packages (Private Repository)
+# GitHub Packages setup
 
-> **Important:** This repository is **private**. Only team members with access to the repository can install and use this package.
+This checklist covers publication of the private package `@novigotechnology/nvg-ui` and migration
+of its Yarn Classic consumers.
 
-## Benefits of GitHub Packages for Private Repos
+## Before the first publication
 
-- ✅ **100% Free** - No cost for private repositories
-- 🔒 **Secure** - Only repository collaborators have access
-- 🔑 **Single Authentication** - Use GitHub credentials (no separate npm account)
-- 🚀 **Fast** - Integrated with GitHub infrastructure
-- 🤖 **CI/CD Ready** - Automatic authentication in GitHub Actions
+An organization/repository administrator must verify all of the following:
 
----
+1. The package name is `@novigotechnology/nvg-ui` and its registry is
+   `https://npm.pkg.github.com`.
+2. The package page is linked to `NovigoTechnology/nvg-ui`. The `repository` field in
+   `package.json` establishes this link on publication.
+3. Package visibility is **Private** (restricted), not public or internal.
+4. Under package settings → **Manage Actions access**, add these repositories with **Read** access:
+   - `NovigoTechnology/nvg_base` (also covers `nvg_base/ui2`)
+   - `NovigoTechnology/nagus`
+   - `NovigoTechnology/arandu_gestion`
+   - `NovigoTechnology/csf_argentina`
+   - every other repository that installs the package
 
-## For Developers (Installing the package)
+Package visibility and cross-repository package access are GitHub administrative settings; they
+cannot be enforced by files in this repository. Repository visibility is independent from package
+visibility.
 
-**Prerequisites:**
-- Access to the private repository `NovigoTechnology/nvg-ui`
-- GitHub account with repository permissions
+## Publication
 
-### 1. Create GitHub Personal Access Token
+`.github/workflows/auto-release.yml` publishes automatically after semantic-release determines a
+new version on `main`. The workflow has `packages: write`, builds `dist/`, validates the tarball,
+and authenticates with its ephemeral `GITHUB_TOKEN`.
 
-> **Note:** Your token must have the same access permissions as your GitHub account for this private repository.
+`package.json` intentionally uses `"private": false`, because npm refuses to publish manifests
+marked `private`. Package visibility is enforced separately by `publishConfig.access: restricted`
+and the GitHub Packages setting.
 
-1. Go to https://github.com/settings/tokens
-2. Click "Generate new token (classic)"
-3. Give it a descriptive name (e.g., "npm packages - nvg-ui")
-4. Select scopes:
-   - ✅ `read:packages` (required to install)
-   - ✅ `write:packages` (only if you need to publish)
-   - ✅ `repo` (may be needed for private repos)
-5. Click "Generate token"
-6. **Copy the token immediately** (you won't see it again)
+The published tarball contains only production artifacts plus npm's standard metadata:
 
-### 2. Configure npm authentication
+- `dist/nvg-ui.es.js`
+- `dist/nvg-ui.umd.js`
+- `dist/index.d.ts`
+- `package.json`, `README.md`, and `LICENSE`
 
-**Option A: Global configuration (recommended for development)**
+It contains no source files, Husky hooks, or development tooling. Its manifest defines no install
+lifecycle script.
 
-```bash
-# Add to ~/.npmrc
-echo "@novigotechnology:registry=https://npm.pkg.github.com" >> ~/.npmrc
-echo "//npm.pkg.github.com/:_authToken=YOUR_TOKEN_HERE" >> ~/.npmrc
-```
+## Local installation
 
-**Option B: Project-specific configuration**
+Use a classic PAT with only `read:packages` (plus access to the private package). Never store the
+token in this repository. Configure `~/.npmrc`:
 
-Create `.npmrc` in your project:
 ```ini
 @novigotechnology:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
+always-auth=true
 ```
 
-Then export the token:
-```bash
-export GITHUB_TOKEN=your_token_here
-```
-
-**Option C: Using GitHub CLI (easiest)**
+Export it in the current shell and install:
 
 ```bash
-# Login with GitHub CLI
-gh auth login
-
-# Configure npm
-echo "@novigotechnology:registry=https://npm.pkg.github.com" >> ~/.npmrc
-gh auth token | xargs -I {} echo "//npm.pkg.github.com/:_authToken={}" >> ~/.npmrc
+export NODE_AUTH_TOKEN=YOUR_CLASSIC_PAT
+yarn install --frozen-lockfile
 ```
 
-### 3. Install the package
+If the organization enforces SSO, authorize the classic PAT for NovigoTechnology.
 
-```bash
-yarn add @novigotechnology/nvg-ui
+## Consumer migration
+
+Use an npm alias so existing `nvg-ui` imports do not change:
+
+```json
+{
+  "dependencies": {
+    "nvg-ui": "npm:@novigotechnology/nvg-ui@^<VERSION>"
+  }
+}
 ```
 
----
+Remove the previous Git URL, run `yarn install`, and commit `package.json` plus `yarn.lock`. Apply
+this at least in `nagus`, `nvg_base`, and `nvg_base/ui2`.
 
-## For Maintainers (Publishing the package)
+Every consumer workflow that installs dependencies needs:
 
-### Publishing a new version
-
-The workflow publishes automatically to GitHub Packages when you push a tag:
-
-```bash
-# Build, version, and push
-yarn release
-
-# Or manually
-yarn build
-yarn version:patch  # or minor, or major
-git push && git push --tags
-```
-
-### Manual publish (if needed)
-
-```bash
-yarn build
-yarn publish
-```
-
-**Note:** 
-- GitHub Actions DOES NOT need a secret token - it uses `GITHUB_TOKEN` automatically
-- `GITHUB_TOKEN` has `packages: write` permission in the workflow
-- No manual secret configuration needed! ✅
-
----
-
-## For CI/CD
-
-### GitHub Actions (automatic)
-
-The release workflow already includes:
 ```yaml
 permissions:
-  packages: write  # Allows publishing to GitHub Packages
+  contents: read
+  packages: read
+
+steps:
+  - uses: actions/setup-node@v6
+    with:
+      node-version: '24'
+      registry-url: 'https://npm.pkg.github.com'
+      scope: '@novigotechnology'
+      cache: 'yarn'
+  - run: yarn install --frozen-lockfile
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-No additional configuration needed!
+Do not add a PAT secret to consumer workflows. Their ephemeral `GITHUB_TOKEN` works after the
+consumer repository is granted **Manage Actions access** on the package.
 
-### Other CI Systems
+## Verification
 
-Add these environment variables:
-```bash
-GITHUB_TOKEN=your_token_with_packages_write
-```
+For each consumer, verify on a clean runner that:
 
-Then in your CI:
-```bash
-echo "@novigotechnology:registry=https://npm.pkg.github.com" >> .npmrc
-echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> .npmrc
-yarn add @novigotechnology/nvg-ui
-```
-
----
-
-## Troubleshooting
-
-### "401 Unauthorized"
-- Check your token is valid and has `read:packages` scope
-- Verify the token hasn't expired
-- Try regenerating the token
-
-### "404 Not Found" or "403 Forbidden"
-- **Most common issue:** You don't have access to the private repository
-- Ask repository admin to add you as a collaborator
-- Verify repository name: `NovigoTechnology/nvg-ui`
-- Package must be published at least once
-- Package name must match exactly: `@novigotechnology/nvg-ui`
-- Your GitHub token must have `repo` scope for private repositories
-
-### "Unable to authenticate"
-```bash
-# Clear yarn cache
-yarn cache clean
-
-# Remove old config
-rm ~/.npmrc
-
-# Reconfigure
-echo "@novigotechnology:registry=https://npm.pkg.github.com" >> ~/.npmrc
-echo "//npm.pkg.github.com/:_authToken=YOUR_TOKEN" >> ~/.npmrc
-```
-
-### Testing your configuration
-
-```bash
-# Test authentication
-npm ping --registry=https://npm.pkg.github.com
-
-# Test package access
-npm view @novigotechnology/nvg-ui
-```
-
----
-
-## Alternative: Install from Git
-
-If you don't want to use GitHub Packages:
-
-```bash
-yarn add git+ssh://git@github.com/NovigoTechnology/nvg-ui.git
-yarn add git+ssh://git@github.com/NovigoTechnology/nvg-ui.git#v1.0.51
-```
-
-This requires:
-- SSH key configured with GitHub
-- Access to the repository
-- No registry configuration needed
+1. `yarn install --frozen-lockfile` succeeds repeatedly.
+2. `yarn.lock` resolves `@novigotechnology/nvg-ui` from `npm.pkg.github.com`, not a Git URL.
+3. The install log does not run nvg-ui's build, Husky, or other development scripts.
+4. Existing imports from `nvg-ui` compile unchanged.
+5. POT workflows finish successfully in `nagus`, `arandu_gestion`, and `csf_argentina`.
