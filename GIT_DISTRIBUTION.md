@@ -14,9 +14,10 @@ Every `vX.Y.Z` tag must contain:
 - `dist/index.d.ts`;
 - no `preinstall`, `install`, `postinstall`, `prepare`, or `prepack` script.
 
-Semantic-release generates and commits these files before creating the tag. `dist/` remains ignored
-for ordinary development output but is force-added by `@semantic-release/git` in the release
-commit.
+Semantic-release generates and commits these files locally before creating the tag. `dist/` remains
+ignored for ordinary development output but is force-added to the release commit. The tag points to
+that commit, whose parent is the validated `main` commit. Only the tag is pushed, so the protected
+branch continues to require pull requests and the release needs no bypass token.
 
 ## Consumer dependency
 

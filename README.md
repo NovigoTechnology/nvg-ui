@@ -57,8 +57,8 @@ The `Auto Release` workflow runs semantic-release on `main` and performs the rel
 1. Install, lint, test through CI, and build the library.
 2. Validate the package contents and forbid consumer lifecycle scripts.
 3. Set the next semantic version in `package.json`.
-4. Commit `package.json` and the generated `dist/` with `[skip ci]`.
-5. Tag that release commit and create the GitHub release.
+4. Create a local release commit containing `package.json` and the generated `dist/`.
+5. Push a tag pointing to that commit and create the GitHub release; `main` remains protected.
 6. Verify that the tag contains both bundles, declarations, and a matching manifest version.
 
 The workflow uses the repository's ephemeral `GITHUB_TOKEN`; no publishing PAT is stored. See

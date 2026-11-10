@@ -67,4 +67,7 @@ jobs:
           manifest_version=$(git show "${current_tag}:package.json" | node -p \
             "JSON.parse(require('fs').readFileSync(0, 'utf8')).version")
           test "$manifest_version" = "$tag_version"
+
+          release_parent=$(git rev-parse "${current_tag}^")
+          test "$release_parent" = "$GITHUB_SHA"
           echo "Verified ${current_tag}: version ${manifest_version} with prebuilt dist."

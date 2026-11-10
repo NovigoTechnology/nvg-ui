@@ -9,13 +9,7 @@
         "npmPublish": false
       }
     ],
-    [
-      "@semantic-release/git",
-      {
-        "assets": ["package.json", "dist"],
-        "message": "chore(release): v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-      }
-    ],
+    "./scripts/prepare-git-release.mjs",
     [
       "@semantic-release/github",
       {
