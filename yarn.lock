@@ -1701,10 +1701,10 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-dompurify@3.4.17:
-  version "3.4.17"
-  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.4.17.tgz#074bbb24eaa419535ac19ffe7f663104b0e1543d"
-  integrity sha512-B/pSlYVHQ58kqISD/yDjuJ1yfzI34m1gF4lAod2bwSRhiN4K5Cl3H8Af7hqB2PmTL911tdEudnnXn5FnhRoz0w==
+dompurify@3.4.18:
+  version "3.4.18"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.4.18.tgz#82161003672c8780ad1db0335787e6aa6587e5d2"
+  integrity sha512-ofe3wI/uNm68HInABYFJYqQxRw1EaKAjNdrFVKqjUY+UZurvNd2L/HuQe097s/4RivWiZyP6tT7aoT8atjfhwg==
   optionalDependencies:
     "@types/trusted-types" "^2.0.7"
 
@@ -2708,10 +2708,10 @@ libnpmversion@^8.0.4:
     proc-log "^6.0.0"
     semver "^7.3.7"
 
-libphonenumber-js@^1.13.16:
-  version "1.13.16"
-  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.13.16.tgz#4fb06687be4d52f08e5a8c6e16509b8f46238fe6"
-  integrity sha512-tIOCM9yx2Go6d5/ZANe0K+G4AZek1Ymx81HxQpf19Sri4zMP95eQbKdnUGHAvFQ4nx0PeLhFqvAfisTADXj3tQ==
+libphonenumber-js@^1.13.17:
+  version "1.13.17"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.13.17.tgz#d92bb4427763bc34b94ea2a855c19b2ba4bbb4f2"
+  integrity sha512-V92dxRHhYTsHF5B6IjR8rtKW6qL7xKuERPFFqZt7XQl8A+NikbwEzjhxGpM+R6JnWjaL7/wokWSdTG/eyYAscQ==
 
 lightningcss-android-arm64@1.33.0:
   version "1.33.0"
